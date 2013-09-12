@@ -1,28 +1,52 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the back-end members only website for Whole World Improv Theatre.
 
-Things you may want to cover:
+Written by Donovan C. Young
+Copyright (c) 2013 Whole World Improv Theatre
 
-* Ruby version
+Development Roadmap
+~~~~~~~~~~~~~~~~~~~
 
-* System dependencies
+- Roles
+  - Admin
+  - EmCee
+  - Cast
+    - Main Stage
+    - Apprentice
+    - Unusual Suspects
 
-* Configuration
+- Skills
+  - EmCee
+  - House Manager
+  - Stage Manager
+  - Lights
+  - Sound
+  - Camera
+  - Suggestions
 
-* Database creation
+- Notes
+  - Personal
+  - Show
+  - Schedule
 
-* Database initialization
+- Members List
+  - Username
+  - Full Name
+  - Email(s)
+  - Phone(s)
+  - Note(s)
+  - Role(s)
+  - Skill(s)
 
-* How to run the test suite
+- Schedule
+  - Casting
+    - Show Note(s)
+  - Shift(s)
 
-* Services (job queues, cache servers, search engines, etc.)
+- Announcements
+  - To All
+  - To EmCees
+  - To Admins
+  - To Cast Grouping
 
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
