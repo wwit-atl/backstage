@@ -8,13 +8,15 @@ Copyright (c) 2013 Whole World Improv Theatre
 Development Roadmap
 ~~~~~~~~~~~~~~~~~~~
 
-- Roles
+- Roles (has_and_belongs_to_many Members)
   - Admin
-  - EmCee
-  - Cast
-    - Main Stage
-    - Apprentice
-    - Unusual Suspects
+  - Management
+  - Main Stage
+  - Apprentice
+  - Unusual Suspects
+  - ISP
+  - Sponsors
+  - Friends
 
 - Skills
   - EmCee
@@ -24,29 +26,71 @@ Development Roadmap
   - Sound
   - Camera
   - Suggestions
+  - Bartending
 
-- Notes
-  - Personal
-  - Show
-  - Schedule
-
-- Members List
+- Members
   - Username
   - Full Name
-  - Email(s)
+  - Email
   - Phone(s)
   - Note(s)
   - Role(s)
   - Skill(s)
 
-- Schedule
-  - Casting
-    - Show Note(s)
+- Stages
+  - Up Right
+  - Down Right
+  - Up Left
+  - Down Left
+  - Stage Right
+  - Stage Left
+  - Center
+
+- Shows
+  - Date
+  - CallTime
+  - ShowTime
+  - EmCee(s)
+  - Actor(s)
   - Shift(s)
+  - Scene(s)
+  - Note(s)
+
+- Scenes
+  - Actor(s)
+  - Stage
+  - Game
+  - Suggestion(s) [Freeform or pick from previous entries]
+  - Note(s)
+
+- Suggestions
+  - Who?
+  - Where?
+  - What?
+  - Text
+
+- Renegades
+  - Date
+  - Runtime
+  - Name
+  - Description
+  - Format
+
+- Games
+  - Name
+  - Skill Level [Beginner, Intermediate, Advanced]
+  - Suggested # of Player
+  - Description
+
+- Notes (behave like comments)
+  - Member
+  - Schedule
+  - Show
 
 - Announcements
-  - To All
-  - To EmCees
-  - To Admins
-  - To Cast Grouping
+  - To All (Members)
+  - To Company  -> Roles checked as 'Include In Company'
+  - To Role(s)  -> Through Members
+  - To Skill(s) -> Through Members
+  - To Member(s)
 
