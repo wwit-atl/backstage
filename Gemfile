@@ -8,18 +8,44 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'haml', '~> 4.0.0'
 gem 'haml-rails'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
+
 gem 'devise'
 
-gem 'unicorn'
+gem 'simple_form'
+gem 'bourbon'
+gem 'neat'
+
+gem 'delayed_job_active_record', '>= 4.0.0'
+gem 'email_validator'
+gem 'flutie'
+gem 'recipient_interceptor'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'foreman'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+group :staging, :production do
+  gem 'newrelic_rpm', '>= 3.6.7'
+  gem 'rails_12factor'
+end
+
+# Rails Server
+gem 'unicorn'
 
