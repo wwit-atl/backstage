@@ -30,11 +30,13 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'
-  gem 'hirb'
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'hirb'
 end
 
 group :doc do

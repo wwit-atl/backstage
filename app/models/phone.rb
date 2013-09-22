@@ -1,7 +1,7 @@
 class Phone < ActiveRecord::Base
   belongs_to :member
-  before_save :strip_number
-  #validates_length_of :number, is: 10
+  before_validation :strip_number
+  validates_length_of :number, is: 10
 
   def self.ntypes
     %w(Mobile Home Work Other)
@@ -26,6 +26,7 @@ class Phone < ActiveRecord::Base
   private
 
   def strip_number
+    return false if number.nil?
     number.gsub!(/\D/, '')
   end
 end

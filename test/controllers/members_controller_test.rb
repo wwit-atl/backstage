@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MembersControllerTest < ActionController::TestCase
   setup do
-    @member = members(:one)
+    @member = create(:member)
   end
 
   test "should get index" do
@@ -18,10 +18,10 @@ class MembersControllerTest < ActionController::TestCase
 
   test "should create member" do
     assert_difference('Member.count') do
-      post :create, member: { email: @member.email, firstname: @member.firstname, lastname: @member.lastname, username: @member.username }
+      post :create, member: attributes_for(:member, lastname: 'uniqueperson')
     end
 
-    assert_redirected_to member_path(assigns(:member))
+    assert_redirected_to members_path(notice: 'Member was successfully created.')
   end
 
   test "should show member" do
@@ -36,7 +36,7 @@ class MembersControllerTest < ActionController::TestCase
 
   test "should update member" do
     patch :update, id: @member, member: { email: @member.email, firstname: @member.firstname, lastname: @member.lastname, username: @member.username }
-    assert_redirected_to member_path(assigns(:member))
+    assert_redirected_to members_path(notice: 'Member was successfully updated.')
   end
 
   test "should destroy member" do
