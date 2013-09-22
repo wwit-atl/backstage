@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Username:
+  = @member.username
+%p
+  %b Lastname:
+  = @member.lastname
+%p
+  %b Firstname:
+  = @member.firstname
+%p
+  %b Email:
+  = @member.email
+
+= link_to 'Edit', edit_member_path(@member)
+\|
+= link_to 'Back', members_path

@@ -1,0 +1,29 @@
+%h1 Listing members
+
+%table
+  %tr
+    %th Username
+    %th Firstname
+    %th Lastname
+    %th Email
+    %th Phone(s)
+    %th
+    %th
+    %th
+
+  - @members.each do |member|
+    %tr
+      %td= member.username
+      %td= member.firstname
+      %td= member.lastname
+      %td= member.email
+      %td
+        - member.phones.each do |phone|
+          = raw "#{phone.fnumber} [#{phone.ntype}]<br/>"
+      %td= link_to 'Show', member
+      %td= link_to 'Edit', edit_member_path(member)
+      %td= link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Member', new_member_path
