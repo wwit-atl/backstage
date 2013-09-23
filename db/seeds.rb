@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+phone = Phone.new(ntype: 'Mobile', number: '4049393709')
+Member.create(
+    username: 'dyoung',
+    password: 'wwit4admin',
+    password_confirmation: 'wwit4admin',
+    email:    'dyoung522@gmail.com',
+    firstname: 'Donovan',
+    lastname:  'Young',
+    phones: [phone]
+)

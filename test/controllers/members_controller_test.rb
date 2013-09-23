@@ -4,7 +4,8 @@ class MembersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
-    @member = Member.create!(attributes_for(:member))
+    @member = Member.create(attributes_for(:member))
+    sign_in :member, @member
   end
 
   test "should get index" do
