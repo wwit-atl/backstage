@@ -17,7 +17,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'devise'
 gem 'authority'
-gem 'rolify'
+gem 'rolify', github: 'EppO/rolify'
 
 gem 'simple_form'
 gem 'bourbon'
