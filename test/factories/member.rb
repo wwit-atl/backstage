@@ -22,7 +22,8 @@ FactoryGirl.define do
     end
   end
 
-  factory :confirmed_user, :parent => :member do
-    after_create { |member| member.confirm! }
-  end
+  ## Only needed if :confirmable is set in Devise
+  #factory :confirmed_user, :parent => :member do
+  #  after_create { |member| member.confirm! }
+  #end
 end
