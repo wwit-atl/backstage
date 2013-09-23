@@ -28,6 +28,9 @@ GEM
     ansi (1.4.3)
     arel (4.0.0)
     atomic (1.1.14)
+    authority (2.7.0)
+      activesupport (>= 3.0.0)
+      rake (>= 0.8.7)
     bcrypt-ruby (3.0.1)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
@@ -139,6 +142,7 @@ GEM
       json (~> 1.4)
     recipient_interceptor (0.1.2)
       mail
+    rolify (3.2.0)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -181,6 +185,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  authority
   bcrypt-ruby (~> 3.0.0)
   better_errors
   binding_of_caller
@@ -205,6 +210,7 @@ DEPENDENCIES
   rails (= 4.0.0)
   rails_12factor
   recipient_interceptor
+  rolify
   sass-rails (~> 4.0.0)
   sdoc
   simple_form

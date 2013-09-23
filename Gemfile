@@ -16,6 +16,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'devise'
+gem 'authority'
+gem 'rolify'
 
 gem 'simple_form'
 gem 'bourbon'

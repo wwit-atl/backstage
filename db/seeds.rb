@@ -16,3 +16,4 @@ Member.create(
     lastname:  'Young',
     phones: [phone]
 )
+Member.first.add_role :admin
