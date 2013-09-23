@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :update]
+  #before_action :authenticate_member!
 
   # GET /members
   # GET /members.json
@@ -16,6 +17,8 @@ class MembersController < ApplicationController
   # GET /members/new
   def new
     @member = Member.new
+    # We want at least one new phone number entry to be displayed in the form
+    @member.phones.new
   end
 
   # GET /members/1/edit
@@ -81,6 +84,8 @@ class MembersController < ApplicationController
           :lastname,
           :firstname,
           :email,
+          :password,
+          :password_confirmation,
           phones_attributes: [:id, :ntype, :number, :_destroy],
       )
     end

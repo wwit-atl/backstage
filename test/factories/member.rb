@@ -7,8 +7,10 @@ FactoryGirl.define do
   end
 
   factory :member do
-    firstname 'John'
-    lastname  'Doe'
+    firstname             'John'
+    lastname              'Doe'
+    password              'password'
+    password_confirmation 'password'
     username  { "#{firstname[0]}#{lastname}".downcase }
     email     { "#{username}@example.com" }
 
@@ -18,5 +20,9 @@ FactoryGirl.define do
         FactoryGirl.create_list(:phone, evaluator.phone_count, member: member)
       end
     end
+  end
+
+  factory :confirmed_user, :parent => :member do
+    after_create { |member| member.confirm! }
   end
 end

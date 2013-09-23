@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class MembersControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
-    @member = create(:member)
+    @member = Member.create!(attributes_for(:member))
   end
 
   test "should get index" do

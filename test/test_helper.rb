@@ -16,6 +16,7 @@ else
 end
 
 class ActiveSupport::TestCase
+  #include Devise::TestHelpers
   ActiveRecord::Migration.check_pending!
 
   # Add more helper methods to be used by all tests here...
