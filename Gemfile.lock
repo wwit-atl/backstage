@@ -230,6 +230,7 @@ DEPENDENCIES
   hirb
   jbuilder (~> 1.2)
   jquery-rails
+  minitest
   minitest-rails
   minitest-reporters
   neat

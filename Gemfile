@@ -40,11 +40,13 @@ end
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'hirb'
+  gem 'minitest'
   gem 'minitest-rails'
   gem 'minitest-reporters'
-  gem 'rb-fsevent'
-  gem 'terminal-notifier-guard'
+  gem 'guard'
   gem 'guard-minitest'
+  gem 'terminal-notifier-guard'
+  gem 'rb-fsevent'
 
 end
 
