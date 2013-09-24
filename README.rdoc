@@ -8,6 +8,15 @@ Copyright (c) 2013 Whole World Improv Theatre
 Development Roadmap
 ~~~~~~~~~~~~~~~~~~~
 
+- Dashboard
+  - Calendar of Events
+  - Upcoming Shows/Shifts
+  - Latest Notes
+  - Latest Announcements
+  - Quick Links to
+    - New Announcement
+    - New Note
+
 - Roles (has_and_belongs_to_many Members)
   - Admin
   - Management
