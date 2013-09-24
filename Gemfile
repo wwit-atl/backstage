@@ -32,13 +32,20 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'
+  gem 'guard'
+  gem 'guard-minitest'
+  #gem 'guard-growl'
 end
 
 group :development, :test do
-  gem 'minitest'
-  gem 'minitest-reporters'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'hirb'
+  gem 'minitest-rails'
+  gem 'minitest-reporters'
+  gem 'rb-fsevent'
+  gem 'terminal-notifier-guard'
+  gem 'guard-minitest'
+
 end
 
 group :doc do
