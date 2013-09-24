@@ -1,0 +1,14 @@
+%h2= "Welcome #{@member.firstname}!"
+%p
+  - unless @skills.empty?
+    Congratulaions, you've been trained in the following skills:
+    %ul
+      - @skills.each do |skill|
+        %li= skill.name
+
+- if @member.is_admin?
+  Admin Links:
+  %ul
+    %li= link_to 'Members', members_path
+    %li= link_to 'Skills',  skills_path
+

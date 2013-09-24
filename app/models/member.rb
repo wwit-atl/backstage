@@ -9,6 +9,12 @@ class Member < ActiveRecord::Base
   has_many :phones, dependent: :destroy
   accepts_nested_attributes_for :phones, allow_destroy: true
 
+  has_and_belongs_to_many :skills
+
   validates_presence_of :username, :firstname, :lastname, :email
   validates_uniqueness_of :username, :email
+
+  def fullname
+    [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')
+  end
 end

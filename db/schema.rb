@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130923042103) do
+ActiveRecord::Schema.define(version: 20130924184727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 20130923042103) do
 
   add_index "members_roles", ["member_id", "role_id"], name: "index_members_roles_on_member_id_and_role_id", using: :btree
 
+  create_table "members_skills", id: false, force: true do |t|
+    t.integer "member_id"
+    t.integer "skill_id"
+  end
+
+  add_index "members_skills", ["member_id", "skill_id"], name: "index_members_skills_on_member_id_and_skill_id", using: :btree
+
   create_table "phones", force: true do |t|
     t.integer  "member_id"
     t.string   "number"
@@ -63,5 +70,15 @@ ActiveRecord::Schema.define(version: 20130923042103) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "skills", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "training?"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "skills", ["name"], name: "index_skills_on_name", using: :btree
 
 end

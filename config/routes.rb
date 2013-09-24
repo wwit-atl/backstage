@@ -1,8 +1,9 @@
 Backstage::Application.routes.draw do
-  devise_for :members
-  resources :members
 
-  root 'members#index'
+  devise_for :members
+  resources :members, :skills
+
+  root 'members#dashboard'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

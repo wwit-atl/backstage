@@ -3,4 +3,8 @@ class Role < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
   
   scopify
+
+  def title
+    %w( isp ).include?(name) ? name.upcase : name.titleize
+  end
 end

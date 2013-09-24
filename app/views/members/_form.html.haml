@@ -17,5 +17,8 @@
     = f.simple_fields_for :phones do |builder|
       = render 'phone_fields', f: builder
     = link_to_add_fields 'Add Phone', f, :phones
+  .field= f.association :skills, :label_method => :description
+  .field= f.association :roles,  :label_method => :title, as: 'check_boxes'
+
 
   .actions= f.submit 'Save'

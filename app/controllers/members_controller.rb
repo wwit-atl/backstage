@@ -1,7 +1,11 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :update]
-  before_action :authenticate_member!
+
+  def dashboard
+    @member = current_member
+    @skills = @member.skills
+  end
 
   # GET /members
   # GET /members.json

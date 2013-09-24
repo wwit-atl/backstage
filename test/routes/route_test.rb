@@ -1,0 +1,10 @@
+require "test_helper"
+
+# Add the following to your Rake file to test routes by default:
+#   MiniTest::Rails::Testing.default_tasks << "routes"
+
+class RouteTest < ActionDispatch::IntegrationTest
+  def test_root
+    assert_routing '/', controller: 'members', action: 'dashboard'
+  end
+end
