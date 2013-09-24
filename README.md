@@ -1,12 +1,12 @@
-== README
+README
+~~~~~~
 
 This is the back-end members only website for Whole World Improv Theatre.
 
 Written by Donovan C. Young
 Copyright (c) 2013 Whole World Improv Theatre
 
-Development Roadmap
-~~~~~~~~~~~~~~~~~~~
+## Development Roadmap
 
 - Dashboard
   - Calendar of Events
