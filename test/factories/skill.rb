@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :skill do
-    name "MyString"
-    description "MyText"
+    name 'TT'
+    description 'Test Skill'
   end
 end

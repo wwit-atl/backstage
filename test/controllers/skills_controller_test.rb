@@ -4,6 +4,7 @@ class SkillsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
+    sign_in :member, Member.create(FactoryGirl.attributes_for(:member))
     @skill = create(:skill)
   end
 
@@ -20,7 +21,7 @@ class SkillsControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference('Skill.count') do
-      post :create, skill: attributes_for(:skill)
+      post :create, skill: attributes_for(:skill, name: 'UT', description: 'Unique Test')
     end
 
     assert_redirected_to skill_path(assigns(:skill))
