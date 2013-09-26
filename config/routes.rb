@@ -1,5 +1,7 @@
 Backstage::Application.routes.draw do
 
+  get "notes/index"
+  get "notes/new"
   devise_for :members
   resources :members, :skills
 

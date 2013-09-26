@@ -6,6 +6,8 @@ class Member < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   rolify
 
+  has_many :notes, :as => :notable
+
   has_many :phones, dependent: :destroy
   accepts_nested_attributes_for :phones, allow_destroy: true
 
