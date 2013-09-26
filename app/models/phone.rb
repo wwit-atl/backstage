@@ -3,6 +3,8 @@ class Phone < ActiveRecord::Base
   before_validation :strip_number
   validates_length_of :number, is: 10
 
+  scope :by_type, ->{ order(:ntype) }
+
   def self.ntypes
     %w(Mobile Home Work Other)
   end
@@ -21,6 +23,10 @@ class Phone < ActiveRecord::Base
 
   def fnumber
     '(%s) %s-%s' % [npa, nxx, sub]
+  end
+
+  def listing
+    "#{fnumber} (#{ntype[0].downcase})"
   end
 
   private

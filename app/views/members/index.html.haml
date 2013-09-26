@@ -2,9 +2,7 @@
 
 %table
   %tr
-    %th Username
-    %th Firstname
-    %th Lastname
+    %th Name
     %th Email
     %th Phone(s)
     %th
@@ -13,13 +11,13 @@
 
   - @members.each do |member|
     %tr
-      %td= member.username
-      %td= member.firstname
-      %td= member.lastname
+      %td= member.fullname
       %td= member.email
       %td
-        - member.phones.each do |phone|
-          = raw "#{phone.fnumber} [#{phone.ntype}]<br/>"
+        %ul
+          - member.phones.by_type.each do |phone|
+            %li= phone.listing
+
       %td= link_to 'Show', member
       %td= link_to 'Edit', edit_member_path(member)
       %td= link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }

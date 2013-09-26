@@ -10,7 +10,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.all
+    @members = Member.order(lastname: :asc).all
   end
 
   # GET /members/1
@@ -94,6 +94,8 @@ class MembersController < ApplicationController
           :email,
           :password,
           :password_confirmation,
+          :skill_ids,
+          :role_ids,
           phones_attributes: [:id, :ntype, :number, :_destroy],
       )
     end
