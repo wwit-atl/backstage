@@ -33,6 +33,7 @@ unless Member.joins(:roles).where('roles.name' => 'admin').exists?
       phones: [phone]
   )
   admin.add_role :admin
+  admin.confirm!
 end
 
 #

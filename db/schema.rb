@@ -32,6 +32,10 @@ ActiveRecord::Schema.define(version: 20130926183836) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true, using: :btree
@@ -51,15 +55,18 @@ ActiveRecord::Schema.define(version: 20130926183836) do
   end
 
   add_index "members_skills", ["member_id", "skill_id"], name: "index_members_skills_on_member_id_and_skill_id", using: :btree
+  add_index "members_skills", ["skill_id", "member_id"], name: "index_members_skills_on_skill_id_and_member_id", using: :btree
 
   create_table "notes", force: true do |t|
     t.text     "content"
+    t.integer  "member_id"
     t.integer  "notable_id"
     t.string   "notable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "notes", ["member_id"], name: "index_notes_on_member_id", using: :btree
   add_index "notes", ["notable_id", "notable_type"], name: "index_notes_on_notable_id_and_notable_type", using: :btree
 
   create_table "phones", force: true do |t|
