@@ -16,4 +16,4 @@
 /tmp
 
 # Ignore other files
-/*.ndm
+backstage_schema.*
