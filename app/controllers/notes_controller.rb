@@ -11,6 +11,7 @@ class NotesController < ApplicationController
 
   def create
     @notes = @notable.notes.new(note_params)
+    @notes.member_id = current_member.id
     if @notes.save
       redirect_to @notable, notice: 'Notes created.'
     else

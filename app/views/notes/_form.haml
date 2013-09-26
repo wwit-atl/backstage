@@ -1,6 +1,6 @@
 = simple_form_for [@notable, @note] do |f|
   - if @note.errors.any?
-    .error_messages
+    #error_explanation
       %h2 Please correct the following errors.
       %ul
         - @note.errors.full_messages.each do |msg|
