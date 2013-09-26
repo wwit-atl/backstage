@@ -16,6 +16,10 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
+    @member = Member.find(params[:id])
+    @notable = @member
+    @notes = @notable.notes
+    @note = Note.new
   end
 
   # GET /members/new

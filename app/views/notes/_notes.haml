@@ -1,0 +1,4 @@
+#notes
+  - @notes.order(created_at: :asc).each do |note|
+    .note= simple_format note.content
+    .byline= "-- #{note.member.name}"

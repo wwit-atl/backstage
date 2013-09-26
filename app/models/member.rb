@@ -19,4 +19,5 @@ class Member < ActiveRecord::Base
   def fullname
     [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')
   end
+  alias :name :fullname
 end

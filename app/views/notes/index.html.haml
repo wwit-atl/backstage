@@ -1,2 +1,3 @@
-%h1 Notes#index
-%p Find me in app/views/notes/index.html.haml
+%h1 Notes
+= render 'notes'
+%p= link_to 'New Note', [:new, @notable, :note]

@@ -1,4 +1,4 @@
-class NotessController < ApplicationController
+class NotesController < ApplicationController
   before_action :load_notable
 
   def index
@@ -10,7 +10,7 @@ class NotessController < ApplicationController
   end
 
   def create
-    @notes = @notable.notes.new(params[:notes])
+    @notes = @notable.notes.new(note_params)
     if @notes.save
       redirect_to @notable, notice: 'Notes created.'
     else
@@ -24,6 +24,10 @@ class NotessController < ApplicationController
   def load_notable
     resource, id = request.path.split('/')[1, 2]
     @notable = resource.singularize.classify.constantize.find(id)
+  end
+
+  def note_params
+    params.require(:note).permit(:content)
   end
 
   # Otherwise, alternative option:

@@ -1,9 +1,11 @@
 Backstage::Application.routes.draw do
 
-  get "notes/index"
-  get "notes/new"
+  concern :notable do
+    resources :notes
+  end
+
   devise_for :members
-  resources :members, :skills
+  resources :members, :skills, concerns: :notable
 
   root 'members#dashboard'
 

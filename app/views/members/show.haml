@@ -13,6 +13,11 @@
   %b Email:
   = @member.email
 
+%h2 Notes
+= render 'notes/notes'
+= render 'notes/form'
+
 = link_to 'Edit', edit_member_path(@member)
 \|
 = link_to 'Back', members_path
+
