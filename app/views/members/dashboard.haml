@@ -4,11 +4,9 @@
     Congratulaions, you've been trained in the following skills:
     %ul
       - @skills.each do |skill|
-        %li= skill.name
+        %li= skill.description
 
-- if @member.is_admin?
-  Admin Links:
-  %ul
-    %li= link_to 'Members', members_path
-    %li= link_to 'Skills',  skills_path
+%ul
+  %li= link_to 'Members Listing', members_path
+  %li= link_to 'Skills Listing',  skills_path
 

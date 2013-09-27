@@ -13,12 +13,8 @@
     = f.input_field :lastname, placeholder: 'last'
   .field= f.input :email
 
-  = f.input :password, :autocomplete => ( action_name == 'new' ? "on" : "off" ),
-            :hint => "leave it blank if you don't want to change it",
-            :required => ( action_name == 'new' )
-  = f.input :password_confirmation, :required => false
-  - if action_name == 'edit'
-    = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+  = f.input :password, required: true
+  = f.input :password_confirmation, required: true
 
   .field
     = f.label 'Phone Number (digits only):'
