@@ -13,15 +13,18 @@
     = f.input_field :lastname, placeholder: 'last'
   .field= f.input :email
 
-  = f.input :password, required: true
-  = f.input :password_confirmation, required: true
+  .field
+    = f.input :password, autocomplete: 'off', hint: "leave it blank if you don't want to change it", required: false
+    = f.input :password_confirmation, required: false
 
   .field
     = f.label 'Phone Number (digits only):'
     = f.simple_fields_for :phones do |builder|
       = render 'phone_fields', f: builder
     = link_to_add_fields 'Add Phone', f, :phones
-  .field= f.association :skills, :label_method => :description
-  .field= f.association :roles,  :label_method => :title, as: 'check_boxes'
+
+  - if current_member.is_admin?
+    .field= f.association :skills, :label_method => :description
+    .field= f.association :roles,  :label_method => :title, as: 'check_boxes'
 
   .actions= f.submit 'Save'

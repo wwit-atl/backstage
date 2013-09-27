@@ -1,10 +1,10 @@
 Backstage::Application.routes.draw do
 
+  devise_for :members
+
   concern :notable do
     resources :notes
   end
-
-  devise_for :members
   resources :members, :skills, concerns: :notable
 
   root 'members#dashboard'

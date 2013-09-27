@@ -31,6 +31,7 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
+    @current_member = current_member
   end
 
   # POST /members
@@ -53,9 +54,9 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
+    strong_params = current_member.is_admin? ? admin_member_params : member_params
     respond_to do |format|
-      if @member.update(member_params)
-        #format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+      if @member.update_attributes(strong_params)
         format.html { redirect_to action: 'index', notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
@@ -76,27 +77,31 @@ class MembersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_member
-      @member = Member.find(params[:id])
-    end
 
-    def get_phone_types
-      @phone_types = Phone.ntypes
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_member
+    @member = Member.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def member_params
-      params.require(:member).permit(
-          :username,
-          :lastname,
-          :firstname,
-          :email,
-          :password,
-          :password_confirmation,
-          :skill_ids,
-          :role_ids,
-          phones_attributes: [:id, :ntype, :number, :_destroy],
-      )
-    end
+  def get_phone_types
+    @phone_types = Phone.ntypes
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_member_params
+    params.required(:member).permit(
+        :username, :firstname, :lastname, :email,
+        :password, :password_confirmation,
+        skill_ids: [], role_ids: [],
+        phones_attributes: [:id, :ntype, :number, :_destroy],
+    )
+  end
+
+  def member_params
+    params.required(:member).permit(
+        :firstname, :lastname,
+        :password, :password_confirmation, :current_password,
+        phones_attributes: [:id, :ntype, :number, :_destroy],
+    )
+  end
 end
