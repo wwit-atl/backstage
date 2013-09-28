@@ -1,11 +1,11 @@
 class SkillsController < ApplicationController
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
-  before_action :set_categories, only: [:new, :edit, :update]
+  before_action :set_categories, only: [:index, :new, :edit, :update]
 
   # GET /skills
   # GET /skills.json
   def index
-    @skills = Skill.all
+    @skills = Skill.order(:code).all
   end
 
   # GET /skills/1
@@ -69,7 +69,7 @@ class SkillsController < ApplicationController
     end
 
     def set_categories
-      @categories = Skill.categories
+      @categories = Skill.categories.sort
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

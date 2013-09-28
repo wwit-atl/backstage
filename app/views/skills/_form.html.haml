@@ -11,7 +11,10 @@
   .field= f.input :description
   .field
     = f.label 'Training Required?'
-    = f.input_field :training?
+    = f.input_field :training?, lable: false
+  .field
+    = f.label 'Is this skill Ranked?'
+    = f.input_field :ranked?, lable: false
   .field= f.input_field :category, collection: @categories, include_blank: false
   .actions
     = f.submit 'Save'

@@ -1,11 +1,17 @@
 %p#notice= notice
 
 %p
+  %b Code:
+  = @skill.code
+%p
   %b Name:
   = @skill.name
 %p
   %b Description:
   = @skill.description
+%p
+  %b Category:
+  = @skill.category
 
 = link_to 'Edit', edit_skill_path(@skill)
 \|

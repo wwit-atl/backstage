@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20130926183836) do
     t.string   "category"
     t.text     "description"
     t.boolean  "training?"
+    t.boolean  "ranked?"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
