@@ -6,10 +6,12 @@
         - @skill.errors.full_messages.each do |msg|
           %li= msg
 
+  .field= f.input :code
   .field= f.input :name
   .field= f.input :description
   .field
     = f.label 'Training Required?'
     = f.input_field :training?
+  .field= f.input_field :category, collection: @categories, include_blank: false
   .actions
     = f.submit 'Save'

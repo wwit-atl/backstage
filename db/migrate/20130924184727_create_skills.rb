@@ -1,8 +1,10 @@
 class CreateSkills < ActiveRecord::Migration
   def change
     create_table :skills do |t|
-      t.string  :name, index: true
-      t.string  :description
+      t.string  :code, index: true
+      t.string  :name
+      t.string  :category
+      t.text    :description
       t.boolean :training?
 
       t.timestamps
@@ -15,6 +17,7 @@ class CreateSkills < ActiveRecord::Migration
       t.index [:skill_id, :member_id]
     end
 
+    add_index(:skills, :code)
     add_index(:skills, :name)
   end
 end

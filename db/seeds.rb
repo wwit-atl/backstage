@@ -40,17 +40,19 @@ end
 # Create Skills
 #
 [
-  [ 'MC', 'Master of Ceremonies', true  ],
-  [ 'HM', 'House Manager',        true  ],
-  [ 'SM', 'Stage Manager',        true  ],
-  [ 'LB', 'Lightboard Operator',  true  ],
-  [ 'SB', 'Soundboard Operator',  true  ],
-  [ 'CS', 'Camera Operator',      true  ],
-  [ 'SS', 'Suggestion Taker',     false ],
-  [ 'BT', 'Bartender',            true  ],
-  [ 'BO', 'Box Office Attendant', true  ],
-].each do |name, desc, training|
-  unless Skill.where(name: name).exists?
-    Skill.create( name: name, description: desc, training?: training )
+  [ 'MC', 'Master of Ceremonies', '', 'Shift', true  ],
+  [ 'HM', 'House Manager',        '', 'Shift', true  ],
+  [ 'SM', 'Stage Manager',        '', 'Shift', true  ],
+  [ 'LB', 'Lightboard Operator',  '', 'Shift', true  ],
+  [ 'SB', 'Soundboard Operator',  '', 'Shift', true  ],
+  [ 'CS', 'Camera Operator',      '', 'Shift', true  ],
+  [ 'SS', 'Suggestion Taker',     '', 'Shift', false ],
+  [ 'BT', 'Bartender',            '', 'Shift', true  ],
+  [ 'BO', 'Box Office Attendant', '', 'Shift', true  ],
+  [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'Performance', false ],
+  [ 'PR', 'Projection', 'How well this actor projects their voice', 'Performance', false ],
+].each do |code, name, desc, cat, training|
+  unless Skill.where(code: code).exists?
+    Skill.create( code: code, name: name, description: desc, category: cat, training?: training )
   end
 end

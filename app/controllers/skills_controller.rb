@@ -1,5 +1,6 @@
 class SkillsController < ApplicationController
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
+  before_action :set_categories, only: [:new, :edit, :update]
 
   # GET /skills
   # GET /skills.json
@@ -65,6 +66,10 @@ class SkillsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_skill
       @skill = Skill.find(params[:id])
+    end
+
+    def set_categories
+      @categories = Skill.categories
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

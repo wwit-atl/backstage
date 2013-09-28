@@ -89,13 +89,16 @@ ActiveRecord::Schema.define(version: 20130926183836) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "skills", force: true do |t|
+    t.string   "code"
     t.string   "name"
-    t.string   "description"
+    t.string   "category"
+    t.text     "description"
     t.boolean  "training?"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "skills", ["code"], name: "index_skills_on_code", using: :btree
   add_index "skills", ["name"], name: "index_skills_on_name", using: :btree
 
 end
