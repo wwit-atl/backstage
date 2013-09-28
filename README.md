@@ -29,14 +29,17 @@ Development Roadmap
   - Friends
 
 - Skills
-  - EmCee
-  - House Manager
-  - Stage Manager
-  - Lights
-  - Sound
-  - Camera
-  - Suggestions
-  - Bartending
+  - Shift
+    - EmCee
+    - House Manager
+    - Stage Manager
+    - Lights
+    - Sound
+    - Camera
+    - Suggestions
+    - Bartending
+  - Performance
+    - stage_presence
 
 - Members
   - Username
@@ -46,6 +49,9 @@ Development Roadmap
   - Note(s)
   - Role(s)
   - Skill(s)
+
+- PerformanceMatrix
+  - stage_presence
 
 - Stages
   - Up Right
