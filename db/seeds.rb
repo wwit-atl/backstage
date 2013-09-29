@@ -40,15 +40,15 @@ end
 # Create Skills
 #
 [
-  [ 'MC', 'Master of Ceremonies', '', 'Shift', true, true  ],
-  [ 'HM', 'House Manager',        '', 'Shift', true, true  ],
-  [ 'SM', 'Stage Manager',        '', 'Shift', true, true  ],
-  [ 'LB', 'Lightboard Operator',  '', 'Shift', true, true  ],
-  [ 'SB', 'Soundboard Operator',  '', 'Shift', true, true  ],
-  [ 'CS', 'Camera Operator',      '', 'Shift', true, true  ],
-  [ 'SS', 'Suggestion Taker',     '', 'Shift', false, false],
-  [ 'BT', 'Bartender',            '', 'Shift', true, false ],
-  [ 'BO', 'Box Office Attendant', '', 'Shift', true, false ],
+  [ 'MC', 'Master of Ceremonies', '', 'Shift', true, true   ],
+  [ 'HM', 'House Manager',        '', 'Shift', true, true   ],
+  [ 'SM', 'Stage Manager',        '', 'Shift', true, true   ],
+  [ 'LB', 'Lightboard Operator',  '', 'Shift', true, true   ],
+  [ 'SB', 'Soundboard Operator',  '', 'Shift', true, true   ],
+  [ 'CS', 'Camera Operator',      '', 'Shift', true, true   ],
+  [ 'SS', 'Suggestion Taker',     '', 'Shift', false, false ],
+  [ 'BT', 'Bartender',            '', 'Shift', true, false  ],
+  [ 'BO', 'Box Office Attendant', '', 'Shift', true, false  ],
   [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'Performance', false, true ],
   [ 'PR', 'Projection', 'How well this actor projects their voice', 'Performance', false, true ],
 ].each do |code, name, desc, cat, training, ranked|
@@ -60,6 +60,28 @@ end
         category: cat,
         training?: training,
         ranked?: ranked,
+    )
+  end
+end
+
+#
+# Create Stages
+#
+[
+    [ 'UR', 'Up Right'     ],
+    [ 'DR', 'Down Right'   ],
+    [ 'SR', 'Stage Right'  ],
+    [ 'UL', 'Up Left'      ],
+    [ 'DL', 'Down Left'    ],
+    [ 'SL', 'Stage Left'   ],
+    [ 'CS', 'Center Stage' ],
+    [ 'FS', 'Full Stage'   ],
+    [ 'BS', 'Back Stage'   ],
+].each do |code, name|
+  unless Stage.where(code: code).exists?
+    Stage.create(
+      code: code,
+      name: name,
     )
   end
 end
