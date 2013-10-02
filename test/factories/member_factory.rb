@@ -21,4 +21,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :admin, :parent => :member do
+    firstname 'admin'
+    lastname  'person'
+    after(:create) do |member|
+      member.add_role :admin
+    end
+  end
+
 end
