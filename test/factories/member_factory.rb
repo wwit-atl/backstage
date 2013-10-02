@@ -7,6 +7,8 @@ FactoryGirl.define do
   end
 
   factory :member do
+    after(:create) { |m| m.confirm! if m.respond_to?('confirm!') }
+
     firstname             'John'
     lastname              'Doe'
     password              'password'

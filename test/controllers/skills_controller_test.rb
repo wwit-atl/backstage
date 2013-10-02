@@ -1,11 +1,17 @@
 require "minitest_helper"
 
 class SkillsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
 
   setup do
-    sign_in :member, Member.create(FactoryGirl.attributes_for(:member))
+    @member = create(:member)
+    sign_in @member
     @skill = create(:skill)
+  end
+
+  test "should get sign_in page when not signed in" do
+    sign_out @member
+    get :index
+    assert_response(302)
   end
 
   def test_index
@@ -20,8 +26,9 @@ class SkillsControllerTest < ActionController::TestCase
   end
 
   def test_create
+    sign_in create(:admin)
     assert_difference('Skill.count') do
-      post :create, skill: attributes_for(:skill, name: 'UT', description: 'Unique Test')
+      post :create, skill: attributes_for(:skill, code: 'UT', name: 'Unique Test')
     end
 
     assert_redirected_to skill_path(assigns(:skill))

@@ -1,12 +1,28 @@
 require 'minitest_helper'
 
 class MemberTest < ActiveSupport::TestCase
-  #def setup
-  #  @member = create(:member)
-  #end
+  test 'not valid without email' do
+    user = build(:member, email: nil)
+    refute user.valid?
+  end
 
-  test "fullname should provide formatted firstname and lastname" do
-    @member = create(:member, firstname: 'tester', lastname: 'testerson')
-    assert 'Tester Testerson', @member.fullname
+  test 'not valid without firstname' do
+    user = build(:member, firstname: nil, email: 'test@example.org')
+    refute user.valid?
+  end
+
+  test 'not valid without lastname' do
+    user = build(:member, lastname: nil, email: 'test@example.org')
+    refute user.valid?
+  end
+
+  test 'email must be unique' do
+    email = 'test@example.org'
+    create(:member, email: email)
+    assert_raises( ActiveRecord::RecordInvalid ) { create(:member, email: email) }
+  end
+
+  test 'fullname should provide formatted firstname and lastname' do
+    assert_equal 'Tester Testerson', build(:member, firstname: 'tester', lastname: 'testerson').fullname
   end
 end

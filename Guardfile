@@ -2,7 +2,7 @@
 # More info at https://github.com/guard/guard#readme
 
 guard 'minitest' do
-  interactor :off
+  #interactor :off
 
   # with Minitest::Test
   watch(%r|^test/.*\/?.*_test\.rb|)
@@ -13,4 +13,7 @@ guard 'minitest' do
   watch(%r|^app/controllers/(.*)\.rb|) { |m| "test/controllers/#{m[1]}_test.rb" }
   watch(%r|^app/helpers/(.*)\.rb|)     { |m| "test/helpers/#{m[1]}_test.rb" }
   watch(%r|^app/models/(.*)\.rb|)      { |m| "test/models/#{m[1]}_test.rb" }
+
+  # FactoryGirl
+  watch(%r|^test/factories/(.*).rb|)   { "test" }
 end

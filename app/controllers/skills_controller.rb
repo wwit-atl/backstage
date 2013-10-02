@@ -5,7 +5,7 @@ class SkillsController < ApplicationController
   # GET /skills
   # GET /skills.json
   def index
-    @skills = Skill.order(:code).all
+    @skills = Skill.order(:code)
   end
 
   # GET /skills/1

@@ -2,10 +2,8 @@ require 'minitest_helper'
 
 class MembersControllerTest < ActionController::TestCase
   setup do
-    @member = Member.create(attributes_for(:member))
-    @member.confirm! if @member.respond_to?('confirm!')
-    @member.add_role :admin
-    sign_in :member, @member
+    @member = create(:member)
+    sign_in @member
   end
 
   test "should get sign_in page when not signed in" do
@@ -26,8 +24,10 @@ class MembersControllerTest < ActionController::TestCase
   end
 
   test "should create member" do
+    sign_in create( :admin )
+
     assert_difference('Member.count') do
-      post :create, member: attributes_for(:member, lastname: 'uniqueperson')
+      post :create, member: attributes_for(:member, lastname: 'unique')
     end
 
     assert_redirected_to members_path(notice: 'Member was successfully created.')
