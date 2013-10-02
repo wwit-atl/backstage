@@ -10,7 +10,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.order(lastname: :asc).all
+    @members = Member.order(lastname: :asc)
   end
 
   # GET /members/1
@@ -37,7 +37,9 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(member_params)
+    @member = Member.new(
+        current_member.is_admin? ? admin_member_params : member_params
+    )
 
     respond_to do |format|
       if @member.save
@@ -90,7 +92,7 @@ class MembersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_member_params
     params.required(:member).permit(
-        :username, :firstname, :lastname, :email,
+        :firstname, :lastname, :email,
         :password, :password_confirmation,
         skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],

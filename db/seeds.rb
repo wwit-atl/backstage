@@ -24,16 +24,15 @@ end
 unless Member.joins(:roles).where('roles.name' => 'admin').exists?
   phone = Phone.new(ntype: 'Mobile', number: '4049393709')
   admin = Member.create(
-      username: 'admin',
+      email:    'admin@example.com',
       password: 'wwit4admin',
       password_confirmation: 'wwit4admin',
-      email:    'admin@example.com',
       firstname: 'Admin',
       lastname:  'User',
       phones: [phone]
   )
   admin.add_role :admin
-  admin.confirm!
+  admin.confirm! if admin.respond_to?('confirm!')
 end
 
 #

@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   rolify
 
   has_many :notes, :as => :notable
@@ -11,8 +11,8 @@ class Member < ActiveRecord::Base
 
   has_and_belongs_to_many :skills
 
-  validates_presence_of :username, :firstname, :lastname, :email
-  validates_uniqueness_of :username, :email
+  validates_presence_of :email, :firstname, :lastname
+  validates_uniqueness_of :email
 
   def fullname
     [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')

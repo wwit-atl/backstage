@@ -42,7 +42,6 @@ Development Roadmap
     - stage_presence
 
 - Members
-  - Username
   - Full Name
   - Email
   - Phone(s)
