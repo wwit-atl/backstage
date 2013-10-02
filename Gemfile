@@ -46,6 +46,7 @@ group :development, :test do
   gem 'guard-minitest'
   gem 'terminal-notifier-guard'
   gem 'rb-fsevent'
+  gem 'database_cleaner'
 
 end
 

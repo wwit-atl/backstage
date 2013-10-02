@@ -1,4 +1,4 @@
-require "test_helper"
+require "minitest_helper"
 
 class NoteTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -11,10 +11,9 @@ FactoryGirl.define do
     lastname              'Doe'
     password              'password'
     password_confirmation 'password'
-    username  { "#{firstname[0]}#{lastname}".downcase }
-    email     { "#{username}@example.com" }
+    email                 { "#{firstname[0]}#{lastname}".downcase + '@example.com' }
 
-    factory :user_with_phones do
+    factory :member_with_phones do
       ignore { phone_count 2 }
       after(:create) do |member, evaluator|
         FactoryGirl.create_list(:phone, evaluator.phone_count, member: member)
@@ -22,8 +21,4 @@ FactoryGirl.define do
     end
   end
 
-  ## Only needed if :confirmable is set in Devise
-  #factory :confirmed_user, :parent => :member do
-  #  after_create { |member| member.confirm! }
-  #end
 end
