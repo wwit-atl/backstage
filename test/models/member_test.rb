@@ -3,17 +3,17 @@ require 'test_helper'
 class MemberTest < ActiveSupport::TestCase
   test 'not valid without email' do
     user = build(:member, email: nil)
-    refute user.valid?
+    refute user.valid?, 'Allows save without an email'
   end
 
   test 'not valid without firstname' do
     user = build(:member, firstname: nil, email: 'test@example.org')
-    refute user.valid?
+    refute user.valid?, 'Allows save without a firstname'
   end
 
   test 'not valid without lastname' do
     user = build(:member, lastname: nil, email: 'test@example.org')
-    refute user.valid?
+    refute user.valid?, 'Allows save without a lastname'
   end
 
   test 'email must be unique' do

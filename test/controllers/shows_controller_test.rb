@@ -4,6 +4,8 @@ class ShowsControllerTest < ActionController::TestCase
 
   def setup
     @show = create(:show)
+    @member = create(:member)
+    sign_in @member
   end
 
   def test_index
@@ -19,7 +21,7 @@ class ShowsControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference('Show.count') do
-      post :create, show: {  }
+      post :create, show: attributes_for(:show, date: Date.today)
     end
 
     assert_redirected_to show_path(assigns(:show))
@@ -36,7 +38,7 @@ class ShowsControllerTest < ActionController::TestCase
   end
 
   def test_update
-    put :update, id: @show, show: {  }
+    patch :update, id: @show, show: attributes_for(:show)
     assert_redirected_to show_path(assigns(:show))
   end
 

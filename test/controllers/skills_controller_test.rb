@@ -2,8 +2,10 @@ require "test_helper"
 
 class SkillsControllerTest < ActionController::TestCase
 
-  setup do
+  def setup
+    @member = create(:member)
     @skill = create(:skill)
+    sign_in @member
   end
 
   test "should get sign_in page when not signed in" do
@@ -24,7 +26,6 @@ class SkillsControllerTest < ActionController::TestCase
   end
 
   def test_create
-    sign_in create(:admin)
     assert_difference('Skill.count') do
       post :create, skill: attributes_for(:skill, code: 'UT', name: 'Unique Test')
     end
