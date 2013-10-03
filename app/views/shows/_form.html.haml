@@ -1,0 +1,19 @@
+= simple_form_for @show do |f|
+  - if @show.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@show.errors.count, "error")} prohibited this show from being saved:"
+      %ul
+        - @show.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.input :date, :as => :string, input_html: { class: 'datepicker' }
+
+  .field
+    = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
+
+  .field
+    = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
+
+  .action
+    = f.submit 'Create Show'

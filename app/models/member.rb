@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :phones, allow_destroy: true
 
   has_and_belongs_to_many :skills
+  has_and_belongs_to_many :shows
 
   validates_presence_of :email, :firstname, :lastname
   validates_uniqueness_of :email

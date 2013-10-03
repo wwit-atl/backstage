@@ -1,4 +1,4 @@
-require 'minitest_helper'
+require 'test_helper'
 
 class MemberTest < ActiveSupport::TestCase
   test 'not valid without email' do

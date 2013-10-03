@@ -1,10 +1,8 @@
-require "minitest_helper"
+require "test_helper"
 
 class SkillsControllerTest < ActionController::TestCase
 
   setup do
-    @member = create(:member)
-    sign_in @member
     @skill = create(:skill)
   end
 

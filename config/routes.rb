@@ -8,6 +8,7 @@ Backstage::Application.routes.draw do
 
   resources :members, :concerns => :notable
   resources :skills,  :concerns => :notable
+  resources :shows,   :concerns => :notable
 
   root 'members#dashboard'
 

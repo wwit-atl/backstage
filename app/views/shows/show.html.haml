@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Date:
+  = @show.date
+%p
+  %b Showtime:
+  = @show.showtime
+%p
+  %b Calltime:
+  = @show.calltime
+
+= link_to 'Edit', edit_show_path(@show)
+\|
+= link_to 'Back', shows_path

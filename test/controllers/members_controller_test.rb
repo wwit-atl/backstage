@@ -1,11 +1,6 @@
-require 'minitest_helper'
+require 'test_helper'
 
 class MembersControllerTest < ActionController::TestCase
-  setup do
-    @member = create(:member)
-    sign_in @member
-  end
-
   test "should get sign_in page when not signed in" do
     sign_out @member
     get :index

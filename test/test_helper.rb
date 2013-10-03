@@ -31,5 +31,10 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+
+  def setup
+    @member = create(:member)
+    sign_in @member
+  end
 end
 

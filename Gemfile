@@ -11,11 +11,13 @@ gem 'haml-rails'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'jquery-timepicker-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'devise'
+gem 'devise', '~> 3.1.0'
 gem 'rolify', github: 'EppO/rolify'
 
 gem 'simple_form'
