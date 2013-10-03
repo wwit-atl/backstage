@@ -16,6 +16,7 @@ gem 'jquery-timepicker-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'acts_as_list'
 
 gem 'devise', '~> 3.1.0'
 gem 'rolify', github: 'EppO/rolify'
