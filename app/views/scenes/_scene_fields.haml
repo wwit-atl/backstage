@@ -1,0 +1,13 @@
+%fieldset
+  .field
+    = f.input_field :act, placeholder: 'Act', disabled: true
+    = f.input_field :stage, collection: @stages
+    = f.hidden_field :position
+
+  .field
+    = f.label "Suggestions:"
+    = f.input_field :suggestion
+
+  = link_to_add_fields button_tag('Add Note'), f, :notes
+  = f.hidden_field :_destroy
+  = link_to button_tag('Delete Scene'), '#', class: 'remove_fields'

@@ -8,12 +8,14 @@
 
   .field
     = f.input :date, :as => :string, input_html: { class: 'datepicker' }
-
-  .field
     = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
-
-  .field
     = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
+
+  %fieldset
+    = f.label 'Scenes:'
+    = f.simple_fields_for :scenes do |builder|
+      = render 'scenes/scene_fields', f: builder
+    = link_to_add_fields button_tag('Add Scene'), f, :scenes
 
   .action
     = f.submit 'Create Show'

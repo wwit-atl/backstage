@@ -19,7 +19,7 @@
   .field
     = f.label 'Phone Number (digits only):'
     = f.simple_fields_for :phones do |builder|
-      = render 'phone_fields', f: builder
+      = render 'phones/phone_fields', f: builder
     = link_to_add_fields 'Add Phone', f, :phones
 
   - if current_member.is_admin?

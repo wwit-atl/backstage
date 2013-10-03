@@ -1,5 +1,6 @@
 class ShowsController < ApplicationController
   before_action :set_show, only: [:show, :edit, :update, :destroy]
+  before_action :set_supporting
 
   # GET /shows
   # GET /shows.json
@@ -17,6 +18,7 @@ class ShowsController < ApplicationController
     @show = Show.new
     @show.showtime = '8:00pm'
     @show.calltime = '6:30pm'
+    @show.scenes.new
   end
 
   # GET /shows/1/edit
@@ -71,6 +73,13 @@ class ShowsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_params
-      params.require(:show).permit(:date, :showtime, :calltime)
+      params.require(:show).permit(
+          :date, :showtime, :calltime,
+          scenes_attributes: [ :id, :act, :position, :suggestion, :_destroy ],
+      )
+    end
+
+    def set_supporting
+      @stages = Stage.all
     end
 end

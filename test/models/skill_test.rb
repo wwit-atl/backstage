@@ -2,6 +2,16 @@ require "test_helper"
 
 class SkillTest < ActiveSupport::TestCase
 
+  test 'not valid without code' do
+    skill = build(:skill, code: nil, name: 'Test Skill')
+    refute skill.valid?, 'Allows save without a code'
+  end
+
+  test 'not valid without name' do
+    skill = build(:skill, code: 'TS', name: nil)
+    refute skill.valid?, 'Allows save without a name'
+  end
+
   test "sorts skills by code" do
     [
       'Alpha Alpha', 'Alpha Beta', 'Alpha Charlie',
