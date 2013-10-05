@@ -1,0 +1,11 @@
+%h1 Configuration
+
+= form_tag update_multiple_configs_path, :method => :patch do
+  %table
+    - @configs.each do |config|
+      %tr
+        %td= config.name
+        = fields_for "konfig_ids[]", config do |c|
+          %td= c.text_field :value
+  = submit_tag "Update All"
+

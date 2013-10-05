@@ -2,26 +2,9 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 #
-# Create Roles
-#
-
-%w(
-  admin
-  management
-  main_stage
-  apprentice
-  unusual_suspect
-  isp
-  sponsor
-  friend
-).each do |role|
-  Role.create( name: role ) unless Role.where(name: role).exists?
-end
-
-#
 # Create an Admin account
 #
-unless Member.joins(:roles).where('roles.name' => 'admin').exists?
+if Member.joins(:roles).where('roles.name' => 'admin').empty?
   phone = Phone.new(ntype: 'Mobile', number: '4049393709')
   admin = Member.create(
       email:    'admin@example.com',
@@ -33,6 +16,28 @@ unless Member.joins(:roles).where('roles.name' => 'admin').exists?
   )
   admin.add_role :admin
   admin.confirm! if admin.respond_to?('confirm!')
+end
+
+#
+# Create Configs
+#
+{
+    'MemberMaxConflicts' => 3,
+    'MemberMinShifts'    => 3,
+    'MemberMaxShifts'    => 5,
+    'CastMinShows'       => 5,
+}.each do |key, value|
+  Konfig.where(name: key).first_or_create.update_attributes(value: value)
+end
+
+#
+# Create Roles
+#
+%w(
+  admin management sponsor friend
+  ms apprentice us isp
+).each do |role|
+  Role.create( name: role ) if Role.where(name: role).empty?
 end
 
 #
@@ -51,36 +56,29 @@ end
   [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'Performance', false, true ],
   [ 'PR', 'Projection', 'How well this actor projects their voice', 'Performance', false, true ],
 ].each do |code, name, desc, cat, training, ranked|
-  unless Skill.where(code: code).exists?
-    Skill.create(
-        code: code,
-        name: name,
-        description: desc,
-        category: cat,
-        training?: training,
-        ranked?: ranked,
-    )
-  end
+  Skill.where(code: code).first_or_create.update_attributes(
+    name: name,
+    description: desc,
+    category: cat,
+    training?: training,
+    ranked?: ranked,
+  )
 end
 
 #
 # Create Stages
 #
-[
-    [ 'UR', 'Up Right'     ],
-    [ 'DR', 'Down Right'   ],
-    [ 'SR', 'Stage Right'  ],
-    [ 'UL', 'Up Left'      ],
-    [ 'DL', 'Down Left'    ],
-    [ 'SL', 'Stage Left'   ],
-    [ 'CS', 'Center Stage' ],
-    [ 'FS', 'Full Stage'   ],
-    [ 'BS', 'Back Stage'   ],
-].each do |code, name|
-  unless Stage.where(code: code).exists?
-    Stage.create(
-      code: code,
-      name: name,
-    )
-  end
+{
+  'UR' => 'Up Right',
+  'DR' => 'Down Right',
+  'SR' => 'Stage Right',
+  'UL' => 'Up Left',
+  'DL' => 'Down Left',
+  'SL' => 'Stage Left',
+  'CS' => 'Center Stage',
+  'FS' => 'Full Stage',
+  'BS' => 'Back Stage',
+}.each do |key, value|
+  Stage.where(code: key).first_or_create.update_attributes(name: value)
 end
+

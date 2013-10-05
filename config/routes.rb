@@ -10,6 +10,12 @@ Backstage::Application.routes.draw do
   resources :skills,  :concerns => :notable
   resources :shows,   :concerns => :notable
 
+  resources :configs, controller: 'konfigs', only: [ :index, :update ] do
+    collection do
+      patch :update_multiple
+    end
+  end
+
   root 'members#dashboard'
 
 end
