@@ -16,6 +16,8 @@ Backstage::Application.routes.draw do
     end
   end
 
+  get '/admin', to: 'members#admin'
+
   root 'members#dashboard'
 
 end
