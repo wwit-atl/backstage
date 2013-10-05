@@ -28,6 +28,7 @@ class KonfigsController < ApplicationController
   private
 
   def get_configs
+    admin_only!
     @configs = Konfig.order(:name)
   end
 

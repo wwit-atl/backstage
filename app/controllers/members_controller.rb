@@ -7,6 +7,10 @@ class MembersController < ApplicationController
     @skills = @member.skills
   end
 
+  def admin
+    admin_only!
+  end
+
   # GET /members
   # GET /members.json
   def index
