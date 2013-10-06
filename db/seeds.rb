@@ -1,6 +1,10 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+def get_time(time)
+  Time.parse('2000-01-01 ' + time.to_s).to_s(:db)
+end
+
 #
 # Create an Admin account
 #
@@ -82,3 +86,21 @@ end
   Stage.where(code: key).first_or_create.update_attributes(name: value)
 end
 
+#
+# Create initial Show Templates
+#
+[
+    [ 2, 'Improv Labratory', get_time('18:30'), get_time('20:00'), [1, 2, 4, 9] ],
+    [ 4, 'Unusual Suspects', get_time('18:30'), get_time('20:00'), [1, 2] + (4..6).to_a ],
+    [ 5, 'Friday Night Improv', get_time('19:30'), get_time('21:00'), [1, 2] + (4..6).to_a ],
+    [ 6, 'Saturday Night Improv (Early Show)', get_time('18:30'), get_time('20:00'), [1, 2] + (4..6).to_a ],
+    [ 6, 'Saturday Night Improv (Late Show)',  get_time('21:00'), get_time('22:30'), [1] ],
+].each do |dow, name, calltime, showtime, skill_ids|
+  ShowTemplate.where(name: name).first_or_create.update_attributes(
+      dow: dow,
+      name: name,
+      calltime: calltime,
+      showtime: showtime,
+      skill_ids: skill_ids
+  )
+end

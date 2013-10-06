@@ -1,0 +1,15 @@
+= simple_form_for @show_template do |f|
+  - if @show_template.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@show_template.errors.count, "error")} prohibited this show_template from being saved:"
+      %ul
+        - @show_template.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field= f.input :name
+  .field= f.input :dow, collection: @days_of_week
+  .field
+    = f.input :calltime, minute_step: 15
+    = f.input :showtime, minute_step: 15
+  .field= f.association :skills, collection: @skills, as: :check_boxes, label: 'Required Skills'
+  .actions= f.submit 'Save'

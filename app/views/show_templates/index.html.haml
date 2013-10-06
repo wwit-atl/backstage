@@ -1,0 +1,36 @@
+%h1 Show Templates
+%p
+  These entries will be used to auto-generate the shows for each month.
+%p
+  Please note that any changes made herein will only affect future shows,
+  and will not modify any shows already created.
+
+%table
+  %tr
+    %th Day of Week
+    %th Name
+    %th Call Time
+    %th Show Time
+    %th Required Shifts
+    %th
+
+  - @show_templates.each do |show_template|
+    %tr
+      %td= show_template.day
+      %td= show_template.name
+      %td= show_template.calltime.to_s(:time)
+      %td= show_template.showtime.to_s(:time)
+      %td
+        %ul
+          - if show_template.skills.empty?
+            N/A
+          - show_template.skills.each do |skill|
+            %li= skill.name
+      %td
+        = link_to 'Edit', edit_show_template_path(show_template)
+        \|
+        = link_to 'Destroy', show_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Show template', new_show_template_path

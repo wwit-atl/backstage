@@ -9,6 +9,7 @@ Backstage::Application.routes.draw do
   resources :members, :concerns => :notable
   resources :skills,  :concerns => :notable
   resources :shows,   :concerns => :notable
+  resources :show_templates
 
   resources :configs, controller: 'konfigs', only: [ :index, :update ] do
     collection do
