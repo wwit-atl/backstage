@@ -15,6 +15,10 @@ class Member < ActiveRecord::Base
   validates_presence_of :email, :firstname, :lastname
   validates_uniqueness_of :email
 
+  scope :castable, -> { joins(:roles).where('roles.cast' => :true) }
+  scope :crewable, -> { joins(:roles).where('roles.crew' => :true) }
+  default_scope -> { order(:lastname) }
+
   def fullname
     [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')
   end

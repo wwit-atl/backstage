@@ -9,7 +9,7 @@
   .field= f.input :name
   .field= f.input :dow, collection: @days_of_week
   .field
-    = f.input :calltime, minute_step: 15
-    = f.input :showtime, minute_step: 15
+    = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
+    = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
   .field= f.association :skills, collection: @skills, as: :check_boxes, label: 'Required Skills'
   .actions= f.submit 'Save'

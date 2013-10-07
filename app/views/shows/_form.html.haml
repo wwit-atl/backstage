@@ -6,13 +6,21 @@
         - @show.errors.full_messages.each do |msg|
           %li= msg
 
+  .cast
+    Available Cast:
+    %ul
+      - @members.each do |member|
+        %li{class: "member_#{member.id}"}= "#{member.name} (#{member.roles.map { |r| r.name }.to_sentence.upcase})"
+
+    -#= f.association :members, collection: @members, label: 'Cast'
+
   .field
     = f.input :date, :as => :string, input_html: { class: 'datepicker' }
     = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
     = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
 
   %fieldset
-    = f.label 'Scenes:'
+    %legend Scenes
     = f.simple_fields_for :scenes do |builder|
       = render 'scenes/scene_fields', f: builder
     = link_to_add_fields button_tag('Add Scene'), f, :scenes

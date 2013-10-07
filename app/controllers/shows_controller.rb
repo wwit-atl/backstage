@@ -18,7 +18,6 @@ class ShowsController < ApplicationController
     @show = Show.new
     @show.showtime = '8:00pm'
     @show.calltime = '6:30pm'
-    @show.scenes.new
   end
 
   # GET /shows/1/edit
@@ -81,5 +80,6 @@ class ShowsController < ApplicationController
 
     def set_supporting
       @stages = Stage.all
+      @members = Member.castable
     end
 end

@@ -4,6 +4,9 @@ class Role < ActiveRecord::Base
   
   scopify
 
+  scope :castable, -> { where(cast: 'true' ) }
+  scope :crewable, -> { where(crew: 'true' ) }
+
   def title
     %w( isp ).include?(name) ? name.upcase : name.titleize
   end

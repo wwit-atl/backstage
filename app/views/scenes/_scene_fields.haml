@@ -1,7 +1,7 @@
-%fieldset
+.scene
   .field
-    = f.input_field :act, placeholder: 'Act', disabled: true
-    = f.input_field :stage, collection: @stages
+    -#= f.input_field :act, placeholder: 'Act', disabled: true
+    = f.input :stage, collection: @stages
     = f.hidden_field :position
 
   .field
