@@ -6,13 +6,16 @@
         - @show.errors.full_messages.each do |msg|
           %li= msg
 
+  Please select your Cast:
   .cast
-    Available Cast:
-    %ul
-      - @members.each do |member|
-        %li{class: "member_#{member.id}"}= "#{member.name} (#{member.roles.map { |r| r.name }.to_sentence.upcase})"
+    = f.association :members,
+      collection: @members,
+      include_blank: true,
+      input_html: { class: 'chosen-select', data: { placeholder: 'Select Cast by Name' } }
+    -#%ul
+    -#  - @members.each do |member|
+    -#    %li{class: "member_#{member.id}"}= "#{member.name} (#{member.roles.map { |r| r.name }.to_sentence.upcase})"
 
-    -#= f.association :members, collection: @members, label: 'Cast'
 
   .field
     = f.input :date, :as => :string, input_html: { class: 'datepicker' }

@@ -123,19 +123,26 @@ puts 'Create Show Templates'
 end
 
 # Create Fake Members for development
-puts 'Create fake members'
-if ENV['RAILS_ENV'] == 'development'
-  require 'factory_girl'
-  15.times do
-    member = FactoryGirl.create(:member, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
-    member.add_role :ms
-  end
-  15.times do
-    member = FactoryGirl.create(:member, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
-    member.add_role :us
-  end
-  10.times do
-    member = FactoryGirl.create(:member, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
-    member.add_role :isp
-  end
+require 'factory_girl'
+
+print 'Create fake members... '
+
+print 'Main Stage... '
+15.times do
+  member = FactoryGirl.create(:member_with_phones, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
+  member.add_role :ms
 end
+
+print 'Unusual Suspects... '
+15.times do
+  member = FactoryGirl.create(:member_with_phones, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
+  member.add_role :us
+end
+
+print 'ISP... '
+10.times do
+  member = FactoryGirl.create(:member_with_phones, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
+  member.add_role :isp
+end
+
+puts

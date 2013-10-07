@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery.ui.datepicker
 //= require jquery.timepicker.js
+//= require chosen-jquery
 //= require date_time
 //= require backstage
 // This must come last

@@ -74,6 +74,7 @@ class ShowsController < ApplicationController
     def show_params
       params.require(:show).permit(
           :date, :showtime, :calltime,
+          member_ids: [],
           scenes_attributes: [ :id, :act, :position, :suggestion, :_destroy ],
       )
     end

@@ -21,6 +21,8 @@ gem 'acts_as_list'
 
 gem 'devise', '~> 3.1.0'
 gem 'rolify', github: 'EppO/rolify'
+gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
+gem 'chosen-rails'
 
 gem 'simple_form'
 gem 'bourbon'

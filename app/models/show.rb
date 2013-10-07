@@ -7,4 +7,12 @@ class Show < ActiveRecord::Base
   accepts_nested_attributes_for :scenes, allow_destroy: true
 
   validates_presence_of :date
+
+  def call_time
+    calltime.strftime('%l:%M %P')
+  end
+
+  def show_time
+    showtime.strftime('%l:%M %P')
+  end
 end
