@@ -91,12 +91,12 @@ ActiveRecord::Schema.define(version: 20131005204737) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
+    t.boolean  "cast"
+    t.boolean  "crew"
     t.integer  "resource_id"
     t.string   "resource_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "cast"
-    t.boolean  "crew"
   end
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree

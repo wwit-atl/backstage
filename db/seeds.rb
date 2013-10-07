@@ -8,6 +8,7 @@ end
 #
 # Create an Admin account
 #
+puts 'Create Admin account'
 if Member.joins(:roles).where('roles.name' => 'admin').empty?
   phone = Phone.new(ntype: 'Mobile', number: '4049393709')
   admin = Member.create(
@@ -25,6 +26,7 @@ end
 #
 # Create Configs
 #
+puts 'Create Configuration'
 {
     'MemberMaxConflicts' => 3,
     'MemberMinShifts'    => 3,
@@ -37,16 +39,29 @@ end
 #
 # Create Roles
 #
-%w(
-  admin management sponsor friend
-  ms apprentice us isp
-).each do |role|
-  Role.create( name: role ) if Role.where(name: role).empty?
+puts 'Create Roles'
+#   Role         Cast?  Crew?
+[
+  [ :admin,      false, false ],
+  [ :management, false, false ],
+  [ :sponsor,    false, false ],
+  [ :friend,     false, false ],
+  [ :ms,         true,  false ],
+  [ :apprentice, true,  true  ],
+  [ :us,         true,  true  ],
+  [ :isp,        true,  true  ],
+].each do |role, cast, crew|
+  if Role.where(name: role).first_or_create.update_attributes(
+    name: role, cast: cast, crew: crew
+  )
+  end
 end
 
 #
 # Create Skills
 #
+puts 'Create Skills'
+# Code, Name, Description, category, training?, ranked?
 [
   [ 'MC', 'Master of Ceremonies', '', 'Shift', true, true   ],
   [ 'HM', 'House Manager',        '', 'Shift', true, true   ],
@@ -72,6 +87,7 @@ end
 #
 # Create Stages
 #
+puts 'Create Stages'
 {
   'UR' => 'Up Right',
   'DR' => 'Down Right',
@@ -89,6 +105,7 @@ end
 #
 # Create initial Show Templates
 #
+puts 'Create Show Templates'
 [
     [ 2, 'Improv Labratory', get_time('18:30'), get_time('20:00'), [1, 2, 4, 9] ],
     [ 4, 'Unusual Suspects', get_time('18:30'), get_time('20:00'), [1, 2] + (4..6).to_a ],
@@ -103,4 +120,22 @@ end
       showtime: showtime,
       skill_ids: skill_ids
   )
+end
+
+# Create Fake Members for development
+puts 'Create fake members'
+if ENV['RAILS_ENV'] == 'development'
+  require 'factory_girl'
+  15.times do
+    member = FactoryGirl.create(:member, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
+    member.add_role :ms
+  end
+  15.times do
+    member = FactoryGirl.create(:member, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
+    member.add_role :us
+  end
+  10.times do
+    member = FactoryGirl.create(:member, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
+    member.add_role :isp
+  end
 end
