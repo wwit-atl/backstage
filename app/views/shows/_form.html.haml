@@ -6,21 +6,22 @@
         - @show.errors.full_messages.each do |msg|
           %li= msg
 
-  Please select your Cast:
-  .cast
-    = f.association :members,
-      collection: @members,
-      include_blank: true,
-      input_html: { class: 'chosen-select', data: { placeholder: 'Select Cast by Name' } }
-    -#%ul
-    -#  - @members.each do |member|
-    -#    %li{class: "member_#{member.id}"}= "#{member.name} (#{member.roles.map { |r| r.name }.to_sentence.upcase})"
-
-
   .field
     = f.input :date, :as => :string, input_html: { class: 'datepicker' }
     = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
     = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
+
+  %fieldset
+    %legend What Shifts are needed?
+    .crew
+      = f.association :skills, collection: @skills, include_blank: false,
+        input_html: { class: 'chosen-select', data: { placeholder: 'Select Skills' } }
+
+  %fieldset
+    %legend Please select your Cast:
+    .cast
+      = f.association :members, collection: @members, include_blank: true,
+        input_html: { class: 'chosen-select', data: { placeholder: 'Select Members' } }
 
   %fieldset
     %legend Scenes

@@ -1,5 +1,6 @@
 class Show < ActiveRecord::Base
   has_and_belongs_to_many :members
+  has_and_belongs_to_many :skills
 
   has_many :notes, :as => :notable
   has_many :scenes, -> { order(:position) }, :dependent => :destroy

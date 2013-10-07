@@ -75,12 +75,14 @@ class ShowsController < ApplicationController
       params.require(:show).permit(
           :date, :showtime, :calltime,
           member_ids: [],
+          skill_ids: [],
           scenes_attributes: [ :id, :act, :position, :suggestion, :_destroy ],
       )
     end
 
     def set_supporting
-      @stages = Stage.all
+      @stages  = Stage.all
       @members = Member.castable
+      @skills  = Skill.crew
     end
 end

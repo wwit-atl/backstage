@@ -6,6 +6,8 @@ class Skill < ActiveRecord::Base
 
   validates_presence_of :code, :name
 
+  scope :crew, -> { where(category: 'Shift') }
+
   def self.categories
     %w(Shift Performance)
   end

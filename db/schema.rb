@@ -91,12 +91,12 @@ ActiveRecord::Schema.define(version: 20131005204737) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
-    t.boolean  "cast"
-    t.boolean  "crew"
     t.integer  "resource_id"
     t.string   "resource_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "cast"
+    t.boolean  "crew"
   end
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
@@ -135,6 +135,13 @@ ActiveRecord::Schema.define(version: 20131005204737) do
   end
 
   add_index "shows", ["date"], name: "index_shows_on_date", using: :btree
+
+  create_table "shows_skills", id: false, force: true do |t|
+    t.integer "show_id"
+    t.integer "skill_id"
+  end
+
+  add_index "shows_skills", ["skill_id", "show_id"], name: "index_shows_skills_on_skill_id_and_show_id", using: :btree
 
   create_table "skills", force: true do |t|
     t.string   "code"
