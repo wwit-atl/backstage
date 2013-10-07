@@ -3,9 +3,9 @@ require "test_helper"
 class ShowTemplatesControllerTest < ActionController::TestCase
 
   def setup
-    @admin = create(:admin)
-    sign_in @admin
-    @show_template = show_templates(:one)
+    @member = create(:member)
+    sign_in @member
+    @show_template = create(:show_template)
   end
 
   def test_index
@@ -20,16 +20,12 @@ class ShowTemplatesControllerTest < ActionController::TestCase
   end
 
   def test_create
+    sign_in create(:admin)
     assert_difference('ShowTemplate.count') do
-      post :create, show_template: {  }
+      post :create, show_template: attributes_for(:show_template)
     end
 
-    assert_redirected_to show_template_path(assigns(:show_template))
-  end
-
-  def test_show
-    get :show, id: @show_template
-    assert_response :success
+    assert_redirected_to show_templates_path
   end
 
   def test_edit
@@ -38,8 +34,8 @@ class ShowTemplatesControllerTest < ActionController::TestCase
   end
 
   def test_update
-    put :update, id: @show_template, show_template: {  }
-    assert_redirected_to show_template_path(assigns(:show_template))
+    patch :update, id: @show_template, show_template: attributes_for(:show_template, name: 'Unique Show')
+    assert_redirected_to show_templates_path
   end
 
   def test_destroy

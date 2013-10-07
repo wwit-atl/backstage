@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :show_template do
-    name "MyString"
-    dow "MyString"
-    showtime "2013-10-05 16:47:37"
-    calltime "2013-10-05 16:47:37"
+    name "Test Show"
+    dow 0
+    calltime "2000-01-01 18:30:00"
+    showtime "2000-01-01 20:00:00"
   end
 end

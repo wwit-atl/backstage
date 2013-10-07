@@ -15,6 +15,7 @@ class ShowsControllerTest < ActionController::TestCase
   end
 
   def test_new
+    @member = build(:member)
     get :new
     assert_response :success
   end
