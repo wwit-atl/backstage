@@ -4,8 +4,12 @@ class Show < ActiveRecord::Base
 
   has_many :notes, :as => :notable
   has_many :scenes, -> { order(:position) }, :dependent => :destroy
+  has_many :shifts, :dependent => :destroy
 
   accepts_nested_attributes_for :scenes, allow_destroy: true
+  accepts_nested_attributes_for :shifts, allow_destroy: true
+
+  #scope :shift, lambda { |code| joins(:shifts).where('shifts.skill_id' => Skills.where(code: code.upcase)) }
 
   validates_presence_of :date
 
@@ -16,4 +20,12 @@ class Show < ActiveRecord::Base
   def show_time
     showtime.strftime('%l:%M %P')
   end
+
+  def shift(code)
+    skill = Skill.where(code: code.upcase).first
+    return if skill.nil?
+
+    shifts.where(skill: skill).first
+  end
+
 end

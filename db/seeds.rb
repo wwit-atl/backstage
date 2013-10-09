@@ -128,21 +128,12 @@ require 'factory_girl'
 print 'Create fake members... '
 
 print 'Main Stage... '
-15.times do
-  member = FactoryGirl.create(:member_with_phones, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
-  member.add_role :ms
-end
+FactoryGirl.create_list(:member_with_phones, 15, :ms)
 
 print 'Unusual Suspects... '
-15.times do
-  member = FactoryGirl.create(:member_with_phones, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
-  member.add_role :us
-end
+FactoryGirl.create_list(:member_with_phones, 15, :us)
 
 print 'ISP... '
-10.times do
-  member = FactoryGirl.create(:member_with_phones, firstname: Faker::Name.first_name, lastname: Faker::Name.last_name)
-  member.add_role :isp
-end
+FactoryGirl.create_list(:member_with_phones, 10, :isp)
 
 puts

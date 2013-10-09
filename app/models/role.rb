@@ -7,6 +7,8 @@ class Role < ActiveRecord::Base
   scope :castable, -> { where(cast: 'true' ) }
   scope :crewable, -> { where(crew: 'true' ) }
 
+  alias_attribute :code, :name
+
   def title
     %w( isp ).include?(name) ? name.upcase : name.titleize
   end

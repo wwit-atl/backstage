@@ -25,7 +25,7 @@ class MembersControllerTest < ActionController::TestCase
   end
 
   test "should create member" do
-    sign_in create( :admin )
+    sign_in create( :member, :admin )
 
     assert_difference('Member.count') do
       post :create, member: attributes_for(:member, lastname: 'unique')

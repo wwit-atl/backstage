@@ -3,7 +3,7 @@
 FactoryGirl.define do
 
   factory :skill do
-    name 'House Manager'
+    name 'Sample Skill'
     code { name.split(' ').map { |n| n[0] }.join.upcase }
     category 'Shift'
 

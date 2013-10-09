@@ -8,19 +8,19 @@ class ShowsControllerTest < ActionController::TestCase
     sign_in @member
   end
 
-  def test_index
+  test 'Get Show index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:shows)
   end
 
-  def test_new
+  test 'Get new Show' do
     @member = build(:member)
     get :new
     assert_response :success
   end
 
-  def test_create
+  test 'create new Show' do
     assert_difference('Show.count') do
       post :create, show: attributes_for(:show, date: Date.today)
     end
@@ -28,26 +28,27 @@ class ShowsControllerTest < ActionController::TestCase
     assert_redirected_to show_path(assigns(:show))
   end
 
-  def test_show
+  test 'Display a Show' do
     get :show, id: @show
     assert_response :success
   end
 
-  def test_edit
+  test 'Edit a Show' do
     get :edit, id: @show
     assert_response :success
   end
 
-  def test_update
+  test 'Update a Show' do
     patch :update, id: @show, show: attributes_for(:show)
     assert_redirected_to show_path(assigns(:show))
   end
 
-  def test_destroy
+  test 'Destroy a Show' do
     assert_difference('Show.count', -1) do
       delete :destroy, id: @show
     end
 
     assert_redirected_to shows_path
   end
+
 end

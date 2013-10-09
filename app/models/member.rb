@@ -5,6 +5,7 @@ class Member < ActiveRecord::Base
   rolify
 
   has_many :notes, :as => :notable
+  has_many :shifts
 
   has_many :phones, dependent: :destroy
   accepts_nested_attributes_for :phones, allow_destroy: true
@@ -17,6 +18,10 @@ class Member < ActiveRecord::Base
 
   scope :castable, -> { joins(:roles).where('roles.cast' => :true) }
   scope :crewable, -> { joins(:roles).where('roles.crew' => :true) }
+
+  scope :has_role,  lambda { |role| joins(:roles).where('roles.name' => role) }
+  scope :has_skill, lambda { |skill| joins(:skills).where('skills.code' => skill.upcase) }
+
   default_scope -> { order(:lastname) }
 
   def fullname

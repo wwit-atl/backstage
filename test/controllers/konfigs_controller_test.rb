@@ -13,7 +13,7 @@ class KonfigsControllerTest < ActionController::TestCase
   end
 
   test "can log in as admin" do
-    sign_in create(:admin)
+    sign_in create(:member, :admin)
     get :index
     assert_response :success
   end

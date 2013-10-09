@@ -20,7 +20,7 @@ class ShowTemplatesControllerTest < ActionController::TestCase
   end
 
   def test_create
-    sign_in create(:admin)
+    sign_in create(:member, :admin)
     assert_difference('ShowTemplate.count') do
       post :create, show_template: attributes_for(:show_template)
     end
