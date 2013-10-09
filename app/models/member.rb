@@ -6,12 +6,12 @@ class Member < ActiveRecord::Base
 
   has_many :notes, :as => :notable
   has_many :shifts
+  has_many :shows, :through => :shifts
 
   has_many :phones, dependent: :destroy
   accepts_nested_attributes_for :phones, allow_destroy: true
 
   has_and_belongs_to_many :skills
-  has_and_belongs_to_many :shows
 
   validates_presence_of :email, :firstname, :lastname
   validates_uniqueness_of :email

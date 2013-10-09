@@ -34,12 +34,14 @@ class ShowTest < ActiveSupport::TestCase
     assert_equal 'TS', @show.shift(:ts).skill.code
   end
 
-  test 'Show.skills can be assigned to members' do
+  test 'Show can assign shifts to members' do
     @member = create(:member)
     @show   = create(:show)
 
-    @shift = @show.shifts.create(skill: create(:skill, code: 'UN', name: 'Unique Skill'))
-    @shift.member = @member
+    @show.shifts.create(
+        member: @member,
+        skill: create(:skill, code: 'UN', name: 'Unique Skill')
+    )
 
     assert_equal @member.name, @show.shift(:un).member.name
   end

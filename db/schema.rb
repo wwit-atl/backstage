@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(version: 20131009153531) do
 
   add_index "members_roles", ["member_id", "role_id"], name: "index_members_roles_on_member_id_and_role_id", using: :btree
 
-  create_table "members_shows", id: false, force: true do |t|
-    t.integer "member_id"
-    t.integer "show_id"
-  end
-
-  add_index "members_shows", ["member_id", "show_id"], name: "index_members_shows_on_member_id_and_show_id", using: :btree
-
   create_table "members_skills", id: false, force: true do |t|
     t.integer "member_id"
     t.integer "skill_id"
@@ -145,13 +138,6 @@ ActiveRecord::Schema.define(version: 20131009153531) do
   end
 
   add_index "shows", ["date"], name: "index_shows_on_date", using: :btree
-
-  create_table "shows_skills", id: false, force: true do |t|
-    t.integer "show_id"
-    t.integer "skill_id"
-  end
-
-  add_index "shows_skills", ["skill_id", "show_id"], name: "index_shows_skills_on_skill_id_and_show_id", using: :btree
 
   create_table "skills", force: true do |t|
     t.string   "code"

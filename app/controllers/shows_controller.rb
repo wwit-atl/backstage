@@ -83,6 +83,6 @@ class ShowsController < ApplicationController
     def set_supporting
       @stages  = Stage.all
       @members = Member.castable
-      @skills  = Skill.crew
+      @skills  = Skill.crewable
     end
 end

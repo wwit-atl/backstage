@@ -3,7 +3,7 @@ class Skill < ActiveRecord::Base
 
   has_and_belongs_to_many :members
   has_many :notes, :as => :notable
-  has_many :shifts
+  has_many :shows, :through => :shifts
 
   validates_presence_of :code, :name
 
@@ -11,23 +11,24 @@ class Skill < ActiveRecord::Base
     code.upcase!
   end
 
-  scope :crew, -> { where(category: 'Shift') }
-  scope :get_code, lambda { |code| where(code: code.upcase) }
+  scope :crewable, -> { where(category: 'Crew') }
+  scope :castable, -> { where(category: 'Cast') }
+  scope :find_code, lambda { |code| where(code: code.upcase) }
 
   def self.categories
-    %w(Shift Performance)
+    %w(Cast Crew Performance)
   end
 
   class << self
     def method_missing(method_id, *arguments, &block)
-      obj = get_code(method_id.upcase)
-      return obj unless obj.empty?
+      obj = find_code(method_id).first
+      return obj unless obj.blank?
 
       super
     end
 
     def respond_to?(method_id, include_private = false)
-      if get_code(method_id.upcase).empty?
+      if find_code(method_id).empty?
         super
       else
         true

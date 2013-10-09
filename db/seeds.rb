@@ -63,17 +63,19 @@ end
 puts 'Create Skills'
 # Code, Name, Description, category, training?, ranked?
 [
-  [ 'MC', 'Master of Ceremonies', '', 'Shift', true, true   ],
-  [ 'HM', 'House Manager',        '', 'Shift', true, true   ],
-  [ 'SM', 'Stage Manager',        '', 'Shift', true, true   ],
-  [ 'LB', 'Lightboard Operator',  '', 'Shift', true, true   ],
-  [ 'SB', 'Soundboard Operator',  '', 'Shift', true, true   ],
-  [ 'CS', 'Camera Operator',      '', 'Shift', true, true   ],
-  [ 'SS', 'Suggestion Taker',     '', 'Shift', false, false ],
-  [ 'BT', 'Bartender',            '', 'Shift', true, false  ],
-  [ 'BO', 'Box Office Attendant', '', 'Shift', true, false  ],
-  [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'Performance', false, true ],
-  [ 'PR', 'Projection', 'How well this actor projects their voice', 'Performance', false, true ],
+  ['CAST','Show Cast',            '', 'Cast', true, true   ],
+  [ 'MC', 'Master of Ceremonies', '', 'Cast', true, true   ],
+  [ 'HM', 'House Manager',        '', 'Crew', true, true   ],
+  [ 'LS', 'Lightboard Operator',  '', 'Crew', true, true   ],
+  [ 'SS', 'Soundboard Operator',  '', 'Crew', true, true   ],
+  [ 'CS', 'Camera Operator',      '', 'Crew', true, true   ],
+  [ 'BO', 'Box Office Attendant', '', 'Crew', true, false  ],
+  [ 'SM', 'Stage Manager',        '', 'Crew', false, true  ],
+  [ 'SG', 'Suggestion Taker',     '', 'Crew', false, false ],
+  [ 'BAR','Bartender',            '', 'Crew', true, false  ],
+
+  [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'Perf', false, true ],
+  [ 'PR', 'Projection',     'How well this actor projects their voice',    'Perf', false, true ],
 ].each do |code, name, desc, cat, training, ranked|
   Skill.where(code: code).first_or_create.update_attributes(
     name: name,
@@ -107,12 +109,15 @@ end
 #
 puts 'Create Show Templates'
 [
-    [ 2, 'Improv Labratory', get_time('18:30'), get_time('20:00'), [1, 2, 4, 9] ],
-    [ 4, 'Unusual Suspects', get_time('18:30'), get_time('20:00'), [1, 2] + (4..6).to_a ],
-    [ 5, 'Friday Night Improv', get_time('19:30'), get_time('21:00'), [1, 2] + (4..6).to_a ],
-    [ 6, 'Saturday Night Improv (Early Show)', get_time('18:30'), get_time('20:00'), [1, 2] + (4..6).to_a ],
-    [ 6, 'Saturday Night Improv (Late Show)',  get_time('21:00'), get_time('22:30'), [1] ],
-].each do |dow, name, calltime, showtime, skill_ids|
+    [ 2, 'Improv Labratory',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS BO) ],
+    [ 4, 'Unusual Suspects',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+    [ 5, 'Friday Night Improv',                get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO) ],
+    [ 6, 'Saturday Night Improv (Early Show)', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+    [ 6, 'Saturday Night Improv (Late Show)',  get_time('21:00'), get_time('22:30'), %w(MC) ],
+].each do |dow, name, calltime, showtime, skills|
+
+  skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
+
   ShowTemplate.where(name: name).first_or_create.update_attributes(
       dow: dow,
       name: name,
@@ -128,12 +133,12 @@ require 'factory_girl'
 print 'Create fake members... '
 
 print 'Main Stage... '
-FactoryGirl.create_list(:member_with_phones, 15, :ms)
+15.times { FactoryGirl.create(:member, :with_phones, :ms) }
 
 print 'Unusual Suspects... '
-FactoryGirl.create_list(:member_with_phones, 15, :us)
+15.times { FactoryGirl.create(:member, :with_phones, :us) }
 
 print 'ISP... '
-FactoryGirl.create_list(:member_with_phones, 10, :isp)
+10.times { FactoryGirl.create(:member, :with_phones, :isp) }
 
 puts

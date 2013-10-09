@@ -11,9 +11,10 @@ class ShiftTest < ActiveSupport::TestCase
     refute @shift.valid?, 'Allows create without a show id'
   end
 
-  test 'Cannot create without skill_id' do
-    @shift = build(:shift, skill: nil)
-    refute @shift.valid?, 'Allows create without a skill_id'
+  test 'Should assign the CAST skill by default' do
+    @shift = create(:shift, skill: nil)
+    assert @shift.valid?, 'Shift does not provide a default skill'
+    assert_equal Skill.where(code: 'CAST').first, @shift.skill
   end
 
   test 'Can assign member' do
@@ -24,7 +25,7 @@ class ShiftTest < ActiveSupport::TestCase
     assert_equal @member.name, @shift.member.name
   end
 
-  test 'scope with_code returns record with the given skill code' do
-    assert_equal 'SS', Shift.with_code(:ss).first.skill.code
+  test 'scope with_skill returns record with the given skill code' do
+    assert_equal 'SS', Shift.with_skill(:ss).first.skill.code
   end
 end

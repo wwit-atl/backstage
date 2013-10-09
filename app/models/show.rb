@@ -1,10 +1,14 @@
 class Show < ActiveRecord::Base
-  has_and_belongs_to_many :members
-  has_and_belongs_to_many :skills
+  #has_and_belongs_to_many :members
+  #has_and_belongs_to_many :skills
 
-  has_many :notes, :as => :notable
-  has_many :scenes, -> { order(:position) }, :dependent => :destroy
   has_many :shifts, :dependent => :destroy
+
+  has_many :members, :through => :shifts
+  has_many :skills,  :through => :shifts
+
+  has_many :scenes, -> { order(:position) }, :dependent => :destroy
+  has_many :notes, :as => :notable
 
   accepts_nested_attributes_for :scenes, allow_destroy: true
   accepts_nested_attributes_for :shifts, allow_destroy: true
