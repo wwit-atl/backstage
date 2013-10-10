@@ -39,7 +39,7 @@ group :development do
   gem 'foreman'
   gem 'guard'
   gem 'guard-minitest'
-  #gem 'guard-growl'
+  gem 'pry-rails'
 end
 
 group :development, :test do

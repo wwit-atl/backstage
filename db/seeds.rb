@@ -63,17 +63,16 @@ end
 puts 'Create Skills'
 # Code, Name, Description, category, training?, ranked?
 [
-  ['CAST', 'Actor',                '', 'cast', true,  true   ],
-  [  'MC', 'Master of Ceremonies', '', 'cast', true,  true   ],
-  [  'HM', 'House Manager',        '', 'crew', true,  true   ],
-  [  'LS', 'Lightboard Operator',  '', 'crew', true,  true   ],
-  [  'SS', 'Soundboard Operator',  '', 'crew', true,  true   ],
-  [  'CS', 'Camera Operator',      '', 'crew', true,  true   ],
-  [  'BO', 'Box Office Attendant', '', 'crew', true,  false  ],
+  [  'MC', 'Master of Ceremonies', '', 'crew', true,  true  ],
+  [  'HM', 'House Manager',        '', 'crew', true,  true  ],
+  [  'SS', 'Soundboard Operator',  '', 'crew', true,  true  ],
+  [  'LS', 'Lightboard Operator',  '', 'crew', true,  true  ],
+  [  'CS', 'Camera Operator',      '', 'crew', true,  true  ],
+  [  'BO', 'Box Office Attendant', '', 'crew', true,  false ],
   [  'SM', 'Stage Manager',        '', 'crew', false, true  ],
   [  'SG', 'Suggestion Taker',     '', 'crew', false, false ],
-  [ 'BAR', 'Bartender',            '', 'crew', true,  false  ],
-
+  [ 'BAR', 'Bartender',            '', 'crew', true,  false ],
+  [ 'ACT', 'Actor',                '', 'cast', true,  true  ],
   [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'performance', false, true ],
   [ 'PR', 'Projection',     'How well this actor projects their voice',    'performance', false, true ],
 ].each do |code, name, desc, cat, training, ranked|
@@ -100,8 +99,8 @@ puts 'Create Stages'
   'CS' => 'Center Stage',
   'FS' => 'Full Stage',
   'BS' => 'Back Stage',
-}.each do |key, value|
-  Stage.where(code: key).first_or_create.update_attributes(name: value)
+}.each do |code, name|
+  Stage.where(code: code).first_or_create.update_attributes(name: name)
 end
 
 #
@@ -109,18 +108,15 @@ end
 #
 puts 'Create Show Templates'
 [
-    [ 2, 'Improv Labratory',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS BO) ],
-    [ 4, 'Unusual Suspects',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-    [ 5, 'Friday Night Improv',                get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO) ],
-    [ 6, 'Saturday Night Improv (Early Show)', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-    [ 6, 'Saturday Night Improv (Late Show)',  get_time('21:00'), get_time('22:30'), %w(MC) ],
+  [ 2, 'Improv Labratory',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS BO)       ],
+  [ 4, 'Unusual Suspects',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+  [ 5, 'Friday Night Improv',                get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO) ],
+  [ 6, 'Saturday Night Improv (Early Show)', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+  [ 6, 'Saturday Night Improv (Late Show)',  get_time('21:00'), get_time('22:30'), %w(MC)                ],
 ].each do |dow, name, calltime, showtime, skills|
-
   skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
-
   ShowTemplate.where(name: name).first_or_create.update_attributes(
       dow: dow,
-      name: name,
       calltime: calltime,
       showtime: showtime,
       skill_ids: skill_ids
@@ -128,17 +124,18 @@ puts 'Create Show Templates'
 end
 
 # Create Fake Members for development
-require 'factory_girl'
+if ENV['RAILS_ENV'] == 'development'
+  require 'factory_girl'
 
-print 'Create fake members... '
+  puts 'Create fake members... '
 
-print 'Main Stage... '
-15.times { FactoryGirl.create(:member, :with_phones, :ms) }
+  print ' -> Main Stage... '
+  15.times { FactoryGirl.create(:member, :with_phones, :ms) } ; puts 'OKAY'
 
-print 'Unusual Suspects... '
-15.times { FactoryGirl.create(:member, :with_phones, :us) }
+  print ' -> Unusual Suspects... '
+  20.times { FactoryGirl.create(:member, :with_phones, :us) } ; puts 'OKAY'
 
-print 'ISP... '
-10.times { FactoryGirl.create(:member, :with_phones, :isp) }
+  print ' -> ISP... '
+  10.times { FactoryGirl.create(:member, :with_phones, :isp) } ; puts 'OKAY'
+end
 
-puts
