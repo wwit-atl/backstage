@@ -9,6 +9,8 @@ class Shift < ActiveRecord::Base
 
   validates_presence_of :show_id
 
-  scope :with_skill, lambda { |code| joins(:skill).where('skills.code' => code.upcase) }
+  scope :with_skill, lambda { |code|
+    includes(:skill).where(skills: {code: code.upcase}).references(:skill)
+  }
 
 end

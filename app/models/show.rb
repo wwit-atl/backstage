@@ -13,8 +13,6 @@ class Show < ActiveRecord::Base
   accepts_nested_attributes_for :scenes, allow_destroy: true
   accepts_nested_attributes_for :shifts, allow_destroy: true
 
-  #scope :shift, lambda { |code| joins(:shifts).where('shifts.skill_id' => Skills.where(code: code.upcase)) }
-
   validates_presence_of :date
 
   def call_time
@@ -26,10 +24,11 @@ class Show < ActiveRecord::Base
   end
 
   def shift(code)
-    skill = Skill.where(code: code.upcase).first
-    return if skill.nil?
+    #skill = Skill.where(code: code.upcase).first
+    #raise NoMethodError, "No Skill matches #{code}" if skill.nil?
+    #shifts.where(skill: skill).first || Shift.none
 
-    shifts.where(skill: skill).first
+    shifts.where(skill: Skill.class_eval(code.to_s.downcase)).first || Shift.new
   end
 
 end

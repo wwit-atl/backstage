@@ -2,7 +2,7 @@ class CreateSkills < ActiveRecord::Migration
   def change
     create_table :skills do |t|
       t.string  :code, index: true
-      t.string  :name
+      t.string  :name, index: true
       t.string  :category
       t.text    :description
       t.boolean :training?
@@ -12,13 +12,9 @@ class CreateSkills < ActiveRecord::Migration
     end
 
     create_table( :members_skills, id: false ) do |t|
-      t.references :member
-      t.references :skill
-      t.index [:member_id, :skill_id]
-      t.index [:skill_id, :member_id]
+      t.references :member, index: true
+      t.references :skill, index: true
     end
 
-    add_index(:skills, :code)
-    add_index(:skills, :name)
   end
 end
