@@ -63,19 +63,19 @@ end
 puts 'Create Skills'
 # Code, Name, Description, category, training?, ranked?
 [
-  ['CAST','Show Cast',            '', 'Cast', true, true   ],
-  [ 'MC', 'Master of Ceremonies', '', 'Cast', true, true   ],
-  [ 'HM', 'House Manager',        '', 'Crew', true, true   ],
-  [ 'LS', 'Lightboard Operator',  '', 'Crew', true, true   ],
-  [ 'SS', 'Soundboard Operator',  '', 'Crew', true, true   ],
-  [ 'CS', 'Camera Operator',      '', 'Crew', true, true   ],
-  [ 'BO', 'Box Office Attendant', '', 'Crew', true, false  ],
-  [ 'SM', 'Stage Manager',        '', 'Crew', false, true  ],
-  [ 'SG', 'Suggestion Taker',     '', 'Crew', false, false ],
-  [ 'BAR','Bartender',            '', 'Crew', true, false  ],
+  ['CAST', 'Actor',                '', 'cast', true,  true   ],
+  [  'MC', 'Master of Ceremonies', '', 'cast', true,  true   ],
+  [  'HM', 'House Manager',        '', 'crew', true,  true   ],
+  [  'LS', 'Lightboard Operator',  '', 'crew', true,  true   ],
+  [  'SS', 'Soundboard Operator',  '', 'crew', true,  true   ],
+  [  'CS', 'Camera Operator',      '', 'crew', true,  true   ],
+  [  'BO', 'Box Office Attendant', '', 'crew', true,  false  ],
+  [  'SM', 'Stage Manager',        '', 'crew', false, true  ],
+  [  'SG', 'Suggestion Taker',     '', 'crew', false, false ],
+  [ 'BAR', 'Bartender',            '', 'crew', true,  false  ],
 
-  [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'Perf', false, true ],
-  [ 'PR', 'Projection',     'How well this actor projects their voice',    'Perf', false, true ],
+  [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'performance', false, true ],
+  [ 'PR', 'Projection',     'How well this actor projects their voice',    'performance', false, true ],
 ].each do |code, name, desc, cat, training, ranked|
   Skill.where(code: code).first_or_create.update_attributes(
     name: name,

@@ -11,12 +11,13 @@ class Skill < ActiveRecord::Base
     code.upcase!
   end
 
-  scope :crewable, -> { where(category: 'Crew') }
-  scope :castable, -> { where(category: 'Cast') }
+  scope :crewable, -> { where(:category => :crew) }
+  scope :castable, -> { where(:category => :cast) }
+
   scope :find_code, lambda { |code| where(code: code.to_s.upcase) }
 
   def self.categories
-    %w(Cast Crew Performance)
+    %w(cast crew performance)
   end
 
   class << self
