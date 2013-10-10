@@ -25,4 +25,28 @@ class MemberTest < ActiveSupport::TestCase
   test 'fullname should provide formatted firstname and lastname' do
     assert_equal 'Tester Testerson', build(:member, firstname: 'tester', lastname: 'testerson').fullname
   end
+
+  test 'castable returns castable members' do
+    member = create(:member)
+    member.skills << create(:skill, :cast)
+    assert_equal Array(member), Member.castable
+  end
+
+  test 'does not return crew in castable' do
+    member = create(:member)
+    member.skills << create(:skill, :crew)
+    refute_equal Array(member), Member.castable, 'Crew skill shows up in castable list'
+  end
+
+  test 'crewable returns crewable members' do
+    member = create(:member)
+    member.skills << create(:skill, :crew)
+    assert_equal Array(member), Member.crewable
+  end
+
+  test 'does not return cast in crewable' do
+    member = create(:member)
+    member.skills << create(:skill, :cast)
+    refute_equal Array(member), Member.crewable, 'Cast skill shows up in crewable list'
+  end
 end
