@@ -12,16 +12,23 @@
     = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
 
   %fieldset
-    %legend What Shifts are needed?
+    %legend Crew the Show
     .crew
-      = f.association :skills, collection: @skills, include_blank: false,
-        input_html: { class: 'chosen-select', data: { placeholder: 'Select Skills' } }
+      = f.simple_fields_for :shifts do |shift|
+        = render 'shifts/shift_fields', f: shift
+      = link_to_add_fields button_tag('Add Shift'), f, :shifts
 
   %fieldset
-    %legend Please select your Cast:
+    %legend Cast the Show:
     .cast
-      = f.association :members, collection: @members, include_blank: true,
-        input_html: { class: 'chosen-select', data: { placeholder: 'Select Members' } }
+      = f.association :actors,
+          collection: @members_castable,
+          :as => :grouped_select,
+          :label_method => :name,
+          :group_method => :members,
+          include_blank: true,
+          label: 'Actors',
+          input_html: { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
 
   %fieldset
     %legend Scenes

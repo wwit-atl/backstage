@@ -72,7 +72,7 @@ puts 'Create Skills'
   [  'SM', 'Stage Manager',        '', 'crew', false, true  ],
   [  'SG', 'Suggestion Taker',     '', 'crew', false, false ],
   [ 'BAR', 'Bartender',            '', 'crew', true,  false ],
-  [ 'ACT', 'Actor',                '', 'cast', true,  true  ],
+  ['ACTOR', 'Actor',               '', 'cast', true,  true  ],
   [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'performance', false, true ],
   [ 'PR', 'Projection',     'How well this actor projects their voice',    'performance', false, true ],
 ].each do |code, name, desc, cat, training, ranked|

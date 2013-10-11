@@ -5,6 +5,9 @@ FactoryGirl.define do
   factory :skill do
     name 'Sample Skill'
     code { name.split(' ').map { |n| n[0] }.join.upcase }
+    category 'crew'
+    training? :false
+    ranked? :false
 
     trait :performance do
       name 'Stage Presence'

@@ -7,4 +7,9 @@ module ApplicationHelper
     end
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
+
+  def format_time_ampm(time)
+    return time.strftime('%l:%M %P') if time.respond_to?(:strftime)
+    'Invalid Time Format'
+  end
 end

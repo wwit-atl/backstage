@@ -16,6 +16,8 @@ class Skill < ActiveRecord::Base
 
   scope :find_code, lambda { |code| where(code: code.to_s.upcase) }
 
+  scope :by_code, -> { order(:code) }
+
   def self.categories
     %w(cast crew performance)
   end

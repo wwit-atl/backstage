@@ -68,21 +68,24 @@ class ShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_show
       @show = Show.find(params[:id])
+      @cast = @show.actors.by_name
+      @crew = @show.shifts.by_skill
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_params
       params.require(:show).permit(
           :date, :showtime, :calltime,
-          member_ids: [],
-          skill_ids: [],
-          scenes_attributes: [ :id, :act, :position, :suggestion, :_destroy ],
+          actor_ids: [],
+          shifts_attributes: [ :id, :member_id, :skill_id, :_destroy ],
+          scenes_attributes: [ :id, :position, :suggestion, :_destroy ],
       )
     end
 
     def set_supporting
-      @stages  = Stage.all
-      @members = Member.castable
-      @skills  = Skill.crewable
+      @stages           = Stage.all
+      @skills_crewable  = Skill.crewable
+      @members_castable = Role.castable
+      @members_crewable = Member.crewable
     end
 end

@@ -11,9 +11,9 @@
   - @shows.each do |show|
     %tr
       %td= show.date
-      %td= show.call_time
-      %td= show.show_time
-      %td= raw( show.members.map { |member| link_to member.name, member_path(member) }.to_sentence )
+      %td= format_time_ampm show.calltime
+      %td= format_time_ampm show.showtime
+      %td= raw( show.actors.map { |actor| link_to actor.name, member_path(actor) }.to_sentence )
       %td
         [
         = link_to 'Show', show

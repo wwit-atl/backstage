@@ -18,8 +18,8 @@
     %tr
       %td= show_template.day
       %td= show_template.name
-      %td= show_template.calltime.to_s(:time)
-      %td= show_template.showtime.to_s(:time)
+      %td= format_time_ampm show_template.calltime
+      %td= format_time_ampm show_template.showtime
       %td
         %ul
           - if show_template.skills.empty?

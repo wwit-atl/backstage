@@ -16,16 +16,19 @@ class Member < ActiveRecord::Base
   validates_presence_of :email, :firstname, :lastname
   validates_uniqueness_of :email
 
-  scope :castable, -> { joins(:skills).merge(Skill.castable) }
-  scope :crewable, -> { joins(:skills).merge(Skill.crewable) }
+  scope :castable, -> { includes(:skills).where(skills: { category: 'cast' }) }
+  scope :crewable, -> { includes(:skills).where(skills: { category: 'crew' }) }
 
   scope :has_role,  lambda { |role| includes(:roles).where(roles: {name: role}) }
   scope :has_skill, lambda { |skill| includes(:skills).where(skills: {code: skill.upcase}) }
 
-  default_scope -> { order(:lastname) }
+  scope :by_name, -> { order(:lastname) }
+
+  attr_accessor :cast
 
   def fullname
     [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')
   end
   alias :name :fullname
+
 end
