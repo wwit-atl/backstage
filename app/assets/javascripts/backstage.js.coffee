@@ -1,19 +1,22 @@
-$(document).on 'click', 'form .add_fields', (event) ->
-  time = new Date().getTime()
-  regexp = new RegExp($(this).data('id'), 'g')
-  $(this).before($(this).data('fields').replace(regexp, time))
-  event.preventDefault()
-
-$(document).on 'click', 'form .remove_fields', (event) ->
-  $(this).prev('input[type=hidden]').val('1')
-  $(this).closest('div').hide()
-  event.preventDefault()
-
-# enable chosen js
-jQuery ->
+ready = ->
   $('.chosen-select').chosen
     allow_single_deselect: true
     no_results_text: 'No results matched'
     disable_search_threshold: 10
     width: '200px'
 
+  $("input.datepicker").each ->
+    $(this).datepicker
+      altFormat: "yy-mm-dd"
+      dateFormat: "mm/dd/yy"
+      altField: $(this).next()
+
+  $("input.timepicker").each ->
+    $(this).timepicker
+      timeFormat: 'g:ia'
+      scrollDefaultTime: '8:00pm'
+      step: 15
+
+$(document).ready(ready)
+$(document).on 'page:load', ready
+$(document).on 'cocoon:after-insert', ready
