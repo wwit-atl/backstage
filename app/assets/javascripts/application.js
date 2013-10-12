@@ -14,9 +14,9 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.datepicker
-//= require jquery.timepicker.js
+//= require jquery.timepicker
+//= require cocoon
 //= require chosen-jquery
-//= require date_time
 //= require backstage
-// This must come last
+// Turbolinks must come last
 //= require turbolinks

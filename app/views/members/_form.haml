@@ -19,8 +19,8 @@
   .field
     = f.label 'Phone Number (digits only):'
     = f.simple_fields_for :phones do |builder|
-      = render 'phones/phone_fields', f: builder
-    = link_to_add_fields 'Add Phone', f, :phones
+      = render 'phone_fields', f: builder
+    .links= link_to_add_association button_tag('Add Phone'), f, :phones
 
   - if current_member.is_admin?
     .field= f.association :skills, :label_method => :description

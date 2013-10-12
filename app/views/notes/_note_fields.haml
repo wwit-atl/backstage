@@ -1,4 +1,3 @@
-.note
-  = f.input_field :content
-  = f.hidden_field :_destroy
-  = link_to button_tag('Delete Note'), '#', class: 'remove_fields'
+.nested-fields
+  .note= f.input :content
+  = link_to_remove_association button_tag('Delete Note'), f

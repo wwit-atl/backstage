@@ -13,28 +13,28 @@
 
   %fieldset
     %legend Crew the Show
-    .crew
+    #crew
       = f.simple_fields_for :shifts do |shift|
-        = render 'shifts/shift_fields', f: shift
-      = link_to_add_fields button_tag('Add Shift'), f, :shifts
+        = render 'shift_fields', f: shift
+      .links= link_to_add_association button_tag('Add Shift'), f, :shifts
 
   %fieldset
     %legend Cast the Show:
-    .cast
+    #cast
       = f.association :actors,
-          collection: @members_castable,
+          :collection => @members_castable,
           :as => :grouped_select,
           :label_method => :name,
           :group_method => :members,
-          include_blank: true,
-          label: 'Actors',
-          input_html: { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
+          :include_blank => true,
+          :label => 'Actors',
+          :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
 
   %fieldset
-    %legend Scenes
+    %legend Write the Show
     = f.simple_fields_for :scenes do |builder|
-      = render 'scenes/scene_fields', f: builder
-    = link_to_add_fields button_tag('Add Scene'), f, :scenes
+      = render 'scene_fields', f: builder
+    .links= link_to_add_association button_tag('Add Scene'), f, :scenes
 
   .action
     = f.submit 'Create Show'

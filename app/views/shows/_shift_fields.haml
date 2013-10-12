@@ -1,0 +1,11 @@
+.nested-fields
+  .field
+    = f.association :skill, collection: @skills_crewable, include_blank: false, label: false,
+      input_html: { class: 'chosen-select' },
+      :wrapper_html => { :style => 'display: inline' }
+
+    = f.association :member, collection: @members_crewable, include_blank: true, label: false,
+      input_html: { class: 'chosen-select', data: { placeholder: 'Select Members' } },
+      :wrapper_html => { :style => 'display: inline' }
+
+    = link_to_remove_association button_tag('Delete Shift'), f

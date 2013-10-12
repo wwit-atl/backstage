@@ -1,0 +1,16 @@
+.nested-fields
+  .field
+    = f.association :stage, collection: @stages
+    = f.hidden_field :position
+
+  .field
+    = f.label "Suggestions:"
+    = f.input_field :suggestion
+
+  .notes
+    = f.simple_fields_for :notes do |builder|
+      = render 'notes/note_fields', f: builder
+    = link_to_add_association button_tag('Add Note'), f, :notes,
+      :partial => 'notes/note_fields', 'data-association-insertion-method' => :append
+
+  = link_to_remove_association button_tag('Delete Scene'), f
