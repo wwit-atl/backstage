@@ -78,7 +78,10 @@ class ShowsController < ApplicationController
           :date, :showtime, :calltime,
           actor_ids: [],
           shifts_attributes: [ :id, :member_id, :skill_id, :_destroy ],
-          scenes_attributes: [ :id, :position, :suggestion, :_destroy ],
+          #scenes_attributes: [
+          #    :id, :_destroy, :stage_id, :position, :suggestion,
+          #    notes_attributes: [ :id, :content, :_destroy ]
+          #]
       )
     end
 

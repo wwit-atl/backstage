@@ -30,11 +30,11 @@
           :label => 'Actors',
           :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
 
-  %fieldset
-    %legend Write the Show
-    = f.simple_fields_for :scenes do |builder|
-      = render 'scene_fields', f: builder
-    .links= link_to_add_association button_tag('Add Scene'), f, :scenes
+  -#%fieldset
+  -#  %legend Write the Show
+  -#  = f.simple_fields_for :scenes do |builder|
+  -#    = render 'scene_fields', f: builder
+  -#  .links= link_to_add_association button_tag('Add Scene'), f, :scenes
 
   .action
     = f.submit 'Create Show'
