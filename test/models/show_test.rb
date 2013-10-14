@@ -11,9 +11,9 @@ class ShowTest < ActiveSupport::TestCase
     refute @show.valid?, 'Allows save without a date'
   end
 
-  test 'Show has many Members' do
-    assert_difference('@show.members.count', 6) do
-      6.times { @show.members << create( :member, lastname: Faker::Name.last_name ) }
+  test 'Show has many Actors' do
+    assert_difference('@show.actors.count', 6) do
+      6.times { @show.actors << create( :member, lastname: Faker::Name.last_name ) }
     end
   end
 

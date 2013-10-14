@@ -7,7 +7,7 @@ class Shift < ActiveRecord::Base
     self.skill ||= Skill.where(code: 'CAST').first
   end
 
-  #validates_presence_of :show_id
+  validates_presence_of :show_id
 
   scope :with_skill, lambda { |code|
     includes(:skill).where(skills: {code: code.upcase})
