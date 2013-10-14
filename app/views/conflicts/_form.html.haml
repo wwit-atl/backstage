@@ -1,0 +1,16 @@
+= form_for @conflict do |f|
+  - if @conflict.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@conflict.errors.count, "error")} prohibited this conflict from being saved:"
+      %ul
+        - @conflict.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :date
+    = f.date_select :date
+  .field
+    = f.label :member
+    = f.text_field :member
+  .actions
+    = f.submit 'Save'

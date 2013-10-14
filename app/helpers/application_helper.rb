@@ -12,4 +12,10 @@ module ApplicationHelper
     return time.strftime('%l:%M %P') if time.respond_to?(:strftime)
     'Invalid Time Format'
   end
+
+  def format_date(input)
+    date = Date.parse(input)
+    return date.strftime('%m/%d/%Y') if date.respond_to?(:strftime)
+    'Invalid Date Format'
+  end
 end

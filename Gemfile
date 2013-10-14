@@ -18,6 +18,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'acts_as_list'
+gem 'will_paginate'
 gem 'cocoon'
 gem 'fullcalendar-rails'
 

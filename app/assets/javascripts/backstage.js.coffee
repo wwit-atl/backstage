@@ -17,10 +17,6 @@ ready = ->
       scrollDefaultTime: '8:00pm'
       step: 15
 
-  $('#calendar').fullCalendar
-#    put your options and callbacks here
-
-
 $(document).ready(ready)
 $(document).on 'page:load', ready
 $(document).on 'cocoon:after-insert', ready

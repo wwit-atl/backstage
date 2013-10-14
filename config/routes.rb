@@ -1,5 +1,6 @@
 Backstage::Application.routes.draw do
 
+
   devise_for :members
 
   concern :notable do
@@ -10,6 +11,13 @@ Backstage::Application.routes.draw do
   resources :skills,  :concerns => :notable
   resources :shows,   :concerns => :notable
   resources :show_templates
+
+  resources :conflicts, only: [ :index ] do
+    collection do
+      get :manage, :to => :edit
+      post :manage, :to => :get_conflicts
+    end
+  end
 
   resources :configs, controller: 'konfigs', only: [ :index, :update ] do
     collection do

@@ -21,6 +21,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_conflicts do
+      after(:create) do |member|
+        3.times { member.conflicts << create(:conflict) }
+      end
+    end
+
     trait :admin do
       firstname 'admin'
       lastname  'person'

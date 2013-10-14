@@ -19,5 +19,6 @@
 //= require chosen-jquery
 //= require fullcalendar
 //= require backstage
+//= require calendars
 // Turbolinks must come last
 //= require turbolinks
