@@ -12,5 +12,6 @@
  *= require jquery.ui.all
  *= require jquery.timepicker.css
  *= require chosen
+ *= require fullcalendar
  *= require_tree .
  */

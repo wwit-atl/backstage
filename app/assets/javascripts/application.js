@@ -17,6 +17,7 @@
 //= require jquery.timepicker
 //= require cocoon
 //= require chosen-jquery
+//= require fullcalendar
 //= require backstage
 // Turbolinks must come last
 //= require turbolinks
