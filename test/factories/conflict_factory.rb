@@ -2,10 +2,8 @@
 
 FactoryGirl.define do
   factory :conflict do
-    ignore do
-      year  { Time.now.year }
-      month { Time.now.month }
-    end
-    date { Time.local(year, month, rand * Time.days_in_month(month, year)) }
+    year  { Time.now.year }
+    month { Time.now.month }
+    day   { Time.now.day }
   end
 end

@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 20131014172637) do
   add_index "actors_shows", ["show_id"], name: "index_actors_shows_on_show_id", using: :btree
 
   create_table "conflicts", force: true do |t|
-    t.string   "date"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
     t.integer  "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
