@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20131014172637) do
   end
 
   create_table "shows", force: true do |t|
+    t.string   "name"
     t.date     "date"
     t.time     "showtime"
     t.time     "calltime"

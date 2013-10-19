@@ -20,8 +20,9 @@ class Show < ActiveRecord::Base
     format_time(showtime)
   end
 
-  def shift(code)
-    shifts.where(skill: Skill.class_eval(code.to_s.downcase)).first || Shift.new
+  def shift(code = nil)
+    return unless code
+    shifts.where(skill: Skill.class_eval(code.to_s.downcase)).first
   end
 
   #def cast
