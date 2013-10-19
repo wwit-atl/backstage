@@ -123,19 +123,4 @@ puts 'Create Show Templates'
   )
 end
 
-# Create Fake Members for development
-if ENV['RAILS_ENV'] == 'development'
-  require 'factory_girl'
-
-  puts 'Create fake members... '
-
-  print ' -> Main Stage... '
-  15.times { FactoryGirl.create(:member, :with_phones, :ms) } ; puts 'OKAY'
-
-  print ' -> Unusual Suspects... '
-  20.times { FactoryGirl.create(:member, :with_phones, :us) } ; puts 'OKAY'
-
-  print ' -> ISP... '
-  10.times { FactoryGirl.create(:member, :with_phones, :isp) } ; puts 'OKAY'
-end
 
