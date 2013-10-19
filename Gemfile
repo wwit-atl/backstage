@@ -71,5 +71,6 @@ group :staging, :production do
 end
 
 # Rails Server
-gem 'unicorn'
+#gem 'unicorn'
+gem 'puma'
 
