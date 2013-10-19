@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :conflict do
     year  { Time.now.year }
     month { Time.now.month }
-    day   { Time.now.day }
+    day   { rand(1..Time.days_in_month(month)) }
   end
 end

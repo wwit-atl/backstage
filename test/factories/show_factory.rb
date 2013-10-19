@@ -2,7 +2,9 @@
 
 FactoryGirl.define do
   factory :show do
-    date '2013-10-02'
+    date Date.today
+    name { "Show for #{date.to_s}" }
+
     showtime '20:00'
     calltime '18:30'
 
@@ -10,20 +12,20 @@ FactoryGirl.define do
       after(:create) do |show|
           FactoryGirl.create(:shift,
               show: show,
-              skill: FactoryGirl.create(:skill, code: 'TS', name: 'Test Skill'),
-              member: FactoryGirl.create(:member),
+              skill: show.skills.sample,
+              member: Member.crewable.sample
           )
       end
     end
 
-    trait :all_skills do
+    trait :skills do
       after(:create) do |show|
         show.skills = [
-          FactoryGirl.create(:skill, code: 'MC', name: 'Master of Ceremonies'),
-          FactoryGirl.create(:skill, code: 'HM', name: 'House Manager'),
-          FactoryGirl.create(:skill, code: 'LB', name: 'Lights'),
-          FactoryGirl.create(:skill, code: 'SB', name: 'Sound'),
-          FactoryGirl.create(:skill, code: 'CS', name: 'Camera'),
+          Skill.where(code: 'MC').first_or_create(FactoryGirl.attributes_for(:skill, code: 'MC', name: 'Master of Ceremonies')),
+          Skill.where(code: 'HM').first_or_create(FactoryGirl.attributes_for(:skill, code: 'HM', name: 'House Manager')),
+          Skill.where(code: 'LS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'LS', name: 'Lights')),
+          Skill.where(code: 'SS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'SS', name: 'Sound')),
+          Skill.where(code: 'CS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'CS', name: 'Camera')),
         ]
       end
     end

@@ -13,8 +13,7 @@ class SkillTest < ActiveSupport::TestCase
   end
 
   test "sorts skills by code" do
-    [
-      'Alpha Alpha', 'Alpha Beta', 'Alpha Charlie',
+    [ 'Alpha Alpha', 'Alpha Beta', 'Alpha Charlie',
       'Beta Delta', 'Beta Echo', 'Beta Foxtrot',
       'Charlie Golf', 'Charlie Hotel', 'Charlie Indigo',
     ].shuffle.each { |name| create(:skill, name: name) }

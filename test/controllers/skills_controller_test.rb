@@ -4,6 +4,7 @@ class SkillsControllerTest < ActionController::TestCase
 
   def setup
     @member = create(:member)
+    @admin = create(:member, :admin)
     @skill = create(:skill)
     sign_in @member
   end
