@@ -5,21 +5,24 @@ class Member < ActiveRecord::Base
   rolify
 
   has_many :conflicts, :dependent => :destroy
-
   has_many :notes, :as => :notable
   has_many :shifts
-  has_many :shows, :through => :shifts
-
+  has_many :crews, :through => :shifts, :source => :show
   has_many :phones, :dependent => :destroy
+
+  has_and_belongs_to_many :shows, join_table: 'actors_shows'
+  has_and_belongs_to_many :skills
+
   accepts_nested_attributes_for :phones, allow_destroy: true
 
-  has_and_belongs_to_many :skills
 
   validates_presence_of :email, :firstname, :lastname
   validates_uniqueness_of :email
 
-  scope :castable, -> { includes(:skills).where(skills: { category: 'cast' }) }
-  scope :crewable, -> { includes(:skills).where(skills: { category: 'crew' }) }
+  #scope :castable, -> { includes(:skills).where(skills: { category: 'cast' }) }
+  #scope :crewable, -> { includes(:skills).where(skills: { category: 'crew' }) }
+  scope :castable, -> { includes(:roles).merge(Role.castable) }
+  scope :crewable, -> { includes(:roles).merge(Role.crewable) }
 
   scope :has_role,  lambda { |role| includes(:roles).where(roles: {name: role}) }
   scope :has_skill, lambda { |skill| includes(:skills).where(skills: {code: skill.upcase}) }
@@ -33,4 +36,12 @@ class Member < ActiveRecord::Base
   end
   alias :name :fullname
 
+  def conflict?(date)
+    (year, month, day) = date.strftime('%Y|%m|%d').split('|')
+    !self.conflicts.where(year: year, month: month, day: day).empty?
+  end
+
+  def has_shift_for?(show)
+    self.crews.map{ |crew| crew.id }.include?(show.id)
+  end
 end
