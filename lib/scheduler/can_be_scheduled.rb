@@ -1,21 +1,17 @@
 module Scheduler
-  class NoMemberError < StandardError
-  end
-  class NoSkillError < StandardError
-  end
-  class NoShowError < StandardError
-  end
-
   module CanBeScheduled
     extend ActiveSupport::Concern
 
-    included do
-    end
+    #included do
+    #end
 
     module ClassMethods
-
       def can_be_scheduled
         include Scheduler::CanBeScheduled::LocalInstanceMethods
+      end
+
+      def schedule
+        logger.info "Scheduling all available shifts"
       end
     end
 
@@ -30,8 +26,8 @@ module Scheduler
 
         crew = get_crew
 
-        if crew.empty?
-          raise Scheduler::NoMemberError, "No members available to crew #{@show.name}:#{@skill.name}"
+        if crew.nil?
+          raise Scheduler::NoMemberError, 'No members available for Shift'
         else
           self.member = crew
         end
