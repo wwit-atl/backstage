@@ -50,6 +50,7 @@ puts 'Create Roles'
   [ :apprentice, true,  true  ],
   [ :us,         true,  true  ],
   [ :isp,        true,  true  ],
+  [ :volunteer,  false, true  ],
 ].each do |role, cast, crew|
   if Role.where(name: role).first_or_create.update_attributes(
     name: role, cast: cast, crew: crew

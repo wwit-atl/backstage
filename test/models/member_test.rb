@@ -27,26 +27,24 @@ class MemberTest < ActiveSupport::TestCase
   end
 
   test 'castable returns castable members' do
-    member = create(:member)
-    member.skills << create(:skill, :cast)
-    assert_equal Array(member), Member.castable
+    member = create(:member, :actor)
+    assert_equal member, Member.castable.first
   end
 
   test 'does not return crew in castable' do
-    member = create(:member)
-    member.skills << create(:skill, :crew)
-    refute_equal Array(member), Member.castable, 'Crew skill shows up in castable list'
+    create( :role, name: :volunteer, cast: false, crew: true )
+    member = create(:member, :volunteer)
+    refute_equal member, Member.castable.first, 'Crew role shows up in castable list'
   end
 
   test 'crewable returns crewable members' do
-    member = create(:member)
-    member.skills << create(:skill, :crew)
-    assert_equal Array(member), Member.crewable
+    create( :role, name: :volunteer, cast: false, crew: true )
+    member = create(:member, :volunteer)
+    assert_equal member, Member.crewable.first
   end
 
   test 'does not return cast in crewable' do
-    member = create(:member)
-    member.skills << create(:skill, :cast)
-    refute_equal Array(member), Member.crewable, 'Cast skill shows up in crewable list'
+    member = create(:member, :actor)
+    refute_equal member, Member.crewable.first, 'Cast skill shows up in crewable list'
   end
 end

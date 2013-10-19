@@ -21,11 +21,11 @@ class Member < ActiveRecord::Base
 
   #scope :castable, -> { includes(:skills).where(skills: { category: 'cast' }) }
   #scope :crewable, -> { includes(:skills).where(skills: { category: 'crew' }) }
-  scope :castable, -> { includes(:roles).merge(Role.castable) }
-  scope :crewable, -> { includes(:roles).merge(Role.crewable) }
+  scope :castable, -> { joins(:skills).merge(Skill.castable) }
+  scope :crewable, -> { joins(:roles).merge(Role.crewable) }
 
-  scope :has_role,  lambda { |role| includes(:roles).where(roles: {name: role}) }
-  scope :has_skill, lambda { |skill| includes(:skills).where(skills: {code: skill.upcase}) }
+  scope :has_role,  lambda { |role| joins(:roles).where(roles: {name: role}) }
+  scope :has_skill, lambda { |skill| joins(:skills).where(skills: {code: skill.upcase}) }
 
   scope :by_name, -> { order(:lastname) }
 

@@ -2,17 +2,18 @@
 
 FactoryGirl.define do
   factory :show do
-    date Date.today
+    date { Date.today }
     name { "Show for #{date.to_s}" }
 
     showtime '20:00'
     calltime '18:30'
 
     trait :with_shift do |skill|
+      skills
       after(:create) do |show|
           FactoryGirl.create(:shift,
               show: show,
-              skill: show.skills.sample,
+              skill: show.skills.where(code: 'HM').first,
               member: Member.crewable.sample
           )
       end

@@ -35,27 +35,27 @@ FactoryGirl.define do
       end
     end
 
-    trait :cast do
-      after(:create) { |m| m.skills << Skill.actor }
-    end
-
-    trait :crew do
-      after(:create) { |m| m.skills << Skill.sg }
+    trait :actor do
+      after(:create) { |m| m.skills << create(:skill, :cast) }
     end
 
     trait :ms do
-      cast
+      actor
       after(:create) { |m| m.add_role :ms }
     end
 
     trait :us do
-      cast; crew
-      after(:create) { |m| m.add_role :us; m.skills << Skill.actor }
+      actor
+      after(:create) { |m| m.add_role :us }
     end
 
     trait :isp do
-      cast; crew
-      after(:create) { |m| m.add_role :isp; m.skills << Skill.actor }
+      actor
+      after(:create) { |m| m.add_role :isp }
+    end
+
+    trait :volunteer do
+      after(:create) { |m| m.add_role :volunteer }
     end
 
   end
