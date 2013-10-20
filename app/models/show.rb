@@ -1,4 +1,6 @@
 class Show < ActiveRecord::Base
+  can_be_scheduled
+
   has_many :shifts, :dependent => :destroy
   has_many :crew_members, :through => :shifts, :source => :member
   has_many :skills, -> { order(:code) }, :through => :shifts
@@ -10,6 +12,11 @@ class Show < ActiveRecord::Base
   accepts_nested_attributes_for :scenes, allow_destroy: true
   accepts_nested_attributes_for :shifts, allow_destroy: true
 
+  scope :recent, -> { where('date > ?', Date.today - 30.days) }
+  scope :by_date, -> { order(:date) }
+
+  default_scope { by_date }
+
   validates_presence_of :date
 
   def call_time
@@ -18,6 +25,18 @@ class Show < ActiveRecord::Base
 
   def show_time
     format_time(showtime)
+  end
+
+  def year
+    date.strftime('%Y').to_i
+  end
+
+  def month
+    date.strftime('%m').to_i
+  end
+
+  def dow
+    date.strftime('%A')
   end
 
   def shift(code = nil)

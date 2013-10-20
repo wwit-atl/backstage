@@ -21,6 +21,10 @@ class MembersController < ApplicationController
   # GET /members/1.json
   def show
     @member = Member.find(params[:id])
+    @shows = @member.shows.recent.by_date
+    @shifts = @member.shifts.recent.by_show_date
+    @skills = @member.skills
+
     @notable = @member
     @notes = @notable.notes
     @note = Note.new

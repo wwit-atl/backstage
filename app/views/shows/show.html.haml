@@ -21,7 +21,12 @@
   Crew:
   %ul
     - @crew.each do |crew|
-      %li= "[#{crew.skill.name}] is #{crew.member.name}"
+      %li
+        = "[#{crew.skill.name}] is "
+        - if crew.member.nil?
+          Not Yet Assigned
+        - else
+          = link_to crew.member.name, member_path(crew.member)
 
 = link_to 'Edit', edit_show_path(@show)
 \|

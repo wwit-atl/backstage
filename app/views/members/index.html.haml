@@ -5,14 +5,16 @@
     %th Name
     %th Email
     %th Phone(s)
-    %th
-    %th
+    %th Shifts(s)
     %th
 
   - @members.each do |member|
     %tr
       %td= member.fullname
       %td= member.email
+      %td
+        %ul
+          - member.shifts
       %td
         %ul
           - member.phones.by_type.each do |phone|

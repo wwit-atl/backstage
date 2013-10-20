@@ -89,6 +89,6 @@ class ShowsController < ApplicationController
       @stages           = Stage.all
       @skills_crewable  = Skill.crewable
       @members_castable = Role.castable
-      @members_crewable = Member.crewable
+      @members_crewable = Member.crewable.by_name
     end
 end

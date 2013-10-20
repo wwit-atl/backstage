@@ -15,7 +15,6 @@ class Member < ActiveRecord::Base
 
   accepts_nested_attributes_for :phones, allow_destroy: true
 
-
   validates_presence_of :email, :firstname, :lastname
   validates_uniqueness_of :email
 
@@ -24,12 +23,10 @@ class Member < ActiveRecord::Base
   scope :castable, -> { joins(:skills).merge(Skill.castable) }
   scope :crewable, -> { joins(:roles).merge(Role.crewable) }
 
-  scope :has_role,  lambda { |role| joins(:roles).where(roles: {name: role}) }
-  scope :has_skill, lambda { |skill| joins(:skills).where(skills: {code: skill.upcase}) }
+  scope :has_role,  ->(role) { joins(:roles).where(roles: {name: role}) }
+  scope :has_skill, ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
 
   scope :by_name, -> { order(:lastname) }
-
-  attr_accessor :cast
 
   def fullname
     [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')
@@ -43,5 +40,10 @@ class Member < ActiveRecord::Base
 
   def has_shift_for?(show)
     self.crews.map{ |crew| crew.id }.include?(show.id)
+  end
+
+  def shift_count_for_month(month = Time.now.month, year = Time.now.year)
+    date = Date.new(year, month)
+    shifts.joins(:show).where( 'shows.date' => date.beginning_of_month..date.end_of_month ).count
   end
 end
