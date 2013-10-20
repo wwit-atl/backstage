@@ -20,7 +20,17 @@ namespace :members do
       10.times { FactoryGirl.create(:member, :with_phones, :isp) }
     end
 
+    desc 'Give random members training in skills'
+    task :train => :environment do
+      puts 'Training Crew'
+      Member.crewable.order('RANDOM()').limit(20).each do |m|
+        m.skills << Skill.hm
+        m.skills << Skill.ls
+        m.skills << Skill.cs
+      end
+    end
+
     desc 'Create all sample Members'
-    task :all => [:ms, :us, :isp]
+    task :all => [:ms, :us, :isp, :train]
   end
 end
