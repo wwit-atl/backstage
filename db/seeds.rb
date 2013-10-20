@@ -62,27 +62,29 @@ end
 # Create Skills
 #
 puts 'Create Skills'
-# Code, Name, Description, category, training?, ranked?
+#  Pri,  Code,  Name, Description,         cat,    train?, rank?, autocrew?
 [
-  [  'MC', 'Master of Ceremonies', '', 'crew', true,  true  ],
-  [  'HM', 'House Manager',        '', 'crew', true,  true  ],
-  [  'SS', 'Soundboard Operator',  '', 'crew', true,  true  ],
-  [  'LS', 'Lightboard Operator',  '', 'crew', true,  true  ],
-  [  'CS', 'Camera Operator',      '', 'crew', true,  true  ],
-  [  'BO', 'Box Office Attendant', '', 'crew', true,  false ],
-  [  'SM', 'Stage Manager',        '', 'crew', false, true  ],
-  [  'SG', 'Suggestion Taker',     '', 'crew', false, false ],
-  [ 'BAR', 'Bartender',            '', 'crew', true,  false ],
-  ['ACTOR', 'Actor',               '', 'cast', true,  true  ],
-  [ 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'performance', false, true ],
-  [ 'PR', 'Projection',     'How well this actor projects their voice',    'performance', false, true ],
-].each do |code, name, desc, cat, training, ranked|
+  [ 0,   'MC', 'Master of Ceremonies', '', 'crew', true,  true,  false ],
+  [ 1,   'HM', 'House Manager',        '', 'crew', true,  true,  true  ],
+  [ 2,   'LS', 'Lightboard Operator',  '', 'crew', true,  true,  true  ],
+  [ 3,   'SS', 'Soundboard Operator',  '', 'crew', true,  true,  false ],
+  [ 4,   'CS', 'Camera Operator',      '', 'crew', true,  true,  true  ],
+  [ 5,   'BO', 'Box Office Attendant', '', 'crew', true,  false, true  ],
+  [ 6,   'SM', 'Stage Manager',        '', 'crew', false, true,  true  ],
+  [ 9,   'SG', 'Suggestion Taker',     '', 'crew', false, false, true  ],
+  [ nil, 'BAR','Bartender',            '', 'crew', true,  false, false ],
+  [ nil, 'ACTOR','Actor',              '', 'cast', true,  true,  false ],
+  [ nil, 'SP', 'Stage Presence', 'How this actor presents themselves on stage', 'performance', false, true, false ],
+  [ nil, 'PR', 'Projection',     'How well this actor projects their voice',    'performance', false, true, false ],
+].each do |priority, code, name, desc, cat, training, ranked, autocrew|
   Skill.where(code: code).first_or_create.update_attributes(
     name: name,
     description: desc,
     category: cat,
     training?: training,
     ranked?: ranked,
+    autocrew?: autocrew,
+    priority: priority,
   )
 end
 
@@ -109,11 +111,11 @@ end
 #
 puts 'Create Show Templates'
 [
-  [ 2, 'Improv Labratory',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS BO)       ],
-  [ 4, 'Unusual Suspects',                   get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-  [ 5, 'Friday Night Improv',                get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO) ],
-  [ 6, 'Saturday Night Improv (Early Show)', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-  [ 6, 'Saturday Night Improv (Late Show)',  get_time('21:00'), get_time('22:30'), %w(MC)                ],
+  [ 2, 'Improv Labratory', get_time('18:30'), get_time('20:00'), %w(MC HM LS BO) ],
+  [ 4, 'Unusual Suspects', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+  [ 5, 'Friday Night Improv', get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO) ],
+  [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+  [ 6, 'Wheel of Improv', get_time('21:00'), get_time('22:30'), %w(MC) ],
 ].each do |dow, name, calltime, showtime, skills|
   skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
   ShowTemplate.where(name: name).first_or_create.update_attributes(

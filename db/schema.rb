@@ -163,9 +163,11 @@ ActiveRecord::Schema.define(version: 20131014172637) do
     t.string   "code"
     t.string   "name"
     t.string   "category"
+    t.integer  "priority"
     t.text     "description"
     t.boolean  "training?"
     t.boolean  "ranked?"
+    t.boolean  "autocrew?"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

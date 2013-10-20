@@ -4,9 +4,11 @@ class CreateSkills < ActiveRecord::Migration
       t.string  :code, index: true
       t.string  :name, index: true
       t.string  :category
+      t.integer :priority
       t.text    :description
       t.boolean :training?
       t.boolean :ranked?
+      t.boolean :autocrew?
 
       t.timestamps
     end
