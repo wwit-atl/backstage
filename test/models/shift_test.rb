@@ -26,6 +26,6 @@ class ShiftTest < ActiveSupport::TestCase
   end
 
   test 'scope with_skill returns record with the given skill code' do
-    assert_equal 'SS', Shift.with_skill(:ss).first.skill.code
+    assert_equal 'SS', Shift.with_skill(:ss).skill.code
   end
 end

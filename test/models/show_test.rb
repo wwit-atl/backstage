@@ -31,7 +31,7 @@ class ShowTest < ActiveSupport::TestCase
 
   test 'can select a shift by skill code' do
     @show = create(:show, :with_shift)
-    assert_equal 'HM', @show.shift(:hm).skill.code
+    assert_equal 'HM', @show.shifts.with_skill(:hm).skill.code
   end
 
   test 'Show can assign shifts to members' do
@@ -43,7 +43,7 @@ class ShowTest < ActiveSupport::TestCase
         skill: create(:skill, code: 'UN', name: 'Unique Skill')
     )
 
-    assert_equal @member.name, @show.shift(:un).member.name
+    assert_equal @member.name, @show.shifts.with_skill(:un).member.name
   end
 
 end

@@ -27,7 +27,8 @@ class MemberTest < ActiveSupport::TestCase
   end
 
   test 'castable returns castable members' do
-    member = create(:member, :actor)
+    member = create(:member)
+    member.skills << create(:skill, :cast)
     assert_equal member, Member.castable.first
   end
 
@@ -44,7 +45,8 @@ class MemberTest < ActiveSupport::TestCase
   end
 
   test 'does not return cast in crewable' do
-    member = create(:member, :actor)
+    member = create(:member)
+    member.skills << create(:skill, :cast)
     refute_equal member, Member.crewable.first, 'Cast skill shows up in crewable list'
   end
 end

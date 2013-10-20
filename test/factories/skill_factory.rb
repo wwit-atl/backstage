@@ -8,6 +8,7 @@ FactoryGirl.define do
     category 'crew'
     training? :false
     ranked? :false
+    autocrew? :false
 
     trait :performance do
       name 'Stage Presence'
@@ -18,11 +19,13 @@ FactoryGirl.define do
       name 'House Manager'
       code 'HM'
       category 'crew'
+      training? :true
+      autocrew? :true
     end
 
     trait :cast do
       name 'Actor'
-      code 'CAST'
+      code 'ACTOR'
       category 'cast'
     end
   end
