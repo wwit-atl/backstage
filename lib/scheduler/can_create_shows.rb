@@ -7,7 +7,7 @@ module Scheduler
         include Scheduler::CanCreateShows::LocalInstanceMethods
       end
 
-      def create_shows_for(year = Time.now.year, month = Time.now.month)
+      def create_shows_for(month = Time.now.month, year = Time.now.year)
         date = Time.parse("#{year}-#{month}-01")
         loop_date = date
 
@@ -31,16 +31,15 @@ module Scheduler
       # Abort if the show already exists
       return unless Show.where(date: date, showtime: template.showtime).empty?
 
-      logger.info "Creating show for #{template.name} on #{date.strftime('%m/%d/%Y')}"
+      Rails.logger.info "Creating show for #{template.name} on #{date.strftime('%m/%d/%Y')}"
 
       # Create the show
       Show.create(
           date:     date,
           name:     template.name,
           showtime: template.showtime,
-          calltime: template.calltime,
-          skills:   template.skills
-      )
+          calltime: template.calltime
+      ).skills = template.skills
     end
   end
 end
