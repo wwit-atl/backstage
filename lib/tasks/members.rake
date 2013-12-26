@@ -24,9 +24,9 @@ namespace :members do
     task :train => :environment do
       puts 'Training Crew'
       Member.crewable.order('RANDOM()').limit(20).each do |m|
-        m.skills << Skill.hm
-        m.skills << Skill.ls
-        m.skills << Skill.cs
+        m.skills << Skill.with_code(:hm)
+        m.skills << Skill.with_code(:ls)
+        m.skills << Skill.with_code(:cs)
       end
     end
 
