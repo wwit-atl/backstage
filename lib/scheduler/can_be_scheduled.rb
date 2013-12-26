@@ -18,12 +18,14 @@ module Scheduler
     module LocalInstanceMethods
 
       def schedule
-        @show       = self
         @exceptions = []
+        Rails.logger.debug "Scheduling shifts for #{self.name}"
 
         raise( Scheduler::NoShiftError, 'Show has no shifts to assign' ) if self.shifts.empty?
 
         self.shifts.by_skill_priority.each do |shift|
+          Rails.logger.debug "... Checking #{shift.skill.name}"
+
           next unless shift.skill.autocrew?
           next unless shift.member.nil?
 
@@ -52,8 +54,10 @@ module Scheduler
 
     # When successful, returns a single member name, vetted to work the shift
     def get_crew(shift)
-      min_shifts = Konfig.member_min_shifts.to_i
-      max_shifts = Konfig.member_max_shifts.to_i
+      Rails.logger.debug "Looking for eligible crew for #{shift.skill.name}"
+
+      min_shifts = Konfig.where(name: 'MemberMinShifts').first.value.to_i || 3
+      max_shifts = Konfig.where(name: 'MemberMaxShifts').first.value.to_i || 5
 
       if shift.skill.training?
         crew_members = Member.crewable.has_skill(shift.skill.code) || []
@@ -73,26 +77,16 @@ module Scheduler
       potential_crew = []
 
       members.each do |member|
-        current_shift_count = member.shift_count_for_month(@show.month)
+        eligible = member.eligible_for_shift?(self, min_shifts, max_shifts)
+        next unless eligible
 
-        # Does the member have a conflict for this date?
-        next if member.conflict?(@show.date)
-
-        # Is the member already scheduled on a shift for this show?
-        next if member.has_shift_for?(@show)
-
-        # Is the member already at the maximum number of shifts?
-        next if current_shift_count >= max_shifts
-
-        # Has the member reached the minimum shift limit?
-        # If so, add them to the potential crew list
-        if current_shift_count >= min_shifts
+        if eligible == 0
+          # Add the member to the potential list
           potential_crew << member
-          next
+        else
+          # We made it here, add the member to the crew list
+          crew_list << member
         end
-
-        # We made it here, add the member to the crew list
-        crew_list << member
       end
 
       # If the crew list is empty but we have potential crew members, re-run using those

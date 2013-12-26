@@ -14,29 +14,22 @@ class Skill < ActiveRecord::Base
   scope :crewable, -> { where(:category => :crew) }
   scope :castable, -> { where(:category => :cast) }
 
-  scope :find_code, lambda { |code| where(code: code.to_s.upcase) }
+  scope :with_code, lambda { |code| where(code: code.to_s.upcase) }
 
   scope :by_code, -> { order(:code) }
 
-  def self.categories
-    %w(cast crew performance)
-  end
-
   class << self
-    def method_missing(method_id, *arguments, &block)
-      obj = find_code(method_id).first
-      return obj unless obj.blank?
-
-      super
+    def categories
+      %w(cast crew performance)
     end
 
-    def respond_to?(method_id, include_private = false)
-      if find_code(method_id).empty?
-        super
-      else
-        true
-      end
-    end
+    #def method_missing(method_id, *arguments, &block)
+    #  with_code(method_id).first || super
+    #end
+
+    #def respond_to?(method_id, include_private = false)
+    #  !with_code(method_id).first.nil?
+    #end
   end
 
 end

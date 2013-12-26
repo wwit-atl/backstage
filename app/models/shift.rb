@@ -5,7 +5,7 @@ class Shift < ActiveRecord::Base
 
   validates_presence_of :show_id
 
-  scope :with_skill, lambda { |code| joins(:skill).where(skills: {code: code.to_s.upcase}) }
+  scope :with_skill, lambda { |code| joins(:skill).where(skills: {code: code.to_s.upcase}).readonly(false).first }
   scope :by_skill, -> { joins(:skill).order('skills.code') }
   scope :by_show_date, -> { joins(:show).order('shows.date') }
   scope :by_skill_priority, -> { joins(:skill).order('skills.priority').readonly(false) }
