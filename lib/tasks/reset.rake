@@ -1,17 +1,21 @@
 desc 'Reset DB and prepare test database.'
 task :reset do
+
   puts '--> Dropping databases'
-  Rake.application.invoke_task('db:drop:all')
+  Rake::Task['db:drop:all'].invoke
 
   puts '--> Creating databases'
-  Rake.application.invoke_task('db:create:all')
-  Rake.application.invoke_task('db:migrate')
-  Rake.application.invoke_task('db:seed')
+  Rake::Task['db:create:all'].invoke
+  puts '    ... Migrating'
+  Rake::Task['db:migrate'].invoke
+  puts '    ... Seeding'
+  Rake::Task['db:seed'].invoke
 
   puts '--> Prepping test database'
-  Rake.application.invoke_task('db:test:prepare')
+  Rake::Task['db:test:prepare'].invoke
 
   puts '--> Creating development records'
-  Rake.application.invoke_task('members:create:all')
-  Rake.application.invoke_task('shows:create')
+  Rake::Task['members:create:all'].invoke
+  Rake::Task['shows:create'].invoke
+
 end
