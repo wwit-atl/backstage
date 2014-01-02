@@ -13,7 +13,7 @@ FactoryGirl.define do
       after(:create) do |show|
           FactoryGirl.create(:shift,
               show: show,
-              skill: show.skills.where(code: 'HM').first,
+              skill: show.skills.where(code: skill).first,
               member: Member.crewable.sample
           )
       end

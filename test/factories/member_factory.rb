@@ -30,9 +30,7 @@ FactoryGirl.define do
     trait :admin do
       firstname 'admin'
       lastname  'person'
-      after(:create) do |member|
-        member.add_role :admin
-      end
+      after(:create) { |member| member.add_role :admin }
     end
 
     trait :train_hm do
