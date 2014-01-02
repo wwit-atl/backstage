@@ -12,8 +12,8 @@ if ENV['RUBYMINE_TESTUNIT_REPORTER']
 else
   #MiniTest::Reporters.use! MiniTest::Reporters::DefaultReporter.new
   #MiniTest::Reporters.use! MiniTest::Reporters::ProgressReporter.new
-  MiniTest::Reporters.use! MiniTest::Reporters::SpecReporter.new
-  #MiniTest::Reporters.use! MiniTest::Reporters::GuardReporter.new
+  #MiniTest::Reporters.use! MiniTest::Reporters::SpecReporter.new
+  MiniTest::Reporters.use! MiniTest::Reporters::GuardReporter.new
 end
 
 class ActiveSupport::TestCase
