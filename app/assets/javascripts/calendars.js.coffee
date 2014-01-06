@@ -33,8 +33,11 @@ calendar_ready = ->
          data:
            date: date
 
-#      $(this).toggleClass('selected')
-      location.reload()
+      $.ajax
+        url: "",
+        context: document.body,
+        success: (s,x) ->
+          $(this).html(s)
 
 $(document).ready(calendar_ready)
 $(document).on 'page:load', calendar_ready

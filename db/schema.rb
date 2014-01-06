@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 20131014172637) do
     t.integer "skill_id"
   end
 
-  add_index "members_skills", ["member_id"], name: "index_members_skills_on_member_id", using: :btree
-  add_index "members_skills", ["skill_id"], name: "index_members_skills_on_skill_id", using: :btree
+  add_index "members_skills", ["member_id", "skill_id"], name: "index_members_skills_on_member_id_and_skill_id", using: :btree
+  add_index "members_skills", ["skill_id", "member_id"], name: "index_members_skills_on_skill_id_and_member_id", using: :btree
 
   create_table "notes", force: true do |t|
     t.text     "content"
@@ -171,6 +171,9 @@ ActiveRecord::Schema.define(version: 20131014172637) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "skills", ["code"], name: "index_skills_on_code", using: :btree
+  add_index "skills", ["name"], name: "index_skills_on_name", using: :btree
 
   create_table "stages", force: true do |t|
     t.string   "code"

@@ -6,25 +6,18 @@ Backstage::Application.routes.draw do
     resources :notes
   end
 
+  resources :show_templates
+  resources :skills,  :concerns => :notable
+  resources :shows,   :concerns => :notable
+
   resources :members, :concerns => :notable do
-    resource :conflicts do
+    resource :conflicts, only: [] do
       get :manage
       get :get_conflicts, :as => :get
       get :set_conflicts, :as => :set
     end
   end
-
-  resources :skills,  :concerns => :notable
-  resources :shows,   :concerns => :notable
-  resources :show_templates
-
-  #resources :conflicts, only: [ :index, :edit, :update ] do
-  #  collection do
-  #    get :manage, :to => :edit
-  #    post :manage, :to => :get_conflicts
-  #    get :get_conflicts, :as => :get
-  #  end
-  #end
+  get '/conflicts', to: 'conflicts#index'
 
   resources :configs, controller: 'konfigs', only: [ :index, :update ] do
     collection do
