@@ -1,0 +1,17 @@
+%h1 Listing conflicts
+
+= will_paginate @members
+%table
+  %tr
+    %th Member Name
+    %th Upcoming Conflicts
+    %th
+
+  - @members.each do |member|
+    %tr
+      %td= link_to member.name, member
+      %td= member.conflicts.future.empty? ? 'No Upcoming Conflicts' : member.conflicts.future.map { |c| c.us_date }.to_sentence
+      %td= link_to 'Manage', manage_member_conflicts_path(member)
+
+= will_paginate @members
+

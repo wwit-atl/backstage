@@ -1,9 +1,10 @@
 class ConflictsController < ApplicationController
-  before_action :get_member, :get_config
+  before_action :get_member, :get_config, except: [:index]
 
   # GET /conflicts
   # GET /conflicts.json
   def index
+    admin_only!
     @members = Member.by_name.paginate(:page => params[:page], :per_page => 30)
     respond_to do |format|
       format.html
@@ -47,49 +48,8 @@ class ConflictsController < ApplicationController
         flash[:error] = 'Oops, there was a problem updating conflicts'
       end
     end
-    #redirect_to manage_member_conflicts_path(@member)
     render action: 'manage'
   end
-
-  # POST /conflicts
-  # POST /conflicts.json
-  #def create
-  #  @conflict = Conflict.new(conflict_params)
-  #
-  #  respond_to do |format|
-  #    if @conflict.save
-  #      format.html { redirect_to @conflict, notice: 'Conflict was successfully created.' }
-  #      format.json { render action: 'show', status: :created, location: @conflict }
-  #    else
-  #      format.html { render action: 'new' }
-  #      format.json { render json: @conflict.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
-
-  # PATCH/PUT /conflicts/1
-  # PATCH/PUT /conflicts/1.json
-  #def update
-  #  respond_to do |format|
-  #    if @conflict.update(conflict_params)
-  #      format.html { redirect_to @conflict, notice: 'Conflict was successfully updated.' }
-  #      format.json { head :no_content }
-  #    else
-  #      format.html { render action: 'edit' }
-  #      format.json { render json: @conflict.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
-
-  # DELETE /conflicts/1
-  # DELETE /conflicts/1.json
-  #def destroy
-  #  @conflict.destroy
-  #  respond_to do |format|
-  #    format.html { redirect_to conflicts_url }
-  #    format.json { head :no_content }
-  #  end
-  #end
 
   private
     # Use callbacks to share common setup or constraints between actions.

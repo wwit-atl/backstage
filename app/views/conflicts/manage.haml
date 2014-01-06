@@ -12,7 +12,7 @@
 
 .conflicts
   .instructions
-    Please click on a day to set or remove a conflict. RED indicates conflicts.
+    Please click on a day to set or remove a conflict. RED indicates current conflicts, PURPLE are locked conflicts (cannot be changed)
   .max_note
     Please note, you may choose a maximum of #{@max_conflicts} per month.  We won't stop you from selecting more, but anything over that limit may be ignored.
   #conflict_calendar{ data: { source_url: get_member_conflicts_url(@member), update_url: set_member_conflicts_url(@member) } }
