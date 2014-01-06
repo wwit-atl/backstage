@@ -29,6 +29,16 @@
       - if @shifts.empty?
         %li No upcoming Shifts
 
+  .conflicts
+    Your conflicts
+    .conflict
+      %ul
+        - @conflicts.each do |conflict|
+          %li= conflict.date
+        - if @conflicts.empty?
+          %li No Conflicts
+    = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
+
   .notes
     Notes
     = render 'notes/notes'

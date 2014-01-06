@@ -11,7 +11,7 @@
       - if member.conflicts.empty?
         %td No Conflicts
       - else
-        %td= member.conflicts.by_date.map { |c| format_date(c.date) }.to_sentence
+        %td= member.conflicts.by_date.map { |c| c.date }.to_sentence
 
   = will_paginate @members
 

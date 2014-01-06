@@ -24,6 +24,7 @@ class MembersController < ApplicationController
     @shows = @member.shows.recent.by_date
     @shifts = @member.shifts.recent.by_show_date
     @skills = @member.skills
+    @conflicts = @member.conflicts.current
 
     @notable = @member
     @notes = @notable.notes
