@@ -25,6 +25,7 @@ gem 'fullcalendar-rails'
 
 gem 'devise', '~> 3.1.0'
 gem 'rolify', github: 'EppO/rolify'
+gem 'cancan'
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
 gem 'chosen-rails'
 
