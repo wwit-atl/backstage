@@ -6,12 +6,20 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_member!
   #before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  alias_method :current_user, :current_member
+
   def admin_only!
-    if current_member and ! current_member.is_admin?
-      render 'public/403', :status => :unauthorized
-    end
+    unauthorized unless ( current_member and current_member.is_admin? )
   end
   helper_method :admin_only!
+
+  def authorized?(member = Member.none)
+    unauthorized unless ( current_member and ( current_member.is_admin? or current_member.id == member.id ) )
+  end
+
+  def unauthorized
+    render 'public/403', :status => :unauthorized
+  end
 
   protected
 
@@ -23,4 +31,5 @@ class ApplicationController < ActionController::Base
       u.permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
   end
+
 end

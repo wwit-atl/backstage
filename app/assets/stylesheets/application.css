@@ -15,3 +15,11 @@
  *= require fullcalendar
  *= require_tree .
  */
+
+.red {
+    color: red;
+}
+
+.darkred {
+    color: darkred;
+}

@@ -1,4 +1,4 @@
-%h1 Manage Conflicts for #{@member.name}
+%h1 Conflicts for #{@member.name}
 
 -#= simple_form_for :conflicts do |f|
 -#  = f.input :member,
@@ -8,11 +8,35 @@
 -#    member: @selected.id,
 -#    input_html: { class: 'chosen-select', onchange: 'submit()' }
 
-= "Current Conflicts: #{@conflicts.empty? ? 'None' : @conflicts.map{ |c| c.date }.to_sentence}"
 
-.conflicts
+#conflicts
   .instructions
-    Please click on a day to set or remove a conflict. RED indicates current conflicts, PURPLE are locked conflicts (cannot be changed)
-  .max_note
-    Please note, you may choose a maximum of #{@max_conflicts} per month.  We won't stop you from selecting more, but anything over that limit may be ignored.
-  #conflict_calendar{ data: { source_url: get_member_conflicts_url(@member), update_url: set_member_conflicts_url(@member) } }
+    Please click on a day to set or remove a conflict.  You may not choose a date from the past.
+  - if @conflict_count >= @max_conflicts
+    =content_tag('div', class: '.max_note', class: "#{'over-limit' if @conflict_count > @max_conflicts}") do
+      Please note, you may choose a maximum of #{@max_conflicts} conflicts per month
+      and you currently have #{@conflict_count} chosen.
+      %br While we won't stop you from adding more, anything beyond the first #{@max_conflicts} may be ignored during scheduling.
+
+  %h2#month
+    //We don't use TurboLinks for the navigation buttons because it breaks our JS
+    = link_to '<', { date: @date.prev_month }, data: { no_turbolink: true }
+    = @date_string
+    = link_to '>', { date: @date.next_month }, data: { no_turbolink: true }
+
+    = button_to 'Today', { date: false }, method: :get
+
+  = calendar( date: @date,
+              events: @conflicts,
+              css_class: 'conflict',
+              abilities: { admin: @current_member.is_admin?,
+                          update: can?(:update, @member) },
+              click_url: "#{set_member_conflicts_url(@member)}" ) do |date|
+    = date.day
+
+  .legend
+    %span.red RED
+    days indicate current conflicts.
+    %span.darkred DARKRED
+    days are locked conflicts (which cannot be changed)
+  .summary= "Conflicts for #{@date_string}: #{@conflicts_this_month.empty? ? 'None' : @conflicts_this_month.map{ |c| c.datetime.day }.to_sentence}"

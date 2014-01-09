@@ -1,5 +1,6 @@
 class ConflictsController < ApplicationController
   before_action :get_member, :get_config, except: [:index]
+  before_action :authorize, :except => :index
 
   # GET /conflicts
   # GET /conflicts.json
@@ -14,41 +15,45 @@ class ConflictsController < ApplicationController
   end
 
   def manage
-    @conflicts = @member.conflicts.current
-    respond_to do |format|
-      format.html
-      format.json { render json: @member.conflicts }
-      format.js   { render json: @member.conflicts }
-    end
+    unauthorized unless can? :read, @member
+
+    @conflicts = @member.conflicts
+
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @date_string = @date.strftime("%B %Y")
+
+    @conflicts_this_month = @conflicts.for_month(@date.month, @date.year)
+    @conflict_count = @conflicts_this_month.count
   end
 
   def get_conflicts
     respond_to do |format|
-      format.html
+      format.html { render 'public/403' }
       format.json { render json: @member.conflicts }
       format.js   { render json: @member.conflicts }
     end
   end
 
   def set_conflicts
-    # TODO: Need to check authentication here!
-
     @conflict = @member.conflicts.for_date(params[:date]).first
 
     if @conflict
       @conflict.destroy
+      flash[:success] = 'Conflict removed'
     else
       conflict_date = Date.parse(params[:date])
-      unless Conflict.create(
+      if Conflict.create(
           month: conflict_date.month,
           day:   conflict_date.day,
           year:  conflict_date.year,
           member: @member
       )
-        flash[:error] = 'Oops, there was a problem updating conflicts'
+        flash[:success] = 'Conflict added'
+      else
+        flash.now[:error] = 'Oops, there was a problem updating conflicts'
       end
     end
-    render action: 'manage'
+    redirect_to manage_member_conflicts_path(@member)
   end
 
   private
@@ -56,9 +61,12 @@ class ConflictsController < ApplicationController
     #def set_conflict
     #  @conflict = Conflict.find(params[:id])
     #end
+    def authorize
+      authorized?(@member)
+    end
 
     def get_config
-      @max_conflicts = Konfig.member_max_conflicts
+      @max_conflicts = Konfig.member_max_conflicts.to_i
     end
 
     def get_member

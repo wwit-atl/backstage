@@ -32,20 +32,14 @@ class Conflict < ActiveRecord::Base
     date.to_time
   end
 
-  def db_date
-    datetime.to_formatted_s(:db)
+  def locked?
+    datetime < Date.today
   end
 
-  def as_json(options = {})
-    {
-        :id => self.id,
-        :title => '** CONFLICT **',
-        :start => self.db_date,
-        :allDay => true,
-        :recurring => false,
-        :color => 'red',
-        :textColor => 'darkred'
-    }
+  def css_class
+    css = ['conflict']
+    css << 'locked' if locked?
+    css.join(' ')
   end
 
 end
