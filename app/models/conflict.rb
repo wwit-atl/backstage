@@ -37,7 +37,7 @@ class Conflict < ActiveRecord::Base
   end
 
   def css_class
-    css = ['conflict']
+    css = []
     css << 'locked' if locked?
     css.join(' ')
   end

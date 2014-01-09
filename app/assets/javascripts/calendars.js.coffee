@@ -1,9 +1,9 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-window.calendarClick = (eventDate, cssClass, linkURL) ->
+window.calendarClick = (eventDate, linkURL) ->
   event = $(document.getElementById(eventDate))
-  event.toggleClass(cssClass)
+  event.toggleClass('selected')
 
   # Set or Remove conflicts
   $.ajax

@@ -3,12 +3,11 @@ module CalendarHelper
     date = options[:date] || Date.today
     events = options[:events] || {}
     click_url = options[:click_url] || nil
-    css_class = options[:css_class] || ''
     abilities = options[:abilities] || { admin: false, update: false }
-    Calendar.new(self, date, events, click_url, css_class, abilities, block).table
+    Calendar.new(self, date, events, click_url, abilities, block).table
   end
 
-  class Calendar < Struct.new(:view, :date, :events, :url, :css_class, :abilities, :callback)
+  class Calendar < Struct.new(:view, :date, :events, :url, :abilities, :callback)
     HEADER = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
     START_DAY = :sunday
 
@@ -39,7 +38,7 @@ module CalendarHelper
       click_function = ''
 
       if abilities[:update]
-        click_function = "calendarClick('#{day}', '#{css_class}', '#{url}')"
+        click_function = "calendarClick('#{day}', '#{url}')"
 
         if day < Date.today and not abilities[:admin]
           click_function = 'alert("Sorry, but you can\'t select days in the past")'
@@ -53,12 +52,14 @@ module CalendarHelper
     end
 
     def day_classes(day)
+      event = event(day)
       classes = ['cal-day']
       classes << 'past'     if day < Date.today
       classes << 'today'    if day == Date.today
       classes << 'notmonth' if day.month != date.month
-      classes << event(day).css_class if event(day).respond_to?(:css_class)
-      classes.join(' ')
+      classes << 'selected' unless event.nil?
+      classes << event.try(:css_class)
+      classes.flatten.compact.join(' ')
     end
 
     def weeks
