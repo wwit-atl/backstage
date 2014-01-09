@@ -39,20 +39,18 @@ class ConflictsController < ApplicationController
 
     if @conflict
       @conflict.destroy
-      flash[:success] = 'Conflict removed'
     else
       conflict_date = Date.parse(params[:date])
-      if Conflict.create(
+      unless Conflict.create(
           month: conflict_date.month,
           day:   conflict_date.day,
           year:  conflict_date.year,
           member: @member
       )
-        flash[:success] = 'Conflict added'
-      else
-        flash.now[:error] = 'Oops, there was a problem updating conflicts'
+        flash[:alert] = 'Oops, there was a problem updating conflicts'
       end
     end
+    flash[:notice] = 'HEY!'
     redirect_to manage_member_conflicts_path(@member)
   end
 
