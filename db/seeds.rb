@@ -62,7 +62,7 @@ end
 # Create Skills
 #
 puts 'Create Skills'
-#  Pri,  Code,  Name, Description,         cat,    train?, rank?, autocrew?
+#  Pri,  Code,  Name,         Description, cat,   train?, rank?, autocrew?
 [
   [ 0,   'MC', 'Master of Ceremonies', '', 'crew', true,  true,  false ],
   [ 1,   'HM', 'House Manager',        '', 'crew', true,  true,  true  ],

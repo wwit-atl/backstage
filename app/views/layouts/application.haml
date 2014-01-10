@@ -7,11 +7,12 @@
     = csrf_meta_tags
 
   %body
-    = p flash.inspect
-    = flash.each do |name, message|
-      = content_tag(:div, message, :class => "flash_#{name}")
+    #flash-messages
+      - flash.each do |name, message|
+        = content_tag(:div, message, :class => "flash_#{name}")
 
+    = render 'partials/body_header'
     = render 'devise/menu/login_items'
 
-    = yield
+    .container= yield
 
