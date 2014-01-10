@@ -26,7 +26,7 @@ class Member < ActiveRecord::Base
   scope :has_role,  ->(role) { joins(:roles).where(roles: {name: role}) }
   scope :has_skill, ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
 
-  scope :by_name, -> { order(:lastname) }
+  scope :by_name, -> { order([:firstname, :lastname]) }
 
   def fullname
     [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')

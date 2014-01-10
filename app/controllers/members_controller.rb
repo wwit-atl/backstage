@@ -14,7 +14,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.order(lastname: :asc)
+    @members = Member.by_name.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /members/1

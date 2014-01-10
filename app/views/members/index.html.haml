@@ -1,29 +1,30 @@
 %h1 Listing members
 
-%table
-  %tr
-    %th Name
-    %th Email
-    %th Phone(s)
-    %th Shifts(s)
-    %th
-
-  - @members.each do |member|
+#member-list
+  %table
     %tr
-      %td= member.fullname
-      %td= member.email
-      %td
-        %ul
-          - member.shifts
-      %td
-        %ul
-          - member.phones.by_type.each do |phone|
-            %li= phone.listing
+      %th Name
+      %th Email
+      %th Phone(s)
+      %th Role(s)
+      %th
 
-      %td= link_to 'View', member
-      %td= link_to 'Edit', edit_member_path(member)
-      %td= link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - @members.each do |member|
+      %tr
+        %td.name= member.fullname
+        %td.email= mail_to member.email
+        %td.phone
+          %ul
+            - member.phones.by_type.each do |phone|
+              %li= phone.listing
+        %td= member.roles.by_name.map{|r| r.name}.join(', ')
 
-%br
+        %td= link_to 'View', member
+        %td= link_to 'Edit', edit_member_path(member)
+        %td= link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to 'New Member', new_member_path
+  = will_paginate @members
+  %br
+
+  -if current_member.is_admin?
+    = link_to 'New Member', new_member_path

@@ -7,7 +7,7 @@
           %li= msg
 
   .field
-    = f.label 'Full Name'
+    = f.label 'Full Name', required: true
     = f.input_field :firstname, placeholder: 'first'
     = f.input_field :lastname, placeholder: 'last'
   .field= f.input :email
@@ -23,7 +23,7 @@
     .links= link_to_add_association button_tag('Add Phone'), f, :phones
 
   - if current_member.is_admin?
-    .field= f.association :skills, :label_method => :description
+    .field= f.association :skills, :label_method => :name
     .field= f.association :roles,  :label_method => :title, as: 'check_boxes'
 
   .actions= f.submit 'Save'
