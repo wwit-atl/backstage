@@ -1,0 +1,80 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require jquery.ui.all
+ *= require jquery.timepicker.css
+ *= require chosen
+ *= require_tree .
+ */
+
+@import "bourbon";
+@import "grid-settings";
+@import "neat";
+
+div.container {
+  @include outer-container;
+}
+
+body {
+  @include clearfix;
+  margin: 0;
+  padding: 0;
+}
+
+#main-navigation {
+  clear: both;
+  background-color: red;
+
+  .menu {
+    @include outer-container;
+
+    ul {
+      @include span-columns(12);
+      list-style-type: none;
+      margin:  0;
+      padding: 10px;
+      height: 50px;
+
+      li {
+        float: left;
+        width: $column + $gutter;
+
+        a {
+          @include inline-block;
+        }
+      }
+    }
+  }
+}
+
+#body-header {
+  float: right;
+  padding: 0 10px 0 0;
+
+  ul {
+    list-style-type: none;
+    text-align: right;
+
+    li {
+      width: 300px;
+      clear: both;
+    }
+  }
+}
+
+.red {
+    color: red;
+}
+
+.darkred {
+    color: darkred;
+}
+
