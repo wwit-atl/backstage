@@ -1,17 +1,27 @@
-%h1 Listing conflicts
+#conflicts-index
+  %h1 Listing conflicts
 
-= will_paginate @members
-%table
-  %tr
-    %th Member Name
-    %th Upcoming Conflicts
-    %th
-
-  - @members.each do |member|
+  = will_paginate @members
+  %table
     %tr
-      %td= link_to member.name, member
-      %td= member.conflicts.future.empty? ? 'No Upcoming Conflicts' : member.conflicts.future.map { |c| c.us_date }.to_sentence
-      %td= link_to 'Manage', manage_member_conflicts_path(member)
+      %th Member Name
+      %th Upcoming Conflicts
+      %th Over Limit?
+      %th
 
-= will_paginate @members
+    - @members.each do |member|
+      - future_conflicts = []
+      - over_limit = false
+      - member.conflicts.future.group_by{ |c| c.month }.each do |k,v|
+        - if v.count > @max_conflicts
+          - over_limit = true
+          - future_conflicts << k
+
+      %tr{ class: cycle('even', 'odd') }
+        %td.name= link_to member.name, member
+        %td.upcoming= member.conflicts.future.empty? ? 'No Upcoming Conflicts' : member.conflicts.future.map { |c| c.us_date }.to_sentence
+        %td.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
+        %td.manage= link_to 'Manage', manage_member_conflicts_path(member)
+
+  = will_paginate @members
 

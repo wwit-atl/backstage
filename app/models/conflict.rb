@@ -13,8 +13,9 @@ class Conflict < ActiveRecord::Base
   scope :this_month, -> { for_month( Date.today.month ) }
   scope :next_month, -> { for_month( (Date.today + 1.month).month, (Date.today + 1.month).year) }
   scope :this_year,  -> { for_year( Date.today.year ) }
+
   scope :current, -> { this_month | next_month }
-  scope :future, -> { where('year >= ?', Date.today.year).where('month >= ?', Date.today.month).where('day >= ?', Date.today.day) }
+  scope :future,  -> { where('year >= ?', Date.today.year).where('month > ?', Date.today.month) }
 
   scope :by_date, -> { order([:year, :month, :day]) }
 
@@ -30,6 +31,10 @@ class Conflict < ActiveRecord::Base
 
   def datetime
     date.to_time
+  end
+
+  def future
+    date > Date.today
   end
 
   def locked?

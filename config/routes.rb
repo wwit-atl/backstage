@@ -14,7 +14,7 @@ Backstage::Application.routes.draw do
     resource :conflicts, only: [] do
       get :manage
       get :get_conflicts, :as => :get
-      get :set_conflicts, :as => :set
+      put :set_conflicts, :as => :set
     end
   end
   get '/conflicts', to: 'conflicts#index'

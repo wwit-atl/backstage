@@ -2,13 +2,11 @@ module CalendarHelper
   def calendar(options = {}, &block)
     date = options[:date] || Date.today
     events = options[:events] || {}
-    click_url = options[:click_url] || nil
-    abilities = options[:abilities] || { admin: false, update: false }
-    Calendar.new(self, date, events, click_url, abilities, block).table
+    Calendar.new(self, date, events, block).table
   end
 
-  class Calendar < Struct.new(:view, :date, :events, :url, :abilities, :callback)
-    HEADER = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+  class Calendar < Struct.new(:view, :date, :events, :callback)
+    HEADER = %w[Sun Mon Tues Wed Thu Fri Sat]
     START_DAY = :sunday
 
     delegate :content_tag, to: :view
@@ -35,20 +33,9 @@ module CalendarHelper
     end
 
     def day_cell(day)
-      click_function = ''
-
-      if abilities[:update]
-        click_function = "calendarClick('#{day}', '#{url}')"
-
-        if day < Date.today and not abilities[:admin]
-          click_function = 'alert("Sorry, but you can\'t select days in the past")'
-        end
-      end
-
       content_tag :td, view.capture(day, &callback),
                   id: day.to_formatted_s(:db),
-                  class: day_classes(day),
-                  onclick: click_function
+                  class: day_classes(day)
     end
 
     def day_classes(day)

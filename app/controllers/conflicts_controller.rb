@@ -1,6 +1,6 @@
 class ConflictsController < ApplicationController
-  before_action :get_member, :get_config, except: [:index]
-  before_action :authorize, :except => :index
+  before_action :get_member, :except => :index
+  before_action :authorize, :get_config
 
   # GET /conflicts
   # GET /conflicts.json
@@ -35,23 +35,25 @@ class ConflictsController < ApplicationController
   end
 
   def set_conflicts
-    @conflict = @member.conflicts.for_date(params[:date]).first
+    @conflict_date = params[:date]
+    @conflict = @member.conflicts.for_date(@conflict_date).first
 
     if @conflict
       @conflict.destroy
     else
-      conflict_date = Date.parse(params[:date])
-      unless Conflict.create(
-          month: conflict_date.month,
-          day:   conflict_date.day,
-          year:  conflict_date.year,
-          member: @member
-      )
+      conflict_date = Date.parse(@conflict_date)
+      unless Conflict.create( month: conflict_date.month,
+                              day:   conflict_date.day,
+                              year:  conflict_date.year,
+                              member: @member )
         flash[:alert] = 'Oops, there was a problem updating conflicts'
       end
     end
-    flash[:notice] = 'HEY!'
-    redirect_to manage_member_conflicts_path(@member)
+
+    respond_to do |format|
+      format.html { redirect_to manage_member_conflicts_path(@member) }
+      format.js {}
+    end
   end
 
   private
@@ -64,7 +66,7 @@ class ConflictsController < ApplicationController
     end
 
     def get_config
-      @max_conflicts = Konfig.member_max_conflicts.to_i
+      @max_conflicts = Konfig.member_max_conflicts
     end
 
     def get_member

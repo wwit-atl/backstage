@@ -10,33 +10,46 @@
 
 
 #conflicts
-  .instructions
-    Please click on a day to set or remove a conflict.  You may not choose a date from the past.
-  - if @conflict_count >= @max_conflicts
-    =content_tag('div', class: '.max_note', class: "#{'over-limit' if @conflict_count > @max_conflicts}") do
-      Please note, you may choose a maximum of #{@max_conflicts} conflicts per month
-      and you currently have #{@conflict_count} chosen.
-      %br While we won't stop you from adding more, anything beyond the first #{@max_conflicts} may be ignored during scheduling.
+  - if @member.is_crewable? or @member.has_role(:actor)
 
-  %h2#month
-    //We don't use TurboLinks for the navigation buttons because it breaks our JS
-    = link_to '<', { date: @date.prev_month }, data: { no_turbolink: true }
-    = @date_string
-    = link_to '>', { date: @date.next_month }, data: { no_turbolink: true }
+    %h2#month
+      //We don't use TurboLinks for the navigation buttons because it breaks our JS
+      = link_to '<', { date: @date.prev_month }
+      = @date_string
+      = link_to '>', { date: @date.next_month }
 
-    = button_to 'Today', { date: false }, method: :get
+      -#= button_to 'Today', { date: false }, method: :get
 
-  = calendar( date: @date,
-              events: @conflicts,
-              css_class: 'conflict',
-              abilities: { admin: @current_member.is_admin?,
-                          update: can?(:update, @member) },
-              click_url: "#{set_member_conflicts_url(@member)}" ) do |date|
-    = date.day
+    =content_tag('div', id: 'max-note',
+        class: [ @conflict_count  > @max_conflicts ? 'over-limit' : nil,
+                 @conflict_count == @max_conflicts ? 'at-limit'   : nil ],
+        data: { max_conflicts: @max_conflicts }) do
+      You have selected
+      %span.cur-count= @conflict_count
+      of your
+      %span.max-count= @max_conflicts
+      conflicts.
 
-  .legend
-    %span.red RED
-    days indicate current conflicts.
-    %span.darkred DARKRED
-    days are locked conflicts (which cannot be changed)
-  .summary= "Conflicts for #{@date_string}: #{@conflicts_this_month.empty? ? 'None' : @conflicts_this_month.map{ |c| c.datetime.day }.to_sentence}"
+      =content_tag('div', class: [ 'over-limit-note', @conflict_count <= @max_conflicts ? 'hidden' : nil ] ) do
+        Any beyond the first #{@max_conflicts} may be ignored during scheduling.
+
+    = calendar( date: @date, events: @conflicts ) do |date|
+      -if Date.today <= date or current_member.is_admin?
+        = link_to date.day, { date: date, :action => :set_conflicts }, :method => :put, remote: true, onclick: "calendarClick('#{date.to_s}')"
+      - else
+        = date.day
+
+    .instructions
+      Please tap or click on a day to set or remove a conflict.
+      = 'You may not choose a date from the past.' unless current_member.is_admin?
+
+    .legend
+      %span.red RED
+      days indicate current conflicts.
+      %span.darkred DARKRED
+      days are locked conflicts (which cannot be changed)
+
+    -#.summary= "Conflicts for #{@date_string}: #{@conflicts_this_month.empty? ? 'None' : @conflicts_this_month.map{ |c| c.datetime.day }.to_sentence}"
+
+  - else
+    Sorry, but this member doesn't use conflicts.

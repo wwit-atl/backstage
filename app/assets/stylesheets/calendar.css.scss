@@ -1,6 +1,9 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bourbon';
+@import 'neat';
+
 #conflicts
   .calendar {
     border-collapse: collapse;
@@ -26,18 +29,40 @@
       height: 80px;
       vertical-align: top;
       font-size: 16px;
+      margin: 0;
+      padding: 0;
+      &:hover {
+        border: 2px solid orange;
+      }
     }
 
     .past { background-color: #EEE }
     .notmonth, .notmonth a { color: #BBB; }
     .today { background-color: #D7F2FF; }
+
     .selected {
       color: #EEE;
       background-color: red;
     }
+
     .locked {
       color: #BBB;
       background-color: darkred;
+    }
+
+    .cal-day {
+      padding: 5px;
+
+      a {
+        display: block;
+        height: 100%;
+        text-decoration: none;
+
+        &:hover {
+          color: inherit;
+          background-color: transparent;
+        }
+      }
     }
   }
 

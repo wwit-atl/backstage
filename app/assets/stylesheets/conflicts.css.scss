@@ -2,3 +2,46 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#conflicts {
+  #max-note {
+    margin: 5px;
+    border: 3px solid green;
+    padding: 5px;
+    background: rgba(green, 0.2);
+    font-weight: normal;
+
+    &.at-limit {
+      font-weight: bold;
+    }
+
+    &.over-limit {
+      border: 3px solid red;
+      background: rgba(red, 0.2);
+      font-weight: bold;
+    }
+  }
+}
+
+#conflicts-index {
+  .over-limit {
+    color: red;
+    font-weight: bold;
+  }
+  .under-limit {
+    color: green;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    td {
+      padding: 5px 10px;
+      border: none;
+    }
+
+    tr.even {
+      background-color: rgba(lightgray, 0.5);
+    }
+  }
+}
