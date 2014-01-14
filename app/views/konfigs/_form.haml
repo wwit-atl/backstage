@@ -4,7 +4,7 @@
   %table
     - @configs.each do |config|
       %tr
-        %td= config.name
+        %td= config.name.tableize.humanize.titleize
         = fields_for "konfig_ids[]", config do |c|
           %td= c.text_field :value
   = submit_tag "Update All"
