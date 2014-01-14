@@ -12,19 +12,13 @@
  *= require jquery.ui.all
  *= require jquery.timepicker.css
  *= require chosen
+ *= require_tree .
  */
 
-@import 'bourbon';
-@import 'grid-settings';
-@import 'bitters/bitters';
-@import 'neat';
-
 div.container {
-  @include outer-container;
 }
 
 body {
-  @include clearfix;
   margin: 0;
   padding: 0;
 }
@@ -34,10 +28,8 @@ body {
   background-color: red;
 
   .menu {
-    @include outer-container;
 
     ul {
-      @include span-columns(12);
       list-style-type: none;
       margin:  0;
       padding: 10px;
@@ -45,10 +37,9 @@ body {
 
       li {
         float: left;
-        width: $column + $gutter;
+        width: 100%;
 
         a {
-          @include inline-block;
         }
       }
     }
@@ -82,9 +73,3 @@ body {
   display: none;
 }
 
-@import 'forms';
-@import 'calendar';
-@import 'conflicts';
-@import 'konfigs';
-@import 'members';
-@import 'notes';
