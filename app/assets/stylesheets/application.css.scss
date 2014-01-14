@@ -12,7 +12,6 @@
  *= require jquery.ui.all
  *= require jquery.timepicker.css
  *= require chosen
- *= require_tree .
  */
 
 div.container {
@@ -73,3 +72,12 @@ body {
   display: none;
 }
 
+@import 'bootstrap';
+@import 'bootstrap/theme';
+
+@import 'forms';
+@import 'calendar';
+@import 'conflicts';
+@import 'members';
+@import 'shows';
+@import 'notes';
