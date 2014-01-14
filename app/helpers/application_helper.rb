@@ -18,4 +18,13 @@ module ApplicationHelper
     return date.strftime('%m/%d/%Y') if date.respond_to?(:strftime)
     'Invalid Date Format'
   end
+
+  def bs_alert_name(name)
+    case name
+      when :notice then 'alert-info'
+      when :alert  then 'alert-warning'
+      when :error  then 'alert-danger'
+      else "alert-#{name}"
+    end
+  end
 end
