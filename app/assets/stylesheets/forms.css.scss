@@ -1,0 +1,15 @@
+#sign-in-form, #konfig-form {
+  @include outer-container;
+
+  form {
+    @include span-columns(6);
+    @include shift(3);
+  }
+}
+
+#konfig-form {
+  td.label {
+    text-align: right;
+    padding-right: 10px;
+  }
+}

@@ -17,11 +17,16 @@
           %ul
             - member.phones.by_type.each do |phone|
               %li= phone.listing
+
         %td= member.roles.by_name.map{|r| r.name}.join(', ')
 
-        %td= link_to 'View', member
-        %td= link_to 'Edit', edit_member_path(member)
-        %td= link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if current_member.is_admin?
+          %td
+            = link_to 'View', member
+            = '|'
+            = link_to 'Edit', edit_member_path(member)
+            = '|'
+            = link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   = will_paginate @members
   %br

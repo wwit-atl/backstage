@@ -32,6 +32,7 @@ gem 'chosen-rails'
 gem 'simple_form'
 gem 'bourbon'
 gem 'neat'
+gem 'bitters'
 
 gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'

@@ -9,7 +9,7 @@
   %body
     #flash-messages
       - flash.each do |name, message|
-        = content_tag(:div, message, :class => "flash_#{name}")
+        = content_tag(:div, message, :class => name)
 
     = render 'partials/body_header'
     = render 'devise/menu/login_items'

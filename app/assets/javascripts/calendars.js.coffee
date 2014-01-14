@@ -15,7 +15,7 @@ window.calendarClick = (eventDate) ->
   noteDiv = $('#max-note')
 
   # Get how many conflicts are curretly selected
-  curCount = $('.selected').length
+  curCount = $('.selected').not('.notmonth').length
 
   # What's our max?  (sent via data-max-conflicts)
   maxCount = noteDiv.attr('data-max-conflicts')
