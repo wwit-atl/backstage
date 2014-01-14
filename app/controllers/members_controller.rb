@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :update]
+  skip_before_action :authenticate_member!, only: [:show]
 
   def dashboard
     @member = current_member
@@ -40,7 +41,6 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @current_member = current_member
   end
 
   # POST /members
@@ -53,7 +53,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       if @member.save
         #format.html { redirect_to @member, notice: 'Member was successfully created.' }
-        format.html { redirect_to action: 'index', notice: 'Member was successfully created.' }
+        format.html { redirect_to members_path, notice: 'Member was successfully created.' }
         format.json { render action: 'show', status: :created, location: @member }
       else
         format.html { render action: 'new' }
@@ -68,7 +68,7 @@ class MembersController < ApplicationController
     strong_params = current_member.is_admin? ? admin_member_params : member_params
     respond_to do |format|
       if @member.update_attributes(strong_params)
-        format.html { redirect_to action: 'index', notice: 'Member was successfully updated.' }
+        format.html { redirect_to members_path, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
