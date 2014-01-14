@@ -11,8 +11,9 @@
       - flash.each do |name, message|
         = content_tag(:div, message, :class => "flash_#{name}")
 
-    = render 'partials/body_header'
-    = render 'devise/menu/login_items'
+    - if @current_member
+      = render 'partials/body_header'
+      = render 'devise/menu/login_items'
 
     .container= yield
 
