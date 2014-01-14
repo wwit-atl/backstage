@@ -6,7 +6,7 @@ class ConflictsController < ApplicationController
   # GET /conflicts.json
   def index
     admin_only!
-    @members = Member.by_name.paginate(:page => params[:page], :per_page => 30)
+    @members = Member.uses_conflicts.by_name.paginate(:page => params[:page], :per_page => 30)
     respond_to do |format|
       format.html
       format.json { render json: @member.conflicts }

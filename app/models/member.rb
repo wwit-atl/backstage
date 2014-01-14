@@ -23,6 +23,8 @@ class Member < ActiveRecord::Base
   scope :castable, -> { joins(:skills).merge(Skill.castable) }
   scope :crewable, -> { joins(:roles).merge(Role.crewable) }
 
+  scope :uses_conflicts, -> { castable || crewable }
+
   scope :has_role,  ->(role) { joins(:roles).where(roles: {name: role}) }
   scope :has_skill, ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
 
@@ -40,6 +42,18 @@ class Member < ActiveRecord::Base
 
   def has_shift_for?(show)
     self.crews.map{ |crew| crew.id }.include?(show.id)
+  end
+
+  def is_crewable?
+    self.roles.crewable.count > 0
+  end
+
+  def is_castable?
+    self.skills.castable.count > 0
+  end
+
+  def uses_conflicts?
+    self.is_castable? || self.is_crewable?
   end
 
   # Returns true if eligible, 0 if at min_shifts, false if ineligible
@@ -64,4 +78,5 @@ class Member < ActiveRecord::Base
     date = Date.new(year, month)
     shifts.joins(:show).where( 'shows.date' => date.beginning_of_month..date.end_of_month ).count
   end
+
 end

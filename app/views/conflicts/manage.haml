@@ -10,7 +10,7 @@
 
 
 #conflicts
-  - if @member.is_crewable? or @member.has_role(:actor)
+  - if @member.is_crewable? or @member.is_castable?
 
     %h2#month
       //We don't use TurboLinks for the navigation buttons because it breaks our JS
@@ -52,4 +52,5 @@
     -#.summary= "Conflicts for #{@date_string}: #{@conflicts_this_month.empty? ? 'None' : @conflicts_this_month.map{ |c| c.datetime.day }.to_sentence}"
 
   - else
-    Sorry, but this member doesn't use conflicts.
+    Hmmm, it doesn't look like #{@member.firstname} has any need for conflicts.
+    If you think this may be an error, check his/her Skills and/or Roles.
