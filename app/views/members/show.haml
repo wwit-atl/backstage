@@ -3,41 +3,45 @@
 #member
   .name= @member.name
   .email= @member.email
-  .training
-    Training
-    %ul
-    - @skills.each do |skill|
-      %li= skill.name
-    - if @skills.empty?
-      %li Untrained
-
-  .shows
-    Recent and Upcoming Shows
-    .show
+  - if @member.is_castable? or @member.is_crewable?
+    .training
+      Training
       %ul
-      - @shows.each do |show|
-        %li= link_to "#{show.date} - #{show.name}", show_path(shift.show)
-      - if @shows.empty?
-        %li No upcoming Shows
+      - @skills.each do |skill|
+        %li= skill.name
+      - if @skills.empty?
+        %li Untrained
 
-  .shifts
-    Recent and Upcoming Shifts
-    .shift
-      %ul
-      - @shifts.each do |shift|
-        %li= link_to shift.text, show_path(shift.show)
-      - if @shifts.empty?
-        %li No upcoming Shifts
+  - if @member.is_castable?
+    .shows
+      Recent and Upcoming Shows
+      .show
+        %ul
+        - @shows.each do |show|
+          %li= link_to "#{show.date} - #{show.name}", show_path(shift.show)
+        - if @shows.empty?
+          %li No upcoming Shows
 
-  .conflicts
-    Your conflicts
-    .conflict
-      %ul
-        - @conflicts.each do |conflict|
-          %li= conflict.date
-        - if @conflicts.empty?
-          %li No Conflicts
-    = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
+  - if @member.is_crewable?
+    .shifts
+      Recent and Upcoming Shifts
+      .shift
+        %ul
+        - @shifts.each do |shift|
+          %li= link_to shift.text, show_path(shift.show)
+        - if @shifts.empty?
+          %li No upcoming Shifts
+
+  - if @member.uses_conflicts?
+    .conflicts
+      Your conflicts
+      .conflict
+        %ul
+          - @conflicts.each do |conflict|
+            %li= conflict.date
+          - if @conflicts.empty?
+            %li No Conflicts
+      = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
 
   .notes
     Notes

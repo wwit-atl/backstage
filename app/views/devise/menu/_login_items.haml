@@ -1,6 +1,9 @@
 #main-navigation
   .menu
     %ul
-      %li= link_to 'Home', root_path
-      - if current_member.is_admin?
-        %li= link_to 'Admin', admin_path
+      - if member_signed_in?
+        %li= link_to 'Home', root_path
+        - if current_member.is_admin?
+          %li= link_to 'Admin', admin_path
+      - else
+        %li= link_to 'Sign In', member_session_path
