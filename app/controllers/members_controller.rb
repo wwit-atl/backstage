@@ -101,8 +101,6 @@ class MembersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_member_params
     params.required(:member).permit(
-        :firstname, :lastname, :email,
-        :password, :password_confirmation,
         skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],
     )
@@ -110,8 +108,6 @@ class MembersController < ApplicationController
 
   def member_params
     params.required(:member).permit(
-        :firstname, :lastname,
-        :password, :password_confirmation, :current_password,
         phones_attributes: [:id, :ntype, :number, :_destroy],
     )
   end
