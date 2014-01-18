@@ -23,17 +23,50 @@ $font-family-base: 'Helveticaneue-light', Helvetica, Arial, sans-serif;
 $wwit-red:    #D42022;
 $wwit-yellow: #FFC500;
 $wwit-orange: #F67728;
+$wwit-blue:   #1b92b1;
+$wwit-green:  #9cc41e;
 
 $wwit-red-dark: darken($wwit-red, 25%);
 
-$brand-primary: $wwit-red;
-
 $body-bg: $wwit-yellow;
-
 $text-color: black;
-$link-color: $wwit-red;
-$link-hover-color: $wwit-orange;
+
+$brand-primary: $wwit-red;
+$brand-success: $wwit-green;
+$brand-warning: $wwit-yellow;
+$brand-danger:  $wwit-red;
+$brand-info:    $wwit-blue;
+
+//$link-color: $wwit-red;
+//$link-hover-color: $wwit-orange;
 
 $table-bg: $body-bg;
 $table-bg-accent: lighten($body-bg, 15%);
 $table-border-color: $wwit-orange;
+
+$navbar-default-link-hover-bg: $wwit-yellow;
+$navbar-default-link-hover-color: $wwit-red;
+
+// Navbar defaults
+$navbar-default-color:                     $wwit-yellow;
+$navbar-default-bg:                        $wwit-red;
+
+// Navbar links
+$navbar-default-link-color:                $wwit-yellow;
+$navbar-default-link-hover-color:          $wwit-red;
+$navbar-default-link-hover-bg:             darken($navbar-default-bg, 1.5%);
+$navbar-default-link-active-color:         $wwit-yellow;
+$navbar-default-link-disabled-color:       lighten($navbar-default-link-color, 6.5%);
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:           $wwit-orange;
+$navbar-default-toggle-icon-bar-bg:        $wwit-yellow;
+$navbar-default-toggle-border-color:       $wwit-yellow;
+
+$dropdown-bg: $wwit-orange;
+$dropdown-divider-bg: $wwit-red;
+$dropdown-link-hover-bg: $wwit-red;
+
+$btn-default-bg:    $wwit-blue;
+$btn-default-color: $wwit-red;
+$btn-default-border: darken($wwit-blue, 10%);

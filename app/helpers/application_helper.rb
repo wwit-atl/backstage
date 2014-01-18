@@ -19,6 +19,10 @@ module ApplicationHelper
     'Invalid Date Format'
   end
 
+  def is_active?(link)
+    current_page?(link) ? 'active' : nil
+  end
+
   def bs_alert_name(name)
     case name
       when :notice then 'alert-info'
