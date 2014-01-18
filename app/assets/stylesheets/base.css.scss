@@ -1,35 +1,7 @@
-#main-navigation {
-  clear: both;
-  background-color: $wwit-red;
-  a { color: $wwit-yellow; }
-
-  .menu {
-
-    ul {
-      list-style-type: none;
-      margin:  0;
-      padding: 10px;
-      height: 50px;
-
-      li {
-        float: left;
-        width: 100%;
-
-        a {
-        }
-      }
-    }
-  }
-}
-
 #body-header {
   padding: 10px;
-
-  .header { @extend .pull-left; }
-
+  margin-bottom: 100px;
   .signed-in-info {
-    @extend .pull-right;
-
     ul {
       list-style-type: none;
       text-align: right;

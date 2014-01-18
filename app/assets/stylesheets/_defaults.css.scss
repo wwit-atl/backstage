@@ -53,9 +53,9 @@ $navbar-default-bg:                        $wwit-red;
 
 // Navbar links
 $navbar-default-link-color:                $wwit-yellow;
-$navbar-default-link-hover-color:          $wwit-red;
+$navbar-default-link-hover-color:          $wwit-yellow;
 $navbar-default-link-hover-bg:             darken($navbar-default-bg, 1.5%);
-$navbar-default-link-active-color:         $wwit-yellow;
+$navbar-default-link-active-color:         white;
 $navbar-default-link-disabled-color:       lighten($navbar-default-link-color, 6.5%);
 
 // Navbar toggle
@@ -64,8 +64,11 @@ $navbar-default-toggle-icon-bar-bg:        $wwit-yellow;
 $navbar-default-toggle-border-color:       $wwit-yellow;
 
 $dropdown-bg: $wwit-orange;
-$dropdown-divider-bg: $wwit-red;
-$dropdown-link-hover-bg: $wwit-red;
+$dropdown-divider-bg: $wwit-orange;
+$dropdown-link-color: black;
+$dropdown-link-active-color: $navbar-default-link-active-color;
+$dropdown-link-hover-color: $navbar-default-link-hover-color;
+$dropdown-link-hover-bg: $navbar-default-link-hover-bg;
 
 $btn-default-bg:    $wwit-blue;
 $btn-default-color: $wwit-red;

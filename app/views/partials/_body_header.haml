@@ -1,5 +1,5 @@
 #body-header.hidden-xs
-  .signed-in-info
+  .signed-in-info.pull-right
     %ul
       - if member_signed_in?
         %li Yo! 'Sup #{current_member.name}
@@ -11,5 +11,4 @@
         %li Not Logged In
         %li= link_to 'Sign In', member_session_path
 
-  .header
-    This is the header... logo goes here
+  %h1.pull-left This is the header... logo goes here
