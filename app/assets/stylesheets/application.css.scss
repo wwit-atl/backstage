@@ -14,67 +14,12 @@
  *= require chosen
  */
 
-div.container {
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-#main-navigation {
-  clear: both;
-  background-color: red;
-
-  .menu {
-
-    ul {
-      list-style-type: none;
-      margin:  0;
-      padding: 10px;
-      height: 50px;
-
-      li {
-        float: left;
-        width: 100%;
-
-        a {
-        }
-      }
-    }
-  }
-}
-
-#body-header {
-  float: right;
-  padding: 0 10px 0 0;
-
-  ul {
-    list-style-type: none;
-    text-align: right;
-
-    li {
-      width: 300px;
-      clear: both;
-    }
-  }
-}
-
-.red {
-    color: red;
-}
-
-.darkred {
-    color: darkred;
-}
-
-.hidden {
-  display: none;
-}
+@import 'defaults';
 
 @import 'bootstrap';
 @import 'bootstrap/theme';
 
+@import 'base';
 @import 'forms';
 @import 'calendar';
 @import 'conflicts';

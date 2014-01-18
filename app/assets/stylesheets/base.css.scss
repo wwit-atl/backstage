@@ -1,0 +1,54 @@
+#main-navigation {
+  clear: both;
+  background-color: $wwit-red;
+  a { color: $wwit-yellow; }
+
+  .menu {
+
+    ul {
+      list-style-type: none;
+      margin:  0;
+      padding: 10px;
+      height: 50px;
+
+      li {
+        float: left;
+        width: 100%;
+
+        a {
+        }
+      }
+    }
+  }
+}
+
+#body-header {
+  padding: 10px;
+
+  .header { @extend .pull-left; }
+
+  .signed-in-info {
+    @extend .pull-right;
+
+    ul {
+      list-style-type: none;
+      text-align: right;
+    }
+    a {
+      color: $wwit-red;
+    }
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'univers_59_ultra_condensedRg';
+}
+
+.red {
+  color: $wwit-red;
+}
+
+.darkred {
+  color: darken($wwit-red, 10%);
+}
+

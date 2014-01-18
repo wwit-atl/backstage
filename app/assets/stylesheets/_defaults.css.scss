@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'helveticaneue-light';
+  src: font-url('helveticaneue-lightext-webfont.eot');
+  src: font_url('helveticaneue-lightext-webfont.svg');
+  src: font-url('helveticaneue-lightext-webfont.ttf');
+  src: font-url('helveticaneue-lightext-webfont.woff');
+}
+
+@font-face {
+  font-family: 'univers_59_ultra_condensedRg';
+  src: font-url('univers_59_ultra_condensed-webfont.eot');
+  src: font-url('univers_59_ultra_condensed-webfont.svg');
+  src: font-url('univers_59_ultra_condensed-webfont.ttf');
+  src: font-url('univers_59_ultra_condensed-webfont.woff');
+}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,700,300,600,800);
+
+$font-family-base: 'Helveticaneue-light', Helvetica, Arial, sans-serif;
+//$font-family-base: 'univers_59_ultra_condensedRg', sans-serif;
+//$font-family-base: 'Open Sans', sans-serif;
+
+$wwit-red:    #D42022;
+$wwit-yellow: #FFC500;
+$wwit-orange: #F67728;
+
+$wwit-red-dark: darken($wwit-red, 25%);
+
+$brand-primary: $wwit-red;
+
+$body-bg: $wwit-yellow;
+
+$text-color: black;
+$link-color: $wwit-red;
+$link-hover-color: $wwit-orange;
+
+$table-bg: $body-bg;
+$table-bg-accent: lighten($body-bg, 15%);
+$table-border-color: $wwit-orange;
