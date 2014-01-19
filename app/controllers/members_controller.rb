@@ -37,15 +37,18 @@ class MembersController < ApplicationController
     @member = Member.new
     # We want at least one new phone number entry to be displayed in the form
     @member.phones.new
+    @total_skills ||= Skill.all
   end
 
   # GET /members/1/edit
   def edit
+    @total_skills ||= Skill.all
   end
 
   # POST /members
   # POST /members.json
   def create
+    @total_skills ||= Skill.all
     @member = Member.new(
         current_member.is_admin? ? admin_member_params : member_params
     )
@@ -91,11 +94,11 @@ class MembersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_member
-    @member = Member.find(params[:id])
+    @member ||= Member.find(params[:id])
   end
 
   def get_phone_types
-    @phone_types = Phone.ntypes
+    @phone_types ||= Phone.ntypes
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

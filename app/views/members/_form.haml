@@ -1,4 +1,4 @@
-= simple_form_for @member do |f|
+= simple_form_for @member, style: :horizontal do |f|
   - if @member.errors.any?
     #error_explanation
       %h2 Please correct the following errors.
@@ -6,24 +6,28 @@
         - @member.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label 'Full Name', required: true
-    = f.input_field :firstname, placeholder: 'first'
-    = f.input_field :lastname, placeholder: 'last'
-  .field= f.input :email
+  = f.input :firstname
+  = f.input :lastname
+  = f.input :email
 
-  .field
-    = f.input :password, autocomplete: 'off', hint: "leave it blank if you don't want to change it", required: false
-    = f.input :password_confirmation, required: false
+  = f.input :password, autocomplete: 'off', required: false
+  = f.input :password_confirmation, required: false, hint: "Leave blank if you don't want to change it"
 
-  .field
-    = f.label 'Phone Number (digits only):'
-    = f.simple_fields_for :phones do |builder|
-      = render 'phone_fields', f: builder
-    .links= link_to_add_association button_tag('Add Phone'), f, :phones
+  = f.label 'Phone Number (digits only):'
+  = f.simple_fields_for :phones do |builder|
+    = render 'phone_fields', f: builder
+
+  %p
+    .col-md-offset-1= link_to_add_association button_tag('Add Phone Number', class: [ :btn, 'btn-default' ] ), f, :phones
 
   - if current_member.is_admin?
-    .field= f.association :skills, :label_method => :name
-    .field= f.association :roles,  :label_method => :title, as: 'check_boxes'
+    .row
+      %fieldset
+        .col-md-1= f.label :skills
+        .col-md-4= f.association :skills, :label_method => :name, label: false, :input_html => { size: @total_skills.count }
+        .col-md-1
+        .col-md-1= f.label :roles
+        .col.md-4
+          %fieldset= f.association :roles,  :label_method => :title, as: 'check_boxes', label: false
 
-  .actions= f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-defalt'

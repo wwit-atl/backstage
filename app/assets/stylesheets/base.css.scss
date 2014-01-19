@@ -1,12 +1,17 @@
 body {
   background: white url('background-logo.jpg') no-repeat fixed -200px -100px;
   padding-top: 50px;
+  padding-bottom: 100px;
 }
 
 nav { padding-right: 10px; }
 
 h1, h2, h3, h4, h5 {
   font-family: 'univers_59_ultra_condensedRg';
+}
+
+button a {
+  color: $btn-default-color;
 }
 
 .red {

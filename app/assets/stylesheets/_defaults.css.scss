@@ -32,14 +32,14 @@ $wwit-red-dark: darken($wwit-red, 25%);
 $body-bg:                   transparant;
 $text-color:                black;
 
-$brand-primary: $wwit-blue;
-$brand-success: $wwit-green;
-$brand-warning: $wwit-yellow;
-$brand-danger:  $wwit-red;
-$brand-info:    $wwit-blue;
+$brand-primary:             $wwit-blue;
+$brand-success:             $wwit-green;
+$brand-warning:             $wwit-yellow;
+$brand-danger:              $wwit-red;
+$brand-info:                $wwit-blue;
 
-$link-color: $wwit-red-dark;
-$link-hover-color: $wwit-red;
+$link-color:                $wwit-blue;
+$link-hover-color:          $wwit-red;
 
 //$table-bg: $wwit-yellow;
 $table-bg-accent: transparentize($wwit-yellow, .8);
@@ -72,10 +72,10 @@ $dropdown-link-active-color:              $navbar-default-link-active-color;
 $dropdown-link-hover-color:               $navbar-default-link-hover-color;
 $dropdown-link-hover-bg:                  $navbar-default-link-hover-bg;
 
-$btn-default-bg:                          $wwit-red;
-$btn-default-color:                       $wwit-yellow;
+$btn-default-bg:                          $wwit-orange;
+$btn-default-color:                       black;
 $btn-default-border:                      darken($btn-default-bg, 10%);
-$btn-primary-color:                       black;
+$btn-primary-color:                       $wwit-orange;
 $btn-success-color:                       $wwit-green;
 $btn-warning-color:                       $wwit-yellow;
 $btn-danger-color:                        $wwit-red;
