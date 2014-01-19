@@ -1,0 +1,55 @@
+body {
+  background: white url('background-logo.jpg') no-repeat fixed -200px -100px;
+  padding-top: 50px;
+}
+
+nav { padding-right: 10px; }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'univers_59_ultra_condensedRg';
+}
+
+.red {
+  color: $wwit-red;
+}
+
+.darkred {
+  color: darken($wwit-red, 10%);
+}
+
+#body-header {
+  img {
+    float: left;
+    margin: -10px;
+    padding-right: 10px;
+    vertical-align: middle;
+  }
+
+  .signed-in-info {
+    ul {
+      list-style-type: none;
+      text-align: right;
+    }
+    a {
+      color: $wwit-red;
+    }
+  }
+}
+
+#body-footer {
+  background: $wwit-red;
+  color: $wwit-yellow;
+  border-top: 5px solid $wwit-red-dark;
+  padding: 5px 10px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 80px;
+
+  .copyright {
+    font-style: italic;
+    font-size: .8em;
+    position: absolute;
+    bottom: 10px;
+  }
+}

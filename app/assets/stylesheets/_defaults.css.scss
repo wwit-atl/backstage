@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'helveticaneue-light';
+  src: font-url('helveticaneue-lightext-webfont.eot');
+  src: font_url('helveticaneue-lightext-webfont.svg');
+  src: font-url('helveticaneue-lightext-webfont.ttf');
+  src: font-url('helveticaneue-lightext-webfont.woff');
+}
+
+@font-face {
+  font-family: 'univers_59_ultra_condensedRg';
+  src: font-url('univers_59_ultra_condensed-webfont.eot');
+  src: font-url('univers_59_ultra_condensed-webfont.svg');
+  src: font-url('univers_59_ultra_condensed-webfont.ttf');
+  src: font-url('univers_59_ultra_condensed-webfont.woff');
+}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,700,300,600,800);
+
+$font-family-base: 'Helveticaneue-light', Helvetica, Arial, sans-serif;
+//$font-family-base: 'univers_59_ultra_condensedRg', sans-serif;
+//$font-family-base: 'Open Sans', sans-serif;
+
+$wwit-red:    #D42022;
+$wwit-yellow: #FFC500;
+$wwit-orange: #F67728;
+$wwit-blue:   #1b92b1;
+$wwit-green:  #9cc41e;
+
+$wwit-red-dark: darken($wwit-red, 25%);
+
+//$body-bg: $wwit-yellow;
+$body-bg:                   transparant;
+$text-color:                black;
+
+$brand-primary: $wwit-blue;
+$brand-success: $wwit-green;
+$brand-warning: $wwit-yellow;
+$brand-danger:  $wwit-red;
+$brand-info:    $wwit-blue;
+
+$link-color: $wwit-red-dark;
+$link-hover-color: $wwit-red;
+
+//$table-bg: $wwit-yellow;
+$table-bg-accent: transparentize($wwit-yellow, .8);
+//$table-bg-accent: $wwit-orange;
+//$table-border-color: $wwit-orange;
+
+$navbar-default-link-hover-bg: $wwit-yellow;
+$navbar-default-link-hover-color: $wwit-red;
+
+// Navbar defaults
+$navbar-default-color:                    $wwit-yellow;
+$navbar-default-bg:                       $wwit-red;
+
+// Navbar links
+$navbar-default-link-color:               $wwit-yellow;
+$navbar-default-link-hover-color:         $wwit-yellow;
+$navbar-default-link-hover-bg:            darken($navbar-default-bg, 1.5%);
+$navbar-default-link-active-color:        white;
+$navbar-default-link-disabled-color:      lighten($navbar-default-link-color, 6.5%);
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:          $wwit-orange;
+$navbar-default-toggle-icon-bar-bg:       $wwit-yellow;
+$navbar-default-toggle-border-color:      $wwit-yellow;
+
+$dropdown-bg:                             $wwit-orange;
+$dropdown-divider-bg:                     $wwit-orange;
+$dropdown-link-color:                     black;
+$dropdown-link-active-color:              $navbar-default-link-active-color;
+$dropdown-link-hover-color:               $navbar-default-link-hover-color;
+$dropdown-link-hover-bg:                  $navbar-default-link-hover-bg;
+
+$btn-default-bg:                          $wwit-blue;
+$btn-default-color:                       black;
+$btn-default-border:                      darken($btn-default-bg, 10%);
+//
+//$btn-default-color:                       $wwit-red;
+//$btn-default-bg:                          $wwit-orange;
+//$btn-default-border:                      $wwit-red;
+//
+//$btn-primary-color:                       black;
+//$btn-success-color:                       $wwit-green;
+//$btn-warning-color:                       $wwit-yellow;
+//$btn-danger-color:                        $wwit-red;
+//$btn-info-color:                          $wwit-blue;
+
+

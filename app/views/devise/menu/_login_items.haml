@@ -1,9 +1,43 @@
-#main-navigation
-  .menu
-    %ul
-      - if member_signed_in?
-        %li= link_to 'Home', root_path
-        - if current_member.is_admin?
-          %li= link_to 'Admin', admin_path
-      - else
-        %li= link_to 'Sign In', member_session_path
+.container
+  %nav#main-nav.navbar.navbar-default.navbar-fixed-top{ role: 'navigation' }
+    // Brand and toggle get grouped for better mobile display
+    .navbar-header
+      = button_tag class: 'navbar-toggle', data: { toggle: 'collapse', target: '#main-navbar-collapse-1' } do
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'http://www.wholeworldtheatre.com', class: 'navbar-brand' do
+        = image_tag 'WWIT-Logo.png', height: 40
+        WWIT Backstage
+
+    // Collect the nav links, forms, and other content for toggling
+    #main-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if member_signed_in?
+          %li{ class: is_active?(root_path) }= link_to 'Home', root_path
+          %li{ class: is_active?(members_path) }= link_to 'Members', members_path
+          - if current_member.is_admin?
+            %li.dropdown
+              = link_to class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+                Admin Menu
+                %b.caret
+              %ul.dropdown-menu
+                %li{ class: is_active?(configs_path) }= link_to 'Configuration', configs_path
+                %li{ class: is_active?(conflicts_path) }= link_to 'Conflicts', conflicts_path
+                %li{ class: is_active?(skills_path) }= link_to 'Skills', skills_path
+                %li{ class: is_active?(show_templates_path) }= link_to 'Show Templates', show_templates_path
+                %li{ class: is_active?(shows_path) }= link_to 'Shows', shows_path
+      %ul.nav.navbar-nav.navbar-right
+        - if member_signed_in?
+          %li.dropdown
+            = link_to class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+              Welcome, #{current_member.firstname}
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'View your profile', member_path(current_member)
+              %li= link_to 'Sign Out', destroy_member_session_path, method: :delete
+        - else
+          %li= link_to 'Sign In', member_session_path
+
+

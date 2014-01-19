@@ -8,6 +8,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'haml', '~> 4.0.0'
 gem 'haml-rails'
+gem 'bootstrap-sass', '~> 3.0.3'
 
 # gem 'therubyracer', platforms: :ruby
 
@@ -21,22 +22,16 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'acts_as_list'
 gem 'will_paginate'
 gem 'cocoon'
-#gem 'fullcalendar-rails'
 
 gem 'devise', '~> 3.1.0'
 gem 'rolify'
 gem 'cancan'
-gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
 gem 'chosen-rails'
 
 gem 'simple_form'
-gem 'bourbon'
-gem 'neat'
-gem 'bitters'
 
 gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'
-gem 'flutie'
 gem 'recipient_interceptor'
 
 group :development do

@@ -23,7 +23,7 @@ class ConflictsController < ApplicationController
     @date_string = @date.strftime("%B %Y")
 
     @conflicts_this_month = @conflicts.for_month(@date.month, @date.year)
-    @conflict_count = @conflicts_this_month.count
+    @cur_conflicts = @conflicts_this_month.count
   end
 
   def get_conflicts

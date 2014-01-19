@@ -1,4 +1,4 @@
-%h1 Conflicts for #{@member.name}
+%h1.text-center= @member.name
 
 -#= simple_form_for :conflicts do |f|
 -#  = f.input :member,
@@ -12,44 +12,64 @@
 #conflicts
   - if @member.is_crewable? or @member.is_castable?
 
-    %h2#month
-      //We don't use TurboLinks for the navigation buttons because it breaks our JS
-      = link_to '<', { date: @date.prev_month }
-      = @date_string
-      = link_to '>', { date: @date.next_month }
+    #calendar
+      .month
+        %h2
+          = link_to '<', { date: @date.prev_month }
+          = @date_string
+          = link_to '>', { date: @date.next_month }
 
-      -#= button_to 'Today', { date: false }, method: :get
+      - max_note_message = [ "You've selected <span class='cur-count'>#{@cur_conflicts}</span> out of your <span class='max-count'>#{@max_conflicts}</span> conflicts.",
+        "You've allocated all <span class='max-count'>#{@max_conflicts}</span> of your conflicts.",
+        "Whoa!  You've selected <span class='cur-count'>#{@cur_conflicts}</span> conflicts, but you're only allowed <span class='max-count'>#{@max_conflicts}</span>!", ]
 
-    =content_tag('div', id: 'max-note',
-        class: [ @conflict_count  > @max_conflicts ? 'over-limit' : nil,
-                 @conflict_count == @max_conflicts ? 'at-limit'   : nil ],
-        data: { max_conflicts: @max_conflicts }) do
-      You have selected
-      %span.cur-count= @conflict_count
-      of your
-      %span.max-count= @max_conflicts
-      conflicts.
+      = content_tag('div', id: 'max-note',
+          class: [ @cur_conflicts  < @max_conflicts ? 'under-limit' : nil,
+                   @cur_conflicts == @max_conflicts ? 'at-limit'    : nil,
+                   @cur_conflicts  > @max_conflicts ? 'over-limit'  : nil ],
+          data: { max_conflicts: @max_conflicts,
+                  note_underlimit: h(max_note_message[0]),
+                  note_atlimit:    h(max_note_message[1]),
+                  note_overlimit:  h(max_note_message[2]) } ) do
 
-      =content_tag('div', class: [ 'over-limit-note', @conflict_count <= @max_conflicts ? 'hidden' : nil ] ) do
-        Any beyond the first #{@max_conflicts} may be ignored during scheduling.
+        .visible-xs.text-center
+          Selected
+          %span.cur-count= @cur_conflicts
+          = 'of'
+          %span.max-countM= @max_conflicts
+          conflicts.
 
-    = calendar( date: @date, events: @conflicts ) do |date|
-      -if Date.today <= date or current_member.is_admin?
-        = link_to date.day, { date: date, :action => :set_conflicts }, :method => :put, remote: true, onclick: "calendarClick('#{date.to_s}')"
-      - else
-        = date.day
+        .hidden-xs
+          %span.note-message
+            - if @cur_conflicts < @max_conflicts
+              = max_note_message[0].html_safe
+            - elsif @cur_conflicts == @max_conflicts
+              = max_note_message[1].html_safe
+            - else
+              = max_note_message[2].html_safe
 
-    .instructions
-      Please tap or click on a day to set or remove a conflict.
-      = 'You may not choose a date from the past.' unless current_member.is_admin?
+          = content_tag('span', class: 'over-limit-note', style: @cur_conflicts <= @max_conflicts ? 'display: none' : nil ) do
+            Any beyond the first #{@max_conflicts} may be ignored during scheduling.
 
-    .legend
-      %span.red RED
-      days indicate current conflicts.
-      %span.darkred DARKRED
-      days are locked conflicts (which cannot be changed)
 
-    -#.summary= "Conflicts for #{@date_string}: #{@conflicts_this_month.empty? ? 'None' : @conflicts_this_month.map{ |c| c.datetime.day }.to_sentence}"
+      = calendar( date: @date, events: @conflicts ) do |date|
+        -if Date.today <= date or current_member.is_admin?
+          = link_to date.day, { date: date, :action => :set_conflicts }, :method => :put, remote: true, onclick: "calendarClick('#{date.to_s}')"
+        - else
+          = date.day
+
+      .instructions
+        %em
+          Please tap or click on a day
+          = 'You may not choose a date from the past.' unless current_member.is_admin?
+
+      .legend.hidden-xs
+        %span.red RED
+        days indicate current conflicts.
+        %span.darkred DARKRED
+        days are locked conflicts (which cannot be changed)
+
+      -#.summary= "Conflicts for #{@date_string}: #{@conflicts_this_month.empty? ? 'None' : @conflicts_this_month.map{ |c| c.datetime.day }.to_sentence}"
 
   - else
     Hmmm, it doesn't look like #{@member.firstname} has any need for conflicts.

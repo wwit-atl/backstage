@@ -1,32 +1,41 @@
 %h1 Listing members
 
 #member-list
-  %table
-    %tr
-      %th Name
-      %th Email
-      %th Phone(s)
-      %th Role(s)
-      %th
-
-    - @members.each do |member|
+  .table-responsive
+    %table.table.table-striped
       %tr
-        %td.name= member.fullname
-        %td.email= mail_to member.email
-        %td.phone
-          %ul
+        %th Name
+        %th Phone(s)
+        %th Email
+        - if can? :view, @members
+          %th Role(s)
+        - if can? :manage, @members
+          %th
+
+      - @members.each do |member|
+        %tr
+          %td.name= member.fullname
+          %td.phone
             - member.phones.by_type.each do |phone|
-              %li= phone.listing
+              = phone.listing
+              %br
+          %td.email= mail_to member.email
 
-        %td= member.roles.by_name.map{|r| r.name}.join(', ')
+          - if can? :view, @members
+            %td= member.roles.by_name.map{|r| r.name}.join(', ')
 
-        - if current_member.is_admin?
-          %td
-            = link_to 'View', member
-            = '|'
-            = link_to 'Edit', edit_member_path(member)
-            = '|'
-            = link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - if can? :manage, @members
+            %td
+              .btn-group.btn-group-sm
+                = button_tag class: [ :btn, :btn_small ] do
+                  = link_to member do
+                    %span.glyphicon.glyphicon-search
+                = button_tag class: [ :btn, :btn_small ] do
+                  = link_to edit_member_path(member) do
+                    %span.glyphicon.glyphicon-pencil
+                = button_tag class: [ :btn, :btn_small ] do
+                  = link_to member, :method => :delete, data: { confirm: 'Are you sure?' } do
+                    %span.glyphicon.glyphicon-trash
 
   = will_paginate @members
   %br

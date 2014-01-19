@@ -2,7 +2,23 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+jQuery.fn.fadeOutClass = (klass) ->
+  if $(this).hasClass(klass)
+    $(this).fadeOut().promise().done( -> $(this).removeClass(klass) )
+  else
+    $(this)
+
+jQuery.fn.fadeInClass = (klass) ->
+  if $(this).hasClass(klass)
+    $(this).fadeIn()
+  else
+    $(this).addClass(klass).promise().done( -> $(this).fadeIn() )
+
 window.calendarClick = (eventDate) ->
+  changeCounts = (cur, max) ->
+    $('span.cur-count').text(curCount)
+    $('span.max-count').text(maxCount)
+
   # Get the event clicked and toggle the selected class
   event = $(document.getElementById(eventDate))
   event.toggleClass('selected')
@@ -19,52 +35,36 @@ window.calendarClick = (eventDate) ->
 
   # What's our max?  (sent via data-max-conflicts)
   maxCount = noteDiv.attr('data-max-conflicts')
+  underLimitMessage = noteDiv.attr('data-note-underlimit')
+  atLimitMessage =    noteDiv.attr('data-note-atlimit')
+  overLimitMessage =  noteDiv.attr('data-note-overlimit')
 
-  $('span.cur-count').text(curCount)
-  $('span.max-count').text(maxCount)
-
+  # We're using .promise().done(function() {} ) to ensure our animations complete in sequence.
   if ( curCount < maxCount )
-    # Remove the at-limit class (if applied)
-    noteDiv.removeClass('at-limit') if noteDiv.hasClass('at-limit')
+    noteDiv.fadeOutClass('at-limit').promise().done( ->
+      $('span.note-message').html(underLimitMessage)
+      changeCounts(curCount, maxCount)
+      $(this).fadeInClass('under-limit')
+    )
 
-  # show or hide the number of conflicts messages
-  if ( curCount > 0 )
-#    if it's not already visible, make it so
-#    unless noteDiv.is(':visible')
-#      noteDiv.css('opacity', 0).slideDown().animate({opacity: 1})
+  else if ( curCount > maxCount )
+    # Apply over-limit class if we haven't already done so
+    noteDiv.fadeOutClass('at-limit').promise().done( ->
+      $('span.note-message').html(overLimitMessage)
+      changeCounts(curCount, maxCount)
+      $('span.over-limit-note').fadeIn()
+      $(this).fadeInClass('over-limit')
+    )
 
-    if ( curCount >= maxCount )
-
-      # We're using .promise().done(function() {} ) to ensure our animations complete in sequence.
-      if ( curCount > maxCount )
-
-
-        # Apply over-limit class if we haven't already done so
-        unless noteDiv.hasClass('over-limit')
-          noteDiv.fadeOut().promise().done( ->
-            noteDiv.addClass('over-limit').fadeIn()
-
-            # Remove the at-limit class (if applied)
-            noteDiv.removeClass('at-limit') if noteDiv.hasClass('at-limit')
-
-            # and show the over limit note, too
-            $('.over-limit-note').slideDown()
-          )
-
-      else
-        # Must be ==, so remove over-limit class if it's been applied
-        if noteDiv.hasClass('over-limit')
-          noteDiv.fadeOut().promise().done( ->
-            noteDiv.removeClass('over-limit').fadeIn()
-
-            # and hide the over limit note
-            $('.over-limit-note').slideUp()
-          )
-
-        # and then add the at-limit class
-        noteDiv.addClass('at-limit') unless noteDiv.hasClass('at-limit')
-
+  # Must be ==, so remove over-limit class if it's been applied
   else
-    # less than 1, hide all messages
-#    noteDiv.animate({opacity: 0}).slideUp()
+    noteDiv.fadeOutClass('over-limit').promise().done( ->
+      $(this).fadeOutClass('under-limit').promise().done( ->
+        $('span.note-message').html(atLimitMessage)
+        changeCounts(curCount, maxCount)
+        $('.over-limit-note').fadeOut()
+        $(this).fadeInClass('at-limit')
+      )
+    )
+
 

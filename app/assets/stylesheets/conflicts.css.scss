@@ -4,19 +4,28 @@
 
 #conflicts {
   #max-note {
-    margin: 5px;
-    border: 3px solid green;
+    margin-bottom: 5px;
     padding: 5px;
-    background: rgba(green, 0.2);
-    font-weight: normal;
+    width: 100%;
+
+    &.under-limit {
+      font-weight: bold;
+      background: $state-info-bg;
+      border: 3px solid $state-info-border;
+      color: $state-info-text;
+    }
 
     &.at-limit {
       font-weight: bold;
+      background: $state-success-bg;
+      border: 3px solid $state-success-border;
+      color: $state-success-text;
     }
 
     &.over-limit {
-      border: 3px solid red;
-      background: rgba(red, 0.2);
+      border: 3px solid $state-danger-border;
+      background: $state-danger-bg;
+      color: $state-danger-text;
       font-weight: bold;
     }
   }
@@ -29,19 +38,5 @@
   }
   .under-limit {
     color: green;
-  }
-
-  table {
-    border-collapse: collapse;
-    width: 100%;
-
-    td {
-      padding: 5px 10px;
-      border: none;
-    }
-
-    tr.even {
-      background-color: rgba(lightgray, 0.5);
-    }
   }
 }

@@ -19,5 +19,7 @@
 //= require chosen-jquery
 //= require backstage
 //= require calendars
+// Loads all Bootstrap javascripts
+//= require bootstrap
 // Turbolinks must come last
 //= require turbolinks

@@ -26,7 +26,7 @@ class Phone < ActiveRecord::Base
   end
 
   def listing
-    "#{fnumber} (#{ntype[0].downcase})"
+    "#{fnumber} (<abbr title=#{ntype}>#{ntype[0].downcase}</abbr>)".html_safe
   end
 
   private

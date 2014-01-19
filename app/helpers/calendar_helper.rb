@@ -6,20 +6,33 @@ module CalendarHelper
   end
 
   class Calendar < Struct.new(:view, :date, :events, :callback)
-    HEADER = %w[Sun Mon Tues Wed Thu Fri Sat]
+    HEADER = {
+        sm: {
+            classes: 'visible-xs',
+            days: %w[Su Mo Tu We Th Fr Sa]
+        },
+        md: {
+            classes: 'visible-sm',
+            days: %w[Sun Mon Tue Wed Thu Fri Sat]
+        },
+        lg: {
+            classes: 'visible-md visible-lg',
+            days: %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+        }
+    }
     START_DAY = :sunday
 
     delegate :content_tag, to: :view
 
     def table
-      content_tag :table, class: 'calendar' do
-        header + week_rows
+      content_tag :table, class: 'cal-table' do
+        HEADER.keys.map { |size| header(size) }.join.html_safe + week_rows
       end
     end
 
-    def header
-      content_tag :tr, class: 'cal-header' do
-        HEADER.map { |day| content_tag :th, day }.join.html_safe
+    def header(size)
+      content_tag :tr, class: HEADER[size][:classes] do
+        HEADER[size][:days].map { |day| content_tag :th, day }.join.html_safe
       end
     end
 

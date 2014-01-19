@@ -2,7 +2,7 @@
   %h1 Listing conflicts
 
   = will_paginate @members
-  %table
+  %table.table.table-striped
     %tr
       %th Member Name
       %th Upcoming Conflicts
@@ -17,7 +17,7 @@
           - over_limit = true
           - future_conflicts << k
 
-      %tr{ class: cycle('even', 'odd') }
+      %tr
         %td.name= link_to member.name, member
         %td.upcoming= member.conflicts.future.empty? ? 'No Upcoming Conflicts' : member.conflicts.future.map { |c| c.us_date }.to_sentence
         %td.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
