@@ -16,9 +16,9 @@
         %tr
           %td.name= member.fullname
           %td.phone
-            %ul
-              - member.phones.by_type.each do |phone|
-                %li= phone.listing
+            - member.phones.by_type.each do |phone|
+              = phone.listing
+              %br
           %td.email= mail_to member.email
 
           - if can? :view, @members
@@ -26,11 +26,16 @@
 
           - if can? :manage, @members
             %td
-              = link_to 'View', member
-              = '|'
-              = link_to 'Edit', edit_member_path(member)
-              = '|'
-              = link_to 'Destroy', member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+              .btn-group.btn-group-sm
+                = button_tag class: [ :btn, :btn_small ] do
+                  = link_to member do
+                    %span.glyphicon.glyphicon-search
+                = button_tag class: [ :btn, :btn_small ] do
+                  = link_to edit_member_path(member) do
+                    %span.glyphicon.glyphicon-pencil
+                = button_tag class: [ :btn, :btn_small ] do
+                  = link_to member, :method => :delete, data: { confirm: 'Are you sure?' } do
+                    %span.glyphicon.glyphicon-trash
 
   = will_paginate @members
   %br

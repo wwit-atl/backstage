@@ -1,5 +1,5 @@
-#main-navigation
-  %nav.navbar.navbar-default{ role: 'navigation' }
+.container
+  %nav#main-nav.navbar.navbar-default.navbar-fixed-top{ role: 'navigation' }
     // Brand and toggle get grouped for better mobile display
     .navbar-header
       = button_tag class: 'navbar-toggle', data: { toggle: 'collapse', target: '#main-navbar-collapse-1' } do
@@ -7,7 +7,9 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'WWIT', 'http://www.wholeworldtheatre.com', class: 'navbar-brand'
+      = link_to 'http://www.wholeworldtheatre.com', class: 'navbar-brand' do
+        = image_tag 'WWIT-Logo.png', height: 40
+        WWIT Backstage
 
     // Collect the nav links, forms, and other content for toggling
     #main-navbar-collapse-1.collapse.navbar-collapse
@@ -30,11 +32,11 @@
         - if member_signed_in?
           %li.dropdown
             = link_to class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-              = current_member.firstname
+              Welcome, #{current_member.firstname}
               %b.caret
             %ul.dropdown-menu
-              %li= link_to 'View my profile', member_path(current_member)
-              %li= link_to 'Log-out', destroy_member_session_path, method: :delete
+              %li= link_to 'View your profile', member_path(current_member)
+              %li= link_to 'Sign Out', destroy_member_session_path, method: :delete
         - else
           %li= link_to 'Sign In', member_session_path
 
