@@ -27,13 +27,13 @@
           - if can? :manage, @members
             %td
               .btn-group.btn-group-sm
-                = button_tag class: [ :btn, :btn_small ] do
+                = button_tag class: [ 'btn', 'btn-small' ] do
                   = link_to member do
                     %span.glyphicon.glyphicon-search
-                = button_tag class: [ :btn, :btn_small ] do
+                = button_tag class: [ 'btn', 'btn-small' ] do
                   = link_to edit_member_path(member) do
                     %span.glyphicon.glyphicon-pencil
-                = button_tag class: [ :btn, :btn_small ] do
+                = button_tag class: [ 'btn', 'btn-small' ] do
                   = link_to member, :method => :delete, data: { confirm: 'Are you sure?' } do
                     %span.glyphicon.glyphicon-trash
 

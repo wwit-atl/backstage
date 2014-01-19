@@ -72,18 +72,13 @@ $dropdown-link-active-color:              $navbar-default-link-active-color;
 $dropdown-link-hover-color:               $navbar-default-link-hover-color;
 $dropdown-link-hover-bg:                  $navbar-default-link-hover-bg;
 
-$btn-default-bg:                          $wwit-blue;
-$btn-default-color:                       black;
+$btn-default-bg:                          $wwit-red;
+$btn-default-color:                       $wwit-yellow;
 $btn-default-border:                      darken($btn-default-bg, 10%);
-//
-//$btn-default-color:                       $wwit-red;
-//$btn-default-bg:                          $wwit-orange;
-//$btn-default-border:                      $wwit-red;
-//
-//$btn-primary-color:                       black;
-//$btn-success-color:                       $wwit-green;
-//$btn-warning-color:                       $wwit-yellow;
-//$btn-danger-color:                        $wwit-red;
-//$btn-info-color:                          $wwit-blue;
+$btn-primary-color:                       black;
+$btn-success-color:                       $wwit-green;
+$btn-warning-color:                       $wwit-yellow;
+$btn-danger-color:                        $wwit-red;
+$btn-info-color:                          $wwit-blue;
 
 
