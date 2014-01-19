@@ -1,14 +1,15 @@
-#body-header.hidden-xs
-  .signed-in-info.pull-right
-    %ul
-      - if member_signed_in?
-        %li Yo! 'Sup #{current_member.name}
-        %li
-          %em.small
-            Dude, that's not me...
-            = link_to 'Logout', destroy_member_session_path, method: :delete
-      - else
-        %li Not Logged In
-        %li= link_to 'Sign In', member_session_path
+%header#body-header
+  = render 'devise/menu/login_items'
 
-  %h1.pull-left This is the header... logo goes here
+  -#  .signed-in-info.pull-right
+  -#    %ul
+  -#      - if member_signed_in?
+  -#        %li Yo! 'Sup #{current_member.name}
+  -#        %li
+  -#          %em.small
+  -#            Dude, that's not me...
+  -#            = link_to 'Logout', destroy_member_session_path, method: :delete
+  -#      - else
+  -#        %li Not Logged In
+  -#        %li= link_to 'Sign In', member_session_path
+
