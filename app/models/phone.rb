@@ -29,6 +29,10 @@ class Phone < ActiveRecord::Base
     "#{fnumber} (<abbr title=#{ntype}>#{ntype[0].downcase}</abbr>)".html_safe
   end
 
+  def as_tel_link
+    "tel:+1#{number}"
+  end
+
   private
 
   def strip_number

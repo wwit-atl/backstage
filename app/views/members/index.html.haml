@@ -1,6 +1,9 @@
-%h1 Listing members
-
 #member-list
+  %h1 Listing members
+
+  -if can? :create, @members
+    .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Member', new_member_path
+
   .table-responsive
     %table.table.table-striped
       %tr
@@ -17,7 +20,7 @@
           %td.name= member.fullname
           %td.phone
             - member.phones.by_type.each do |phone|
-              = phone.listing
+              = link_to phone.listing, phone.as_tel_link
               %br
           %td.email= mail_to member.email
 

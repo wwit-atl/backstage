@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20131014172637) do
     t.string   "email"
     t.string   "lastname"
     t.string   "firstname"
+    t.string   "sex"
+    t.date     "dob"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password",     default: "", null: false

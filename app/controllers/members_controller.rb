@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
-  before_action :get_phone_types, only: [:new, :edit, :update]
+  before_action :get_phone_types, only: [:new, :edit, :create, :update]
   skip_before_action :authenticate_member!, only: [:show]
 
   def dashboard
@@ -16,6 +16,10 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @members = Member.by_name.paginate(:page => params[:page], :per_page => 30)
+    respond_to do |f|
+      f.html
+      f.json { render json: @members, only: [ :lastname, :firstname, :email ] }
+    end
   end
 
   # GET /members/1
@@ -104,6 +108,7 @@ class MembersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_member_params
     params.required(:member).permit(
+        :sex, :dob,
         skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],
     )
@@ -111,6 +116,7 @@ class MembersController < ApplicationController
 
   def member_params
     params.required(:member).permit(
+        :sex, :dob,
         phones_attributes: [:id, :ntype, :number, :_destroy],
     )
   end

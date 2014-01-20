@@ -1,27 +1,31 @@
 #conflicts-index
   %h1 Listing conflicts
 
-  = will_paginate @members
   %table.table.table-striped
     %tr
       %th Member Name
       %th Upcoming Conflicts
-      %th Over Limit?
+      %th Over?
       %th
 
     - @members.each do |member|
-      - future_conflicts = []
-      - over_limit = false
+      - over_limit = false ; months = []
       - member.conflicts.future.group_by{ |c| c.month }.each do |k,v|
         - if v.count > @max_conflicts
           - over_limit = true
-          - future_conflicts << k
+          - months << k
 
       %tr
         %td.name= link_to member.name, member
-        %td.upcoming= member.conflicts.future.empty? ? 'No Upcoming Conflicts' : member.conflicts.future.map { |c| c.us_date }.to_sentence
-        %td.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
+        %td.col-md-6.upcoming
+          - if member.conflicts.future.empty?
+            No Upcoming Conflicts
+          - else
+            %ul.list-unstyled
+              - member.conflicts.future.group_by{|c| c.month}.each do |month, conflicts|
+                %li{ class: months.include?(month) ? 'red' : nil }= conflicts.map{|c| c.us_date}.to_sentence
+        %td.col-md-1.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
         %td.manage= link_to 'Manage', manage_member_conflicts_path(member)
 
-  = will_paginate @members
+  = will_paginate @members, renderer: BootstrapPagination::Rails
 
