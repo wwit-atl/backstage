@@ -31,4 +31,8 @@ module ApplicationHelper
       else "alert-#{name}"
     end
   end
+
+  def theatre_url
+    'http://www.wholeworldtheatre.com'
+  end
 end

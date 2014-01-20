@@ -53,6 +53,16 @@ fieldset {
       color: $wwit-red;
     }
   }
+
+  .brand-logo {
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+    &:hover {
+      text-decoration: none;
+      text-shadow: 2px 2px 5px black;
+
+    }
+  }
 }
 
 #body-footer {
