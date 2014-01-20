@@ -26,7 +26,7 @@ module Scheduler
         self.shifts.by_skill_priority.each do |shift|
           Rails.logger.debug "... Checking #{shift.skill.name}"
 
-          next unless shift.skill.autocrew?
+          next unless shift.skill.autocrew
           next unless shift.member.nil?
 
           crew = get_crew(shift)
@@ -59,7 +59,7 @@ module Scheduler
       min_shifts = Konfig.where(name: 'MemberMinShifts').first.value.to_i || 3
       max_shifts = Konfig.where(name: 'MemberMaxShifts').first.value.to_i || 5
 
-      if shift.skill.training?
+      if shift.skill.training
         crew_members = Member.crewable.has_skill(shift.skill.code) || []
       else
         crew_members = Member.crewable || []

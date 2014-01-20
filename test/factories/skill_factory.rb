@@ -6,9 +6,9 @@ FactoryGirl.define do
     name 'Sample Skill'
     code { name.split(' ').map { |n| n[0] }.join.upcase }
     category 'crew'
-    training? :false
-    ranked? :false
-    autocrew? :false
+    training :false
+    ranked :false
+    autocrew :false
 
     trait :performance do
       name 'Stage Presence'
@@ -19,8 +19,8 @@ FactoryGirl.define do
       name 'House Manager'
       code 'HM'
       category 'crew'
-      training? :true
-      autocrew? :true
+      training :true
+      autocrew :true
     end
 
     trait :cast do

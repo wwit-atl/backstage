@@ -1,28 +1,30 @@
 %h1 Listing skills
 
-- @categories.each do |category|
-  %h2= category
-  %table
-    %tr
-      %th Code
-      %th Name
-      %th Description
-      %th Training?
-      %th Ranked?
-      %th
-      %th
-      %th
+-if can? :create, @skills
+  .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Skill', new_skill_path
 
-    - @skills.each do |skill|
-      - if skill.category == category
-        %tr
-          %td= skill.code
-          %td= skill.name
-          %td= skill.description
-          %td= skill.training? ? 'Yes' : 'No'
-          %td= skill.ranked? ? 'Yes' : 'No'
-          -#%td= link_to 'Show', skill
-          %td= link_to 'Edit', edit_skill_path(skill)
-          %td= link_to 'Destroy', skill, :method => :delete, :data => { :confirm => 'Are you sure?' }
+.table-responsive
+  - @categories.each do |category|
+    %h2= category.titleize
+    %table.table.table-striped.table-condensed
+      %tr
+        %th Code
+        %th Name
+        %th Description
+        %th Training?
+        %th Autocrew?
+        -#%th Ranked?
+        %th
 
-%br= link_to 'New Skill', new_skill_path
+      - @skills.each do |skill|
+        - if skill.category == category
+          %tr
+            %td= skill.code
+            %td= skill.name
+            %td= skill.description
+            %td= skill.training ? 'Yes' : 'No'
+            %td= skill.autocrew ? 'Yes' : 'No'
+            -#%td= skill.ranked ? 'Yes' : 'No'
+            - if can? :manage, skill
+              %td= render 'partials/admin_commands', klass: skill, no_show: true
+

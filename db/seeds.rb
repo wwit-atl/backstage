@@ -81,9 +81,9 @@ puts 'Create Skills'
     name: name,
     description: desc,
     category: cat,
-    training?: training,
-    ranked?: ranked,
-    autocrew?: autocrew,
+    training: training,
+    ranked: ranked,
+    autocrew: autocrew,
     priority: priority,
   )
 end

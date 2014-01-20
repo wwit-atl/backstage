@@ -6,9 +6,9 @@ class CreateSkills < ActiveRecord::Migration
       t.string  :category
       t.integer :priority
       t.text    :description
-      t.boolean :training?
-      t.boolean :ranked?
-      t.boolean :autocrew?
+      t.boolean :training
+      t.boolean :autocrew
+      t.boolean :ranked
 
       t.timestamps
     end

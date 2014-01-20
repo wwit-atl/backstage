@@ -6,15 +6,23 @@
         - @skill.errors.full_messages.each do |msg|
           %li= msg
 
-  .field= f.input :code
-  .field= f.input :name
-  .field= f.input :description
-  .field
-    = f.label 'Training Required?'
-    = f.input_field :training?, lable: false
-  .field
-    = f.label 'Is this skill Ranked?'
-    = f.input_field :ranked?, lable: false
-  .field= f.input_field :category, collection: @categories, include_blank: false
-  .actions
-    = f.submit 'Save'
+  .row
+    .col-sm-2= f.label :code
+    .col-sm-2= f.input :code, label: false
+
+  .row
+    .col-sm-2=  f.label :name
+    .col-sm-6= f.input :name, label: false
+
+  .row
+    .col-sm-2= f.label :category
+    .col-sm-4= f.input :category, collection: @categories, include_blank: false, label: false
+
+  .row
+    .checkbox-inline= f.input :training, label: 'Is training required?', class: :checkbox
+    .checkbox-inline= f.input :autocrew, label: 'Should we auto-schedule?', class: :checkbox
+    -#.checkbox-inline= f.input :ranked, label: 'Is this skill ranked?', class: :checkbox
+
+  .form-group= f.input :description, input_html: { rows: 3 }
+
+  = f.submit 'Save', class: 'btn btn-default'

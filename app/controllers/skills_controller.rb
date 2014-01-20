@@ -1,16 +1,11 @@
 class SkillsController < ApplicationController
-  before_action :set_skill, only: [:show, :edit, :update, :destroy]
-  before_action :set_categories, only: [:index, :new, :edit, :update]
+  before_action :set_skill, except: [ :index, :new, :create ]
+  before_action :set_categories
 
   # GET /skills
   # GET /skills.json
   def index
     @skills = Skill.order(:code)
-  end
-
-  # GET /skills/1
-  # GET /skills/1.json
-  def show
   end
 
   # GET /skills/new
@@ -29,8 +24,8 @@ class SkillsController < ApplicationController
 
     respond_to do |format|
       if @skill.save
-        format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @skill }
+        format.html { redirect_to skills_url, notice: 'Skill was successfully created.' }
+        format.json { head :no_content }
       else
         format.html { render action: 'new' }
         format.json { render json: @skill.errors, status: :unprocessable_entity }
@@ -43,7 +38,7 @@ class SkillsController < ApplicationController
   def update
     respond_to do |format|
       if @skill.update(skill_params)
-        format.html { redirect_to @skill, notice: 'Skill was successfully updated.' }
+        format.html { redirect_to skills_url, notice: 'Skill was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -74,6 +69,6 @@ class SkillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def skill_params
-      params.require(:skill).permit(:code, :name, :category, :training?, :ranked?, :autocrew?)
+      params.require(:skill).permit(:code, :name, :category, :description, :training, :autocrew, :ranked)
     end
 end
