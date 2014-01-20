@@ -16,7 +16,7 @@
 //= require jquery.ui.datepicker
 //= require jquery.timepicker
 //= require cocoon
-//= require select2
+//= require chosen-jquery
 //= require backstage
 //= require calendars
 // Loads all Bootstrap javascripts
