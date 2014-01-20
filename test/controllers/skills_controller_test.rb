@@ -31,12 +31,7 @@ class SkillsControllerTest < ActionController::TestCase
       post :create, skill: attributes_for(:skill, code: 'UT', name: 'Unique Test')
     end
 
-    assert_redirected_to skill_path(assigns(:skill))
-  end
-
-  def test_show
-    get :show, id: @skill
-    assert_response :success
+    assert_redirected_to skills_path
   end
 
   def test_edit
@@ -46,7 +41,7 @@ class SkillsControllerTest < ActionController::TestCase
 
   def test_update
     patch :update, id: @skill, skill: attributes_for(:skill)
-    assert_redirected_to skill_path(assigns(:skill))
+    assert_redirected_to skills_path
   end
 
   def test_destroy

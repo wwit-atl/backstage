@@ -31,7 +31,7 @@ class MembersControllerTest < ActionController::TestCase
       post :create, member: attributes_for(:member, lastname: 'unique')
     end
 
-    assert_redirected_to members_path(notice: 'Member was successfully created.')
+    assert_redirected_to members_path
   end
 
   test "should show member" do
@@ -46,7 +46,7 @@ class MembersControllerTest < ActionController::TestCase
 
   test "should update member" do
     patch :update, id: @member, member: { email: @member.email, firstname: @member.firstname, lastname: @member.lastname }
-    assert_redirected_to members_path(notice: 'Member was successfully updated.')
+    assert_redirected_to members_path
   end
 
   test "should destroy member" do

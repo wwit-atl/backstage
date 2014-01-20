@@ -53,9 +53,7 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     @total_skills ||= Skill.all
-    @member = Member.new(
-        current_member.is_admin? ? admin_member_params : member_params
-    )
+    @member = Member.new(member_params)
 
     respond_to do |format|
       if @member.save
@@ -72,9 +70,8 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
-    strong_params = current_member.is_admin? ? admin_member_params : member_params
     respond_to do |format|
-      if @member.update_attributes(strong_params)
+      if @member.update_attributes(member_params)
         format.html { redirect_to members_path, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
@@ -106,17 +103,11 @@ class MembersController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def admin_member_params
-    params.required(:member).permit(
-        :sex, :dob,
-        skill_ids: [], role_ids: [],
-        phones_attributes: [:id, :ntype, :number, :_destroy],
-    )
-  end
-
   def member_params
     params.required(:member).permit(
-        :sex, :dob,
+        :firstname, :lastname, :email, :sex, :dob,
+        :password, :password_confirmation,
+        skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],
     )
   end

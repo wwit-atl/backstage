@@ -3,12 +3,12 @@ ruby '2.1.0'
 
 gem 'rails', '4.0.0'
 gem 'pg'
-gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'haml', '~> 4.0.0'
 gem 'haml-rails'
-gem 'bootstrap-sass', '~> 3.0.3'
+gem 'sass-rails', '~> 4.0.0'
+gem 'bootstrap-sass', '~> 3.0.0'
 
 # gem 'therubyracer', platforms: :ruby
 
@@ -24,9 +24,9 @@ gem 'will_paginate-bootstrap'
 gem 'cocoon'
 
 gem 'devise', '~> 3.1.0'
-gem 'rolify'
+gem 'rolify', github: 'EppO/rolify' # Needed for Rails4 support
 gem 'cancan'
-gem 'chosen-rails'
+gem 'select2-rails'
 
 gem 'simple_form'
 

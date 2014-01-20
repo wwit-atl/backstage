@@ -9,6 +9,8 @@ FactoryGirl.define do
   factory :member do
     firstname             { Faker::Name.first_name }
     lastname              { Faker::Name.last_name  }
+    sex                   { [ :M, :F ].sample      }
+    dob                   { Time.at(rand * (Time.now - 40.years.ago).to_f).to_date.to_formatted_s(:db) }
     password              'password'
     password_confirmation 'password'
     email                 { "#{firstname[0]}#{lastname}".downcase + '@example.com' }

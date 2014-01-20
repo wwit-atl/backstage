@@ -11,7 +11,7 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :update, Member, id => member.id
+      can :update, Member, :id => member.id
     end
 
   end
