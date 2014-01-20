@@ -26,7 +26,7 @@ gem 'cocoon'
 gem 'devise', '~> 3.1.0'
 gem 'rolify', github: 'EppO/rolify' # Needed for Rails4 support
 gem 'cancan'
-gem 'select2-rails'
+gem 'chosen-rails'
 
 gem 'simple_form'
 

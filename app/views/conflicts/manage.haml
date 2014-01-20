@@ -1,14 +1,5 @@
 %h1.text-center= @member.name
 
--#= simple_form_for :conflicts do |f|
--#  = f.input :member,
--#    collection: @members,
--#    include_blank: false,
--#    label: 'Showing conflicts for:',
--#    member: @selected.id,
--#    input_html: { class: 'chosen-select', onchange: 'submit()' }
-
-
 #conflicts
   - if @member.is_crewable? or @member.is_castable?
 
