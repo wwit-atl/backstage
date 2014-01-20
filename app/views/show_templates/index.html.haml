@@ -2,35 +2,37 @@
 %p
   These entries will be used to auto-generate the shows for each month.
 %p
-  Please note that any changes made herein will only affect future shows,
-  and will not modify any shows already created.
+  %em
+    Please note that any changes made herein will only affect future shows,
+    and will not modify any shows already created.
 
-%table.table.table-striped
-  %tr
-    %th Day of Week
-    %th Name
-    %th Call Time
-    %th Show Time
-    %th Required Shifts
-    %th
+-if can? :create, @show_templates
+  .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Template', new_show_template_path
 
-  - @show_templates.each do |show_template|
+.table-responsive
+  %table.table.table-striped
     %tr
-      %td= show_template.day
-      %td= show_template.name
-      %td= format_time_ampm show_template.calltime
-      %td= format_time_ampm show_template.showtime
-      %td
-        %ul
-          - if show_template.skills.empty?
-            N/A
-          - show_template.skills.each do |skill|
-            %li= skill.name
-      %td
-        = link_to 'Edit', edit_show_template_path(show_template)
-        \|
-        = link_to 'Destroy', show_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th Day of Week
+      %th Name
+      %th Call Time
+      %th Show Time
+      %th Required Shifts
+      %th
 
-%br
+    - @show_templates.each do |show_template|
+      %tr
+        %td= show_template.day
+        %td= show_template.name
+        %td= format_time_ampm show_template.calltime
+        %td= format_time_ampm show_template.showtime
+        %td
+          %ul
+            - if show_template.skills.empty?
+              N/A
+            - show_template.skills.each do |skill|
+              %li= skill.name
 
-= link_to 'New Show template', new_show_template_path
+        - if can? :manage, show_template
+          %td
+            = render 'partials/admin_commands', klass: show_template, no_show: true
+

@@ -1,4 +1,4 @@
-= simple_form_for @show_template do |f|
+= simple_form_for @show_template, html_input: { class: 'form-horizontal' } do |f|
   - if @show_template.errors.any?
     #error_explanation
       %h2= "#{pluralize(@show_template.errors.count, "error")} prohibited this show_template from being saved:"
@@ -6,10 +6,20 @@
         - @show_template.errors.full_messages.each do |msg|
           %li= msg
 
-  .field= f.input :name
-  .field= f.input :dow, collection: @days_of_week
-  .field
-    = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
-    = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
-  .field= f.association :skills, collection: @skills, as: :check_boxes, label: 'Required Skills'
-  .actions= f.submit 'Save'
+  .row
+    .col-md-2=  f.label :name
+    .col-md-10= f.input :name, label: false
+  .row
+    .col-md-2= f.label :day_of_week
+    .col-md-2= f.input :dow, collection: @days_of_week, label: false
+  .row
+    .col-md-2= f.label :calltime
+    .col-md-2= f.input :calltime, :as => :string, input_html: { class: 'timepicker' }, label: false
+  .row
+    .col-md-2= f.label :showtime
+    .col-md-2= f.input :showtime, :as => :string, input_html: { class: 'timepicker' }, label: false
+  .row
+    .col-md-2=  f.label 'Required Skills'
+    .col-md-10= f.association :skills, collection: @skills, as: :check_boxes, label: false
+
+  = f.submit 'Save', class: 'btn btn-default'
