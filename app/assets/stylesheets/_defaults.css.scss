@@ -65,6 +65,7 @@ $navbar-default-toggle-hover-bg:          $wwit-orange;
 $navbar-default-toggle-icon-bar-bg:       $wwit-yellow;
 $navbar-default-toggle-border-color:      $wwit-yellow;
 
+// Dropdown
 $dropdown-bg:                             $wwit-orange;
 $dropdown-divider-bg:                     $wwit-orange;
 $dropdown-link-color:                     black;
@@ -72,7 +73,8 @@ $dropdown-link-active-color:              $navbar-default-link-active-color;
 $dropdown-link-hover-color:               $navbar-default-link-hover-color;
 $dropdown-link-hover-bg:                  $navbar-default-link-hover-bg;
 
-$btn-default-bg:                          $wwit-orange;
+// Buttons
+$btn-default-bg:                          lighten($wwit-orange, 50%);
 $btn-default-color:                       black;
 $btn-default-border:                      darken($btn-default-bg, 10%);
 $btn-primary-color:                       $wwit-orange;

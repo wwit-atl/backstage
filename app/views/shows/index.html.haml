@@ -14,14 +14,8 @@
       %td= format_time_ampm show.calltime
       %td= format_time_ampm show.showtime
       %td= raw( show.actors.map { |actor| link_to actor.name, member_path(actor) }.to_sentence )
-      %td
-        [
-        = link_to 'Show', show
-        |
-        = link_to 'Edit', edit_show_path(show)
-        |
-        = link_to 'Destroy', show, :method => :delete, :data => { :confirm => 'Are you sure?' }
-        ]
+      - if current_member.is_admin?
+        %td= render 'partials/admin_commands', klass: show
 
 %br
 

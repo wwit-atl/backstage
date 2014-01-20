@@ -1,12 +1,13 @@
-%h1 Configuration
+#konfig-form.row
+  .col-sm-8.col-sm-offset-2
+    %h1 Configuration
 
-#konfig-form
-  = form_tag update_multiple_configs_path, :method => :patch do
-    %table
+    = form_tag update_multiple_configs_path, role: :form, class: 'form-horizontal', :method => :patch do
       - @configs.each do |config|
-        %tr
-          %td.label= config.name.tableize.humanize.titleize
-          = fields_for "konfig_ids[]", config do |c|
-            %td.input= c.text_field :value
-    = submit_tag "Update All"
+        = fields_for "konfig_ids[]", config do |c|
+          .form-group.row
+            .col-sm-6= c.label config.name.tableize.humanize.titleize
+            .col-sm-2= c.number_field :value
+
+      = submit_tag 'Update All', class: 'btn btn-default'
 
