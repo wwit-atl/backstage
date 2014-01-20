@@ -1,7 +1,7 @@
 class ShowTemplatesController < ApplicationController
   before_action :set_show_template, only: [:edit, :update, :destroy]
   before_action :set_days_of_week
-  before_action :set_skills, only: [:edit, :update]
+  before_action :set_skills, only: [:new, :create, :edit, :update]
 
   # GET /show_templates
   # GET /show_templates.json
@@ -66,7 +66,7 @@ class ShowTemplatesController < ApplicationController
     end
 
     def set_skills
-      @skills = Skill.where(category: 'Shift')
+      @skills = Skill.crewable
     end
 
     def set_show_template

@@ -26,17 +26,16 @@
 
           - if can? :manage, @members
             %td
-              .btn-group.btn-group-sm
-                = button_tag class: 'btn btn-default' do
-                  = link_to content_tag( :span, '', class: 'glyphicon glyphicon-eye-open' ), member
-                = button_tag class: 'btn btn-default' do
-                  = link_to content_tag( :span, '', class: 'glyphicon glyphicon-pencil' ), edit_member_path(member)
-                = button_tag class: 'btn btn-default' do
-                  = link_to member, :method => :delete, data: { confirm: 'Are you sure?' } do
-                    %span.glyphicon.glyphicon-trash
+              = render 'partials/admin_commands', klass: member
+              -#.btn-group.btn-group-sm
+              -#  = button_tag class: 'btn btn-default' do
+              -#    = link_to content_tag( :span, '', class: 'glyphicon glyphicon-eye-open' ), member
+              -#  = button_tag class: 'btn btn-default' do
+              -#    = link_to content_tag( :span, '', class: 'glyphicon glyphicon-pencil' ), edit_member_path(member)
+              -#  = button_tag class: 'btn btn-default' do
+              -#    = link_to member, :method => :delete, data: { confirm: 'Are you sure?' } do
+              -#      %span.glyphicon.glyphicon-trash
 
-  = will_paginate @members
+  = will_paginate @members, renderer: BootstrapPagination::Rails
   %br
 
-  -if current_member.is_admin?
-    = link_to 'New Member', new_member_path
