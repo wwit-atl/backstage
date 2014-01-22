@@ -17,7 +17,7 @@
 
       - @members.each do |member|
         %tr
-          %td.name= member.fullname
+          %td.name= link_to member.fullname, member_path(member)
           %td.phone
             - member.phones.by_type.each do |phone|
               = link_to phone.listing, phone.as_tel_link
@@ -29,7 +29,7 @@
 
           - if can? :manage, @members
             %td
-              = render 'partials/admin_commands', klass: member
+              = render 'partials/admin_commands', klass: member, no_show: true
               -#.btn-group.btn-group-sm
               -#  = button_tag class: 'btn btn-default' do
               -#    = link_to content_tag( :span, '', class: 'glyphicon glyphicon-eye-open' ), member

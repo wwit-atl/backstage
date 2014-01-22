@@ -28,6 +28,9 @@ $wwit-green:  #9cc41e;
 
 $wwit-red-dark: darken($wwit-red, 25%);
 
+// Grid Settings
+//$grid-float-breakpoint: 1024px;
+
 //$body-bg: $wwit-yellow;
 $body-bg:                   transparant;
 $text-color:                black;
@@ -72,15 +75,25 @@ $dropdown-link-color:                     black;
 $dropdown-link-active-color:              $navbar-default-link-active-color;
 $dropdown-link-hover-color:               $navbar-default-link-hover-color;
 $dropdown-link-hover-bg:                  $navbar-default-link-hover-bg;
+$dropdown-divider-bg:                     $wwit-red;
+$dropdown-header-color:                   $wwit-yellow;
 
 // Buttons
 $btn-default-bg:                          lighten($wwit-orange, 50%);
 $btn-default-color:                       black;
 $btn-default-border:                      darken($btn-default-bg, 10%);
 $btn-primary-color:                       $wwit-orange;
-$btn-success-color:                       $wwit-green;
-$btn-warning-color:                       $wwit-yellow;
-$btn-danger-color:                        $wwit-red;
-$btn-info-color:                          $wwit-blue;
+
+$btn-success-bg:                          $wwit-green;
+$btn-success-color:                       lighten($btn-success-bg, 40%);
+
+$btn-warning-bg:                          $wwit-yellow;
+$btn-warning-color:                       lighten($btn-warning-bg, 40%);
+
+$btn-danger-bg:                           $wwit-red;
+$btn-danger-color:                        lighten($btn-danger-bg, 40%);
+
+$btn-info-bg:                             $wwit-blue;
+$btn-info-color:                          lighten($btn-info-bg, 40%);
 
 

@@ -66,29 +66,32 @@
       }
     }
   }
-
-  .month {
-    margin: 0;
-    padding: 10px 0 10px 0;
-    font-size: 1.2em;
-    text-align: center;
-    color: $wwit-red;
-
-    h2 {
-      margin: 0;
-    }
-    a {
-      text-decoration: none;
-      padding: 0 10px;
-      color: $wwit-orange;
-    }
-    input {
-      margin-top: 10px;
-    }
-  }
-
   ul {
     font-size: 11px;
     padding-left: 20px;
   }
 }
+
+.month-controls {
+  margin: 0;
+  padding: 10px 0 10px 0;
+  font-size: 1.2em;
+  text-align: center;
+
+  h2 {
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    padding: 0 10px;
+    color: $wwit-red;
+    &:hover {
+      color: $wwit-yellow;
+    }
+  }
+  input {
+    margin-top: 10px;
+  }
+}
+
+
