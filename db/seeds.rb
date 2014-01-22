@@ -42,20 +42,17 @@ end
 puts 'Create Roles'
 #   Role         Cast?  Crew?
 [
-  [ :admin,      false, false ],
-  [ :management, false, false ],
-  [ :sponsor,    false, false ],
-  [ :friend,     false, false ],
-  [ :ms,         true,  false ],
-  [ :apprentice, true,  true  ],
-  [ :us,         true,  true  ],
-  [ :isp,        true,  true  ],
-  [ :volunteer,  false, true  ],
-].each do |role, cast, crew|
-  if Role.where(name: role).first_or_create.update_attributes(
-    name: role, cast: cast, crew: crew
-  )
-  end
+  [ :admin,      'Administrative',  false, false ],
+  [ :management, 'Management',      false, false ],
+  [ :sponsor,    'WWIT Sponsor',    false, false ],
+  [ :friend,     'Friend of WWIT',  false, false ],
+  [ :ms,         'Main Stage',      true,  false ],
+  [ :apprentice, 'Apprentice',      true,  true  ],
+  [ :us,         'Unusual Suspects',true,  true  ],
+  [ :isp,        'Improve Studies', true,  true  ],
+  [ :volunteer,  'WWIT Volunteer',  false, true  ],
+].each do |name, desc, cast, crew|
+  Role.where(name: name).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
 end
 
 #
@@ -67,7 +64,7 @@ puts 'Create Skills'
   [ 0,   'MC', 'Master of Ceremonies', '', 'crew', true,  true,  false ],
   [ 1,   'HM', 'House Manager',        '', 'crew', true,  true,  true  ],
   [ 2,   'LS', 'Lightboard Operator',  '', 'crew', true,  true,  true  ],
-  [ 3,   'SS', 'Soundboard Operator',  '', 'crew', true,  true,  false ],
+  [ 3,   'SS', 'Soundboard Operator',  '', 'crew', true,  true,  true  ],
   [ 4,   'CS', 'Camera Operator',      '', 'crew', true,  true,  true  ],
   [ 5,   'BO', 'Box Office Attendant', '', 'crew', true,  false, true  ],
   [ 6,   'SM', 'Stage Manager',        '', 'crew', false, true,  true  ],

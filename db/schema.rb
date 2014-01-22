@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20131014172637) do
 
   create_table "roles", force: true do |t|
     t.string   "name"
+    t.string   "desc"
     t.integer  "resource_id"
     t.string   "resource_type"
     t.datetime "created_at"
