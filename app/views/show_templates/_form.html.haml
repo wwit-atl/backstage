@@ -1,10 +1,6 @@
 = simple_form_for @show_template, html_input: { class: 'form-horizontal' } do |f|
   - if @show_template.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@show_template.errors.count, "error")} prohibited this show_template from being saved:"
-      %ul
-        - @show_template.errors.full_messages.each do |msg|
-          %li= msg
+    = render 'partials/form_errors', model: @show_template
 
   .row
     .col-md-2=  f.label :name

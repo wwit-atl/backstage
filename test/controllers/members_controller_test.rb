@@ -46,7 +46,7 @@ class MembersControllerTest < ActionController::TestCase
 
   test "should update member" do
     patch :update, id: @member, member: { email: @member.email, firstname: @member.firstname, lastname: @member.lastname }
-    assert_redirected_to members_path
+    assert_redirected_to member_path(@member)
   end
 
   test "should destroy member" do

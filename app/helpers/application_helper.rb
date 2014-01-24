@@ -23,12 +23,12 @@ module ApplicationHelper
     current_page?(link) ? 'active' : nil
   end
 
-  def bs_alert_name(name)
-    case name
+  def bs_class_for(type)
+    case type
       when :notice then 'alert-info'
       when :alert  then 'alert-warning'
       when :error  then 'alert-danger'
-      else "alert-#{name}"
+      else "alert-#{type}"
     end
   end
 

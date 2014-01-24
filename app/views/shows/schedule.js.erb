@@ -1,0 +1,6 @@
+<% if @exceptions.empty? %>
+  window.location.reload()
+<% else %>
+  $('#scheduler.errors').html("<%= escape_javascript(render('schedule_exceptions')) %>");
+  $('#scheduler.errors').slideDown();
+<% end %>

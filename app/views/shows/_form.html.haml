@@ -1,40 +1,40 @@
 = simple_form_for @show do |f|
   - if @show.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@show.errors.count, "error")} prohibited this show from being saved:"
-      %ul
-        - @show.errors.full_messages.each do |msg|
-          %li= msg
+    = render 'partials/form_errors', model: @show
 
-  .field
-    = f.input :date, :as => :string, input_html: { class: 'datepicker' }
-    = f.input :showtime, :as => :string, input_html: { class: 'timepicker' }
-    = f.input :calltime, :as => :string, input_html: { class: 'timepicker' }
+  .row
+    .col-md-4= f.input :date,     :as => :string, label: 'Show Date', input_html: { class: 'datepicker' }
+    .col-md-4= f.input :showtime, :as => :string, label: 'Show Time', input_html: { class: 'timepicker' }
+    .col-md-4= f.input :calltime, :as => :string, label: 'Call Time', input_html: { class: 'timepicker' }
 
-  %fieldset
-    %legend Crew the Show
-    #crew
-      = f.simple_fields_for :shifts do |shift|
-        = render 'shift_fields', f: shift
-      .links= link_to_add_association button_tag('Add Shift'), f, :shifts
+  .row
+    .col-md-6
+      %fieldset
+        %legend Crew the Show
+        #crew
+          = f.simple_fields_for :shifts do |shift|
+            = render 'shift_fields', f: shift
+          .links= link_to_add_association button_tag('Add Shift', class: 'btn btn-default btn-sm'), f, :shifts
 
-  %fieldset
-    %legend Cast the Show:
-    #cast
-      = f.association :actors,
-          :collection => @members_castable,
-          :as => :grouped_select,
-          :label_method => :name,
-          :group_method => :members,
-          :include_blank => true,
-          :label => 'Actors',
-          :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
+    .col-md-6
+      %fieldset
+        %legend Cast the Show:
+        #cast
+          = f.association :actors,
+              :collection => @members_castable,
+              :as => :grouped_select,
+              :label_method => :name,
+              :group_method => :members,
+              :include_blank => true,
+              :label => 'Actors ',
+              :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
 
-  -#%fieldset
-  -#  %legend Write the Show
-  -#  = f.simple_fields_for :scenes do |builder|
-  -#    = render 'scene_fields', f: builder
-  -#  .links= link_to_add_association button_tag('Add Scene'), f, :scenes
+  -#.row
+  -#  %fieldset
+  -#    %legend Write the Show
+  -#    = f.simple_fields_for :scenes do |builder|
+  -#      = render 'scene_fields', f: builder
+  -#    .links= link_to_add_association button_tag('Add Scene'), f, :scenes
 
   .action
-    = f.submit 'Create Show'
+    = f.submit class: 'btn btn-default'

@@ -7,8 +7,7 @@ ready = ->
 
   $("input.datepicker").each ->
     $(this).datepicker
-      altFormat: "yy-mm-dd"
-      dateFormat: "mm/dd/yy"
+      dateFormat: "yy-mm-dd"
       altField: $(this).next()
 
   $("input.timepicker").each ->
@@ -16,6 +15,15 @@ ready = ->
       timeFormat: 'g:ia'
       scrollDefaultTime: '8:00pm'
       step: 15
+
+  $("#scheduler.errors").hide();
+
+  $('tbody.reposition').sortable(
+    axis: 'y'
+    handle: '.handle'
+    update: ->
+      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+  );
 
 $(document).ready(ready)
 $(document).on 'page:load', ready

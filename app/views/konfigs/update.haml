@@ -1,7 +1,4 @@
 - if @config.errors.any?
-  #error_explanation
-    %ul
-      - @config.errors.full_messages.each do |msg|
-        %li= msg
+  = render 'partials/form_errors', model: @config
 
 = render 'form'

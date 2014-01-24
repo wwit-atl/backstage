@@ -1,22 +1,57 @@
-%h1 Listing shows
+-#= render 'schedule_exceptions' unless @exceptions.empty?
 
-%table.table.table-striped
-  %tr
-    %th Date
-    %th Call Time
-    %th Show Time
-    %th Cast
-    %th
+#scheduler.errors
 
-  - @shows.each do |show|
-    %tr
-      %td= show.date
-      %td= format_time_ampm show.calltime
-      %td= format_time_ampm show.showtime
-      %td= raw( show.actors.map { |actor| link_to actor.name, member_path(actor) }.to_sentence )
-      - if current_member.is_admin?
-        %td= render 'partials/admin_commands', klass: show
+#shows-index
 
-%br
+  -if can? :manage, Show
+    .row
+      .pull-right
+        = link_to schedule_shows_path, class: 'btn btn-info auto-schedule',
+          data: { disable_with: 'Processing', remote: true } do
+          = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + ' Auto Schedule'
 
-= link_to 'New Show', new_show_path
+  -#%h1.col-md-4 #{@date.strftime('%B')} Show Schedule
+  .month-controls
+    %h2
+      = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left'), { date: @date.prev_month }
+      #{@date.strftime('%B %Y')} Show Schedule
+      = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right'), { date: @date.next_month }
+
+  -if can? :create, Show
+    .text-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Show', new_show_path
+
+  .table-responsive
+    %table.table.table-striped
+      %tr
+        %th Date
+        %th Name
+        %th Call Time
+        %th Show Time
+        %th Crew
+        %th Cast
+        %th
+
+      - @shows.each do |show|
+        %tr
+          %td= link_to show.human_date, show_path(show)
+          %td= link_to show.name, show_path(show)
+          %td= format_time_ampm show.calltime
+          %td= format_time_ampm show.showtime
+          %td
+            %ul.list-unstyled
+              - show.shifts.by_skill_priority.each do |shift|
+                %li
+                  = shift.skill.code + ':'
+                  = shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to( shift.member.name, member_path(shift.member) )
+
+          %td
+            %ul.list-unstyled
+              - show.actors.each do |actor|
+                %li= link_to actor.name, member_path(actor)
+
+          %td
+            - if can? :manage, show
+              = render 'partials/admin_commands', klass: show, show: false
+
+

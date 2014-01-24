@@ -1,7 +1,7 @@
 class Phone < ActiveRecord::Base
   belongs_to :member
   before_validation :strip_number
-  validates_length_of :number, is: 10
+  validates_length_of :number, is: 10, allow_blank: true
 
   scope :by_type, ->{ order(:ntype) }
 

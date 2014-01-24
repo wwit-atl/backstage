@@ -26,27 +26,18 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal 'Tester Testerson', build(:member, firstname: 'tester', lastname: 'testerson').fullname
   end
 
-  test 'castable returns castable members' do
-    member = create(:member)
-    member.skills << create(:skill, :cast)
-    assert_equal member, Member.castable.first
+  test 'castable members' do
+    create( :role, name: :cast, cast: true, crew: false )
+    member = create(:member, :cast)
+    assert_equal member, Member.castable.first, 'Cast member should be castable, but is not.'
+    refute_equal member, Member.crewable.first, 'Cast member should not be crewable, but is.'
   end
 
-  test 'does not return crew in castable' do
-    create( :role, name: :volunteer, cast: false, crew: true )
-    member = create(:member, :volunteer)
-    refute_equal member, Member.castable.first, 'Crew role shows up in castable list'
+  test 'crewable members' do
+    create( :role, name: :crew, cast: false, crew: true )
+    member = create(:member, :crew)
+    assert_equal member, Member.crewable.first, 'Crew member should be crewable, but is not.'
+    refute_equal member, Member.castable.first, 'Crew member should not be castable, but is.'
   end
 
-  test 'crewable returns crewable members' do
-    create( :role, name: :volunteer, cast: false, crew: true )
-    member = create(:member, :volunteer)
-    assert_equal member, Member.crewable.first
-  end
-
-  test 'does not return cast in crewable' do
-    member = create(:member)
-    member.skills << create(:skill, :cast)
-    refute_equal member, Member.crewable.first, 'Cast skill shows up in crewable list'
-  end
 end

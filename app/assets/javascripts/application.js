@@ -13,12 +13,16 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.ui.core
+//= require jquery.ui.widget
 //= require jquery.ui.datepicker
+//= require jquery.ui.sortable
 //= require jquery.timepicker
 //= require cocoon
 //= require chosen-jquery
 //= require backstage
 //= require calendars
+//= require scheduler
 // Loads all Bootstrap javascripts
 //= require bootstrap
 // Turbolinks must come last

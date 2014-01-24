@@ -73,24 +73,19 @@
 }
 
 .month-controls {
-  margin: 0;
-  padding: 10px 0 10px 0;
-  font-size: 1.2em;
+  vertical-align: middle;
   text-align: center;
+  color: $wwit-red;
 
-  h2 {
-    margin: 0;
-  }
   a {
     text-decoration: none;
-    padding: 0 10px;
+    border-radius: 50px;
+    font-size: 0.8em;
     color: $wwit-red;
+
     &:hover {
       color: $wwit-yellow;
     }
-  }
-  input {
-    margin-top: 10px;
   }
 }
 

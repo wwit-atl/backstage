@@ -27,6 +27,7 @@ $wwit-blue:   #1b92b1;
 $wwit-green:  #9cc41e;
 
 $wwit-red-dark: darken($wwit-red, 25%);
+$wwit-blue-dark: darken($wwit-blue, 10%);
 
 // Grid Settings
 //$grid-float-breakpoint: 1024px;
@@ -96,4 +97,6 @@ $btn-danger-color:                        lighten($btn-danger-bg, 40%);
 $btn-info-bg:                             $wwit-blue;
 $btn-info-color:                          lighten($btn-info-bg, 40%);
 
+$badge-bg:                                $wwit-green;
+$badge-color:                             $wwit-blue-dark;
 

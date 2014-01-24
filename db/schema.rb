@@ -165,12 +165,10 @@ ActiveRecord::Schema.define(version: 20131014172637) do
   create_table "skills", force: true do |t|
     t.string   "code"
     t.string   "name"
-    t.string   "category"
     t.integer  "priority"
     t.text     "description"
     t.boolean  "training"
     t.boolean  "autocrew"
-    t.boolean  "ranked"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

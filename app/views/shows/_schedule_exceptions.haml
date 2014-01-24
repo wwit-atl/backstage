@@ -1,0 +1,8 @@
+.box
+  = button_tag 'x', class: 'close', data: { dismiss: 'errors' }, 'aria-hidden' => 'true'
+  %h1 Exceptions!
+  %p Whoops... the following errors occurred during auto-scheduling, please correct any issues and try again, or fix them manually.
+  %ul.list-group
+  - @exceptions.sort.each do |date, shifts|
+    %li.list-group-item= "#{date}: No eligible members were available for #{shifts.to_sentence}"
+

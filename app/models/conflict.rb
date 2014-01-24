@@ -33,10 +33,6 @@ class Conflict < ActiveRecord::Base
     date.to_time
   end
 
-  def future
-    date > Date.today
-  end
-
   def locked?
     datetime < Date.today
   end

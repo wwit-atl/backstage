@@ -66,7 +66,7 @@ class ShowTemplatesController < ApplicationController
     end
 
     def set_skills
-      @skills = Skill.crewable
+      @skills = Skill.all
     end
 
     def set_show_template

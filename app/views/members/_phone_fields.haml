@@ -1,9 +1,8 @@
 %fieldset.nested-fields.phones
-  .col-md-11.col-md-offset-1
-    .col-md-2
+  .row
+    .col-md-2.col-xs-4
       = f.input_field :ntype, collection: @phone_types, include_blank: false, label: false
-    .col-md-4
+    .col-md-4.col-xs-6
       = f.input_field :number, label: false
-    .col-md-2
-      = f.hidden_field :_destroy
-      = link_to_remove_association button_tag('Remove Phone', class: [ 'btn', 'btn-default', 'btn-sm' ]), f
+    .col-md-2.col-xs-2
+      = link_to_remove_association button_tag('Remove', class: [ 'btn', 'btn-default', 'btn-sm' ]), f

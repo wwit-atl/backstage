@@ -1,6 +1,4 @@
 class Member < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   rolify
 
@@ -16,11 +14,11 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :phones, allow_destroy: true
 
   validates_presence_of :email, :firstname, :lastname
+  validates_presence_of :password, on: :create
+  validates_length_of :password, minimum: 5, maximum: 120, allow_blank: true
   validates_uniqueness_of :email
 
-  #scope :castable, -> { includes(:skills).where(skills: { category: 'cast' }) }
-  #scope :crewable, -> { includes(:skills).where(skills: { category: 'crew' }) }
-  scope :castable, -> { joins(:skills).merge(Skill.castable) }
+  scope :castable, -> { joins(:roles).merge(Role.castable) }
   scope :crewable, -> { joins(:roles).merge(Role.crewable) }
 
   scope :uses_conflicts, -> { castable || crewable }
@@ -31,7 +29,7 @@ class Member < ActiveRecord::Base
   scope :by_name, -> { order([:firstname, :lastname]) }
 
   def fullname
-    [ firstname, lastname ].map{ |n| n.capitalize }.join(' ')
+    [ firstname, lastname ].map{ |n| n.titleize }.join(' ')
   end
   alias :name :fullname
 
@@ -49,7 +47,7 @@ class Member < ActiveRecord::Base
   end
 
   def is_castable?
-    self.skills.castable.count > 0
+    self.roles.castable.count > 0
   end
 
   def uses_conflicts?

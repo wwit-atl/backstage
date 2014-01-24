@@ -1,10 +1,6 @@
 = simple_form_for @skill do |f|
   - if @skill.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@skill.errors.count, "error")} prohibited this skill from being saved:"
-      %ul
-        - @skill.errors.full_messages.each do |msg|
-          %li= msg
+    = render 'partials/form_errors', model: @skill
 
   .row
     .col-sm-2= f.label :code
@@ -15,13 +11,8 @@
     .col-sm-6= f.input :name, label: false
 
   .row
-    .col-sm-2= f.label :category
-    .col-sm-4= f.input :category, collection: @categories, include_blank: false, label: false
-
-  .row
     .checkbox-inline= f.input :training, label: 'Is training required?', class: :checkbox
     .checkbox-inline= f.input :autocrew, label: 'Should we auto-schedule?', class: :checkbox
-    -#.checkbox-inline= f.input :ranked, label: 'Is this skill ranked?', class: :checkbox
 
   .form-group= f.input :description, input_html: { rows: 3 }
 

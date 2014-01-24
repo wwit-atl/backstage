@@ -1,0 +1,34 @@
+%h1
+  = @show.human_date
+  %small= @show.name
+
+%ul.list-inline
+  %li Show Time: #{format_time_ampm @show.showtime}
+  %li Call Time: #{format_time_ampm @show.calltime}
+
+.row
+  .col-md-6
+    .box
+      Cast:
+      %ul
+        - @cast.each do |cast|
+          %li= link_to( cast.name, member_path(cast) ) + " (#{cast.roles.map { |r| r.name.upcase }.to_sentence})"
+
+  .col-md-6
+    .box
+      Crew:
+      %ul
+        - @crew.each do |crew|
+          %li
+            = "[#{crew.skill.name}] is "
+            = crew.member.nil? ? 'Not Yet Assigned' : link_to( crew.member.name, member_path(crew.member) )
+
+.row
+  .col-md-12
+    .well
+      Notes
+      = render 'notes/notes'
+      = render 'notes/form'
+
+- if can? :manage, @show
+  #{link_to 'Edit', edit_show_path(@show)} | #{link_to 'Back', shows_path}

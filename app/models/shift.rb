@@ -3,7 +3,7 @@ class Shift < ActiveRecord::Base
   belongs_to :skill
   belongs_to :member
 
-  validates_presence_of :show_id
+  validates_presence_of :show_id, :on => :create
 
   scope :with_skill, lambda { |code| joins(:skill).where(skills: {code: code.to_s.upcase}).readonly(false).first }
   scope :by_skill, -> { joins(:skill).order('skills.code') }
@@ -14,5 +14,9 @@ class Shift < ActiveRecord::Base
   def text
     text = "#{show.date} [#{show.dow}]"
     text + " - #{skill.name}" unless skill.nil?
+  end
+
+  def skill_member_display
+    skill.code + ': ' + (member.nil? ? 'Nobody Assigned' : link_to(member.name, member_path(member)))
   end
 end

@@ -5,6 +5,6 @@ require "test_helper"
 
 class RouteTest < ActionDispatch::IntegrationTest
   def test_root
-    assert_routing '/', controller: 'members', action: 'dashboard'
+    assert_routing '/', controller: 'members', action: 'show'
   end
 end

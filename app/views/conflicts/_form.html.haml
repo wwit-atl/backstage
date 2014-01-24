@@ -1,10 +1,6 @@
 = form_for @conflict do |f|
   - if @conflict.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@conflict.errors.count, "error")} prohibited this conflict from being saved:"
-      %ul
-        - @conflict.errors.full_messages.each do |msg|
-          %li= msg
+    = render 'partials/form_errors', model: @conflict
 
   .field
     = f.label :date

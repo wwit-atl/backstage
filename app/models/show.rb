@@ -15,6 +15,8 @@ class Show < ActiveRecord::Base
   scope :recent, -> { where('date > ?', Date.today - 30.days) }
   scope :by_date, -> { order(:date) }
 
+  scope :for_month, ->(cdate = Date.today) { where('date >= ? AND date <= ?', cdate.beginning_of_month, cdate.end_of_month) }
+
   default_scope { by_date }
 
   validates_presence_of :date
@@ -25,6 +27,10 @@ class Show < ActiveRecord::Base
 
   def show_time
     format_time(showtime)
+  end
+
+  def human_date
+    date.strftime('%m/%d/%Y')
   end
 
   def year
@@ -43,13 +49,4 @@ class Show < ActiveRecord::Base
     return unless code
     shifts.where(skill: Skill.class_eval(code.to_s.downcase)).first
   end
-
-  #def cast
-  #  shifts.joins(:skill).merge(Skill.castable)
-  #end
-
-  #def crew
-  #  shifts.joins(:skill).merge(Skill.crewable)
-  #end
-
 end

@@ -1,0 +1,5 @@
+#flash-messages
+  - flash.each do |type, message|
+    = content_tag :div, :class => ['alert', bs_class_for(type), 'alert-dismissable'] do
+      = button_tag 'x', class: 'close', :type => :button, data: { dismiss: 'alert' }, 'aria-hidden' => 'true'
+      = message

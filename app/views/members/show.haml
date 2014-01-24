@@ -1,54 +1,86 @@
-%p#notice= notice
-
 #member
-  .name= @member.name
-  .email= @member.email
-  - if @member.is_castable? or @member.is_crewable?
-    .training
-      Training
-      %ul
-      - @skills.each do |skill|
-        %li= skill.name
-      - if @skills.empty?
-        %li Untrained
+  %h1
+    = @member.name
+    %small= @member.email
 
-  - if @member.is_castable?
-    .shows
-      Recent and Upcoming Shows
-      .show
-        %ul
-        - @shows.each do |show|
-          %li= link_to "#{show.date} - #{show.name}", show_path(shift.show)
-        - if @shows.empty?
-          %li No upcoming Shows
+  .row
+    - if @member.is_castable?
+      .col-md-12
+        .plaque
+          %h3.no-top-pad Recent and Upcoming Shows
+          - if @shows.empty?
+            %p No upcoming Shows
+          - else
+            %table.table.table-condensed
+              %th Date / Name
+              %th Cast
+              %th Crew
+              - @shows.each do |show|
+                %tr
+                  %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
+                  %td.col-md-4
+                    %ul
+                      - show.actors.each do |member|
+                        %li= link_to(member.name, member_path(member))
+                  %td.col-md-4
+                    %ul.list-unstyled
+                      - show.shifts.each do |shift|
+                        %li= shift.skill_member_display
 
-  - if @member.is_crewable?
-    .shifts
-      Recent and Upcoming Shifts
-      .shift
-        %ul
-        - @shifts.each do |shift|
-          %li= link_to shift.text, show_path(shift.show)
-        - if @shifts.empty?
-          %li No upcoming Shifts
+  .row
+    - if @member.is_crewable?
+      .col-md-12
+        .plaque
+          %h3.no-top-pad Recent and Upcoming Shifts
+          - if @shifts.empty?
+            %p No upcoming Shifts
+          - else
+            %ul
+              - @shifts.each do |shift|
+                %li= link_to shift.text, show_path(shift.show)
 
-  - if @member.uses_conflicts?
-    .conflicts
-      Your conflicts
-      .conflict
-        %ul
-          - @conflicts.each do |conflict|
-            %li= conflict.date
+  .row
+    .col-md-12
+      .box
+        %h3.no-top-pad Latest Announcements
+
+  .row
+    - if @member.is_castable? or @member.is_crewable?
+      .col-md-4
+        .plaque
+          %h3.no-top-pad Groups
+          %ul
+            - @member.roles.each do |role|
+              %li= role.desc
+
+      .col-md-4
+        .plaque
+          %h3.no-top-pad Skills
+          - if @skills.empty?
+            %p No Skills Assigned
+          - else
+            %ul
+              - @skills.each do |skill|
+                %li= skill.name
+
+      .col-md-4
+        .plaque
+          %h3.no-top-pad Conflicts
           - if @conflicts.empty?
-            %li No Conflicts
-      = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
+            %p No Conflicts
+          - else
+            %ul
+              - @conflicts.each do |conflict|
+                %li= conflict.date
+          = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
 
-  .notes
-    Notes
-    = render 'notes/notes'
-    = render 'notes/form'
+  .row
+    .col-md-12
+      .well
+        Notes
+        = render 'notes/notes'
+        = render 'notes/form'
 
-= link_to 'Edit', edit_member_path(@member)
-\|
-= link_to 'Back', members_path
+- if can? :edit, @member
+  = link_to 'Edit', edit_member_path(@member)
 

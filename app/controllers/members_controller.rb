@@ -1,11 +1,12 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :create, :update]
-  skip_before_action :authenticate_member!, only: [:show]
+  before_action :total_skills, only: [:new, :edit, :create, :update]
+  skip_before_action :authenticate_member!, only: [:public_profile]
 
-  def dashboard
-    @member = current_member
-    @skills = @member.skills
+  def public_profile
+    # TODO: This is where the member's public profile will be shown... not yet implemented.
+    redirect_to members_path
   end
 
   def admin
@@ -22,10 +23,8 @@ class MembersController < ApplicationController
     end
   end
 
-  # GET /members/1
-  # GET /members/1.json
+  # ToDo: Need phone number(s) listed on Member show page
   def show
-    @member = Member.find(params[:id])
     @shows = @member.shows.recent.by_date
     @shifts = @member.shifts.recent.by_show_date
     @skills = @member.skills
@@ -41,18 +40,15 @@ class MembersController < ApplicationController
     @member = Member.new
     # We want at least one new phone number entry to be displayed in the form
     @member.phones.new
-    @total_skills ||= Skill.all
   end
 
   # GET /members/1/edit
   def edit
-    @total_skills ||= Skill.all
   end
 
   # POST /members
   # POST /members.json
   def create
-    @total_skills ||= Skill.all
     @member = Member.new(member_params)
 
     respond_to do |format|
@@ -70,9 +66,17 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
+    if member_params[:password].blank?
+      member_params.delete(:password)
+      member_params.delete(:password_confirmation)
+    end
+
+    # https://github.com/plataformatec/devise/wiki/How-To%3a-Allow-users-to-edit-their-account-without-providing-a-password
+    successfully_updated = needs_password?(@member, member_params) ? @member.update(member_params) : @member.update_without_password(member_params)
+
     respond_to do |format|
-      if @member.update_attributes(member_params)
-        format.html { redirect_to members_path, notice: 'Member was successfully updated.' }
+      if successfully_updated
+        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -95,7 +99,16 @@ class MembersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_member
-    @member ||= Member.find(params[:id])
+    if params[:id].nil?
+      redirect_to members_url unless current_member
+      @member = current_member
+    else
+      @member = Member.find(params[:id])
+    end
+  end
+
+  def total_skills
+    @total_skills ||= Skill.all
   end
 
   def get_phone_types
@@ -110,5 +123,9 @@ class MembersController < ApplicationController
         skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],
     )
+  end
+
+  def needs_password?(member, params)
+    params[:password].present?
   end
 end

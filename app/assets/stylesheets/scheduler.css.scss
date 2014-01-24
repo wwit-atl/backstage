@@ -1,0 +1,11 @@
+#scheduler.errors {
+  h1, p { text-shadow: 2px 3px 5px black; }
+  li { color: $wwit-red; }
+  .box {
+    @include box-shadow(0px 7px 15px rgba(black, .8));
+    margin-top: 5px;
+    border: 2px solid $wwit-red-dark;
+    color: $wwit-yellow;
+    background: $wwit-red;
+  }
+}

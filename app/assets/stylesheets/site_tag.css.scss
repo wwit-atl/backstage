@@ -1,0 +1,22 @@
+.site-tag {
+  z-index: 99999;
+  position: fixed;
+  top: 40px;
+  left: 150px;
+  @include rotate(-5deg);
+  background: $wwit-green;
+  text-align: center;
+  border: 1px solid $wwit-blue;
+  border-radius: 5px;
+  box-shadow: 3px 2px 7px rgba(black, .8);
+  margin: 0;
+  padding: 0;
+
+  .beta {
+    padding: 5px;
+    text-shadow: 0px 0px 5px lighten($wwit-blue, 50%);
+    font-weight: bold;
+    font-size: 1em;
+    color: $wwit-blue-dark;
+  }
+}

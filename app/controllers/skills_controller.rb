@@ -1,16 +1,18 @@
 class SkillsController < ApplicationController
-  before_action :set_skill, except: [ :index, :new, :create ]
-  before_action :set_categories
+  before_action :set_skill, except: [ :index, :new, :create, :reposition ]
 
   # GET /skills
   # GET /skills.json
   def index
-    @skills = Skill.order(:code)
+    @skills = Skill.order(:priority, :code)
   end
 
   # GET /skills/new
   def new
     @skill = Skill.new
+  end
+
+  def show
   end
 
   # GET /skills/1/edit
@@ -57,18 +59,22 @@ class SkillsController < ApplicationController
     end
   end
 
+  def reposition
+    params[:skill].each_with_index do |id, index|
+      skill = Skill.find(id)
+      skill.update_attribute(:priority, index) if skill
+    end
+    render nothing: true
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_skill
       @skill = Skill.find(params[:id])
     end
 
-    def set_categories
-      @categories = Skill.categories.sort
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def skill_params
-      params.require(:skill).permit(:code, :name, :category, :description, :training, :autocrew, :ranked)
+      params.require(:skill).permit(:code, :name, :description, :training, :autocrew, :ranked)
     end
 end

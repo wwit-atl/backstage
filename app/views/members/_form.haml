@@ -1,31 +1,17 @@
 = simple_form_for @member, style: :horizontal do |f|
   - if @member.errors.any?
-    #error_explanation.red.box
-      %h2 Please correct the following errors.
-      %ul
-        - @member.errors.full_messages.each do |msg|
-          %li= msg
-
-  %fieldset
-    = f.input :firstname
-    = f.input :lastname
-    = f.input :email
-
-  %fieldset
-    = f.input :password, autocomplete: 'off', required: false
-    = f.input :password_confirmation, required: false, hint: "<em>Leave password blank if you don't want to change it</em>".html_safe
+    = render 'partials/form_errors', model: @member
 
   %fieldset
     .row
-      .col-sm-2= f.label :sex
-      .col-sm-2.radio-inline= f.input :sex, as: :radio_buttons, collection: [ :M, :F ], class: :radio, boolean_style: :inline, label: false
+      .col-md-4= f.input :firstname
+      .col-md-4= f.input :lastname
+      .col-md-4= f.input :email
 
-      .col-md-2= f.label :birthday
-      .col-md-4.form-inline= f.input :dob, as: :date, label: false,
-                start_year: Date.today.year - 80,
-                end_year:   Date.today.year - 10,
-                order: [ :month, :day, :year ],
-                include_blank: true
+  %fieldset
+    .row
+      .col-md-6= f.input :password, autocomplete: 'off', required: false, hint: '<em>Leave password blank if you don\'t want to change it.</em>'.html_safe
+      .col-md-6= f.input :password_confirmation, required: false
 
   %fieldset
     = f.label 'Phone Number (digits only):'
@@ -34,11 +20,24 @@
         = render 'phone_fields', f: builder
       = link_to_add_association content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Phone', f, :phones
 
+  %fieldset
+    %legend Optional
+    .row
+      .col-xs-1= f.label 'Sex:'
+      .col-xs-1.radio-inline= f.input :sex, as: :radio_buttons, collection: [ :M, :F ], class: :radio, boolean_style: :inline, label: false
+
+      .col-xs-2.col-md-1.col-xs-offset-1= f.label 'Birthday:'
+      .col-xs-6.form-inline= f.input :dob, as: :date, label: false,
+                start_year: Date.today.year - 10,
+                end_year:   Date.today.year - 90,
+                order: [ :month, :day, :year ],
+                include_blank: true
+
   - if current_member.is_admin?
     .well
       .col-md-2= f.label :skills
       .col-md-4= f.association :skills, :label_method => :name, label: false, :input_html => { size: @total_skills.count }
       .col-md-2= f.label :roles
-      %fieldset.col.md-4= f.association :roles,  :label_method => :title, as: 'check_boxes', label: false
+      %fieldset.col.md-4= f.association :roles,  :label_method => :desc, as: 'check_boxes', label: false
 
-    = f.submit 'Save', class: 'btn btn-default'
+  = f.submit class: 'btn btn-default'

@@ -8,17 +8,20 @@ module Scheduler
       end
 
       def schedule
+        @exceptions = {}
         Rails.logger.info "Scheduling all available shifts"
         self.order('RANDOM()').each do |instance|
-          instance.schedule
+          @exceptions.merge! instance.schedule
         end
+        return @exceptions
       end
     end
 
     module LocalInstanceMethods
 
       def schedule
-        @exceptions = []
+        @exceptions = {}
+
         Rails.logger.debug "Scheduling shifts for #{self.name}"
 
         raise( Scheduler::NoShiftError, 'Show has no shifts to assign' ) if self.shifts.empty?
@@ -32,7 +35,7 @@ module Scheduler
           crew = get_crew(shift)
 
           if crew.nil?
-            @exceptions << "No members available for #{shift.skill.name}"
+            ( @exceptions[shift.show.date] ||= [] ) << shift.skill.name
           else
             Rails.logger.info "Assigning #{crew.name} to #{shift.skill.name}"
             shift.member = crew
@@ -40,12 +43,8 @@ module Scheduler
           end
         end
 
-        if @exceptions
-          @exceptions.each { |e| Rails.logger.error e.to_s }
-          return false
-        end
-
-        return true
+        @exceptions.each { |date,shift| Rails.logger.error "No eligible members were available for #{shift} on #{date.to_s}" }
+        return @exceptions
       end
 
     end

@@ -1,30 +1,30 @@
-%h1 Listing skills
+%h1
+  Listing skills
+  %small in priority order
 
 -if can? :create, @skills
   .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Skill', new_skill_path
 
 .table-responsive
-  - @categories.each do |category|
-    %h2= category.titleize
-    %table.table.table-striped.table-condensed
+  %table.table.table-striped.table-condensed
+    %thead
       %tr
         %th Code
         %th Name
         %th Description
         %th Training?
         %th Autocrew?
-        -#%th Ranked?
         %th
 
+    %tbody.reposition( data-update-url="#{reposition_skills_url}" )
       - @skills.each do |skill|
-        - if skill.category == category
-          %tr
-            %td= skill.code
-            %td= skill.name
-            %td= skill.description
-            %td= skill.training ? 'Yes' : 'No'
-            %td= skill.autocrew ? 'Yes' : 'No'
-            -#%td= skill.ranked ? 'Yes' : 'No'
-            - if can? :manage, skill
-              %td= render 'partials/admin_commands', klass: skill, no_show: true
+        = content_tag_for :tr, skill do
+          %td= skill.code
+          %td= link_to skill.name, skill
+          %td= skill.description
+          %td= skill.training ? 'Yes' : 'No'
+          %td= skill.autocrew ? 'Yes' : 'No'
+          -#%td= skill.ranked ? 'Yes' : 'No'
+          - if can? :manage, skill
+            %td= render 'partials/admin_commands', klass: skill, show: false, move: true
 

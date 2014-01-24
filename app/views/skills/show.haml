@@ -1,0 +1,23 @@
+%h1
+  = @skill.name
+  %small CODENAME: #{@skill.code}
+
+%p= @skill.description
+
+- if @skill.requires_training?
+  .box.plaque
+    - if @skill.members.blank?
+      %ul.list-unstyled
+        %li No one is trained in this skill.
+    - else
+      %p Trained:
+      %ul
+        - @skill.members.each_with_index do |member, i|
+          - if i % 3 == 0
+            .row
+          .col-md-4
+            %li= link_to member.name, member_path(member)
+      %br
+
+- if can? :manage, @skill
+  %p #{link_to 'Edit', edit_skill_path(@skill)} | #{link_to 'Back', skills_path}

@@ -6,9 +6,17 @@ Backstage::Application.routes.draw do
     resources :notes
   end
 
+  concern :sortable do
+    collection { post :reposition }
+  end
+
   resources :show_templates
-  resources :skills,  :concerns => :notable
-  resources :shows,   :concerns => :notable
+  resources :skills,  :concerns => [ :notable, :sortable ]
+  resources :shows,   :concerns => :notable do
+    collection do
+      get 'schedule', to: 'shows#schedule'
+    end
+  end
 
   resources :members, :concerns => :notable do
     resource :conflicts, only: [] do
@@ -27,6 +35,6 @@ Backstage::Application.routes.draw do
 
   get '/admin', to: 'members#admin'
 
-  root 'members#dashboard'
+  root 'members#show'
 
 end

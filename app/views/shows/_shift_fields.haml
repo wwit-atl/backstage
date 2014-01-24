@@ -1,6 +1,6 @@
 .nested-fields
   .field
-    = f.association :skill, collection: @skills_crewable, include_blank: false, label: false,
+    = f.association :skill, collection: @skills, include_blank: false, label: false,
       input_html: { class: 'chosen-select' },
       :wrapper_html => { :style => 'display: inline' }
 

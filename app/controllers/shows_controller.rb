@@ -1,16 +1,19 @@
 class ShowsController < ApplicationController
   before_action :set_show, only: [:show, :edit, :update, :destroy]
-  before_action :set_supporting
+  before_action :set_supporting, except: [ :schedule ]
+  before_action :set_exceptions, only: [ :index, :schedule ]
 
   # GET /shows
   # GET /shows.json
   def index
-    @shows = Show.all
   end
 
   # GET /shows/1
   # GET /shows/1.json
   def show
+    @notable = @show
+    @notes = @notable.notes
+    @note = Note.new
   end
 
   # GET /shows/new
@@ -64,6 +67,15 @@ class ShowsController < ApplicationController
     end
   end
 
+  def schedule
+    admin_only!
+    @exceptions = Show.schedule
+    flash.notice = 'Auto Schedule completed successfully' if @exceptions.empty?
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_show
@@ -85,10 +97,19 @@ class ShowsController < ApplicationController
       )
     end
 
+    # ToDo: Cannot assign MC unless actor is crewable
     def set_supporting
       @stages           = Stage.all
-      @skills_crewable  = Skill.crewable
+      @skills           = Skill.all
       @members_castable = Role.castable
       @members_crewable = Member.crewable.by_name
     end
+
+    def set_exceptions
+      @exceptions = []
+      @date = params[:date] ? Date.parse(params[:date]) : Date.today
+      @date_string = @date.strftime("%B %Y")
+      @shows = Show.for_month(@date).order(:date, 'showtime ASC')
+    end
+
 end
