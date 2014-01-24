@@ -34,6 +34,9 @@ gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'
 gem 'recipient_interceptor'
 
+gem 'factory_girl_rails', '~> 4.0'
+gem 'faker'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -42,8 +45,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
   gem 'hirb'
   gem 'minitest'
   gem 'minitest-rails'
