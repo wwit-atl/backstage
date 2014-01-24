@@ -54,6 +54,10 @@ class Member < ActiveRecord::Base
     self.is_castable? || self.is_crewable?
   end
 
+  def is_admin?
+    self.has_role?(:admin)
+  end
+
   # Returns true if eligible, 0 if at min_shifts, false if ineligible
   def eligible_for_shift?(show, min_shifts, max_shifts)
     # Is the member already at the maximum number of shifts?
