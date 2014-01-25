@@ -50,8 +50,6 @@
               - show.actors.each do |actor|
                 %li= link_to actor.name, member_path(actor)
 
-          %td
-            - if can? :manage, show
-              = render 'partials/admin_commands', klass: show, show: false
+          %td= render 'partials/admin_commands', klass: show
 
 

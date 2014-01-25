@@ -32,7 +32,5 @@
             - show_template.skills.each do |skill|
               %li= skill.name
 
-        - if can? :manage, show_template
-          %td
-            = render 'partials/admin_commands', klass: show_template, show_icon: false
+        %td= render 'partials/admin_commands', klass: show_template
 

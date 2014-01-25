@@ -24,7 +24,5 @@
           %td= skill.description
           %td= skill.training ? 'Yes' : 'No'
           %td= skill.autocrew ? 'Yes' : 'No'
-          -#%td= skill.ranked ? 'Yes' : 'No'
-          - if can? :manage, skill
-            %td= render 'partials/admin_commands', klass: skill, show: false, move: true
+          %td= render 'partials/admin_commands', klass: skill, move: true
 
