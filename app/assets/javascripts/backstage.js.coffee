@@ -16,8 +16,6 @@ ready = ->
       scrollDefaultTime: '8:00pm'
       step: 15
 
-  $("#scheduler.errors").hide();
-
   $('tbody.reposition').sortable(
     axis: 'y'
     handle: '.handle'
