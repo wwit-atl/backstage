@@ -1,33 +1,14 @@
 #member-list
-  %h1 Listing members
+  .row
+    .col-md-4
+      %h1 Listing members
+    .col-md-4.col-md-offset-4
+      = form_tag members_path, :method => 'get', role: 'form', class: 'pad-top-20 form-inline', id: 'member_search' do
+        .input-group
+          = search_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search'
+          %span.input-group-btn= submit_tag "Search", :name => nil, class: 'btn btn-default'
 
-  -if can? :create, @members
-    .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Member', new_member_path
-
-  .table-responsive
-    %table.table.table-striped
-      %tr
-        %th Name
-        %th Phone(s)
-        %th Email
-        - if can? :manage, @members
-          %th Role(s)
-        %th
-
-      - @members.each do |member|
-        %tr
-          %td.name= link_to member.fullname, member_path(member)
-          %td.phone
-            - member.phones.by_type.each do |phone|
-              = link_to phone.listing, phone.as_tel_link
-              %br
-          %td.email= mail_to member.email
-
-          - if can? :manage, @members
-            %td= member.roles.by_name.map{|r| r.name}.join(', ')
-
-          %td= render 'partials/admin_commands', klass: member
+  #members-table= render 'members_list'
 
   = will_paginate @members, renderer: BootstrapPagination::Rails
-  %br
 

@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.core
+//= require jquery.ui.datepicker
+//= require jquery.ui.sortable
 //= require jquery.timepicker
 //= require cocoon
 //= require chosen-jquery

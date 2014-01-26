@@ -16,10 +16,11 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.by_name.paginate(:page => params[:page], :per_page => 30)
-    respond_to do |f|
-      f.html
-      f.json { render json: @members, only: [ :lastname, :firstname, :email ] }
+    @members = Member.search(params[:search]).by_name.paginate(:page => params[:page], :per_page => 30)
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+      format.json { render json: @members, only: [ :lastname, :firstname, :email ] }
     end
   end
 

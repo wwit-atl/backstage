@@ -28,6 +28,10 @@ class Member < ActiveRecord::Base
 
   scope :by_name, -> { order([:firstname, :lastname]) }
 
+  sifter :member_search do |search|
+    lastname.matches("%#{search}%") | firstname.matches("%#{search}%") | email.matches("%#{search}%")
+  end
+
   def fullname
     [ firstname, lastname ].map{ |n| n.titleize }.join(' ')
   end
@@ -81,4 +85,11 @@ class Member < ActiveRecord::Base
     shifts.joins(:show).where( 'shows.date' => date.beginning_of_month..date.end_of_month ).count
   end
 
+  def self.search(search)
+    if search
+      where{sift :member_search, search}
+    else
+      self.scoped
+    end
+  end
 end

@@ -1,3 +1,10 @@
+delay = (->
+  timer = 0
+  (callback, ms) ->
+    clearTimeout timer
+    timer = setTimeout(callback, ms)
+)()
+
 ready = ->
   $('.chosen-select').chosen
     allow_single_deselect: true
@@ -22,6 +29,14 @@ ready = ->
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
   );
+
+  # Ajax search on keyup
+  $('#member_search input').keyup( ->
+    delay (->
+      $.get($("#member_search").attr("action"), $("#member_search").serialize(), null, 'script')
+      false
+    ), 500
+  )
 
 $(document).ready(ready)
 $(document).on 'page:load', ready

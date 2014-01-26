@@ -1,0 +1,26 @@
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th Name
+      %th Phone(s)
+      %th Email
+      - if can? :manage, @members
+        %th Role(s)
+      %th
+        - if can? :create, @members
+          .text-left= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Member', new_member_path
+
+    - @members.each do |member|
+      %tr
+        %td.name= link_to member.fullname, member_path(member)
+        %td.phone
+          - member.phones.by_type.each do |phone|
+            = link_to phone.listing, phone.as_tel_link
+            %br
+        %td.email= mail_to member.email
+
+        - if can? :manage, @members
+          %td= member.roles.by_name.map{|r| r.name}.join(', ')
+
+        %td= render 'partials/admin_commands', klass: member
+
