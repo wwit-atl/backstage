@@ -6,7 +6,7 @@
         %th Phone(s)
         %th Email
         - if can? :manage, @members
-          %th Role(s)
+          %th.hidden-xs.hidden-sm Role(s)
         %th
           - if can? :create, @members
             .text-left= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Member', new_member_path
@@ -22,7 +22,7 @@
           %td.email= mail_to member.email
 
           - if can? :manage, @members
-            %td= member.roles.by_name.map{|r| r.name}.join(', ')
+            %td.hidden-xs.hidden-sm= member.roles.by_name.map{|r| r.name}.join(', ')
 
           %td= render 'partials/admin_commands', klass: member
 

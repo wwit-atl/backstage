@@ -6,7 +6,7 @@
         = content_tag( :span, '', class: 'glyphicon glyphicon-move handle' )
 
     - if can? :read, klass
-      = button_tag class: 'btn btn-default', title: 'Show Record' do
+      = button_tag class: 'btn btn-default hidden-xs hidden-sm', title: 'Show Record' do
         = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-eye-open' ), klass
 
     - if can? :edit, klass
