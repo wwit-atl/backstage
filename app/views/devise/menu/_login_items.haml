@@ -15,7 +15,7 @@
     #main-navbar-collapse.collapse.navbar-collapse
       %ul.nav.navbar-nav
         - if member_signed_in?
-          %li{ class: is_active?(root_path)    }= link_to 'Home', root_path
+          -#%li{ class: is_active?(root_path)    }= link_to 'Home', root_path
           %li{ class: is_active?(members_path) }= link_to 'Members', members_path
           %li{ class: is_active?(shows_path)   }= link_to 'Shows', shows_path
           -# ToDo: Need to implement messages
@@ -23,11 +23,11 @@
       %ul.nav.navbar-nav.navbar-right
         - if member_signed_in?
           %li.dropdown
-            = link_to class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+            = link_to root_path, class: 'dropdown-toggle', data: { toggle: 'dropdown', target: '#' } do
               Logged in as #{current_member.firstname}
               %b.caret
             %ul.dropdown-menu
-              %li= link_to 'Edit your profile', edit_member_path(current_member)
+              %li= link_to 'Your Profile', member_path(current_member)
               %li= link_to 'Sign Out', destroy_member_session_path, method: :delete
               - if current_member.is_admin?
                 %li.divider
