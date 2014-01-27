@@ -35,9 +35,10 @@ puts 'Create Roles'
   [ :isp,        'Improv Studies',  false, false ],
   [ :volunteer,  'WWIT Volunteer',  false, false ],
   [ :actor,      'Cast Eligible',   true,  false ],
-  [ :crew,       'Crew Eligible',   false, true  ],
-].each do |name, desc, cast, crew|
-  Role.where(name: name).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
+  [ :crew,       'Crew Eligible',   false, true  ]
+].each do |code, desc, cast, crew|
+  #Role.where(name: code).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
+  Role.create( name: code, desc: desc, cast: cast, crew: crew )
 end
 
 #
@@ -56,6 +57,7 @@ puts 'Create Skills'
   [ 6,   'SG', 'Suggestion Taker',     '', false, true  ],
   [ nil, 'BO', 'Box Office Attendant', '', true,  false ],
   [ nil, 'BAR','Bartender',            '', true,  false ],
+  [ nil, 'TEACH', 'Improv Teacher',    '', true,  false ]
 ].each do |priority, code, name, desc, training, autocrew|
   Skill.where(code: code).first_or_create.update_attributes(
     name: name,
@@ -89,20 +91,20 @@ end
 #
 # Create Stages
 #
-puts 'Create Stages'
-{
-    'UR' => 'Up Right',
-    'DR' => 'Down Right',
-    'SR' => 'Stage Right',
-    'UL' => 'Up Left',
-    'DL' => 'Down Left',
-    'SL' => 'Stage Left',
-    'CS' => 'Center Stage',
-    'FS' => 'Full Stage',
-    'BS' => 'Back Stage',
-}.each do |code, name|
-  Stage.where(code: code).first_or_create.update_attributes(name: name)
-end
+#puts 'Create Stages'
+#{
+#    'UR' => 'Up Right',
+#    'DR' => 'Down Right',
+#    'SR' => 'Stage Right',
+#    'UL' => 'Up Left',
+#    'DL' => 'Down Left',
+#    'SL' => 'Stage Left',
+#    'CS' => 'Center Stage',
+#    'FS' => 'Full Stage',
+#    'BS' => 'Back Stage',
+#}.each do |code, name|
+#  Stage.where(code: code).first_or_create.update_attributes(name: name)
+#end
 
 #
 # Create Members
@@ -131,7 +133,7 @@ end
 end
 
 #
-# FailSafe: Create an Admin account when necessary
+# FailSafe: Create an Admin account ONLY when necessary
 #
 if Member.joins(:roles).where('roles.name' => 'admin').empty?
   puts 'Create Admin account'

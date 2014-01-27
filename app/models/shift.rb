@@ -16,7 +16,7 @@ class Shift < ActiveRecord::Base
     text + " - #{skill.name}" unless skill.nil?
   end
 
-  def skill_member_display
-    skill.code + ': ' + (member.nil? ? 'Nobody Assigned' : link_to(member.name, member_path(member)))
+  def member_name
+    member.nil? ? 'Nobody Assigned' : link_to(member.name, member_path(member))
   end
 end

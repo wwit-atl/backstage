@@ -25,7 +25,9 @@
                   %td.col-md-4
                     %ul.list-unstyled
                       - show.shifts.each do |shift|
-                        %li= shift.skill_member_display
+                        %li
+                          .shift-code= shift.skill.code + ':'
+                          = shift.member_name
 
   .row
     - if @member.is_crewable?

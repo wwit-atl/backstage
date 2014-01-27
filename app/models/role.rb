@@ -9,11 +9,13 @@ class Role < ActiveRecord::Base
   scope :crewable, -> { where(crew: 'true' ) }
   scope :by_member_name, -> { joins(:members).order('members.lastname') }
 
-  alias_attribute :code, :name
   alias_attribute :description, :desc
 
   def title
     %w( isp ).include?(name) ? name.upcase : name.titleize
   end
 
+  def code
+    name.upcase
+  end
 end

@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/EppO/rolify.git
-  revision: 45de8cf4bf51e60accddee3385829a2266709cb0
-  specs:
-    rolify (3.3.0.rc5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -155,7 +149,7 @@ GEM
       minitest (>= 2.12, < 5.0)
       powerbar
     multi_json (1.8.4)
-    newrelic_rpm (3.7.1.182)
+    newrelic_rpm (3.7.1.188)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyamorous (0.6.4)
@@ -200,7 +194,8 @@ GEM
       json (~> 1.4)
     recipient_interceptor (0.1.2)
       mail
-    sass (3.2.13)
+    rolify (3.3.0.rc4)
+    sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
@@ -258,7 +253,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 3.0.0)
+  bootstrap-sass (~> 3.0.3.0)
   cancan
   chosen-rails
   cocoon
@@ -290,8 +285,8 @@ DEPENDENCIES
   rails_12factor
   rb-fsevent
   recipient_interceptor
-  rolify!
-  sass-rails (~> 4.0.0)
+  rolify (= 3.3.0.rc4)
+  sass-rails (>= 4.0)
   sdoc
   simple_form
   squeel

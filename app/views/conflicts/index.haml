@@ -1,37 +1,33 @@
 #conflicts-index
   %h1 Listing conflicts
 
-  -if can? :manage, Conflict
-    .pull-right
-      = link_to schedule_shows_path, class: 'btn btn-info',
-          data: { confirm: "This will attempt to auto-schedule all available shifts.\n\rClick OKAY to proceed, or CANCEL to abort.", disable_with: 'Processing', remote: true } do
-        = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + ' Auto Schedule'
-
   %table.table.table-striped
-    %tr
-      %th Member Name
-      %th Upcoming Conflicts
-      %th Over?
-      %th
-
-    - @members.each do |member|
-      - over_limit = false ; months = []
-      - member.conflicts.future.group_by{ |c| c.month }.each do |k,v|
-        - if v.count > @max_conflicts
-          - over_limit = true
-          - months << k
-
+    %thead
       %tr
-        %td.name= link_to member.name, member
-        %td.col-md-6.upcoming
-          - if member.conflicts.future.empty?
-            No Upcoming Conflicts
-          - else
-            %ul.list-unstyled
-              - member.conflicts.future.group_by{|c| c.month}.each do |month, conflicts|
-                %li{ class: months.include?(month) ? 'red' : nil }= conflicts.map{|c| c.us_date}.to_sentence
-        %td.col-md-1.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
-        %td.manage= link_to 'Manage', manage_member_conflicts_path(member)
+        %th Member Name
+        %th Upcoming Conflicts
+        %th Over?
+        %th
+
+    %tbody
+      - @members.each do |member|
+        - over_limit = false ; months = []
+        - member.conflicts.future.group_by{ |c| c.month }.each do |k,v|
+          - if v.count > @max_conflicts
+            - over_limit = true
+            - months << k
+
+        %tr
+          %td.name= link_to member.name, member
+          %td.col-md-6.upcoming
+            - if member.conflicts.future.empty?
+              No Upcoming Conflicts
+            - else
+              %ul.list-unstyled
+                - member.conflicts.future.group_by{|c| c.month}.each do |month, conflicts|
+                  %li{ class: months.include?(month) ? 'red' : nil }= conflicts.map{|c| c.us_date}.to_sentence
+          %td.col-md-1.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
+          %td.manage= link_to 'Manage', manage_member_conflicts_path(member)
 
   = will_paginate @members, renderer: BootstrapPagination::Rails
 

@@ -7,8 +7,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'haml', '~> 4.0.0'
 gem 'haml-rails'
-gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass', '~> 3.0.0'
+gem 'sass-rails', '>= 4.0' # sass-rails needs to be higher than 3.2
+gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'will_paginate-bootstrap'
 
 # gem 'therubyracer', platforms: :ruby
 
@@ -20,11 +21,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'acts_as_list'
-gem 'will_paginate-bootstrap'
 gem 'cocoon'
 #gem 'has_scope'
 gem 'devise', '~> 3.1.0'
-gem 'rolify', github: 'EppO/rolify' # Needed for Rails4 support
+gem 'rolify', '3.3.0.rc4'
 gem 'cancan'
 gem 'chosen-rails'
 

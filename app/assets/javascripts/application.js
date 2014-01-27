@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// Load jQuery modules
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
@@ -17,12 +18,15 @@
 //= require jquery.ui.datepicker
 //= require jquery.ui.sortable
 //= require jquery.timepicker
+// Loads all Bootstrap javascripts
+//= require bootstrap
+// Cocoon provides form insert/delete (e.g. phones)
 //= require cocoon
+// Chosen is a multi-select handler
 //= require chosen-jquery
+// Call our site-specific JS modules
 //= require backstage
 //= require calendars
 //= require scheduler
-// Loads all Bootstrap javascripts
-//= require bootstrap
-// Turbolinks must come last
+// Finally, Turbolinks must come last
 //= require turbolinks
