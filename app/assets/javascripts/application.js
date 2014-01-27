@@ -17,6 +17,7 @@
 //= require jquery.ui.core
 //= require jquery.ui.datepicker
 //= require jquery.ui.sortable
+//= require jquery.ui.touch-punch.min
 //= require jquery.timepicker
 // Loads all Bootstrap javascripts
 //= require bootstrap
