@@ -1,5 +1,11 @@
+-if can? :manage, Show
+  #scheduler.errors
+  .pull-right.pad-top-20
+    = link_to schedule_shows_path, class: 'btn btn-info auto-schedule', data: { disable_with: 'Processing', remote: true } do
+      = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + ' Auto Schedule'
+
 %h1
-  Listing Shifts
+  Managing Shifts
   %small sorted by #{@sorted_by.to_s.capitalize}
 
 -#-if can? :create, Shift
