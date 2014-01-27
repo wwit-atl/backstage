@@ -45,7 +45,7 @@ end
 puts 'Create Skills'
 #  Pri,  Code,  Name,         Description, train?, autocrew?
 [
-  [ 0,   'MC', 'Master of Ceremonies', '', true,  false ],
+  [ nil, 'MC', 'Master of Ceremonies', '', true,  false ],
   [ nil, 'MU', 'Musician',             '', true,  false ],
   [ 1,   'HM', 'House Manager',        '', true,  true  ],
   [ 2,   'LS', 'Lightboard Operator',  '', true,  true  ],
