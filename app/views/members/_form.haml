@@ -14,11 +14,15 @@
       .col-md-6= f.input :password_confirmation, required: false
 
   %fieldset
-    = f.label 'Phone Number (digits only):'
-    .phones
-      = f.simple_fields_for :phones do |builder|
-        = render 'phone_fields', f: builder
-      = link_to_add_association content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Phone', f, :phones
+    .row
+      .col-md-4= f.label 'Phone Number (digits only):'
+      .col-md-2
+        = link_to_add_association content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Phone', f, :phones,
+          { data: { 'association-insertion-method' => 'after', 'association-insertion-node' => '.phone-fields' }}
+    .row
+      .phone-fields
+        = f.simple_fields_for :phones do |builder|
+          = render 'phone_fields', f: builder
 
   %fieldset
     %legend Optional

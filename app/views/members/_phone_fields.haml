@@ -5,4 +5,4 @@
     .col-md-4.col-xs-6
       = f.input_field :number, label: false
     .col-md-2.col-xs-2
-      = link_to_remove_association button_tag('Remove', class: [ 'btn', 'btn-default', 'btn-sm' ]), f
+      = link_to_remove_association content_tag(:span, nil, class: 'glyphicon glyphicon-remove', title: 'Remove Phone'), f
