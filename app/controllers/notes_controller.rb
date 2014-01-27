@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  authorize_resource
+
   before_action :load_notable
 
   def index

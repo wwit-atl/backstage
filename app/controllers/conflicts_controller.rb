@@ -1,4 +1,6 @@
 class ConflictsController < ApplicationController
+  authorize_resource
+
   before_action :get_member, :except => :index
   before_action :authorize, :get_config
 

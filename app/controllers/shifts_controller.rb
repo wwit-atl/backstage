@@ -1,4 +1,6 @@
 class ShiftsController < ApplicationController
+  authorize_resource
+
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     sort = params[:sort] ||= :show

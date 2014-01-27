@@ -1,4 +1,6 @@
 class MembersController < ApplicationController
+  authorize_resource
+
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :create, :update]
   before_action :total_skills, only: [:new, :edit, :create, :update]

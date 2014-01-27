@@ -32,23 +32,23 @@ FactoryGirl.define do
     trait :admin do
       firstname 'admin'
       lastname  'person'
-      after(:create) { |member| member.roles << Role.where(:name => :admin) }
+      after(:create) { |member| member.roles << Role.where(:name => 'admin') }
     end
 
     trait :ms do
-      after(:create) { |m| m.roles << Role.where(:name => :ms) }
+      after(:create) { |m| m.roles << Role.where(:name => 'ms') }
     end
 
     trait :us do
-      after(:create) { |m| m.roles << Role.where(:name => :us) }
+      after(:create) { |m| m.roles << Role.where(:name => 'us') }
     end
 
     trait :isp do
-      after(:create) { |m| m.roles << Role.where(:name => :isp) }
+      after(:create) { |m| m.roles << Role.where(:name => 'isp') }
     end
 
     trait :volunteer do
-      after(:create) { |m| m.roles << Role.where(:name => :volunteer) }
+      after(:create) { |m| m.roles << Role.where(:name => 'volunteer') }
     end
 
     trait :train_hm do

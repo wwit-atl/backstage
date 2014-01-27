@@ -1,4 +1,6 @@
 class SkillsController < ApplicationController
+  authorize_resource
+
   before_action :set_skill, except: [ :index, :new, :create, :reposition ]
 
   # GET /skills
@@ -77,4 +79,5 @@ class SkillsController < ApplicationController
     def skill_params
       params.require(:skill).permit(:code, :name, :description, :training, :autocrew, :ranked)
     end
+
 end

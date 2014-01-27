@@ -1,4 +1,6 @@
 class ShowTemplatesController < ApplicationController
+  authorize_resource
+
   before_action :set_show_template, only: [:edit, :update, :destroy]
   before_action :set_days_of_week
   before_action :set_skills, only: [:new, :create, :edit, :update]

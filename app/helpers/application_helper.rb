@@ -32,7 +32,12 @@ module ApplicationHelper
     end
   end
 
+  def is_authorized?(member = Member.none)
+    !!( current_member and ( current_member.is_admin? or current_member.id == member.id ) )
+  end
+
   def theatre_url
     'http://www.wholeworldtheatre.com'
   end
+
 end

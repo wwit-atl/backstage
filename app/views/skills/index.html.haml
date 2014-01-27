@@ -2,9 +2,6 @@
   Listing skills
   %small in priority order
 
--if can? :create, @skills
-  .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Skill', new_skill_path
-
 .table-responsive
   %table.table.table-striped.table-condensed
     %thead
@@ -15,6 +12,9 @@
         %th Training?
         %th Autocrew?
         %th
+          - if can? :create, @skills
+            .text-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Skill', new_skill_path
+
 
     %tbody.reposition( data-update-url="#{reposition_skills_url}" )
       - @skills.each do |skill|

@@ -10,8 +10,9 @@ class Ability
     if member.has_role? :admin
       can :manage, :all
     else
-      can :read, :all
+      can :read, [ Member, Show ]
       can :update, Member, :id => member.id
+      can [:update, :manage], Conflict, :member_id => member.id
     end
 
   end

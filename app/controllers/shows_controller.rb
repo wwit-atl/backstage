@@ -1,4 +1,6 @@
 class ShowsController < ApplicationController
+  authorize_resource
+
   before_action :set_show, only: [:show, :edit, :update, :destroy]
   before_action :set_supporting, except: [ :schedule ]
   before_action :set_exceptions, only: [ :index, :schedule ]

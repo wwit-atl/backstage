@@ -33,3 +33,9 @@
           %td= shift.skill_link
           %td= shift.member_link
           -#%td= render 'partials/admin_commands', klass: shift
+      - if @shifts.empty?
+        %tr
+          %td No Shifts Match Criteria
+          %td
+          %td
+

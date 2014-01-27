@@ -1,4 +1,6 @@
 class KonfigsController < ApplicationController
+  authorize_resource
+
   before_action :get_configs
 
   def index
