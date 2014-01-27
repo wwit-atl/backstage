@@ -27,7 +27,7 @@ class MembersController < ApplicationController
   # ToDo: Need phone number(s) listed on Member show page
   def show
     @shows = @member.shows.recent.by_date
-    @shifts = @member.shifts.recent.by_show_date
+    @shifts = @member.shifts.recent.by_show
     @skills = @member.skills
     @conflicts = @member.conflicts.current
 

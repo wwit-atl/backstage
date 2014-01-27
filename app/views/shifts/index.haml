@@ -1,0 +1,35 @@
+%h1
+  Listing Shifts
+  %small sorted by #{@sorted_by.to_s.capitalize}
+
+-#-if can? :create, Shift
+-#  .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Shift', new_shift_path
+
+.month-controls
+  %h2
+    = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left'), { date: @date.prev_month }
+    = @date.strftime('%B %Y')
+    = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right'), { date: @date.next_month }
+
+.table-responsive
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th
+          = link_to 'Show', :sort => :show
+          = content_tag( :span, nil, class: 'caret') if @sorted_by == :show
+        %th
+          = link_to 'Skill', :sort => :skill
+          = content_tag( :span, nil, class: 'caret') if @sorted_by == :skill
+        %th
+          = link_to 'Member', :sort => :member
+          = content_tag( :span, nil, class: 'caret') if @sorted_by == :member
+        -#%th
+
+    %tbody
+      - @shifts.each do |shift|
+        %tr
+          %td= shift.show_link
+          %td= shift.skill_link
+          %td= shift.member_link
+          -#%td= render 'partials/admin_commands', klass: shift

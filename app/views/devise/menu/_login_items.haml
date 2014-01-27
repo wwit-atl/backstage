@@ -35,6 +35,7 @@
                 %li{ class: is_active?(conflicts_path)      }= link_to 'Conflicts', conflicts_path
                 %li{ class: is_active?(skills_path)         }= link_to 'Skills', skills_path
                 %li{ class: is_active?(show_templates_path) }= link_to 'Show Templates', show_templates_path
+                %li{ class: is_active?(shifts_path)         }= link_to 'Shifts', shifts_path
         - else
           %li= link_to 'Sign In', member_session_path
 

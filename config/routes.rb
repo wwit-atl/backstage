@@ -10,7 +10,7 @@ Backstage::Application.routes.draw do
     collection { post :reposition }
   end
 
-  resources :show_templates
+  resources :show_templates, :shifts
   resources :skills,  :concerns => [ :notable, :sortable ]
   resources :shows,   :concerns => :notable do
     collection do
