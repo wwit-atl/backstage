@@ -11,17 +11,18 @@
     .box
       Cast:
       %ul
-        - @cast.each do |cast|
+        - @actors.each do |cast|
           %li= link_to( cast.name, member_path(cast) ) + " (#{cast.roles.map { |r| r.name }.to_sentence})"
 
   .col-md-6
     .box
       Crew:
-      %ul
-        - @crew.each do |crew|
-          %li
-            = "[#{crew.skill.name}] is "
-            = crew.member.nil? ? 'Not Yet Assigned' : link_to( crew.member.name, member_path(crew.member) )
+      .col-md-offset-1
+        %ul.list-unstyled
+          - @shifts.each do |shift|
+            %li
+              .shift-code= shift.skill.code + ':'
+              = shift.member_name
 
 .row
   .col-md-12

@@ -21,10 +21,7 @@
         %legend Cast the Show:
         #cast
           = f.association :actors,
-              :collection => @members_castable,
-              :as => :grouped_select,
-              :label_method => :name,
-              :group_method => :members,
+              :collection => @castable,
               :include_blank => true,
               :label => 'Actors ',
               :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }

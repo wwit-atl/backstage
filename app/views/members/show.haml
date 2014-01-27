@@ -1,4 +1,8 @@
 #member
+  - unless @member.is_active?
+    .pull-right
+      %h3.inactive= 'INACTIVE'
+
   %h1
     = @member.name
     %small= @member.email

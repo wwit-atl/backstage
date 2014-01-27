@@ -80,8 +80,8 @@ class ShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_show
       @show = Show.find(params[:id])
-      @cast = @show.actors.by_name
-      @crew = @show.shifts.by_skill
+      @actors = @show.actors.by_name
+      @shifts = @show.shifts.by_skill_priority
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -99,10 +99,10 @@ class ShowsController < ApplicationController
 
     # ToDo: Cannot assign MC unless actor is crewable
     def set_supporting
-      @stages           = Stage.all
-      @skills           = Skill.all
-      @members_castable = Role.castable
-      @members_crewable = Member.crewable.by_name
+      @stages   = Stage.all
+      @skills   = Skill.all
+      @crewable = Member.active.by_name_last
+      @castable = Member.castable.by_name_last
     end
 
     def set_exceptions

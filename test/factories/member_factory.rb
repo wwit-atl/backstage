@@ -32,41 +32,26 @@ FactoryGirl.define do
     trait :admin do
       firstname 'admin'
       lastname  'person'
-      after(:create) { |member| member.add_role :admin }
-    end
-
-    trait :cast do
-      after(:create) { |m| m.add_role :cast }
-    end
-
-    trait :crew do
-      after(:create) { |m| m.add_role :crew }
+      after(:create) { |member| member.roles << Role.where(:name => :admin) }
     end
 
     trait :ms do
-      cast
-      after(:create) { |m| m.add_role :ms }
+      after(:create) { |m| m.roles << Role.where(:name => :ms) }
     end
 
     trait :us do
-      cast
-      crew
-      after(:create) { |m| m.add_role :us }
+      after(:create) { |m| m.roles << Role.where(:name => :us) }
     end
 
     trait :isp do
-      cast
-      crew
-      after(:create) { |m| m.add_role :isp }
+      after(:create) { |m| m.roles << Role.where(:name => :isp) }
     end
 
     trait :volunteer do
-      crew
-      after(:create) { |m| m.add_role :volunteer }
+      after(:create) { |m| m.roles << Role.where(:name => :volunteer) }
     end
 
     trait :train_hm do
-      crew
       after(:create) { |m| m.skills << Skill.with_code(:hm) }
     end
 

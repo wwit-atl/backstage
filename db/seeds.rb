@@ -28,17 +28,15 @@ puts 'Create Roles'
   [ :management, 'Management',      false, false ],
   [ :sponsor,    'WWIT Sponsor',    false, false ],
   [ :friend,     'Friend of WWIT',  false, false ],
-  [ :ms,         'Main Stage Cast', false, false ],
   [ :alumni,     'WWIT Alumni',     false, false ],
-  [ :apprentice, 'Apprentice Cast', false, false ],
-  [ :us,         'Unusual Suspects',false, false ],
-  [ :isp,        'Improv Studies',  false, false ],
-  [ :volunteer,  'WWIT Volunteer',  false, false ],
-  [ :actor,      'Cast Eligible',   true,  false ],
-  [ :crew,       'Crew Eligible',   false, true  ]
-].each do |code, desc, cast, crew|
+  [ :ms,         'Main Stage Cast', true,  false ],
+  [ :apprentice, 'Apprentice Cast', true,  true  ],
+  [ :us,         'Unusual Suspects',true,  true  ],
+  [ :isp,        'Improv Studies',  true,  true  ],
+  [ :volunteer,  'WWIT Volunteer',  false, true  ]
+].each do |name, desc, cast, crew|
   #Role.where(name: code).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
-  Role.create( name: code, desc: desc, cast: cast, crew: crew )
+  Role.create( name: name, desc: desc, cast: cast, crew: crew ) if Role.where('name = ?', name).empty?
 end
 
 #
@@ -72,12 +70,13 @@ end
 # Create initial Show Templates
 #
 puts 'Create Show Templates'
+#  DoW (Sun = 0), Name,         Call Time,         Show Time,         Associated Skills
 [
-  [ 2, 'Improv Laboratory', get_time('18:30'), get_time('20:00'), %w(MC HM LS BO) ],
-  [ 4, 'Unusual Suspects', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-  [ 5, 'Friday Night Improv', get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO MU) ],
+  [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), %w(MC HM LS BO) ],
+  [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
+  [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO MU) ],
   [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-  [ 6, 'Wheel of Improv', get_time('21:00'), get_time('22:30'), %w(MC) ],
+  [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), %w(MC) ],
 ].each do |dow, name, calltime, showtime, skills|
   skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
   ShowTemplate.where(name: name).first_or_create.update_attributes(
@@ -110,11 +109,12 @@ end
 # Create Members
 #
 [
-    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',  [:admin, :management, :ms, :actor] ],
-    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com', [:admin, :management, :ms, :actor] ],
-    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',  [:admin, :management, :ms, :actor] ],
-    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',[:admin, :management, :ms, :actor] ],
-    [ 'Donovan C.',  'Young',        'dyoung522@gmail.com',         [:admin, :us, :actor, :crew]       ],
+    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',  [:admin, :management, :ms] ],
+    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com', [:admin, :management, :ms] ],
+    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',  [:admin, :management, :ms] ],
+    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',[:admin, :management, :ms] ],
+    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',   [:admin, :us]              ],
+    [ 'Matt',        'Griffin',      'Matt.F.Griffin@gmail.com',    [:admin, :us]              ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."
   password = firstname.split.first.downcase + '@wwit'
@@ -122,6 +122,7 @@ end
       firstname: firstname,
       lastname:  lastname,
       email:     email,
+      active:    true,
       password:  password,
       password_confirmation: password )
 

@@ -4,9 +4,10 @@ class Role < ActiveRecord::Base
   
   scopify
 
-  scope :by_name, -> { order(:name) }
   scope :castable, -> { where(cast: 'true' ) }
   scope :crewable, -> { where(crew: 'true' ) }
+
+  scope :by_name, -> { order(:name) }
   scope :by_member_name, -> { joins(:members).order('members.lastname') }
 
   alias_attribute :description, :desc

@@ -17,7 +17,7 @@ a:hover {
 
 fieldset {
   padding: 10px;
-  margin-bottom: 10px;
+//  margin-bottom: 10px;
 }
 
 .box, .plaque {
@@ -114,4 +114,9 @@ fieldset {
   float: left;
   text-align: right;
   padding-right: 5px;
+}
+
+.inactive {
+  color: $wwit-red;
+  font-size: .8em;
 }

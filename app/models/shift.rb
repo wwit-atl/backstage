@@ -1,4 +1,6 @@
 class Shift < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   belongs_to :show
   belongs_to :skill
   belongs_to :member
@@ -17,6 +19,6 @@ class Shift < ActiveRecord::Base
   end
 
   def member_name
-    member.nil? ? 'Nobody Assigned' : link_to(member.name, member_path(member))
+    self.member.nil? ? 'Nobody Assigned' : ActionController::Base.helpers.link_to(member.name, member_path(member))
   end
 end

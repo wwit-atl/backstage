@@ -14,7 +14,10 @@
     %tbody
       - @members.each do |member|
         %tr
-          %td.name= link_to member.fullname, member_path(member)
+          %td.name
+            - if member.inactive?
+              %span.inactive{ class: 'glyphicon glyphicon-ban-circle' }
+            = link_to member.fullname, member_path(member)
           %td.phone
             - member.phones.by_type.each do |phone|
               = link_to phone.listing, phone.as_tel_link

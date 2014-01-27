@@ -18,15 +18,24 @@ class Member < ActiveRecord::Base
   validates_length_of :password, minimum: 5, maximum: 120, allow_blank: true
   validates_uniqueness_of :email
 
-  scope :castable, -> { joins(:roles).merge(Role.castable) }
-  scope :crewable, -> { joins(:roles).merge(Role.crewable) }
+  scope :active,   -> { where(active: true) }
+  scope :inactive, -> { where(active: false)}
+
+  scope :castable, -> { active.joins(:roles).merge(Role.castable) }
+  scope :crewable, -> { active.joins(:roles).merge(Role.crewable) }
+
+  # ToDo Need a method that determines if a Member is eligible for a given date (checking conflicts, crews, and cast)
+  #scope :castable_for_date, ->(date) { castable & !conflicts.includes?(date) & !shifts.}
 
   scope :uses_conflicts, -> { castable || crewable }
 
   scope :has_role,  ->(role) { joins(:roles).where(roles: {name: role}) }
   scope :has_skill, ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
+  scope :has_conflict, ->(show) { joins(:conflicts).where(conflicts: {date: show.date}) }
 
-  scope :by_name, -> { order([:firstname, :lastname]) }
+  scope :by_name_first, -> { order([:firstname, :lastname]) }
+  scope :by_name_last,  -> { order([:lastname, :firstname]) }
+  scope :by_name,       -> { by_name_first }
 
   sifter :member_search do |search|
     lastname.matches("%#{search}%") | firstname.matches("%#{search}%") | email.matches("%#{search}%")
@@ -47,11 +56,11 @@ class Member < ActiveRecord::Base
   end
 
   def is_crewable?
-    self.roles.crewable.count > 0
+    self.active? && self.roles.crewable.count > 0
   end
 
   def is_castable?
-    self.roles.castable.count > 0
+    self.active? && self.roles.castable.count > 0
   end
 
   def uses_conflicts?
@@ -60,6 +69,20 @@ class Member < ActiveRecord::Base
 
   def is_admin?
     self.has_role?(:admin)
+  end
+
+  def is_active?
+    !!self.active
+  end
+
+  def inactive?
+    !self.active
+  end
+
+  def eligible_for_show?(show)
+    return self if show.nil?
+    return nil if conflicts.map{ |c| c.date == show.date }.any?
+    self
   end
 
   # Returns true if eligible, 0 if at min_shifts, false if ineligible
@@ -77,7 +100,7 @@ class Member < ActiveRecord::Base
     # If so, add them to the potential crew list
     return 0 if shift_count_for_month(show.month) >= min_shifts
 
-    return true
+    true
   end
 
   def shift_count_for_month(month = Time.now.month, year = Time.now.year)

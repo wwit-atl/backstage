@@ -4,7 +4,7 @@
       input_html: { class: 'chosen-select' },
       :wrapper_html => { :style => 'display: inline' }
 
-    = f.association :member, collection: @members_crewable, include_blank: true, label: false,
+    = f.association :member, collection: @crewable, include_blank: true, label: false,
       input_html: { class: 'chosen-select', data: { placeholder: 'Select Members' } },
       :wrapper_html => { :style => 'display: inline' }
 
