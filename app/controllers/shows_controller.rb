@@ -78,6 +78,17 @@ class ShowsController < ApplicationController
     end
   end
 
+  def create_shows
+    admin_only!
+    date = ( Date.parse(params[:date]) || Date.today )
+    logger.debug "Creating shows for #{date}"
+    ShowTemplate.create_shows_for(date.month, date.year)
+    flash.notice = "Created shows for #{date.strftime('%B %Y')}"
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_show

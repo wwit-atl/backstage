@@ -15,6 +15,7 @@ Backstage::Application.routes.draw do
   resources :shows,   :concerns => :notable do
     collection do
       get 'schedule', to: 'shows#schedule'
+      get 'create',   to: 'shows#create_shows', as: 'create'
     end
   end
 

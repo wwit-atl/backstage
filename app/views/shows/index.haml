@@ -6,8 +6,8 @@
 
   -if can? :manage, Show
     .pull-right
-      = link_to schedule_shows_path, class: 'btn btn-info auto-schedule', data: { disable_with: 'Processing', remote: true } do
-        = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + ' Auto Schedule'
+      = link_to create_shows_path(date: @date), class: 'btn btn-info', data: { disable_with: 'Processing', remote: true } do
+        = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + " Create Shows for #{@date.strftime('%B %Y')}"
 
   -#%h1.col-md-4 #{@date.strftime('%B')} Show Schedule
   .month-controls
