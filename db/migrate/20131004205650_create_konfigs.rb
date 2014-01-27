@@ -3,6 +3,7 @@ class CreateKonfigs < ActiveRecord::Migration
     create_table :konfigs do |t|
       t.string :name
       t.string :value
+      t.string :desc
 
       t.timestamps
     end

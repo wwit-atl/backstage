@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131014172637) do
   create_table "konfigs", force: true do |t|
     t.string   "name"
     t.string   "value"
+    t.string   "desc"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -10,12 +10,12 @@ end
 #
 puts 'Create Configuration'
 {
-    'MemberMaxConflicts' => 3,
-    'MemberMinShifts'    => 3,
-    'MemberMaxShifts'    => 5,
-    'CastMinShows'       => 5,
+    'MemberMaxConflicts' => [ 3, 'The maximum number of conflicts a Member is allowed in a given month.'      ],
+    'MemberMinShifts'    => [ 3, 'The minimum number of shifts each Member will be [auto]assigned per month.' ],
+    'MemberMaxShifts'    => [ 5, 'The maximum number of shifts each Member will be [auto]assigned per month.' ],
+    'CastMinShows'       => [ 5, 'The minimum number of shows a full-cast member is expected to perform in.'  ],
 }.each do |key, value|
-  Konfig.where(name: key).first_or_create.update_attributes(value: value)
+  Konfig.where(name: key).first_or_create.update_attributes(value: value[0], desc: value[1])
 end
 
 #
