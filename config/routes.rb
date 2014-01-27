@@ -10,7 +10,7 @@ Backstage::Application.routes.draw do
     collection { post :reposition }
   end
 
-  resources :show_templates, :shifts
+  resources :show_templates
   resources :skills,  :concerns => [ :notable, :sortable ]
   resources :shows,   :concerns => :notable do
     collection do
@@ -32,6 +32,9 @@ Backstage::Application.routes.draw do
       patch :update_multiple
     end
   end
+
+  get   '/shifts', to: 'shifts#index'
+  patch '/shifts', to: 'shifts#update'
 
   get '/admin', to: 'members#admin'
 

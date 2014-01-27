@@ -29,9 +29,17 @@
     %tbody
       - @shifts.each do |shift|
         %tr
-          %td= shift.show_link
-          %td= shift.skill_link
-          %td= shift.member_link
+          %td.col-md-4= shift.show_link
+          %td.col-md-4= shift.skill_link
+          %td.col-md-4
+            = simple_form_for shift, url: shifts_path(id: shift), remote: true, class: 'form-inline' do |f|
+              .pull-left
+                = f.input :member_id,
+                  :collection => @members,
+                  :include_blank => true,
+                  :label => false,
+                  :input_html => { class: 'chosen-select', data: { placeholder: 'No Member Selected' } }
+              = f.submit 'Update', class: 'btn btn-default btn-xs'
           -#%td= render 'partials/admin_commands', klass: shift
       - if @shifts.empty?
         %tr
