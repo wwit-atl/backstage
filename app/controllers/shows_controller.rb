@@ -97,7 +97,6 @@ class ShowsController < ApplicationController
       )
     end
 
-    # ToDo: Cannot assign MC unless actor is crewable
     def set_supporting
       @stages   = Stage.all
       @skills   = Skill.all
