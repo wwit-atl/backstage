@@ -8,6 +8,7 @@ class ShowTemplatesController < ApplicationController
   # GET /show_templates
   # GET /show_templates.json
   def index
+    @date = Date.today + 1.month
     @show_templates = ShowTemplate.order(:dow, :showtime)
   end
 

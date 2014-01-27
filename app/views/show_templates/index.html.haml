@@ -1,3 +1,9 @@
+- if can? :manage, Show
+  .pull-right
+    .pad-top-20
+      = link_to create_shows_path(date: @date), class: 'btn btn-info', data: { disable_with: 'Processing', remote: true } do
+        = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + " Create Shows for #{@date.strftime('%B %Y')}"
+
 %h1 Show Templates
 %p
   These entries will be used to auto-generate the shows for each month.

@@ -4,11 +4,7 @@
   - if @member.is_crewable? or @member.is_castable?
 
     #calendar
-      .month-controls
-        %h2
-          = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left'), { date: @date.prev_month }
-          = @date_string
-          = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right'), { date: @date.next_month }
+      = render 'partials/month_controls'
 
       - max_note_message = [ "You've selected <span class='cur-count'>#{@cur_conflicts}</span> out of your <span class='max-count'>#{@max_conflicts}</span> conflicts.",
         "You've allocated all <span class='max-count'>#{@max_conflicts}</span> of your conflicts.",

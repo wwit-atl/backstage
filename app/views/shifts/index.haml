@@ -11,11 +11,7 @@
 -#-if can? :create, Shift
 -#  .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Shift', new_shift_path
 
-.month-controls
-  %h2
-    = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left'), { date: @date.prev_month }
-    = @date.strftime('%B %Y')
-    = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right'), { date: @date.next_month }
+= render 'partials/month_controls'
 
 .table-responsive
   %table.table.table-striped.table-condensed

@@ -1,5 +1,3 @@
--#= render 'schedule_exceptions' unless @exceptions.empty?
-
 #scheduler.errors
 
 #shows-index
@@ -9,12 +7,9 @@
       = link_to create_shows_path(date: @date), class: 'btn btn-info', data: { disable_with: 'Processing', remote: true } do
         = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + " Create Shows for #{@date.strftime('%B %Y')}"
 
-  -#%h1.col-md-4 #{@date.strftime('%B')} Show Schedule
-  .month-controls
-    %h2
-      = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left'), { date: @date.prev_month }
-      #{@date.strftime('%B %Y')} Show Schedule
-      = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right'), { date: @date.next_month }
+  %h1 Shows in #{@date.strftime('%B, %Y')}
+
+  = render 'partials/month_controls', today: 'Today'
 
   .table-responsive
     %table.table.table-striped

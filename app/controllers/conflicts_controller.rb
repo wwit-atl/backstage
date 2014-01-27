@@ -18,12 +18,8 @@ class ConflictsController < ApplicationController
 
   def manage
     unauthorized unless can? :read, @member
-
     @conflicts = @member.conflicts
-
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
-    @date_string = @date.strftime("%B %Y")
-
     @conflicts_this_month = @conflicts.for_month(@date.month, @date.year)
     @cur_conflicts = @conflicts_this_month.count
   end

@@ -76,16 +76,13 @@
   vertical-align: middle;
   text-align: center;
   color: $wwit-red;
+  font-size: 1.5em;
 
   a {
     text-decoration: none;
     border-radius: 50px;
     font-size: 0.8em;
     color: $wwit-red;
-
-    &:hover {
-      color: $wwit-yellow;
-    }
   }
 }
 
