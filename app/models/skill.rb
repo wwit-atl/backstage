@@ -12,9 +12,11 @@ class Skill < ActiveRecord::Base
     code.upcase!
   end
 
-  scope :with_code, lambda { |code| where(code: code.to_s.upcase) }
+  scope :with_code,   -> (code) { where(code: code.to_s.upcase) }
+  scope :by_code,     -> { order(:code) }
+  scope :by_priority, -> { order(:priority) }
 
-  scope :by_code, -> { order(:code) }
+  default_scope by_priority
 
   def requires_training?
     self.training
