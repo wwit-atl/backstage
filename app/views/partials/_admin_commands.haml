@@ -1,11 +1,12 @@
 - move ||= false
+- show = true if show.nil?
 .admin-commands
   .btn-group.btn-group-sm.pull-right
     - if move == true
       %span{ class: 'btn btn-default', title: 'Reposition' }
         = content_tag( :span, '', class: 'glyphicon glyphicon-move handle' )
 
-    - if can? :read, klass
+    - if can? :read, klass and show == true
       = button_tag class: 'btn btn-default hidden-xs hidden-sm', title: 'Show Record' do
         = link_to content_tag( :span, nil, class: 'glyphicon glyphicon-eye-open' ), klass
 

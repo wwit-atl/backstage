@@ -25,7 +25,7 @@
           %td.email= mail_to member.email
 
           - if can? :manage, @members
-            %td.hidden-xs.hidden-sm= member.roles.by_name.map{|r| r.name}.join(', ')
+            %td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
 
           %td= render 'partials/admin_commands', klass: member
 

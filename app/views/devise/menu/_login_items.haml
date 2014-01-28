@@ -32,6 +32,7 @@
               - if current_member.is_admin?
                 %li.divider
                 %li{ class: is_active?(configs_path)        }= link_to 'Configuration', configs_path
+                %li{ class: is_active?(roles_path)          }= link_to 'View Roles', roles_path
                 %li{ class: is_active?(show_templates_path) }= link_to 'Show Templates', show_templates_path
                 %li{ class: is_active?(conflicts_path)      }= link_to 'Conflicts', conflicts_path
                 %li{ class: is_active?(skills_path)         }= link_to 'Manage Skills', skills_path

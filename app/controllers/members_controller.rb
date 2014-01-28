@@ -37,6 +37,11 @@ class MembersController < ApplicationController
     @note = Note.new
   end
 
+  def roles
+    admin_only!
+    @roles = Role.all
+  end
+
   # GET /members/new
   def new
     @member = Member.new
