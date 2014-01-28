@@ -7,11 +7,13 @@ class Member < ActiveRecord::Base
   has_many :shifts
   has_many :crews, :through => :shifts, :source => :show
   has_many :phones, :dependent => :destroy
+  has_many :addresses, :dependent => :destroy
 
   has_and_belongs_to_many :shows, join_table: 'actors_shows'
   has_and_belongs_to_many :skills
 
   accepts_nested_attributes_for :phones, allow_destroy: true
+  accepts_nested_attributes_for :addresses, allow_destroy: true
 
   validates_presence_of :email, :firstname, :lastname
   validates_presence_of :password, on: :create
@@ -45,6 +47,10 @@ class Member < ActiveRecord::Base
     [ firstname, lastname ].map{ |n| n.titleize }.join(' ')
   end
   alias :name :fullname
+
+  def birthday
+    dob.nil? ? 'Not Supplied' : dob.strftime('%m/%d/%Y')
+  end
 
   def conflict?(date)
     (year, month, day) = date.strftime('%Y|%m|%d').split('|')

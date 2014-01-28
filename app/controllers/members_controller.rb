@@ -47,6 +47,7 @@ class MembersController < ApplicationController
     @member = Member.new
     # We want at least one new phone number entry to be displayed in the form
     @member.phones.new
+    @member.addresses.new
   end
 
   # GET /members/1/edit
@@ -129,6 +130,7 @@ class MembersController < ApplicationController
         :password, :password_confirmation,
         skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],
+        addresses_attributes: [:id, :atype, :street1, :street2, :city, :state, :zip, :_destroy ],
     )
   end
 

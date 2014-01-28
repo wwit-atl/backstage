@@ -1,0 +1,10 @@
+%fieldset.nested-fields.addresses
+  .row
+    .col-md-2= f.input :atype, collection: Address.categories, include_blank: false, label: false
+    .col-md-3= f.input :street1, label: false, placeholder: 'Street 1'
+    .col-md-2= f.input :city, label: false, placeholder: 'City'
+    .col-md-1= f.input :state, label: false, placeholder: 'State'
+    .col-md-2= f.input :zip, label: false, placeholder: 'Zip'
+    = link_to_remove_association content_tag(:span, nil, class: 'glyphicon glyphicon-remove', title: 'Remove Address'), f
+  .row
+    .col-md-3.col-md-offset-2= f.input :street2, label: false, placeholder: 'Street 2'

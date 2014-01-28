@@ -26,6 +26,16 @@
           = f.simple_fields_for :phones do |builder|
             = render 'phone_fields', f: builder
 
+      .row
+        .col-md-4= f.label 'Address:'
+        .col-md-2
+          = link_to_add_association content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Address', f, :addresses,
+            { data: { 'association-insertion-method' => 'after', 'association-insertion-node' => '.address-fields' }}
+      .row
+        .address-fields
+          = f.simple_fields_for :addresses do |builder|
+            = render 'address_fields', f: builder
+
     .box
       .row
         .col-xs-1= f.label 'Sex:'

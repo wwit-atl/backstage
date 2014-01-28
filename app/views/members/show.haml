@@ -88,9 +88,32 @@
           - if is_authorized?(@member)
             = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
 
+  - if can? :update, @member
+    .box
+      .row
+        %fieldset
+          %legend Confidential Information
+          .col-md-2 Sex: #{@member.sex.nil? ? 'N/A' : @member.sex}
+          .col-md-4 Birthday: #{@member.birthday}
+          .col-md-2 Address:
+          .col-md-4
+            - @member.addresses.each do |address|
+              %strong= address.atype
+              %address
+                = address.street1
+                - unless address.street2.blank?
+                  %br
+                  = address.street2
+                %br
+                = address.city
+                = address.state + ', '
+                = address.zip
+            - if @member.addresses.empty?
+              No Address Provided
+
   .row
     .col-md-12
-      .well
+      .plaque
         Notes
         = render 'notes/notes'
         = render 'notes/form'
