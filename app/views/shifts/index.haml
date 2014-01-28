@@ -13,39 +13,34 @@
 
 = render 'partials/month_controls'
 
-.table-responsive
-  %table.table.table-striped.table-condensed
-    %thead
-      %tr
-        %th
-          = link_to 'Show', :sort => :show
-          = content_tag( :span, nil, class: 'caret') if @sorted_by == :show
-        %th
-          = link_to 'Skill', :sort => :skill
-          = content_tag( :span, nil, class: 'caret') if @sorted_by == :skill
-        %th
-          = link_to 'Member', :sort => :member
-          = content_tag( :span, nil, class: 'caret') if @sorted_by == :member
-        -#%th
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th
+        = link_to 'Show', date: @date, :sort => :show
+        = content_tag( :span, nil, class: 'caret') if @sorted_by == :show
+      %th
+        = link_to 'Skill', date: @date, :sort => :skill
+        = content_tag( :span, nil, class: 'caret') if @sorted_by == :skill
+      %th
+        = link_to 'Member', date: @date, :sort => :member
+        = content_tag( :span, nil, class: 'caret') if @sorted_by == :member
 
-    %tbody
-      - @shifts.each do |shift|
-        %tr
-          %td.col-md-4= shift.show_link
-          %td.col-md-4= shift.skill_link
-          %td.col-md-4
-            = simple_form_for shift, url: shifts_path(id: shift), remote: true, class: 'form-inline' do |f|
-              .pull-left
-                = f.input :member_id,
-                  :collection => @members,
-                  :include_blank => true,
-                  :label => false,
-                  :input_html => { class: 'chosen-select', data: { placeholder: 'No Member Selected' } }
-              = f.submit 'Update', class: 'btn btn-default btn-xs'
-          -#%td= render 'partials/admin_commands', klass: shift
-      - if @shifts.empty?
-        %tr
-          %td No Shifts Match Criteria
-          %td
-          %td
+  %tbody
+    - @shifts.each do |shift|
+      = content_tag_for :tr, shift do
+        %td.col-xs-4= shift.show_link
+        %td.col-xs-4= shift.skill_link
+        %td.col-xs-4
+          = simple_form_for shift, url: shifts_path(id: shift), remote: true do |f|
+            .pull-left
+              = f.input :member_id,
+                :collection => @members,
+                :include_blank => true,
+                :label => false,
+                :input_html => { onchange: "$('#shift_#{shift.id}').find('input').removeClass('hide')", class: 'chosen-select', data: { placeholder: 'No Member Selected' } }
+            = f.submit 'Update', class: 'btn btn-default btn-xs hide'
+    - if @shifts.empty?
+      %tr
+        %td{colspan: 3} No Shifts Match Criteria
 

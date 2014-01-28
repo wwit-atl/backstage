@@ -19,6 +19,7 @@ class ShiftsController < ApplicationController
       if @shift.update(params.require(:shift).permit(:member_id))
         format.html { redirect_to shifts_path, notice: 'Shift was successfully updated.' }
         format.json { head :no_content }
+        format.js { render :layout => false }
       else
         format.html { render action: 'index', alert: 'Could not safe record' }
         format.json { render json: @shift.errors, status: :unprocessable_entity }
