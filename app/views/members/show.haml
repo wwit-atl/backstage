@@ -92,6 +92,6 @@
         = render 'notes/notes'
         = render 'notes/form'
 
-- if can? :edit, @member
+- if can? :update, @member
   = link_to 'Edit', edit_member_path(@member)
 

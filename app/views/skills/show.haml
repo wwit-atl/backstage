@@ -19,5 +19,5 @@
             %li= link_to member.name, member_path(member)
       %br
 
-- if can? :manage, @skill
+- if can? :update, @skill
   %p #{link_to 'Edit', edit_skill_path(@skill)} | #{link_to 'Back', skills_path}
