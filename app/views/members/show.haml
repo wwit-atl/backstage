@@ -9,7 +9,10 @@
         = @member.name
         %small= mail_to @member.email
     .col-md-6
-      %h4.text-right= @member.phones.by_type.map{|phone| link_to phone.listing, phone.as_tel_link}.join(' / ').html_safe
+      %h4.text-right
+        %ul.list-unstyled
+          - @member.phones.by_type.each do |phone|
+            %li= link_to phone.long_listing, phone.as_tel_link
 
   .row
     - if @member.is_castable?

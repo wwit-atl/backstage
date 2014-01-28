@@ -1,7 +1,7 @@
 class Phone < ActiveRecord::Base
   belongs_to :member
   before_validation :strip_number
-  validates_length_of :number, is: 10, allow_blank: true
+  validates_length_of :number, minimum: 10, allow_blank: true
 
   scope :by_type, ->{ order(:ntype) }
 
@@ -22,11 +22,19 @@ class Phone < ActiveRecord::Base
   end
 
   def fnumber
-    '(%s) %s-%s' % [npa, nxx, sub]
+    '%s-%s-%s' % [npa, nxx, sub]
+  end
+
+  def ntype_abbr
+    "<abbr title=#{ntype}>#{ntype[0].downcase}</abbr>"
   end
 
   def listing
-    "#{fnumber} (<abbr title=#{ntype}>#{ntype[0].downcase}</abbr>)".html_safe
+    "#{fnumber} (#{ntype_abbr})".html_safe
+  end
+
+  def long_listing
+    "#{ntype}: #{fnumber}"
   end
 
   def as_tel_link
