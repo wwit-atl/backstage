@@ -4,7 +4,7 @@ class ShowsControllerTest < ActionController::TestCase
 
   def setup
     @show = create(:show)
-    @member = create(:member)
+    @member = create(:member, :admin)
     sign_in @member
   end
 

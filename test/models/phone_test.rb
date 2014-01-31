@@ -27,6 +27,6 @@ class PhoneTest < ActiveSupport::TestCase
   end
 
   test "fnumber formats 10 digit number" do
-    assert_equal "(123) 456-7890", @phone.fnumber
+    assert_equal "123-456-7890", @phone.fnumber
   end
 end

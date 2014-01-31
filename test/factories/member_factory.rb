@@ -11,6 +11,7 @@ FactoryGirl.define do
     lastname              { Faker::Name.last_name  }
     sex                   { [ :M, :F ].sample      }
     dob                   { Time.at(rand * (Time.now - 40.years.ago).to_f).to_date.to_formatted_s(:db) }
+    active                true
     password              'password'
     password_confirmation 'password'
     email                 { "#{firstname[0]}#{lastname}".downcase + '@example.com' }
@@ -32,28 +33,35 @@ FactoryGirl.define do
     trait :admin do
       firstname 'admin'
       lastname  'person'
-      after(:create) { |member| member.roles << Role.where(:name => 'admin') }
+      after(:create) { |m| m.add_role :admin }
     end
 
     trait :ms do
-      after(:create) { |m| m.roles << Role.where(:name => 'ms') }
+      after(:create) { |m| m.add_role :ms }
     end
 
     trait :us do
-      after(:create) { |m| m.roles << Role.where(:name => 'us') }
+      after(:create) { |m| m.add_role :us }
     end
 
     trait :isp do
-      after(:create) { |m| m.roles << Role.where(:name => 'isp') }
+      after(:create) { |m| m.add_role :isp }
     end
 
     trait :volunteer do
-      after(:create) { |m| m.roles << Role.where(:name => 'volunteer') }
+      after(:create) { |m| m.add_role :volunteer }
     end
 
     trait :train_hm do
       after(:create) { |m| m.skills << Skill.with_code(:hm) }
     end
 
+    trait :cast do
+      after(:create) { |m| m.add_role :cast }
+    end
+
+    trait :crew do
+      after(:create) { |m| m.add_role :crew }
+    end
   end
 end

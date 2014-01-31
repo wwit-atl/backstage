@@ -3,14 +3,14 @@ require 'test_helper'
 class MembersControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member)
+    @member = create(:member, :admin)
     sign_in @member
   end
 
   test "should get sign_in page when not signed in" do
     sign_out @member
     get :index
-    assert_response(302)
+    assert_response 302, :sign_in_path
   end
 
   test "should get index" do
@@ -25,8 +25,6 @@ class MembersControllerTest < ActionController::TestCase
   end
 
   test "should create member" do
-    sign_in create( :member, :admin )
-
     assert_difference('Member.count') do
       post :create, member: attributes_for(:member, lastname: 'unique')
     end

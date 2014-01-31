@@ -3,9 +3,14 @@ require "test_helper"
 class ShowTemplatesControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member)
+    @member = create(:member, :admin)
     sign_in @member
     @show_template = create(:show_template)
+  end
+
+  def teardown
+    sign_out @member
+    @member.destroy
   end
 
   def test_index
@@ -20,7 +25,6 @@ class ShowTemplatesControllerTest < ActionController::TestCase
   end
 
   def test_create
-    sign_in create(:member, :admin)
     assert_difference('ShowTemplate.count') do
       post :create, show_template: attributes_for(:show_template)
     end

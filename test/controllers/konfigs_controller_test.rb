@@ -9,7 +9,7 @@ class KonfigsControllerTest < ActionController::TestCase
 
   test "cannot log in as member" do
     get :index
-    assert_response 401
+    assert_response 302, :sign_in_path
   end
 
   test "can log in as admin" do

@@ -13,7 +13,7 @@ class SchedulerTest < ActiveSupport::TestCase
   end
 
   test 'schedule assigns member to shift' do
-    show = create(:show, :skills, :with_shift)
+    show = create(:show, :skills)
 
     skill = show.skills.where(code: 'HM').first
     assert_equal 'HM', skill.code, 'Could not obtain HM Skill for testing'

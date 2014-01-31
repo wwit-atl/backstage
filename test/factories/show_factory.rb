@@ -8,12 +8,12 @@ FactoryGirl.define do
     showtime '20:00'
     calltime '18:30'
 
-    trait :with_shift do |skill|
+    trait :with_shift do
       skills
       after(:create) do |show|
           FactoryGirl.create(:shift,
               show: show,
-              skill: show.skills.where(code: skill).first,
+              skill: show.skills.where(code: 'hm').first,
               member: Member.crewable.sample
           )
       end

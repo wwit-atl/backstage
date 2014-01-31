@@ -118,7 +118,7 @@ class Member < ActiveRecord::Base
     if search
       where{sift :member_search, search}
     else
-      self.scoped
+      self.all
     end
   end
 end

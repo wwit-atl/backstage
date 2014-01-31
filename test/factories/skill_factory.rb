@@ -6,7 +6,6 @@ FactoryGirl.define do
     name 'Sample Skill'
     code { name.split(' ').map { |n| n[0] }.join.upcase }
     training :false
-    ranked :false
     autocrew :false
 
     trait :crew do

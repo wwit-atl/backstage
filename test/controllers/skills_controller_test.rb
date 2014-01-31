@@ -3,8 +3,7 @@ require "test_helper"
 class SkillsControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member)
-    @admin = create(:member, :admin)
+    @member = create(:member, :admin)
     @skill = create(:skill)
     sign_in @member
   end
@@ -12,7 +11,7 @@ class SkillsControllerTest < ActionController::TestCase
   test "should get sign_in page when not signed in" do
     sign_out @member
     get :index
-    assert_response(302)
+    assert_response 302, :sign_in_path
   end
 
   def test_index
