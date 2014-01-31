@@ -114,7 +114,7 @@ end
     [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',  [:admin, :management, :ms] ],
     [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',[:admin, :management, :ms] ],
     [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',   [:admin, :us]              ],
-    [ 'Matt',        'Griffin',      'Matt.F.Griffin@gmail.com',    [:admin, :us]              ],
+    [ 'Matt',        'Griffin',      'Matt.F.Griffin@gmail.com',    [:us]                      ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."
   password = firstname.split.first.downcase + '@wwit'
