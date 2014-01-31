@@ -23,9 +23,14 @@ window.calendarClick = (eventDate) ->
   event = $(document.getElementById(eventDate))
   event.toggleClass('selected')
 
-  # Toggle locked class for dates before today.
+  # Do date calcs so we're comparing both dates at midnight
   today = new Date()
-  event.toggleClass('locked') if new Date(eventDate) < today
+  today.setHours(0,0,0,0)
+  eA = eventDate.split('-')
+  eventDateLocal = new Date(eA[0], eA[1]-1, eA[2])
+
+  # Toggle locked class for dates before today.
+  event.toggleClass('locked') if eventDateLocal < today
 
   # This is the div holding the maximimum conflicts message
   noteDiv = $('#max-note')
