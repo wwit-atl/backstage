@@ -3,7 +3,7 @@ class CreateNotes < ActiveRecord::Migration
     create_table :notes do |t|
       t.text :content
       t.references :member, index: true
-      t.belongs_to :notable, polymorphic: true
+      t.references :notable, polymorphic: true
 
       t.timestamps
     end

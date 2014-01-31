@@ -5,7 +5,7 @@
       = link_to "#{content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left')} Prev Month".html_safe,
         { date: @date.prev_month }
 
-    .text-large.col-xs-8.text-center= link_to today, { date: Date.today }, title: "Click to go to #{Date.today.strftime('%B %Y')}"
+    .bold.text-large.col-xs-8.text-center= link_to today, { date: Date.today }, title: "Click to go to #{Date.today.strftime('%B %Y')}"
 
     .col-xs-2.text-right
       = link_to "Next Month #{content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right')}".html_safe,

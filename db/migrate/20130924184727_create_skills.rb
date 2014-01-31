@@ -3,7 +3,7 @@ class CreateSkills < ActiveRecord::Migration
     create_table :skills do |t|
       t.string  :code, index: true
       t.string  :name, index: true
-      t.integer :priority
+      t.integer :priority, index: true
       t.text    :description
       t.boolean :training
       t.boolean :autocrew

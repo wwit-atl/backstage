@@ -19,15 +19,20 @@
 //= require jquery.ui.sortable
 //= require jquery.ui.touch-punch.min
 //= require jquery.timepicker
+
 // Loads all Bootstrap javascripts
 //= require bootstrap
+
 // Cocoon provides form insert/delete (e.g. phones)
 //= require cocoon
+
 // Chosen is a multi-select handler
 //= require chosen-jquery
+
 // Call our site-specific JS modules
 //= require backstage
 //= require calendars
 //= require scheduler
+
 // Finally, Turbolinks must come last
 //= require turbolinks

@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20140128021030) do
     t.datetime "updated_at"
   end
 
+  add_index "addresses", ["member_id"], name: "index_addresses_on_member_id", using: :btree
+
   create_table "conflicts", force: true do |t|
     t.integer  "year"
     t.integer  "month"
@@ -110,12 +112,14 @@ ActiveRecord::Schema.define(version: 20140128021030) do
   add_index "notes", ["notable_id", "notable_type"], name: "index_notes_on_notable_id_and_notable_type", using: :btree
 
   create_table "phones", force: true do |t|
-    t.integer  "member_id"
     t.string   "number"
     t.string   "ntype"
+    t.integer  "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "phones", ["member_id"], name: "index_phones_on_member_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
