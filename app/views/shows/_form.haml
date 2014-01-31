@@ -14,7 +14,7 @@
         #crew
           = f.simple_fields_for :shifts do |shift|
             = render 'shift_fields', f: shift
-          .links= link_to_add_association content_tag(:span, nil, class: 'glyphicon glyphicon-plus') + ' Add Shift', f, :shifts
+          .links= link_to_add_association get_icon(:add, text: 'Add Shift'), f, :shifts
 
     .col-md-6
       %fieldset

@@ -16,7 +16,7 @@
         %tr
           %td.name
             - if member.inactive?
-              %span.inactive{ class: 'glyphicon glyphicon-ban-circle' }
+              = get_icon(:ban, class: 'inactive')
             = link_to member.fullname, member_path(member)
           %td.phone
             - member.phones.by_type.each do |phone|
@@ -27,5 +27,5 @@
           - if can? :manage, @members
             %td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
 
-          %td= render 'partials/admin_commands', klass: member
+          %td= render 'partials/admin_commands', klass: member, show: true
 

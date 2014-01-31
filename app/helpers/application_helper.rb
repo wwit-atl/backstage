@@ -32,8 +32,24 @@ module ApplicationHelper
     end
   end
 
+  def get_icon(type, opts = {} )
+    case type
+      when :ban      then icon_class = 'ban-circle'
+      when :add      then icon_class = 'plus'
+      when :show     then icon_class = 'eye-open'
+      when :edit     then icon_class = 'pencil'
+      when :move     then icon_class = 'move'
+      when :delete   then icon_class = 'trash'
+      when :remove   then icon_class = 'remove'
+      when :calendar then icon_class = 'calendar'
+      else icon_class = type
+    end
+    content_tag(:span, nil, class: ["glyphicon glyphicon-#{icon_class}", opts[:class]].compact, title: opts[:title]) +
+        ( opts[:text].nil? ? nil : "&nbsp;#{opts[:text]}".html_safe )
+  end
+
   def link_to_new(path, text = 'Add New')
-    link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' ' + text, path
+    link_to get_icon(:add, text: text), path
   end
 
   def is_authorized?(member = Member.none)

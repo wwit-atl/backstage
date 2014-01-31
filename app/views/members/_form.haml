@@ -19,7 +19,7 @@
       .row
         .col-md-4= f.label 'Phone Number (digits only, please):'
         .col-md-2
-          = link_to_add_association content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Phone', f, :phones,
+          = link_to_add_association get_icon(:add, text: 'Add New Phone'), f, :phones,
             { data: { 'association-insertion-method' => 'after', 'association-insertion-node' => '.phone-fields' }}
       .row
         .phone-fields
@@ -29,7 +29,7 @@
       .row
         .col-md-4= f.label 'Address:'
         .col-md-2
-          = link_to_add_association content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Address', f, :addresses,
+          = link_to_add_association get_icon(:add, text: 'Add New Address'), f, :addresses,
             { data: { 'association-insertion-method' => 'after', 'association-insertion-node' => '.address-fields' }}
       .row
         .address-fields

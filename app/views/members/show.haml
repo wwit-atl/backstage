@@ -1,6 +1,8 @@
 #member
-  - unless @member.is_active?
-    .pull-right
+  .pull-right.pad-top-20
+    - if can? :update, @member
+      = link_to get_icon(:edit) + ' Edit', edit_member_path(@member)
+    - unless @member.is_active?
       %h3.inactive= 'INACTIVE'
 
   .row

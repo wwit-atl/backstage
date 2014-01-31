@@ -2,7 +2,7 @@
   #scheduler.errors
   .pull-right.pad-top-20
     = link_to schedule_shows_path, class: 'btn btn-info auto-schedule', data: { disable_with: 'Processing', remote: true } do
-      = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + ' Auto Schedule'
+      = get_icon 'calendar', text: 'Auto Schedule'
 
 %h1
   Managing Shifts

@@ -2,7 +2,7 @@
   .pull-right
     .pad-top-20
       = link_to create_shows_path(date: @date), class: 'btn btn-info', data: { disable_with: 'Processing', remote: true } do
-        = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + " Create Shows for #{@date.strftime('%B %Y')}"
+        = get_icon 'calendar', text: "Create Shows for #{@date.strftime('%B %Y')}"
 
 %h1 Show Templates
 %p
@@ -40,5 +40,5 @@
               - show_template.skills.each do |skill|
                 %li= skill.name
 
-          %td= render 'partials/admin_commands', klass: show_template, show: true
+          %td= render 'partials/admin_commands', klass: show_template
 

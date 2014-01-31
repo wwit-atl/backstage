@@ -2,11 +2,9 @@
 .month-controls
   .row
     .col-xs-2.text-left
-      = link_to "#{content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-left')} Prev Month".html_safe,
-        { date: @date.prev_month }
+      = link_to get_icon('circle-arrow-left', text: 'Prev Month'), { date: @date.prev_month }
 
     .bold.text-large.col-xs-8.text-center= link_to today, { date: Date.today }, title: "Click to go to #{Date.today.strftime('%B %Y')}"
 
     .col-xs-2.text-right
-      = link_to "Next Month #{content_tag( :span, nil, class: 'glyphicon glyphicon-circle-arrow-right')}".html_safe,
-        { date: @date.next_month }
+      = link_to "Next Month #{get_icon('circle-arrow-right')}".html_safe, { date: @date.next_month }

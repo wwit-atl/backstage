@@ -35,7 +35,7 @@ ready = ->
     delay (->
       $.get($("#member_search").attr("action"), $("#member_search").serialize(), null, 'script')
       false
-    ), 500
+    ), 250
   )
 
 $(document).ready(ready)

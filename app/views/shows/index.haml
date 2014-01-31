@@ -5,7 +5,7 @@
   -if can? :manage, Show
     .pull-right
       = link_to create_shows_path(date: @date), class: 'btn btn-info', data: { disable_with: 'Processing', remote: true } do
-        = content_tag( :span, nil, class: 'glyphicon glyphicon-calendar' ) + " Create Shows for #{@date.strftime('%B %Y')}"
+        = get_icon 'calendar', text: "Create Shows for #{@date.strftime('%B %Y')}"
 
   %h1 Shows in #{@date.strftime('%B, %Y')}
 
@@ -44,6 +44,6 @@
                 - show.actors.each do |actor|
                   %li= link_to actor.name, member_path(actor)
 
-            %td= render 'partials/admin_commands', klass: show
+            %td= render 'partials/admin_commands', klass: show, show: true
 
 

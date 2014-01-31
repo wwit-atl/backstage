@@ -5,7 +5,7 @@ class Shift < ActiveRecord::Base
   belongs_to :skill
   belongs_to :member
 
-  validates_presence_of :show_id, :on => :create
+  #validates_presence_of :show_id, :on => :create
 
   scope :with_skill, ->(code) { joins(:skill).where(skills: {code: code.to_s.upcase}).readonly(false).first }
   scope :for_month,  ->(date) { joins(:show).where('shows.date >= ? AND date <= ?', date.beginning_of_month, date.end_of_month) }
