@@ -8,9 +8,6 @@
   Managing Shifts
   %small sorted by #{@sorted_by.to_s.capitalize}
 
--#-if can? :create, Shift
--#  .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Shift', new_shift_path
-
 = render 'partials/month_controls'
 
 .table-responsive

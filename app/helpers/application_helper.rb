@@ -32,6 +32,10 @@ module ApplicationHelper
     end
   end
 
+  def link_to_new(path, text = 'Add New')
+    link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' ' + text, path
+  end
+
   def is_authorized?(member = Member.none)
     !!( current_member and ( current_member.is_admin? or current_member.id == member.id ) )
   end

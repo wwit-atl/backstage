@@ -9,7 +9,7 @@
           %th.hidden-xs.hidden-sm Role(s)
         %th
           - if can? :create, @members
-            .text-left= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Member', new_member_path
+            .text-right= link_to_new new_member_path
 
     %tbody
       - @members.each do |member|

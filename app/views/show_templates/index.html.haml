@@ -24,7 +24,7 @@
         %th Required Shifts
         %th
           -if can? :create, @show_templates
-            .pull-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Template', new_show_template_path
+            .text-right= link_to_new new_show_template_path
 
     %tbody
       - @show_templates.each do |show_template|

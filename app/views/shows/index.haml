@@ -23,7 +23,7 @@
           %th Cast
           %th
             - if can? :create, Show
-              .text-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Show', new_show_path
+              .text-right= link_to_new new_show_path
 
       %tbody
         - @shows.each do |show|

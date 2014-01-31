@@ -13,7 +13,7 @@
         %th Autocrew?
         %th
           - if can? :create, @skills
-            .text-right= link_to content_tag( :span, nil, class: 'glyphicon glyphicon-plus') + ' Add New Skill', new_skill_path
+            .text-right= link_to_new new_skill_path
 
 
     %tbody.reposition( data-update-url="#{reposition_skills_url}" )
