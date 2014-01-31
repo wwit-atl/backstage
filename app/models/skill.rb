@@ -16,7 +16,7 @@ class Skill < ActiveRecord::Base
   scope :by_code,     -> { order(:code) }
   scope :by_priority, -> { order(:priority) }
 
-  default_scope by_priority
+  default_scope { order(:priority) }
 
   def requires_training?
     self.training

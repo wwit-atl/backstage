@@ -15,8 +15,8 @@
             %li= link_to phone.long_listing, phone.as_tel_link
 
   .row
-    - if @member.is_castable?
-      .col-md-12
+    .col-md-12
+      - if @member.is_castable?
         .plaque
           %h3.no-top-pad Recent and Upcoming Shows
           - if @shows.empty?
