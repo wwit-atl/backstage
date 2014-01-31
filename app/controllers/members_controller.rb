@@ -27,6 +27,8 @@ class MembersController < ApplicationController
   end
 
   def show
+    unauthorized unless @member.active? or can? :edit, @member
+
     @shows = @member.shows.recent.by_date
     @shifts = @member.shifts.recent.by_show
     @skills = @member.skills

@@ -3,17 +3,16 @@
 .admin-commands
   .pull-right
     .btn-group.btn-group-xs
-      - if move == true
-        .btn.xbtn-default
-          .handle= get_icon :move, title: 'Reposition'
-
-      - if can? :read, klass and show == true
-        = link_to get_icon(:show), klass, class: 'btn xbtn-default', title: 'View'
+      - if can? :destroy, klass
+        = link_to get_icon(:delete), klass, class: 'btn xbtn-default', title: 'Delete', :method => :delete, data: { confirm: 'Are you sure?' }
 
       - if can? :edit, klass
         = link_to get_icon(:edit), send('edit_' + klass.class.to_s.underscore + '_path', klass), class: 'btn xbtn-default', title: 'Edit'
 
-      - if can? :destroy, klass
-        = link_to get_icon(:delete), klass, class: 'btn xbtn-default', title: 'Delete', :method => :delete, data: { confirm: 'Are you sure?' }
+      - if can? :read, klass and show == true
+        = link_to get_icon(:show), klass, class: 'btn xbtn-default', title: 'View'
 
+      - if move == true
+        .btn.xbtn-default
+          .handle= get_icon :move, title: 'Reposition'
 

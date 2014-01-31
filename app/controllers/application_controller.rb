@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_member!
   before_action :configure_permitted_parameters, :if => :devise_controller?
+  before_action :validate_member_access
 
   alias_method :current_user, :current_member
 
@@ -33,6 +34,17 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u|
       u.permit(:password, :password_confirmation, :current_password)
     }
+  end
+
+  def validate_member_access
+    return if params[:controller] == 'devise/sessions'
+    if member_signed_in?
+      if current_member.inactive?
+        session.destroy
+        flash[:error] = 'Sorry, but your account is inactive.'
+        redirect_to new_member_session_path
+      end
+    end
   end
 
   rescue_from CanCan::AccessDenied do |exception|

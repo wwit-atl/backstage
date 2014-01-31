@@ -13,19 +13,20 @@
 
     %tbody
       - @members.each do |member|
-        %tr
-          %td.name
-            - if member.inactive?
-              = get_icon(:ban, class: 'inactive')
-            = link_to member.fullname, member_path(member)
-          %td.phone
-            - member.phones.by_type.each do |phone|
-              = link_to phone.listing, phone.as_tel_link
-              %br
-          %td.email= mail_to member.email
+        - if member.active? or can? :edit, member
+          %tr
+            %td.name
+              - if member.inactive? and can? :edit, member
+                = get_icon(:ban, class: 'inactive')
+              = link_to member.fullname, member_path(member)
+            %td.phone
+              - member.phones.by_type.each do |phone|
+                = link_to phone.listing, phone.as_tel_link
+                %br
+            %td.email= mail_to member.email
 
-          - if can? :manage, @members
-            %td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
+            - if can? :manage, @members
+              %td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
 
-          %td= render 'partials/admin_commands', klass: member, show: true
+            %td= render 'partials/admin_commands', klass: member, show: true
 

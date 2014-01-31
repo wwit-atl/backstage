@@ -1,20 +1,20 @@
 #member
-  .pull-right.pad-top-20
-    - if can? :update, @member
-      = link_to get_icon(:edit) + ' Edit', edit_member_path(@member)
-    - unless @member.is_active?
-      %h3.inactive= 'INACTIVE'
-
   .row
     .col-md-6
       %h1
         = @member.name
-        %small= mail_to @member.email
+        %small
+          = mail_to @member.email
+          %em.inactive= 'INACTIVE' if @member.inactive?
+
     .col-md-6
       %h4.text-right
         %ul.list-unstyled
           - @member.phones.by_type.each do |phone|
             %li= link_to phone.long_listing, phone.as_tel_link
+      .text-right
+        - if can? :update, @member
+          = link_to get_icon(:edit) + ' Edit', edit_member_path(@member)
 
   .row
     .col-md-12
