@@ -54,35 +54,35 @@ class Member < ActiveRecord::Base
 
   def conflict?(date)
     (year, month, day) = date.strftime('%Y|%m|%d').split('|')
-    !self.conflicts.where(year: year, month: month, day: day).empty?
+    !conflicts.where(year: year, month: month, day: day).empty?
   end
 
   def has_shift_for?(show)
-    self.crews.map{ |crew| crew.id }.include?(show.id)
+    crews.map{ |crew| crew.id }.include?(show.id)
   end
 
   def is_crewable?
-    self.active? && self.roles.crewable.count > 0
+    active? && roles.crewable.count > 0
   end
 
   def is_castable?
-    self.active? && self.roles.castable.count > 0
+    active? && roles.castable.count > 0
   end
 
   def uses_conflicts?
-    self.is_castable? || self.is_crewable?
+    is_castable? || is_crewable?
   end
 
   def is_admin?
-    self.has_role?(:admin)
+    has_role?(:admin)
   end
 
   def is_active?
-    !!self.active
+    active?
   end
 
   def inactive?
-    !self.active
+    !active?
   end
 
   def eligible_for_show?(show)
@@ -112,6 +112,18 @@ class Member < ActiveRecord::Base
   def shift_count_for_month(month = Time.now.month, year = Time.now.year)
     date = Date.new(year, month)
     shifts.joins(:show).where( 'shows.date' => date.beginning_of_month..date.end_of_month ).count
+  end
+
+  def active_for_authentication?
+    super && active?
+  end
+
+  def inactive_message
+    if !active?
+      :inactive
+    else
+      super # Use whatever other message
+    end
   end
 
   def self.search(search)
