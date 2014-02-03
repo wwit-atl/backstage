@@ -2,20 +2,13 @@
   - if @show.errors.any?
     = render 'partials/form_errors', model: @show
 
+  = can? :manage, @show
   .row
-    .col-md-4= f.input :date,     :as => :string, label: 'Show Date', input_html: { class: 'datepicker' }
-    .col-md-4= f.input :showtime, :as => :string, label: 'Show Time', input_html: { class: 'timepicker' }
-    .col-md-4= f.input :calltime, :as => :string, label: 'Call Time', input_html: { class: 'timepicker' }
+    .col-md-4= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }
+    .col-md-4= f.input :showtime, :as => :string, label: 'Show Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
+    .col-md-4= f.input :calltime, :as => :string, label: 'Call Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
 
   .row
-    .col-md-6
-      %fieldset
-        %legend Crew the Show
-        #crew
-          = f.simple_fields_for :shifts do |shift|
-            = render 'shift_fields', f: shift
-          .links= link_to_add_association get_icon(:add, text: 'Add Shift'), f, :shifts
-
     .col-md-6
       %fieldset
         %legend Cast the Show:
@@ -25,6 +18,15 @@
               :include_blank => true,
               :label => 'Actors ',
               :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
+
+    .col-md-6
+      %fieldset
+        %legend Crew the Show
+        #crew
+          = f.simple_fields_for :shifts do |shift|
+            = render 'shift_fields', f: shift
+          - if can? :manage, @show
+            .links= link_to_add_association get_icon(:add, text: 'Add Shift'), f, :shifts
 
   -#.row
   -#  %fieldset

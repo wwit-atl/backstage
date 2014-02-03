@@ -48,7 +48,7 @@
                   order: [ :month, :day, :year ],
                   include_blank: true
 
-  - if can? :update, @member
+  - if can? :manage, @member
     .plaque
       %fieldset
         %legend Administrative

@@ -54,8 +54,8 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @member.phones.new unless @member.phones.any?
-    @member.addresses.new unless @member.addresses.any?
+    #@member.phones.new unless @member.phones.any?
+    #@member.addresses.new unless @member.addresses.any?
   end
 
   # POST /members

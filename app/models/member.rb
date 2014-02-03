@@ -85,6 +85,10 @@ class Member < ActiveRecord::Base
     !active?
   end
 
+  def has_skill?(skill)
+    skills.pluck(:code).include?(skill)
+  end
+
   def eligible_for_show?(show)
     return self if show.nil?
     return nil if conflicts.map{ |c| c.date == show.date }.any?

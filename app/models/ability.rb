@@ -11,8 +11,8 @@ class Ability
     return if member.new_record?
 
     can :read, [ Member, Show ]
-    can :update, Member, :id => member.id
-    can [:update, :manage], Conflict, :member_id => member.id
+    can [:edit, :update], Member, :id => member.id
+    can :manage, Conflict, :member_id => member.id
 
     if member.has_role? :admin
       can :manage, :all
@@ -22,8 +22,8 @@ class Ability
       can :manage, [ Member, Show ]
     end
 
-    if member.has_role? :ms
-      can :update, Show
+    if member.has_skill? 'MC'
+      can [:edit, :update], Show
     end
 
   end
