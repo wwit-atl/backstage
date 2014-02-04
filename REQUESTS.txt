@@ -1,0 +1,9 @@
+This is a list of future feature requests
+
+Pull current seat count for booked shows and display on the dashboard
+
+Create shows automatically/manaually on main WWIT website
+
+Electronic check-in for cast/crew during show night (running on a tablet on
+the wall)
+
