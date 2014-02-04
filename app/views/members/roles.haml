@@ -22,5 +22,5 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
           %td= role.crew ? 'Yes' : 'No'
           %th
             %ul
-              - role.members.each do |member|
+              - role.members.by_name.each do |member|
                 %li= link_to member.name, member_path(member)
