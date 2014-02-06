@@ -3,7 +3,7 @@ class Message < ActiveRecord::Base
   belongs_to :sender,   class_name: Member, :foreign_key => :sender_id
   belongs_to :approver, class_name: Member, :foreign_key => :approver_id
 
-  scope :by_sent, -> { order(sent_at: :desc) }
+  scope :by_sent, -> { order(:created_at => :desc) }
 
   validates_presence_of :subject, :message
   after_save  :send_email

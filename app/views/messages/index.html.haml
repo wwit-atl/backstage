@@ -1,5 +1,5 @@
 #announcements
-  - if can? :create, @members
+  - if can? :create, Message
     .pull-right= link_to_new new_message_path, 'Add New Announcement'
 
   %h1 Announcements
@@ -12,23 +12,31 @@
     %hr
 
   - @messages.each do |message|
-    - if message.approved? or can? :manage, message
-      .box{ class: message.status }
-        .controls= render 'partials/admin_commands', klass: message
-        .row
-          .col-sm-2= simple_format message.created_stamp
-          .col-sm-8
-            .signature #{message.sender.name} wrote:
-            .panel.padding-5
-              = markdown message.message
-          .col-sm-2
-            - if can? :manage, message and !message.approved?
-              .approval.text-left Approve
+    .box{ class: message.status }
+      .controls= render 'partials/admin_commands', klass: message
+      .row
+        .col-sm-2= simple_format message.created_stamp
+        .col-sm-8
+          .signature #{link_to_member message.sender} wrote:
+          .panel.padding-5
+            = markdown message.message
+        .col-sm-2
+          - if !message.approved?
+            - if can? :manage, message
+              .approval= get_icon 'thumbs-up', text: 'Approve?'
             - else
-              - if message.delivered?
-                = (can?( :manage, message ) ? 'Sent at: ' + simple_format( message.sent_stamp ) : 'Delivered').html_safe
+              Waiting on Approval
+          - else
+            - if message.delivered?
+              - if can? :manage, message
+                Sent at<br>#{simple_format message.sent_stamp}
+                Approved By<br>#{link_to_member message.approver}
               - else
-                Not Sent
+                Delivered
+            - else
+              Approved<br>But Not Sent
+              - if can? :manage, message
+                .retry= get_icon :email, text: 'Retry?'
 
   = will_paginate @messages, renderer: BootstrapPagination::Rails
 
