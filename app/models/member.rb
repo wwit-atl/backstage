@@ -72,6 +72,10 @@ class Member < ActiveRecord::Base
     active? && roles.castable.count > 0
   end
 
+  def company_member?
+    active? && ( is_crewable? || is_castable? )
+  end
+
   def uses_conflicts?
     is_castable? || is_crewable?
   end

@@ -10,24 +10,16 @@ class Ability
     # Guest can't do anything here
     return if member.new_record?
 
-    can :read, [ Member, Show, Message ]
+    can :manage, :all if member.has_role? :admin
+    can :manage, [ Member, Show ] if member.has_role? :management
+    can [:edit, :update], Show if member.has_skill? 'MC'
+
+    can :read, [ Member, Show, Message ] if member.company_member?
 
     can [:edit, :update], Member, :id => member.id
     can :manage, Conflict, :member_id => member.id
 
-    can :create, Message
-
-    if member.has_role? :admin
-      can :manage, :all
-    end
-
-    if member.has_role? :management
-      can :manage, [ Member, Show ]
-    end
-
-    if member.has_skill? 'MC'
-      can [:edit, :update], Show
-    end
-
+    can :create, Message, member.company_member? => :true
+    can [:edit, :update, :destroy], Message, :sender_id => member.id, approver_id: nil, sent_at: nil
   end
 end
