@@ -14,7 +14,7 @@ class MembersController < ApplicationController
   end
 
   def admin
-    return unless test_mode
+    redirect_to root_path unless test_mode
 
     logger.debug ">>> Checking ADMIN status on #{current_member.name}"
     if current_member.is_admin?

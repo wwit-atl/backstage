@@ -42,10 +42,10 @@ class ApplicationController < ActionController::Base
         session[:next] = request.fullpath
         redirect_to new_member_sessions_path, :alert => 'You must log in to continue.'
       else
-        if request.env["HTTP_REFERER"].present?
+        if request.env['HTTP_REFERER'].present? and ( request.env['HTTP_REFERER'] != request.original_url )
           redirect_to :back, :alert => exception.message
         else
-          redirect_to back_to_path, :alert => exception.message
+          redirect_to root_path, :alert => exception.message
         end
       end
     end
