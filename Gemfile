@@ -23,12 +23,14 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'acts_as_list'
 gem 'cocoon'
 gem 'devise', '~> 3.1.0'
-gem 'rolify', '3.3.0.rc4'
+gem 'rolify', '~> 3.4.0'
 gem 'cancan'
 gem 'chosen-rails'
 
 gem 'simple_form'
 gem 'squeel'
+
+gem 'redcarpet'
 
 gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'

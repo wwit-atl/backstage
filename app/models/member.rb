@@ -2,6 +2,8 @@ class Member < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   rolify
 
+  belongs_to :last_message, class_name: Message
+
   has_many :conflicts, :dependent => :destroy
   has_many :notes, :as => :notable
   has_many :shifts
@@ -11,6 +13,7 @@ class Member < ActiveRecord::Base
 
   has_and_belongs_to_many :shows, join_table: 'actors_shows'
   has_and_belongs_to_many :skills
+  has_and_belongs_to_many :messages
 
   accepts_nested_attributes_for :phones, allow_destroy: true
   accepts_nested_attributes_for :addresses, allow_destroy: true
@@ -31,9 +34,9 @@ class Member < ActiveRecord::Base
 
   scope :uses_conflicts, -> { castable || crewable }
 
-  scope :has_role,  ->(role) { joins(:roles).where(roles: {name: role}) }
-  scope :has_skill, ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
-  scope :has_conflict, ->(show) { joins(:conflicts).where(conflicts: {date: show.date}) }
+  scope :has_role,      ->(role)  { joins(:roles).where(roles: {name: role}) }
+  scope :has_skill,     ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
+  scope :has_conflict,  ->(show)  { joins(:conflicts).where(conflicts: {date: show.date}) }
 
   scope :by_name_first, -> { order([:firstname, :lastname]) }
   scope :by_name_last,  -> { order([:lastname, :firstname]) }

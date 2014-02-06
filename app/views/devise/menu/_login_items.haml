@@ -16,10 +16,10 @@
       %ul.nav.navbar-nav
         - if member_signed_in?
           -#%li{ class: is_active?(root_path)    }= link_to 'Home', root_path
-          %li{ class: is_active?(members_path) }= link_to 'Members', members_path
-          %li{ class: is_active?(shows_path)   }= link_to 'Shows', shows_path
-          -# ToDo: Need to implement messages
-          %li{ class: is_active?('nil')        }= link_to "Messages #{content_tag(:span, 1, class: 'badge')}".html_safe, '#'
+          %li{ class: is_active?(members_path)  }= link_to 'Members', members_path
+          %li{ class: is_active?(shows_path)    }= link_to 'Shows', shows_path
+          %li{ class: is_active?(messages_path) }= link_to 'Announcements', messages_path
+          -#%li{ class: is_active?('nil')        }= link_to "Messages #{content_tag(:span, 1, class: 'badge')}".html_safe, '#'
       %ul.nav.navbar-nav.navbar-right
         - if member_signed_in?
           %li.dropdown

@@ -27,6 +27,7 @@ fieldset {
 }
 
 .box, .plaque {
+  position: relative;
   border: 1px solid transparentize($wwit-blue, .8);
   padding: 10px;
   border-radius: 10px;
@@ -39,35 +40,18 @@ fieldset {
   background-color: transparentize($wwit-yellow, .8);
 }
 
-.red {
-  color: $wwit-red;
-}
-
-.darkred {
-  color: darken($wwit-red, 10%);
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.text-large {
-  font-size: 1.2em;
-}
-
-.pad-top-20 {
-  margin-top: 20px;
-}
+.padding-5 { padding: 5px; }
+.pad-top-20 { margin-top: 20px; }
 
 .no-top-pad, .no-pad-top {
   padding-top: 0;
   margin-top: 0;
 }
 
-.text-large {
-  font-size: 1.2em;
-}
-
+.red { color: $wwit-red; }
+.darkred { color: darken($wwit-red, 10%); }
+.text-large { font-size: 1.2em; }
+.bold { font-weight: bold; }
 .handle { color: #777; cursor: move; }
 
 #body-header {

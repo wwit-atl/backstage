@@ -1,0 +1,21 @@
+= simple_form_for @message do |f|
+  - if @message.errors.any?
+    = render 'partials/form_errors', model: @message
+
+  .row
+    .col-sm-2.text-right= f.label 'Message For'
+    .col-sm-4= f.association :members,
+              label: false,
+              collection: @members,
+              hint: 'Leave blank to include everyone',
+              input_html: { class: 'chosen-select', :multiple => :true, data: { placeholder: 'All Members' } }
+  .row
+    .col-sm-2.text-right=f.label 'Subject', required: true
+    .col-sm-8= f.input :subject, label: false, placeholder: 'Subject'
+
+  .row
+    .col-sm-2.text-right=f.label 'Message', required: true
+    .col-sm-8= f.input :message, label: false, placeholder: 'Enter your message here.', input_html: { rows: 10 }
+
+  .row
+    .col-sm-2.col-sm-offset-2= f.button :submit, 'Send Message', class: 'btn btn-default'

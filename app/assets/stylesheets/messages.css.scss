@@ -1,0 +1,17 @@
+#announcements {
+  .status-red    { background-color: transparentize($wwit-red,    .8); }
+  .status-yellow { background-color: transparentize($wwit-yellow, .8); }
+  .status-green  { background-color: transparent; }
+
+  .signature {
+    padding-bottom: 5px;
+    font-style: italic;
+    color: $wwit-blue-dark;
+  }
+
+  .controls {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}

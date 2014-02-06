@@ -7,7 +7,8 @@ class MembersController < ApplicationController
   skip_before_action :authenticate_member!, only: [:public_profile]
 
   def public_profile
-    # TODO: This is where the member's public profile will be shown... not yet implemented.
+    # TODO:  This is where the member's public profile will be shown... not yet implemented.
+    # TODO:  Also need friendly-id implemented on Member
     redirect_to members_path
   end
 

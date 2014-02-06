@@ -10,9 +10,12 @@ class Ability
     # Guest can't do anything here
     return if member.new_record?
 
-    can :read, [ Member, Show ]
+    can :read, [ Member, Show, Message ]
+
     can [:edit, :update], Member, :id => member.id
     can :manage, Conflict, :member_id => member.id
+
+    can :create, Message
 
     if member.has_role? :admin
       can :manage, :all

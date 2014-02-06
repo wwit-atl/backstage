@@ -24,28 +24,36 @@ class ApplicationController < ActionController::Base
     render 'public/403', :status => :unauthorized, :alert => alert
   end
 
+  def new_messages
+    # This should return the number of new messages based upon:
+    # current_member.last_message_id
+    # messages.maximum(:id)
+  end
   protected
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:first_name, :last_name, :email, :password, :password_confirmation)
-    end
-    devise_parameter_sanitizer.for(:account_update) { |u|
-      u.permit(:password, :password_confirmation, :current_password)
-    }
-  end
-
-  rescue_from CanCan::AccessDenied do |exception|
-    if current_user.nil?
-      session[:next] = request.fullpath
-      redirect_to new_member_sessions_path, :alert => 'You must log in to continue.'
-    else
-      if request.env["HTTP_REFERER"].present?
-        redirect_to :back, :alert => exception.message
+    rescue_from CanCan::AccessDenied do |exception|
+      if current_user.nil?
+        session[:next] = request.fullpath
+        redirect_to new_member_sessions_path, :alert => 'You must log in to continue.'
       else
-        redirect_to root_url, :alert => exception.message
+        if request.env["HTTP_REFERER"].present?
+          redirect_to :back, :alert => exception.message
+        else
+          redirect_to back_to_path, :alert => exception.message
+        end
       end
     end
-  end
+
+
+  private
+
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:sign_up) do |u|
+        u.permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      end
+      devise_parameter_sanitizer.for(:account_update) { |u|
+        u.permit(:password, :password_confirmation, :current_password)
+      }
+    end
 
 end
