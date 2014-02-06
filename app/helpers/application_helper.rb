@@ -32,13 +32,21 @@ module ApplicationHelper
     end
   end
 
+  # Displays a <span> using the requested glyphicon
+  #   Opts = {
+  #     text: 'The text to display along with the icon',
+  #     class: 'Any additional classes to include on the span',
+  #     title: 'The title text to insert (typically for popover help)',
+  # }
   def get_icon(type, opts = {} )
+    # Symbol shortcuts for frequently used icons.  Let's us easily change the icon site-wide when necessary.
     case type
       when :ban      then icon_class = 'ban-circle'
       when :add      then icon_class = 'plus'
       when :show     then icon_class = 'eye-open'
       when :edit     then icon_class = 'pencil'
       when :move     then icon_class = 'move'
+      when :email    then icon_class = 'send'
       when :delete   then icon_class = 'trash'
       when :remove   then icon_class = 'remove'
       when :calendar then icon_class = 'calendar'
@@ -50,6 +58,10 @@ module ApplicationHelper
 
   def link_to_new(path, text = 'Add New')
     link_to get_icon(:add, text: text), path
+  end
+
+  def link_to_member(member)
+    link_to member.name, member_path(member)
   end
 
   def is_authorized?(member = Member.none)

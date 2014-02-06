@@ -18,7 +18,7 @@
             %td.name
               - if member.inactive? and can? :edit, member
                 = get_icon(:ban, class: 'inactive')
-              = link_to member.fullname, member_path(member)
+              = link_to_member member
             %td.phone
               - member.phones.by_type.each do |phone|
                 = link_to phone.listing, phone.as_tel_link

@@ -34,7 +34,7 @@
                   %td.col-md-4
                     %ul
                       - show.actors.each do |member|
-                        %li= link_to(member.name, member_path(member))
+                        %li= link_to_member member
                   %td.col-md-4
                     %ul.list-unstyled
                       - show.shifts.each do |shift|

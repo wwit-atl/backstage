@@ -12,7 +12,7 @@
       Cast:
       %ul
         - @actors.each do |cast|
-          %li= link_to( cast.name, member_path(cast) ) + " (#{cast.roles.map { |r| r.desc }.to_sentence})"
+          %li= link_to_member( cast ) + " (#{cast.roles.map { |r| r.desc }.to_sentence})"
 
   .col-md-6
     .box

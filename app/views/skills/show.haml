@@ -16,7 +16,7 @@
           - if i % 3 == 0
             .row
           .col-md-4
-            %li= link_to member.name, member_path(member)
+            %li= link_to_member member
       %br
 
 - if can? :update, @skill

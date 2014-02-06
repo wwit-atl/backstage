@@ -37,12 +37,12 @@
                 - show.shifts.by_skill_priority.each do |shift|
                   %li
                     .shift-code= shift.skill.code + ':'
-                    .shift-name= shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to( shift.member.name, member_path(shift.member) )
+                    .shift-name= shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to_member( shift.member )
 
             %td
               %ul.list-unstyled
                 - show.actors.each do |actor|
-                  %li= link_to actor.name, member_path(actor)
+                  %li= link_to_member actor
 
             %td= render 'partials/admin_commands', klass: show, show: true
 
