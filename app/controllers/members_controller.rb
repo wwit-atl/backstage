@@ -1,10 +1,11 @@
 class MembersController < ApplicationController
-  authorize_resource
+  authorize_resource except: [:public_profile, :admin]
+  skip_authorization_check only: [:public_profile, :admin]
+  skip_before_action :authenticate_member!, only: [:public_profile, :admin]
 
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :create, :update]
   before_action :total_skills, only: [:new, :edit, :create, :update]
-  skip_before_action :authenticate_member!, only: [:public_profile]
 
   def public_profile
     # TODO:  This is where the member's public profile will be shown... not yet implemented.
@@ -13,7 +14,20 @@ class MembersController < ApplicationController
   end
 
   def admin
-    admin_only!
+    return unless test_mode
+
+    logger.debug ">>> Checking ADMIN status on #{current_member.name}"
+    if current_member.is_admin?
+      logger.debug ">>> Removing ADMIN from #{current_member.name}"
+      current_member.remove_role :admin
+    else
+      logger.debug ">>> Adding ADMIN to #{current_member.name}"
+      current_member.add_role :admin
+    end
+
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
   end
 
   # GET /members

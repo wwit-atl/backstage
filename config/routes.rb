@@ -39,6 +39,7 @@ Backstage::Application.routes.draw do
   get   '/shifts', to: 'shifts#index'
   patch '/shifts', to: 'shifts#update'
 
+  # Used for testing (inactive when in production mode)
   get '/admin', to: 'members#admin'
 
   root 'members#show'

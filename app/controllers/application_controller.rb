@@ -29,6 +29,12 @@ class ApplicationController < ActionController::Base
     # current_member.last_message_id
     # messages.maximum(:id)
   end
+
+  def test_mode
+    Rails.env != 'production'
+  end
+  helper_method :test_mode
+
   protected
 
     rescue_from CanCan::AccessDenied do |exception|

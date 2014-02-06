@@ -45,11 +45,9 @@ module ApplicationHelper
       when :add      then icon_class = 'plus'
       when :show     then icon_class = 'eye-open'
       when :edit     then icon_class = 'pencil'
-      when :move     then icon_class = 'move'
       when :email    then icon_class = 'send'
       when :delete   then icon_class = 'trash'
-      when :remove   then icon_class = 'remove'
-      when :calendar then icon_class = 'calendar'
+      when :member   then icon_class = 'user'
       else icon_class = type
     end
     content_tag(:span, nil, class: ["glyphicon glyphicon-#{icon_class}", opts[:class]].compact, title: opts[:title]) +
