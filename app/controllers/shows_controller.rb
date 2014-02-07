@@ -113,8 +113,9 @@ class ShowsController < ApplicationController
     def set_supporting
       @stages   = Stage.all
       @skills   = Skill.all
-      @crewable = Member.active.by_name_last
-      @castable = Member.castable.by_name_last
+      @crewable = Member.company_members.by_name
+      #@castable = Role.castable
+      @castable = Member.castable.by_name
     end
 
     def set_exceptions

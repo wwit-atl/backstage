@@ -73,7 +73,13 @@ select.form-control + .chosen-container .chosen-results li.active-result {
     white-space: nowrap;
     background-image:none;
 }
-select.form-control + .chosen-container .chosen-results li:hover, 
+select.form-control + .chosen-container .chosen-results li.group-result {
+    font-weight: bold;
+    font-size: 1.1em;
+    border-top: 1px solid;
+    margin-left: -10px;
+}
+select.form-control + .chosen-container .chosen-results li:hover,
 select.form-control + .chosen-container .chosen-results li.active-result:hover,
 select.form-control + .chosen-container .chosen-results li.highlighted
 {

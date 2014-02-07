@@ -10,7 +10,7 @@ ready = ->
     allow_single_deselect: true
     no_results_text: 'No results matched'
     disable_search_threshold: 10
-    width: '200px'
+    width: '100%'
 
   $("input.datepicker").each ->
     $(this).datepicker

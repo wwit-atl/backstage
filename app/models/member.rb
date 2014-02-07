@@ -32,6 +32,7 @@ class Member < ActiveRecord::Base
   # ToDo Need a method that determines if a Member is eligible for a given date (checking conflicts, crews, and cast)
   #scope :castable_for_date, ->(date) { castable & !conflicts.includes?(date) & !shifts.}
 
+  scope :company_members, -> { castable || crewable }
   scope :uses_conflicts, -> { castable || crewable }
 
   scope :has_role,      ->(role)  { joins(:roles).where(roles: {name: role}) }
@@ -51,6 +52,10 @@ class Member < ActiveRecord::Base
   end
   alias :name :fullname
 
+  def casting_tag
+    "#{fullname} (#{roles.castable.map{|r|r.code}})"
+    "#{fullname} (#{roles.castable.map { |r| r.code }.to_sentence})"
+  end
   def birthday
     dob.nil? ? 'Not Supplied' : dob.strftime('%m/%d/%Y')
   end
