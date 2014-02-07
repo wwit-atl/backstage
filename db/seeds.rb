@@ -22,21 +22,21 @@ end
 # Create Roles
 #
 puts 'Create Roles'
-#   Role         Description        Cast?  Crew?
+#   Role         Description            Cast?  Crew?
 [
-  [ :admin,      'Administrator',   false, false ],
-  [ :management, 'Management',      false, false ],
-  [ :sponsor,    'WWIT Sponsor',    false, false ],
-  [ :friend,     'Friend of WWIT',  false, false ],
-  [ :alumni,     'WWIT Alumni',     false, false ],
-  [ :ms,         'Main Stage Cast', true,  false ],
-  [ :apprentice, 'Apprentice Cast', true,  true  ],
-  [ :us,         'Unusual Suspects',true,  true  ],
-  [ :isp,        'Improv Studies',  true,  true  ],
-  [ :volunteer,  'WWIT Volunteer',  false, true  ]
-].each do |name, desc, cast, crew|
-  #Role.where(name: code).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
-  Role.create( name: name, desc: desc, cast: cast, crew: crew ) if Role.where('name = ?', name).empty?
+  [ :admin,      'Super Administrator', false, false ],
+  [ :management, 'Management Team',     false, false ],
+  [ :mc,         'Able to cast Shows',  false, false ],
+  [ :sponsor,    'WWIT Sponsor',        false, false ],
+  [ :friend,     'Friend of WWIT',      false, false ],
+  [ :alumni,     'WWIT Alumni',         false, false ],
+  [ :ms,         'Main Stage Cast',     true,  false ],
+  [ :apprentice, 'Apprentice Cast',     true,  true  ],
+  [ :us,         'Unusual Suspects',    true,  true  ],
+  [ :isp,        'Improv Studies',      true,  true  ],
+  [ :volunteer,  'WWIT Volunteer',      false, true  ]
+].each do |code, desc, cast, crew|
+  Role.where(name: code.to_s).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
 end
 
 #
@@ -109,11 +109,11 @@ end
 # Create Members
 #
 [
-    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',   [:management, :ms]         ],
-    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',   [:admin, :management, :ms] ],
-    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',  [:management, :ms]         ],
-    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com', [:management, :ms]         ],
-    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',    [:admin, :us]              ],
+    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',   [:management, :ms, :mc        ] ],
+    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',   [:admin, :management, :ms, :mc] ],
+    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',  [:management, :ms, :mc        ] ],
+    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com', [:management, :ms, :mc        ] ],
+    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',    [:admin, :us                  ] ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."
   password = firstname.split.first.downcase + '@wwit'

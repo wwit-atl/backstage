@@ -11,8 +11,10 @@ class Ability
     return if member.new_record?
 
     can :manage, :all if member.has_role? :admin
-    can :manage, [ Member, Show ] if member.has_role? :management
-    can [:edit, :update], Show if member.has_skill? 'MC'
+
+    can :manage, [ Member, Show, Message ] if member.has_role? :management
+
+    can [:edit, :update, :cast], Show if member.has_role? :mc
 
     can :read, [ Member, Show, Message ] if member.company_member?
 
