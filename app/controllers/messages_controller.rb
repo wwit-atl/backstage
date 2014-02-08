@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.by_sent.paginate(page: params[:page], per_page: 10)
+    @messages = Message.by_created.paginate(page: params[:page], per_page: 10)
     current_member.last_message = @messages.first
     current_member.save
   end
