@@ -3,9 +3,11 @@ class Message < ActiveRecord::Base
   belongs_to :sender,   class_name: Member, :foreign_key => :sender_id
   belongs_to :approver, class_name: Member, :foreign_key => :approver_id
 
-  scope :by_created,   -> { order(:created_at => :desc) }
-  scope :by_sent,      -> { order(:sent_at => :desc) }
+  scope :by_created,   -> { order(:created_at   => :desc) }
+  scope :by_sent,      -> { order(:sent_at      => :desc) }
   scope :by_delivered, -> { order(:delivered_at => :desc) }
+
+  alias_attribute :text, :message
 
   validates_presence_of :subject, :message
 
@@ -26,13 +28,7 @@ class Message < ActiveRecord::Base
     self.send(column.to_s + '_at').localtime.strftime(format)
   end
 
-  def send_email
-    # ToDo: Actually send emails here
-    self.sent_at = Time.now()
-    self.save
-  end
-
-  def status
+  def status_class
     return 'status-red'    if !approved?
     return 'status-yellow' if !delivered?
     'status-green'

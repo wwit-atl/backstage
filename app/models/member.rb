@@ -56,8 +56,13 @@ class Member < ActiveRecord::Base
     "#{fullname} (#{roles.castable.map{|r|r.code}})"
     "#{fullname} (#{roles.castable.map { |r| r.code }.to_sentence})"
   end
+
   def birthday
     dob.nil? ? 'Not Supplied' : dob.strftime('%m/%d/%Y')
+  end
+
+  def email_tag
+    "#{fullname} <#{email}>"
   end
 
   def conflict?(date)

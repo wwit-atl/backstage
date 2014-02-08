@@ -28,8 +28,8 @@ class MessagesController < ApplicationController
     @members = Member.all
     @message = Message.new(message_params)
 
-    @message.sender   = current_member
-    #@message.approver = current_member if current_member.is_admin?
+    @message.sender  = current_member
+    @message.members = Member.company_members if @message.members.empty?
 
     respond_to do |format|
       if @message.save
@@ -70,8 +70,9 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:message_id])
     if can? :approve, @message
       @message.approver = current_member
+      BackstageMailer.announcements(@message).deliver
       if @message.save
-        redirect_to messages_path, flash: { success: 'Message Approved' }
+        redirect_to messages_path, flash: { success: 'Message Approved and Sent' }
       else
         redirect_to messages_path, flash: { error: 'Unable to approve message' }
       end
@@ -92,7 +93,8 @@ class MessagesController < ApplicationController
         return
       end
 
-      if @message.send_email
+      if BackstageMailer.announcements(@message).deliver
+        @message.save
         redirect_to messages_path, flash: { success: 'Email(s) Sent' }
       else
         redirect_to messages_path, flash: { error: 'Unable to send email(s)!' }

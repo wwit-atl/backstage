@@ -12,7 +12,7 @@
     %hr
 
   - @messages.each do |message|
-    .box{ class: message.status }
+    .box{ class: message.status_class }
       - if !message.delivered?
         .controls= render 'partials/admin_commands', klass: message
       .row
@@ -39,7 +39,7 @@
                 - else
                   .status Sending
               - else
-                .status 'Not Sent'
+                .status Not Yet Sent
 
               - if can? :manage, message
                 .admin-controls= link_to get_icon( :email, title: 'Retry' ), message_resend_email_path(message)
