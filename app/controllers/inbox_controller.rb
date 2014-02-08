@@ -1,5 +1,7 @@
 class InboxController < ApplicationController
   skip_authorization_check
+  skip_before_action :authenticate_member!
+
   include Mandrill::Rails::WebHookProcessor
   authenticate_with_mandrill_keys! ENV['MANDRILL_WEBHOOK_KEY']
 
