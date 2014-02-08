@@ -8,6 +8,7 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
     %thead
       %tr
         %th Code
+        %th Title
         %th Description
         %th Castable?
         %th Crewable?
@@ -17,6 +18,7 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
       - @roles.each do |role|
         %tr
           %td= role.code
+          %td= role.title
           %td= role.desc
           %td= role.cast ? 'Yes' : 'No'
           %td= role.crew ? 'Yes' : 'No'

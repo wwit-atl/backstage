@@ -22,21 +22,22 @@ end
 # Create Roles
 #
 puts 'Create Roles'
-#   Role         Description            Cast?  Crew?
+#   Role         Cast?  Crew?  Title                  Description
 [
-  [ :admin,      'Super Administrator', false, false ],
-  [ :management, 'Management Team',     false, false ],
-  [ :mc,         'Able to cast Shows',  false, false ],
-  [ :sponsor,    'WWIT Sponsor',        false, false ],
-  [ :friend,     'Friend of WWIT',      false, false ],
-  [ :alumni,     'WWIT Alumni',         false, false ],
-  [ :ms,         'Main Stage Cast',     true,  false ],
-  [ :apprentice, 'Apprentice Cast',     true,  true  ],
-  [ :us,         'Unusual Suspects',    true,  true  ],
-  [ :isp,        'Improv Studies',      true,  true  ],
-  [ :volunteer,  'WWIT Volunteer',      false, true  ]
-].each do |code, desc, cast, crew|
-  Role.where(name: code.to_s).first_or_create.update_attributes( desc: desc, cast: cast, crew: crew )
+  [ :admin,      false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
+  [ :management, false, false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
+  [ :mc,         false, false, 'Master of Ceremonies','Has MC Responsibilities, such as casting shows'    ],
+  [ :sponsor,    false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
+  [ :friend,     false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
+  [ :alumni,     false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
+  [ :student,    false, false, 'WWIT Student',        'Improv Student, limited access'                    ],
+  [ :ms,         true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
+  [ :apprentice, true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
+  [ :us,         true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
+  [ :isp,        true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
+  [ :volunteer,  true,  true,  'WWIT Volunteer',      'Volunteer, limited access'                         ],
+].each do |code, cast, crew, title, desc|
+  Role.where(name: code.to_s).first_or_create.update_attributes( title: title, desc: desc, cast: cast, crew: crew )
 end
 
 #

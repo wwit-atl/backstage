@@ -14,10 +14,6 @@ class Role < ActiveRecord::Base
 
   alias_attribute :description, :desc
 
-  def title
-    %w( isp ).include?(name) ? name.upcase : name.titleize
-  end
-
   def code
     name.upcase
   end

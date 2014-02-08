@@ -55,7 +55,7 @@
         .row
           .col-md-4= f.association :skills, :label_method => :name, :input_html => { size: @total_skills.count }
           - if current_member.is_admin?
-            .col-md-4.col-md-offset-2= f.association :roles, :label_method => :desc, as: 'check_boxes'
+            .col-md-4.col-md-offset-2= f.association :roles, :label_method => :title, as: 'check_boxes'
         .row
           .col-md-4
             = f.input :active, class: 'checkbox', label: 'Active Member?',
