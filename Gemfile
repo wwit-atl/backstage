@@ -26,6 +26,7 @@ gem 'devise', '~> 3.1.0'
 gem 'rolify', '~> 3.4.0'
 gem 'cancan'
 gem 'chosen-rails'
+gem 'mandrill-rails'
 
 gem 'simple_form'
 gem 'squeel'

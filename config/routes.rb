@@ -11,6 +11,8 @@ Backstage::Application.routes.draw do
   end
 
   resources :announcements, controller: 'messages', :as => :messages, except: [:show]
+  resource :inbox, :only => [:show,:create] # For email WebHooks
+
   resources :show_templates, except: [:show]
   resources :skills,  :concerns => [ :notable, :sortable ]
   resources :shows,   :concerns => :notable do
