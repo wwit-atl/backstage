@@ -13,9 +13,10 @@
 
   - @messages.each do |message|
     .box{ class: message.status }
-      .controls= render 'partials/admin_commands', klass: message
+      - if !message.delivered?
+        .controls= render 'partials/admin_commands', klass: message
       .row
-        .col-sm-2= simple_format message.created_stamp
+        .col-sm-2= simple_format message.time_stamp(:created, :long)
         .col-sm-8
           .signature #{link_to_member message.sender} wrote:
           .panel.padding-5
@@ -24,17 +25,25 @@
           - if !message.approved?
             .status Waiting on Approval
             - if can? :manage, message
-              .admin-controls= get_icon 'thumbs-up', text: nil, title: 'Approve'
+              .admin-controls= link_to get_icon( 'thumbs-up', title: 'Approve' ), message_approve_path(message)
           - else
             - if message.delivered?
               - if can? :manage, message
-                .status Sent at<br>#{simple_format message.sent_stamp}
+                .status delivered at #{simple_format message.time_stamp(:delivered) }
               - else
                 .status Delivered
             - else
-              = simple_format 'Approved<br>but Not Delivered<br>'
+              - if message.sent?
+                - if can? :manage, message
+                  .status Sent at #{simple_format message.time_stamp(:sent) }
+                - else
+                  .status Sending
+              - else
+                .status 'Not Sent'
+
               - if can? :manage, message
-                .admin-controls= get_icon :email, text: nil, title: 'Retry'
+                .admin-controls= link_to get_icon( :email, title: 'Retry' ), message_resend_email_path(message)
+
             - if can? :manage, message
               .status.approval Approved by<br>#{link_to_member message.approver}
 

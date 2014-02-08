@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   authorize_resource except: [:public_profile, :admin]
   skip_authorization_check only: [:public_profile, :admin]
+
   skip_before_action :authenticate_member!, only: [:public_profile, :admin]
 
   before_action :set_member, only: [:show, :edit, :update, :destroy]
@@ -10,7 +11,6 @@ class MembersController < ApplicationController
   def public_profile
     # TODO:  This is where the member's public profile will be shown... not yet implemented.
     # TODO:  Also need friendly-id implemented on Member
-    redirect_to members_path
   end
 
   def admin

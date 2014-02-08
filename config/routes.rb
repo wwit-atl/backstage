@@ -10,7 +10,10 @@ Backstage::Application.routes.draw do
     collection { post :reposition }
   end
 
-  resources :announcements, controller: 'messages', :as => :messages, except: [:show]
+  resources :announcements, controller: 'messages', :as => :messages do
+    get :approve
+    get :resend_email
+  end
   resource :inbox, controller: 'inbox', :only => [:show,:create] # For email WebHooks
 
   resources :show_templates, except: [:show]

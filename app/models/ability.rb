@@ -13,10 +13,9 @@ class Ability
     can :manage, :all if member.has_role? :admin
 
     can :manage, [ Member, Show, Message ] if member.has_role? :management
+    can :read, [ Member, Show, Message ] if member.company_member?
 
     can [:edit, :update, :cast], Show if member.has_role? :mc
-
-    can :read, [ Member, Show, Message ] if member.company_member?
 
     can [:edit, :update], Member, :id => member.id
     can :manage, Conflict, :member_id => member.id
