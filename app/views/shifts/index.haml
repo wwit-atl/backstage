@@ -11,7 +11,7 @@
 = render 'partials/month_controls'
 
 .table-responsive
-  %table.table.table-striped.table-condensed
+  %table.table.table-striped
     %thead
       %tr
         %th
@@ -27,9 +27,10 @@
     %tbody
       - @shifts.each do |shift|
         = content_tag_for :tr, shift do
-          %td.col-xs-4= shift.show_link
-          %td.col-xs-4= shift.skill_link
-          %td.col-xs-4
+          %td.col-xs-2= shift.show_link
+          %td.col-sm-4.hidden-xs= shift.skill_link
+          %td.col-xs-4.visible-xs= shift.skill.code
+          %td.col-xs-6
             = simple_form_for shift, url: shifts_path(id: shift), remote: true do |f|
               .col-xs-8= f.input :member_id,
                 :collection => @members,

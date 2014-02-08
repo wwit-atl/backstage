@@ -22,21 +22,21 @@
             = markdown message.message
         .col-sm-2
           - if !message.approved?
-            Waiting on Approval
+            .status Waiting on Approval
             - if can? :manage, message
               .admin-controls= get_icon 'thumbs-up', text: nil, title: 'Approve'
           - else
             - if message.delivered?
               - if can? :manage, message
-                Sent at<br>#{simple_format message.sent_stamp}
+                .status Sent at<br>#{simple_format message.sent_stamp}
               - else
-                Delivered
+                .status Delivered
             - else
               = simple_format 'Approved<br>but Not Delivered<br>'
               - if can? :manage, message
                 .admin-controls= get_icon :email, text: nil, title: 'Retry'
             - if can? :manage, message
-              Approved by<br>#{link_to_member message.approver}
+              .status.approval Approved by<br>#{link_to_member message.approver}
 
   = will_paginate @messages, renderer: BootstrapPagination::Rails
 

@@ -63,14 +63,14 @@
     - if @member.is_castable? or @member.is_crewable?
       .col-md-4
         .plaque
-          %h3.no-top-pad Groups
+          %h3.no-top-pad Group Memberships
           %ul
             - @member.roles.each do |role|
               %li= role.title
 
       .col-md-4
         .plaque
-          %h3.no-top-pad Skills
+          %h3.no-top-pad Shift Skills
           - if @skills.empty?
             %p No Skills Assigned
           - else
