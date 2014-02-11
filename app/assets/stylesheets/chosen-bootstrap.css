@@ -98,7 +98,7 @@ select.form-control + .chosen-container-multi .chosen-choices {
     line-height: 1.428571429;
     color: #555;
     vertical-align: middle;
-    background-color: #FFF;
+    background-color: lightgray;
     border: 1px solid #CCC;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -151,4 +151,9 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
     color: #ccc;
     cursor: default;
     background-color: white;
+}
+
+.form-hint {
+    font-style: italic;
+    color: gray;
 }

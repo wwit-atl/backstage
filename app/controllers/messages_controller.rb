@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
 
   before_action :set_message, only: [:edit, :update, :destroy]
   before_action :set_members, only: [:new, :create, :edit, :update]
+  before_action :parse_member_params, only: [:create, :update]
 
   # GET /messages
   # GET /messages.json
@@ -19,6 +20,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
+    unauthorized if @message.approved?
     @members = Member.all
   end
 
@@ -27,9 +29,7 @@ class MessagesController < ApplicationController
   def create
     @members = Member.all
     @message = Message.new(message_params)
-
-    @message.sender  = current_member
-    @message.members = Member.company_members if @message.members.empty?
+    @message.sender = current_member
 
     respond_to do |format|
       if @message.save
@@ -59,6 +59,8 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
+    unauthorized if @message.approved?
+    @members = Member.all
     @message.destroy
     respond_to do |format|
       format.html { redirect_to messages_url }
@@ -70,8 +72,8 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:message_id])
     if can? :approve, @message
       @message.approver = current_member
-      BackstageMailer.announcements(@message).deliver
-      if @message.save
+      if BackstageMailer.announcements(@message).deliver
+        @message.save
         redirect_to messages_path, flash: { success: 'Message Approved and Sent' }
       else
         redirect_to messages_path, flash: { error: 'Unable to approve message' }
@@ -110,10 +112,19 @@ class MessagesController < ApplicationController
 
     def set_members
       @members = Member.active.by_name
+      @skills = Skill.all
+      @roles = Role.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.required(:message).permit(:subject, :message, member_ids: [])
+    end
+
+    def parse_member_params
+      members =  (params[:message][:member_ids] || []).map { |id| id.to_i unless id.blank? }
+      members << (params[:skill_ids]  || []).map { |id| Skill.find(id).member_ids }
+      members << (params[:role_ids]   || []).map { |id| Role.find(id).member_ids }
+      params[:message][:member_ids] = members.flatten.compact.uniq
     end
 end

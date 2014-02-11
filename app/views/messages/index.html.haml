@@ -13,14 +13,16 @@
 
   - @messages.each do |message|
     .box{ class: message.status_class }
-      - if !message.delivered?
+      - if !message.approved?
         .controls= render 'partials/admin_commands', klass: message
       .row
         .col-sm-2= simple_format message.time_stamp(:created, :long)
         .col-sm-8
           .signature #{link_to_member message.sender} wrote:
           .panel.padding-5
+            .subject <em>Subject:</em> #{message.subject}
             = markdown message.message
+          .member-count Sent to #{message.members.count} Members
         .col-sm-2
           - if !message.approved?
             .status Waiting on Approval

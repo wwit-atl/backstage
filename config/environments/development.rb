@@ -37,4 +37,5 @@ Backstage::Application.configure do
       :authentication => :plain
   }
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = ENV['NO_EMAIL_DELIVERY'].nil?
 end

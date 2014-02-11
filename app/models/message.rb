@@ -2,6 +2,7 @@ class Message < ActiveRecord::Base
   has_and_belongs_to_many :members
   belongs_to :sender,   class_name: Member, :foreign_key => :sender_id
   belongs_to :approver, class_name: Member, :foreign_key => :approver_id
+  before_save :check_and_add_members
 
   scope :by_created,   -> { order(:created_at   => :desc) }
   scope :by_sent,      -> { order(:sent_at      => :desc) }
@@ -33,4 +34,11 @@ class Message < ActiveRecord::Base
     return 'status-yellow' if !delivered?
     'status-green'
   end
+
+  private
+
+  def check_and_add_members
+    self.members = Member.company_members if self.members.empty?
+  end
+
 end

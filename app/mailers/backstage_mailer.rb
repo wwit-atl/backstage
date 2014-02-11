@@ -3,14 +3,13 @@ class BackstageMailer < ActionMailer::Base
 
   def announcements(message)
     @message = message
-    members = message.members || Member.company_members
-    mail_hash = {
+    headers['X-MC-MetaData'] = { id: message.id }
+    mail ({
            from: message.sender.email_tag,
              to: message.sender.email_tag,
-            bcc: members.map{ |m| m.email_tag },
-        subject: message.subject
-    }
-    mail mail_hash
+            bcc: message.members.map{ |m| m.email_tag },
+        subject: message.subject,
+    })
     message.sent_at = Time.now()
   end
 end

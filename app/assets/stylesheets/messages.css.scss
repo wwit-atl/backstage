@@ -9,6 +9,12 @@
     color: $wwit-blue-dark;
   }
 
+  .subject {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+
   .controls {
     position: absolute;
     bottom: 0;
@@ -25,5 +31,16 @@
 
   .status {
     padding-bottom: 15px;
+  }
+
+  .member-count {
+    color: slategray;
+    font-style: italic;
+    font-size: .8em;
+  }
+
+  .panel {
+    margin: 0;
+    margin-bottom: 5px;
   }
 }
