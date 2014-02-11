@@ -21,11 +21,11 @@
               data: { placeholder: 'Groups' }
   .row
     .col-sm-2.text-right=f.label 'Subject', required: true
-    .col-sm-8= f.input :subject, label: false, placeholder: 'Subject'
+    .col-sm-9= f.input :subject, label: false, placeholder: 'Subject'
 
   .row
     .col-sm-2.text-right=f.label 'Message', required: true
-    .col-sm-8= f.input :message, label: false, placeholder: 'Enter your message here.', input_html: { rows: 10 }
+    .col-sm-9= f.input :message, label: false, placeholder: 'Enter your message here.', input_html: { rows: 10 }
 
   .row
     .col-sm-2.col-sm-offset-2
