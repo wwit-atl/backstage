@@ -1,12 +1,14 @@
 These is a simple list of things I need to keep track of.
 
 TODO: Get email working.
-      Should email for new announcements,
+      Should email managers when there are new announcements,
       when cast in a show or scheduled on a shift,
       and 24 hours prior to a cast shift call time.
 
+TODO: Shows should assign MC like Actors, not like Shift.
+
 TODO: Shows need roles so that auto-schedule will try not to schedule US on US
-shows and ISP on ISP shows.
+      shows and ISP on ISP shows.
 
 TODO: Add a print function to the dashboard(?)
 
