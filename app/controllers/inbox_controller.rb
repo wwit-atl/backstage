@@ -9,8 +9,8 @@ class InboxController < ApplicationController
     # ToDo: Add delivered_at date to messages in event_payload
     Message.create(
         subject: 'Event Payload',
-        message: event_payload
+        message: event_payload.inspect
     )
   end
-  
+
 end
