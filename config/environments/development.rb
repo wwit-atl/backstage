@@ -32,10 +32,10 @@ Backstage::Application.configure do
       :port =>           '587',
       :address =>        'smtp.mandrillapp.com',
       :user_name =>      ENV['MANDRILL_USERNAME'],
-      :password =>       ENV['MANDRILL_TEST_APIKEY'],
-      :domain =>         'wholeworldtheatre.com',
+      :password =>       ENV['MANDRILL_TESTING'].nil? ? ENV['MANDRILL_APIKEY'] : ENV['MANDRILL_TEST_APIKEY'],
+      :domain =>         'test-wholeworldtheatre.com',
       :authentication => :plain
   }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = ENV['NO_EMAIL_DELIVERY'].nil?
+  config.action_mailer.perform_deliveries = ENV['MANDRILL_NO_EMAIL'].nil?
 end
