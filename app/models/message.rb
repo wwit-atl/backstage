@@ -9,13 +9,10 @@ class Message < ActiveRecord::Base
   scope :by_created,   -> { order(:created_at   => :desc) }
   scope :by_sent,      -> { order(:sent_at      => :desc) }
   scope :by_delivered, -> { order(:delivered_at => :desc) }
+  scope :approved,     -> { where('approver_id IS NOT NULL') }
 
-  #scope :for_member,   ->(member) { joins(:members).where('members'.exists?(member)) | where(sender_id: member.id) }
-  #scope :for_member,   ->(member) { joins(:members).where( ('members.id' == 5) | (:sender_id == 5) ).uniq }
-  #joins(:members).where(('members.id' == 5) | (:sender_id == 5)).uniq
-  #scope :to_member, ->(member) { joins(:members).where(members: {id: member.id}) }
-  #scope :by_sender, ->(member) { where(sender: member) }
-  scope :for_member, ->(member) { joins{members}.where { (sender == member) | (members.id == member.id) }.uniq }
+  scope :for_member, ->(member) { joins{members}.where { (sender == member) |
+                                                         ((approver_id != nil) & (members.id == member.id)) }.uniq }
 
   alias_attribute :text, :message
 
