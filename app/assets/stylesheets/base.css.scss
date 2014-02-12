@@ -55,6 +55,8 @@ fieldset {
 .handle { color: #777; cursor: move; }
 
 #body-header {
+  z-index: 99999;
+
   img {
     float: left;
     margin: -10px;
@@ -92,7 +94,8 @@ fieldset {
   bottom: 0px;
   width: 100%;
   height: 80px;
-  z-index: 99999;
+  margin-top: 100px;
+  z-index: 9999;
 
   .copyright {
     font-style: italic;
@@ -121,4 +124,8 @@ fieldset {
 .inactive {
   color: $wwit-red;
   font-size: .8em;
+}
+
+.popover {
+  z-index: 99999;
 }

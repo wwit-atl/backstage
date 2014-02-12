@@ -48,6 +48,7 @@ class MembersController < ApplicationController
     @shifts = @member.shifts.recent.by_show
     @skills = @member.skills
     @conflicts = @member.conflicts.current
+    @announcements = Message.for_member(@member).by_created.limit(5)
 
     @notable = @member
     @notes = @notable.notes

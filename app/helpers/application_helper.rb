@@ -81,7 +81,7 @@ module ApplicationHelper
     'http://www.wholeworldtheatre.com'
   end
 
-  def markdown(text, format='html')
+  def _markdown(text, format='html')
     require 'redcarpet/render_strip'
     if format == 'html'
       renderer = Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: false)

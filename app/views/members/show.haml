@@ -60,6 +60,14 @@
     .col-md-12
       .box
         %h3.no-top-pad Latest Announcements
+        - @announcements.each do |message|
+          %hr
+          .row
+            .col-sm-2.col-xs-4= message.date
+            .col-sm-4.col-xs-8= link_to_member message.sender
+            .col-sm-6.hidden-xs= link_to truncate(message.subject, length: 20, seperator: ' '), messages_path
+          .visible-xs= link_to truncate(message.subject, length: 20, seperator: ' '), messages_path
+          = message.formatted_text
 
   .row
     - if @member.is_castable? or @member.is_crewable?

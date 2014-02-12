@@ -2,5 +2,5 @@
 %head
   %meta{ :content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }
 %body
-  = markdown @message.text
+  = @message.formatted_text
   %em= " - #{@message.sender.name}"

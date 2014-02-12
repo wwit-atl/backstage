@@ -13,12 +13,17 @@ class Ability
     can :manage, :all if member.has_role? :admin
 
     can :manage, [ Member, Show, Message ] if member.has_role? :management
-    can :read,   [ Member, Show, Message ] if member.company_member?
+    can :read,   [ Member, Show ] if member.company_member?
 
     can [:edit, :update, :cast], Show, mc_id: member.id
 
     can [:edit, :update], Member, id: member.id
     can :manage, Conflict, member_id: member.id
+
+    can :read, Message, sender_id: member.id
+    can :read, Message do |message|
+      message.members.exists?(member.id)
+    end
 
     can :create, Message, member.company_member? => :true
     can [:edit, :update, :destroy], Message, sender_id: member.id, approver_id: nil, sent_at: nil
