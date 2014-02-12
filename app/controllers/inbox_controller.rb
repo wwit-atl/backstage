@@ -12,7 +12,7 @@ class InboxController < ApplicationController
       message.delivered_at = Time.at(event_payload['ts']).to_datetime
       message.save
     else
-      logger.info "Could not find message for #{event_payload.message_id}"
+      puts "Could not find message for #{event_payload.message_id}"
     end
   end
 
