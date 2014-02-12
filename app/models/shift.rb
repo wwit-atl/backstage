@@ -22,16 +22,4 @@ class Shift < ActiveRecord::Base
     text + " - #{skill.name}" unless skill.nil?
   end
 
-  def show_link
-    self.show.nil? ? 'No Show Assigned' : ActionController::Base.helpers.link_to(show.date, show_path(show))
-  end
-
-  def skill_link
-    self.skill.nil? ? 'No Skill Assigned' : ActionController::Base.helpers.link_to(skill.name, skill_path(skill))
-  end
-
-  def member_link
-    self.member.nil? ? 'No Member Assigned' : ActionController::Base.helpers.link_to(member.name, member_path(member))
-  end
-
 end

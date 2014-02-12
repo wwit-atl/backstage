@@ -42,7 +42,7 @@
                       - show.shifts.each do |shift|
                         %li
                           .shift-code= shift.skill.code + ':'
-                          = shift.member_link
+                          = link_to_member shift.member
 
   .row
     - if @member.is_crewable?
