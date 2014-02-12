@@ -9,20 +9,27 @@
 .row
   .col-md-6
     .box
-      Cast:
-      %ul
-        - @actors.each do |cast|
-          %li= link_to_member( cast ) + " (#{cast.roles.castable.map { |r| r.code }.to_sentence})"
+      .row
+        .col-md-2 MC
+        .col-md-10= link_to_member @show.mc
+      .row
+        %br
+        .col-md-2 Cast
+        .col-md-10
+          - @actors.each do |cast|
+            .row
+              .col-md-6= link_to_member( cast )
+              .col-md-6= cast.roles.castable.map { |r| r.title }.to_sentence
 
   .col-md-6
     .box
-      Crew:
-      .col-md-offset-1
-        %ul.list-unstyled
+      .row
+        .col-md-2 Crew
+        .col-md-10
           - @shifts.each do |shift|
-            %li
-              .shift-code= shift.skill.code + ':'
-              = shift.member_link
+            .row
+              .col-md-6= link_to_member shift.member
+              .col-md-6= shift.skill.name
 
 .row
   .col-md-12

@@ -26,11 +26,11 @@ puts 'Create Roles'
 [
   [ :admin,      false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
   [ :management, false, false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
-  [ :mc,         false, false, 'Master of Ceremonies','Has MC Responsibilities, such as casting shows'    ],
   [ :sponsor,    false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
   [ :friend,     false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
   [ :alumni,     false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
   [ :student,    false, false, 'WWIT Student',        'Improv Student, limited access'                    ],
+  [ :mc,         false, false, 'Master of Ceremonies','MC, able to cast shows'                            ],
   [ :ms,         true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
   [ :apprentice, true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
   [ :us,         true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
@@ -46,17 +46,17 @@ end
 puts 'Create Skills'
 #  Pri,  Code,  Name,         Description, train?, autocrew?
 [
-  [ nil, 'MC', 'Master of Ceremonies', '', true,  false ],
-  [ nil, 'MU', 'Musician',             '', true,  false ],
-  [ 1,   'HM', 'House Manager',        '', true,  true  ],
-  [ 2,   'LS', 'Lightboard Operator',  '', true,  true  ],
-  [ 3,   'SS', 'Soundboard Operator',  '', true,  true  ],
-  [ 4,   'CS', 'Camera Operator',      '', true,  true  ],
-  [ 5,   'SM', 'Stage Manager',        '', true,  true  ],
-  [ 6,   'SG', 'Suggestion Taker',     '', false, true  ],
-  [ nil, 'BO', 'Box Office Attendant', '', true,  false ],
-  [ nil, 'BAR','Bartender',            '', true,  false ],
-  [ nil, 'TEACH', 'Improv Teacher',    '', true,  false ]
+  [ 1,   'HM', 'House Manager',           '', true,  true  ],
+  [ 2,   'LS', 'Lightboard Operator',     '', true,  true  ],
+  [ 3,   'SS', 'Soundboard Operator',     '', true,  true  ],
+  [ 4,   'LSS','Lights & Sound Operator', '', true,  true  ],
+  [ 5,   'CS', 'Camera Operator',         '', true,  true  ],
+  [ 6,   'SM', 'Stage Manager',           '', true,  true  ],
+  [ 7,   'SG', 'Suggestion Taker',        '', false, true  ],
+  [ nil, 'MU', 'Musician',                '', true,  false ],
+  [ nil, 'BO', 'Box Office Attendant',    '', true,  false ],
+  [ nil, 'BAR','Bartender',               '', true,  false ],
+  [ nil, 'TEACH', 'Improv Teacher',       '', true,  false ]
 ].each do |priority, code, name, desc, training, autocrew|
   Skill.where(code: code).first_or_create.update_attributes(
     name: name,
@@ -73,11 +73,11 @@ end
 puts 'Create Show Templates'
 #  DoW (Sun = 0), Name,         Call Time,         Show Time,         Associated Skills
 [
-  [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), %w(MC HM LS BO) ],
-  [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-  [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), %w(MC HM LS SS CS BO MU) ],
-  [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), %w(MC HM LS SS CS BO) ],
-  [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), %w(MC) ],
+  [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), %w(HM LSS BO) ],
+  [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), %w(HM LS SS CS BO) ],
+  [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), %w(HM LS SS CS BO MU) ],
+  [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), %w(HM LS SS CS BO) ],
+  [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), [] ],
 ].each do |dow, name, calltime, showtime, skills|
   skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
   ShowTemplate.where(name: name).first_or_create.update_attributes(

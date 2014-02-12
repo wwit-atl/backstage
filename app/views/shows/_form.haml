@@ -22,13 +22,21 @@
           -#    :label => 'Actors ',
           -#    :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
 
+          = f.association :mc,
+              :collection => @mcs,
+              :include_blank => true,
+              :label_method => :name,
+              :disabled => !(can? :manage, @show),
+              :label => 'MC ',
+              :input_html => { class: 'chosen-select', multiple: false, data: { placeholder: 'Select MC' } }
+
           = f.association :actors,
               :collection => @castable,
               :include_blank => true,
               :label_method => :casting_tag,
               :disabled => !(can? :cast, @show),
               :label => 'Actors ',
-              :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
+              :input_html => { class: 'chosen-select', multiple: true, data: { placeholder: 'Select Actors' } }
 
     .col-md-8
       %fieldset

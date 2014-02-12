@@ -7,6 +7,8 @@ class Show < ActiveRecord::Base
   has_many :scenes, -> { order(:position) }, :dependent => :destroy
   has_many :notes, :as => :notable
 
+  belongs_to :mc, class_name: 'Member', :inverse_of => :mc_shifts
+
   has_and_belongs_to_many :actors, class_name: 'Member', join_table: 'actors_shows'
 
   accepts_nested_attributes_for :scenes, allow_destroy: true

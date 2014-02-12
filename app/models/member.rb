@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   has_many :crews, :through => :shifts, :source => :show
   has_many :phones, :dependent => :destroy
   has_many :addresses, :dependent => :destroy
+  has_many :mc_shifts, class_name: 'Show', :foreign_key => :mc_id, :inverse_of => :mc
 
   has_and_belongs_to_many :shows, join_table: 'actors_shows'
   has_and_belongs_to_many :skills
@@ -35,8 +36,8 @@ class Member < ActiveRecord::Base
   scope :company_members, -> { castable || crewable }
   scope :uses_conflicts, -> { castable || crewable }
 
-  scope :has_role,      ->(role)  { joins(:roles).where(roles: {name: role}) }
-  scope :has_skill,     ->(skill) { joins(:skills).where(skills: {code: skill.upcase}) }
+  scope :has_role,      ->(role)  { joins(:roles).where(roles: {name: role.to_s}) }
+  scope :has_skill,     ->(skill) { joins(:skills).where(skills: {code: skill.to_s.upcase}) }
   scope :has_conflict,  ->(show)  { joins(:conflicts).where(conflicts: {date: show.date}) }
 
   scope :by_name_first, -> { order([:firstname, :lastname]) }

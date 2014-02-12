@@ -41,6 +41,8 @@
 
             %td
               %ul.list-unstyled
+                - if !show.mc.nil?
+                  %li= link_to_member( show.mc ) + ' (MC)'
                 - show.actors.each do |actor|
                   %li= link_to_member actor
 

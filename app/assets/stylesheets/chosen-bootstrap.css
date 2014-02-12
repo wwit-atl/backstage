@@ -31,7 +31,7 @@ select.form-control + .chosen-container .chosen-drop {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
     margin: 2px 0 0;
-
+    z-index: 999999;
 }
 
 select.form-control + .chosen-container .chosen-search input[type=text] {
@@ -60,6 +60,7 @@ select.form-control + .chosen-container .chosen-results {
     list-style: none;
     background-color: #fff;
     margin-bottom: 5px;
+    z-index: 999999;
 }
 
 select.form-control + .chosen-container .chosen-results li , 

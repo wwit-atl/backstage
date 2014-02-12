@@ -59,7 +59,18 @@ module ApplicationHelper
   end
 
   def link_to_member(member)
+    return 'No Member Assigned' unless member.respond_to?(:name)
     link_to member.name, member_path(member)
+  end
+
+  def link_to_skill(skill)
+    return 'No Skill Assigned' unless skill.respond_to?(:name)
+    link_to skill.name, skill_path(skill)
+  end
+
+  def link_to_show(show)
+    return 'No Show Assigned' unless show.respond_to?(:date)
+    link_to show.date, skill_path(show)
   end
 
   def is_authorized?(member = Member.none)
