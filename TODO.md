@@ -12,8 +12,9 @@ Also see "TODO.txt"
   - [x] Create Dashboard
   - [x] Create Event Calendar
   - [x] Create Auto-Shift-Engine
-  - [ ] Create Announcements
+  - [x] Create Announcements
   - [ ] Create Student Manager
+  - [ ] Create check-in Functionality for Cast/Crew
 
 Pushed to a future release (potentially)
 

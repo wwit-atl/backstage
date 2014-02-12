@@ -5,8 +5,6 @@ TODO: Get email working.
       when cast in a show or scheduled on a shift,
       and 24 hours prior to a cast shift call time.
 
-TODO: Shows should assign MC like Actors, not like Shift.
-
 TODO: Shows need roles so that auto-schedule will try not to schedule US on US
       shows and ISP on ISP shows.
 
@@ -15,4 +13,3 @@ TODO: Add a print function to the dashboard(?)
 TODO: Add Volunteer role with extreamly limited access.
 
 TODO: Add emergency contact information to member record(?)
-
