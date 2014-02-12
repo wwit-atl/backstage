@@ -20,9 +20,12 @@
         .col-sm-8
           .signature #{link_to_member message.sender} wrote:
           .panel.padding-5
-            .subject <em>Subject:</em> #{message.subject}
-            = markdown message.message
-          .member-count Sent to #{message.members.count} Members
+            .subject= message.subject
+            = message.formatted_text
+          .bs-popover.member-count{ title: "Sent to the following #{pluralize(message.members.count, 'Member')}",
+            data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
+                    content: message.members.collect{|m| m.name}.to_sentence } }
+            = "Sent to #{pluralize(message.members.count, 'Member')}"
         .col-sm-2
           - if !message.approved?
             .status Waiting on Approval
