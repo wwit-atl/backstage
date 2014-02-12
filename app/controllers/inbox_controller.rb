@@ -7,11 +7,10 @@ class InboxController < ApplicationController
 
   def handle_send(event_payload)
     # ToDo: Add delivered_at date to messages in event_payload
-    webhook_log.info '>>> Received Mandrill SendEvent WebHook!'
-    webhook_log.info event_payload
+    Message.create(
+        subject: 'Event Payload',
+        message: event_payload
+    )
   end
-
-  def webhook_log
-    @@webhook ||= Logger.new("#{Rails.root}/log/webhook.log")
-  end
+  
 end
