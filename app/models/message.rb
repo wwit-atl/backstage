@@ -40,7 +40,7 @@ class Message < ActiveRecord::Base
 
   def time_stamp(column = :delivered, format_type = :short)
     format = format_type.to_sym == :short ? '%D %I:%M %p' : '%A%n%B %e, %Y%n%I:%M %p'
-    self.send(column.to_s + '_at').localtime.strftime(format)
+    self.send(column.to_s + '_at').strftime(format)
   end
 
   def status_class
