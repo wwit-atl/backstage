@@ -71,7 +71,7 @@
                 = link_to_member message.sender
               .col-sm-2.col-xs-4= message.date
             .visible-xs= link_to truncate(message.subject, length: 60, seperator: ' '), message_path(message)
-            .pad-top-20= message.formatted_text
+            .pad-top-20= sanitize message.formatted_text
 
   .row
     - if @member.is_castable? or @member.is_crewable?

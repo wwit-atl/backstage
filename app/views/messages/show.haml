@@ -5,7 +5,7 @@
   .row
     .col-md-8
       .body.panel
-        = @message.formatted_text
+        = sanitize @message.formatted_text
     .col-md-4
       .box{ class: @message.status_class }
         %h3.no-pad-top= @message.time_stamp(:created, :long)

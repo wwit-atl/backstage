@@ -2,7 +2,7 @@ The following message is waiting for your approval.<br/>
 %hr
 Sent By: #{@message.sender.name}<br/>
 Subject: #{@message.subject}<br/>
-= @message.formatted_text
+= sanitize @message.formatted_text
 %hr
 %br
 You may

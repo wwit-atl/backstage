@@ -23,7 +23,7 @@
           .signature #{link_to_member message.sender} wrote:
           .panel.padding-5
             .message-subject= message.subject
-            .message-body= message.formatted_text
+            .message-body= sanitize message.formatted_text
           .bs-popover.member-count{ title: "Sent to the following #{pluralize(message.members.count, 'Member')}",
             data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
                     content: message.members.collect{|m| m.name}.to_sentence } }

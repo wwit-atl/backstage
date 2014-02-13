@@ -15,7 +15,7 @@ class BackstageMailer < ActionMailer::Base
            from: message.sender.email_tag,
              to: message.sender.email_tag,
             bcc: message.members.email_tags,
-        subject: message.subject,
+        subject: "[WWIT-ANNOUNCEMENT] #{message.subject}",
     })
   end
 
@@ -23,7 +23,7 @@ class BackstageMailer < ActionMailer::Base
     @message = message
     mail ({
         to: Member.managers.email_tags,
-        subject: '[BACKSTAGE-ADMIN] New message waiting for approval'
+        subject: '[WWIT-ADMIN] New message waiting for approval'
     })
   end
 
