@@ -9,12 +9,12 @@ class InboxController < ApplicationController
     puts '<<<Event Payload>>>'
     puts event_payload.inspect
 
-    message_id = event_payload['msg']['medadata']['message_id']
+    message_id = event_payload['msg']['metadata']['message_id']
     return if message_id.nil?
 
     message = Message.where(email_message_id: message_id).first
     if !message.nil?
-      message.delivered_at = Time.at(event_payload['ts']).to_datetime
+      message.delivered_at = Time.at(event_payload['ts']).to_datetime.utc
       message.save
     else
       puts "Could not find message for #{message_id}"

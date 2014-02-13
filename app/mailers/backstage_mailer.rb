@@ -11,7 +11,7 @@ class BackstageMailer < ActionMailer::Base
     headers['X-MC-Metadata'] = { message_id: message_id }.to_json
 
     message.email_message_id = message_id
-    message.sent_at = Time.now()
+    message.sent_at = Time.now.utc
 
     mail ({
            from: message.sender.email_tag,
