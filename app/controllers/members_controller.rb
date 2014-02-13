@@ -64,8 +64,8 @@ class MembersController < ApplicationController
   def new
     @member = Member.new
     # We want at least one new phone number entry to be displayed in the form
-    @member.phones.new
-    @member.addresses.new
+    #@member.phones.new
+    #@member.addresses.new
   end
 
   # GET /members/1/edit
