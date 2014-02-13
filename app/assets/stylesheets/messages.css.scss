@@ -1,7 +1,7 @@
 #announcements {
   .status-red    { background-color: transparentize($wwit-red,    .8); }
   .status-yellow { background-color: transparentize($wwit-yellow, .8); }
-  .status-green  { background-color: transparent; }
+  .status-green  { background-color: transparentize($wwit-green,  .8); }
 
   .signature {
     padding: 10px 0;
@@ -9,10 +9,14 @@
     color: $wwit-blue-dark;
   }
 
-  .subject {
+  .message-subject {
     border-bottom: 1px solid lightgray;
     padding-bottom: 5px;
     margin-bottom: 10px;
+  }
+
+  .message-body {
+    color: black;
   }
 
   .controls {
