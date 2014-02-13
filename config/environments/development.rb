@@ -27,6 +27,8 @@ Backstage::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.time_zone = 'Eastern Time (US & Canada)'
+
   # ActionMailer Settings
   config.action_mailer.smtp_settings = {
       :port =>           '587',

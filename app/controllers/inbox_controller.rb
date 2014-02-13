@@ -6,6 +6,9 @@ class InboxController < ApplicationController
   authenticate_with_mandrill_keys! ENV['MANDRILL_WEBHOOK_KEY']
 
   def handle_send(event_payload)
+    puts '<<<Event Payload>>>'
+    puts event_payload.inspect
+
     # ToDo: Add delivered_at date to messages in event_payload
     message_id = event_payload['medadata']
     message = Message.where(email_message_id: message_id).first
@@ -14,7 +17,6 @@ class InboxController < ApplicationController
       message.save
     else
       puts "Could not find message for #{message_id}"
-      puts event_payload.inspect
     end
   end
 
