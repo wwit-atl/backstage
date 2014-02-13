@@ -6,8 +6,7 @@ class InboxController < ApplicationController
   authenticate_with_mandrill_keys! ENV['MANDRILL_WEBHOOK_KEY']
 
   def handle_send(event_payload)
-    puts '<<<Event Payload>>>'
-    puts event_payload.inspect
+    puts '>>> Send Event Received'
 
     message_id = event_payload['msg']['metadata']['message_id']
     return if message_id.nil?
@@ -17,7 +16,7 @@ class InboxController < ApplicationController
       message.delivered_at = Time.at(event_payload['ts']).to_datetime.utc
       message.save
     else
-      puts "Could not find message for #{message_id}"
+      puts ">>> Could not find message for #{message_id}"
     end
   end
 

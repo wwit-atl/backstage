@@ -3,9 +3,6 @@ class BackstageMailer < ActionMailer::Base
 
   def announcements(message)
     @message = message
-
-    #headers.message_id = "<#{SecureRandom.uuid}@#{Rails.configuration.action_mailer.smtp_settings[:domain]}>"
-    #message.email_message_id = headers.message_id
     message_id = SecureRandom.uuid
 
     headers['X-MC-Metadata'] = { message_id: message_id }.to_json
