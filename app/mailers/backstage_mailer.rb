@@ -8,7 +8,7 @@ class BackstageMailer < ActionMailer::Base
     #message.email_message_id = headers.message_id
     message_id = SecureRandom.uuid
 
-    headers['X-MC-Metadata'] = "{ 'message_id': #{message_id} }"
+    headers['X-MC-Metadata'] = { message_id: message_id }.to_json
 
     message.email_message_id = message_id
     message.sent_at = Time.now()

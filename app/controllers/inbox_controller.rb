@@ -9,8 +9,9 @@ class InboxController < ApplicationController
     puts '<<<Event Payload>>>'
     puts event_payload.inspect
 
-    # ToDo: Add delivered_at date to messages in event_payload
-    message_id = event_payload['medadata']
+    message_id = event_payload['msg']['medadata']['message_id']
+    return if message_id.nil?
+
     message = Message.where(email_message_id: message_id).first
     if !message.nil?
       message.delivered_at = Time.at(event_payload['ts']).to_datetime
