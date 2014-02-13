@@ -1,7 +1,8 @@
+.status-red    { background-color: transparentize($wwit-red,    .8); }
+.status-yellow { background-color: transparentize($wwit-yellow, .8); }
+.status-green  { background-color: transparentize($wwit-green,  .8); }
+
 #announcements {
-  .status-red    { background-color: transparentize($wwit-red,    .8); }
-  .status-yellow { background-color: transparentize($wwit-yellow, .8); }
-  .status-green  { background-color: transparentize($wwit-green,  .8); }
 
   .signature {
     padding: 10px 0;
@@ -43,8 +44,15 @@
     font-size: .8em;
   }
 
-  .panel {
-    margin: 0;
-    margin-bottom: 5px;
+}
+
+#message {
+  .body {
+    font-size: 1.2em;
   }
+
+  .time {
+    font-style: italic;
+  }
+
 }

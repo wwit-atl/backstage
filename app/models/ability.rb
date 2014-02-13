@@ -20,12 +20,11 @@ class Ability
     can [:edit, :update], Member, id: member.id
     can :manage, Conflict, member_id: member.id
 
+    can [:edit, :update, :destroy], Message, sender_id: member.id, approver_id: nil, sent_at: nil
+    can :create, Message, member.company_member? => :true
     can :read, Message, sender_id: member.id
     can :read, Message do |message|
       message.members.exists?(member.id)
     end
-
-    can :create, Message, member.company_member? => :true
-    can [:edit, :update, :destroy], Message, sender_id: member.id, approver_id: nil, sent_at: nil
   end
 end

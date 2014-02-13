@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   authorize_resource
 
-  before_action :set_message, only: [:edit, :update, :destroy]
+  before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_action :set_members, only: [:new, :create, :edit, :update]
   before_action :parse_member_params, only: [:create, :update]
 
@@ -13,6 +13,9 @@ class MessagesController < ApplicationController
 
     current_member.last_message = @messages.first
     current_member.save
+  end
+
+  def show
   end
 
   # GET /messages/new

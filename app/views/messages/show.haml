@@ -1,0 +1,29 @@
+#message
+  %h1
+    = @message.subject
+
+  .row
+    .col-md-8
+      .body.panel
+        = @message.formatted_text
+    .col-md-4
+      .box{ class: @message.status_class }
+        %h3.no-pad-top= @message.time_stamp(:created, :long)
+        .time
+          .row
+            .col-xs-4 Sent
+            .col-xs-8= @message.time_stamp(:sent)
+          .row
+            .col-xs-4 Delivered
+            .col-xs-8= @message.time_stamp(:delivered)
+
+  - if can? :manage, @message
+    .pad-top-20 Sent To:
+    .col-sm-12.box
+      - @message.members.each do |member|
+        .col-lg-2.col-md-4.col-sm-6= link_to_member member
+
+  .row
+    .col-md-12 Approved by #{link_to_member @message.approver}
+
+  .pad-top-20= link_to get_icon(:back, text: 'Back'), messages_path

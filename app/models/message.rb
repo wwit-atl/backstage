@@ -39,8 +39,13 @@ class Message < ActiveRecord::Base
   end
 
   def time_stamp(column = :delivered, format_type = :short)
-    format = format_type.to_sym == :short ? '%D %I:%M %p' : '%A%n%B %e, %Y%n%I:%M %p'
-    self.send(column.to_s + '_at').strftime(format)
+    column = column.to_s + '_at'
+    if self.respond_to?(column) and !self.send(column).nil?
+      format = format_type.to_sym == :short ? '%D %I:%M %p' : '%A%n%B %e, %Y%n%I:%M %p'
+      self.send(column).strftime(format)
+    else
+      'N/A'
+    end
   end
 
   def status_class
