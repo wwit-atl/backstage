@@ -25,8 +25,7 @@ module Backstage
     config.i18n.enforce_available_locales = true
 
     # ActionMailer Settings
-    config.action_mailer.default_options = { from: 'Laughing Larry <larry@wholeworldtheatre.com>' }
-    config.action_mailer.default_url_options = { host: 'backstage.wholeworldtheatre.com' }
+    config.action_mailer.default_url_options = {  host: 'backstage.wholeworldtheatre.com'  }
     config.action_mailer.smtp_settings = {
         :port =>           '587',
         :address =>        'smtp.mandrillapp.com',
@@ -34,6 +33,10 @@ module Backstage
         :password =>       ENV['MANDRILL_TESTING'].nil? ? ENV['MANDRILL_APIKEY'] : ENV['MANDRILL_TEST_APIKEY'],
         :domain =>         'wholeworldtheatre.com',
         :authentication => :plain
+    }
+    config.action_mailer.default_options = {
+        from: 'Laughing Larry <larry@wholeworldtheatre.com>',
+        reply_to: ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
     }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = ENV['MANDRILL_NO_EMAIL'].nil?
