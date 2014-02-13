@@ -14,6 +14,10 @@ ready = ->
     disable_search_threshold: 10
     width: '100%'
 
+  $('.chosen-reset').click (event)->
+    event.preventDefault()
+    $('.chosen-select').val('').trigger('chosen:updated').preventDefault
+
   $("input.datepicker").each ->
     $(this).datepicker
       dateFormat: "yy-mm-dd"

@@ -19,6 +19,8 @@
               class: 'form-control chosen-select',
               :multiple => true,
               data: { placeholder: 'Groups' }
+    .col-sm-1.chosen-reset= link_to get_icon('remove-circle', text: 'Reset'), '#'
+
   .row
     .col-sm-2.text-right=f.label 'Subject', required: true
     .col-sm-9= f.input :subject, label: false, placeholder: 'Subject'
