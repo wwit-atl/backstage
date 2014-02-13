@@ -1,6 +1,6 @@
 #announcements
   - if can? :create, Message
-    .pull-right= link_to_new new_message_path, 'Add New Announcement'
+    %button.btn.btn-default.pull-right= link_to_new new_message_path, 'Add New Announcement'
 
   %h1 Announcements
 
@@ -16,7 +16,7 @@
       - if !message.approved?
         .controls= render 'partials/admin_commands', klass: message
       .row
-        .col-sm-2= simple_format message.time_stamp(:created, :long)
+        .col-sm-2= link_to simple_format( message.time_stamp(:created, :long) ), message_path(message)
         .col-sm-8
           .signature #{link_to_member message.sender} wrote:
           .panel.padding-5

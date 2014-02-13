@@ -39,4 +39,5 @@
       = render 'notes/form'
 
 - if can? :update, @show
-  #{link_to 'Edit', edit_show_path(@show)} | #{link_to 'Back', shows_path}
+  .pull-right= link_to get_icon(:edit, text: 'Edit'), edit_skill_path(@show)
+= link_to get_icon(:back, text: 'Back'), shows_path

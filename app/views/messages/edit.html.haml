@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @message
-\|
-= link_to 'Back', messages_path
+.pad-top-20
+  .pull-right= link_to get_icon(:show, text: 'Show'), @message
+  = link_to get_icon(:back, text: 'Back'), messages_path

@@ -48,6 +48,8 @@ module ApplicationHelper
       when :email    then icon_class = 'send'
       when :delete   then icon_class = 'trash'
       when :member   then icon_class = 'user'
+      when :back     then icon_class = 'circle-arrow-left'
+      when :next     then icon_class = 'circle-arrow-right'
       else icon_class = type
     end
     content_tag(:span, nil, class: ["glyphicon glyphicon-#{icon_class}", opts[:class]].compact, title: opts[:title]) +

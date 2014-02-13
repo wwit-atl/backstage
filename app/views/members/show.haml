@@ -65,8 +65,8 @@
           .row
             .col-sm-2.col-xs-4= message.date
             .col-sm-4.col-xs-8= link_to_member message.sender
-            .col-sm-6.hidden-xs= link_to truncate(message.subject, length: 20, seperator: ' '), messages_path
-          .visible-xs= link_to truncate(message.subject, length: 20, seperator: ' '), messages_path
+            .col-sm-6.hidden-xs= link_to truncate(message.subject, length: 20, seperator: ' '), message_path(message)
+          .visible-xs= link_to truncate(message.subject, length: 20, seperator: ' '), message_path(message)
           = message.formatted_text
 
   .row
