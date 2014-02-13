@@ -9,7 +9,9 @@ class Message < ActiveRecord::Base
   scope :by_created,   -> { order(:created_at   => :desc) }
   scope :by_sent,      -> { order(:sent_at      => :desc) }
   scope :by_delivered, -> { order(:delivered_at => :desc) }
-  scope :approved,     -> { where('approver_id IS NOT NULL') }
+
+  scope :recent,   -> { where{created_at > ( Date.today - 2.weeks )} }
+  scope :approved, -> { where('approver_id IS NOT NULL') }
 
   scope :for_member, ->(member) { joins{members}.where { (sender == member) |
                                                          ((approver_id != nil) & (members.id == member.id)) }.uniq }

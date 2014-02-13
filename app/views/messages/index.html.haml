@@ -1,6 +1,8 @@
 #announcements
   - if can? :create, Message
-    %button.btn.btn-default.pull-right= link_to_new new_message_path, 'Add New Announcement'
+    .pull-right
+      = link_to new_message_path, class: 'btn btn-info' do
+        = get_icon :plus, text: 'Add New Announcement'
 
   %h1 Announcements
 

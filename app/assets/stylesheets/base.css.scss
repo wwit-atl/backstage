@@ -30,6 +30,7 @@ fieldset {
   margin: 0;
   margin-bottom: 5px;
   padding: 10px;
+  @include box-shadow(1px 1px 3px rgba(black, .4));
 }
 
 .box, .plaque {
