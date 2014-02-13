@@ -38,6 +38,9 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        # Send managers an email letting them know there's a new message
+        BackstageMailer.waiting_for_approval(@message).deliver unless can? :approve, @message
+
         format.html { redirect_to messages_path, flash: { success: 'Message was successfully created.' } }
         format.json { render action: 'show', status: :created, location: @message }
       else

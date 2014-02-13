@@ -1,6 +1,2 @@
-!!!
-%head
-  %meta{ :content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }
-%body
-  = @message.formatted_text
-  %em= " - #{@message.sender.name}"
+= @message.formatted_text
+%em= " - #{@message.sender.name}"

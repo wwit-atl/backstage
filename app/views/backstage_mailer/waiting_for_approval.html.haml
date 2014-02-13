@@ -1,0 +1,11 @@
+The following message is waiting for your approval.<br/>
+%hr
+Sent By: #{@message.sender.name}<br/>
+Subject: #{@message.subject}<br/>
+= @message.formatted_text
+%hr
+%br
+You may
+= link_to 'View this message', message_url(@message)
+or
+= link_to 'approve this message.', message_approve_url(@message)

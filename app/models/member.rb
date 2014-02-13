@@ -44,6 +44,10 @@ class Member < ActiveRecord::Base
   scope :by_name_last,  -> { order([:lastname, :firstname]) }
   scope :by_name,       -> { by_name_first }
 
+  scope :admins,   -> { has_role(:admin)      }
+  scope :managers, -> { has_role(:management) }
+  scope :mcs,      -> { has_role(:mc)         }
+
   sifter :member_search do |search|
     lastname.matches("%#{search}%") | firstname.matches("%#{search}%") | email.matches("%#{search}%")
   end
@@ -154,5 +158,10 @@ class Member < ActiveRecord::Base
     else
       self.all
     end
+  end
+
+  def self.email_tags(whom = :all)
+    return [] unless self.respond_to?(whom)
+    self.send(whom).map { |member| member.email_tag }
   end
 end

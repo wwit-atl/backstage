@@ -1,5 +1,6 @@
 class BackstageMailer < ActionMailer::Base
   add_template_helper(ApplicationHelper)
+  before_action :set_headers
 
   def announcements(message)
     @message = message
@@ -13,8 +14,22 @@ class BackstageMailer < ActionMailer::Base
     mail ({
            from: message.sender.email_tag,
              to: message.sender.email_tag,
-            bcc: message.members.map{ |m| m.email_tag },
+            bcc: message.members.email_tags,
         subject: message.subject,
     })
   end
+
+  def waiting_for_approval(message)
+    @message = message
+    mail ({
+        to: Member.managers.email_tags,
+        subject: '[BACKSTAGE-ADMIN] New message waiting for approval'
+    })
+  end
+
+  private
+
+    def set_headers
+      headers['X-MC-Autotext'] = 'true'
+    end
 end

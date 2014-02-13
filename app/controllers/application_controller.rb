@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_member!
   before_action :configure_permitted_parameters, :if => :devise_controller?
+  before_action :set_host
 
   alias_method :current_user, :current_member
 
@@ -62,4 +63,8 @@ class ApplicationController < ActionController::Base
       }
     end
 
+    def set_host
+      @hostname = request.host || 'backstage.wholeworldtheatre.com'
+      @hosturl  = request.url  || "http://#{@hostname}"
+    end
 end
