@@ -68,7 +68,7 @@ class ConflictsController < ApplicationController
     end
 
     def get_member
-      @member = Member.find(params[:member_id]) || Member.none
+      @member = Member.friendly.find(params[:member_id]) || Member.none
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

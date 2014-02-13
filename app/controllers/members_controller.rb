@@ -131,7 +131,7 @@ class MembersController < ApplicationController
       redirect_to members_url unless current_member
       @member = current_member
     else
-      @member = Member.find(params[:id])
+      @member = Member.friendly.find(params[:id])
     end
   end
 

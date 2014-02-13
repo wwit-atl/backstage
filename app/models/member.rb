@@ -1,6 +1,9 @@
 class Member < ActiveRecord::Base
+  extend FriendlyId
+
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   rolify
+  friendly_id :fullname, :use => :slugged
 
   belongs_to :last_message, class_name: Message
 
@@ -19,7 +22,7 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :phones, allow_destroy: true
   accepts_nested_attributes_for :addresses, allow_destroy: true
 
-  validates_presence_of :email, :firstname, :lastname
+  validates_presence_of :email, :firstname, :lastname, :slug
   validates_presence_of :password, on: :create
   validates_length_of :password, minimum: 5, maximum: 120, allow_blank: true
   validates_uniqueness_of :email

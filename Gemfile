@@ -27,12 +27,10 @@ gem 'rolify', '~> 3.4.0'
 gem 'cancan'
 gem 'chosen-rails'
 gem 'mandrill-rails'
-
 gem 'simple_form'
 gem 'squeel'
-
 gem 'redcarpet'
-
+gem 'friendly_id', '~> 5.0.0'
 gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'
 gem 'recipient_interceptor'
