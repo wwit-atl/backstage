@@ -7,7 +7,7 @@ class InboxController < ApplicationController
 
   def handle_send(event_payload)
     # ToDo: Add delivered_at date to messages in event_payload
-    message_id = event_payload['headers']['X-BS-MESSAGEID']
+    message_id = event_payload['medadata']
     message = Message.where(email_message_id: message_id).first
     if !message.nil?
       message.delivered_at = Time.at(event_payload['ts']).to_datetime

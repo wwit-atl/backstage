@@ -6,8 +6,11 @@ class BackstageMailer < ActionMailer::Base
 
     #headers.message_id = "<#{SecureRandom.uuid}@#{Rails.configuration.action_mailer.smtp_settings[:domain]}>"
     #message.email_message_id = headers.message_id
-    headers['X-BS-MESSAGEID'] = SecureRandom.uuid
-    message.email_message_id = headers['X-BS-MESSAGEID'].value
+    message_id = SecureRandom.uuid
+
+    headers['X-MC-Metadata'] = "{ 'message_id': #{message_id} }"
+
+    message.email_message_id = message_id
     message.sent_at = Time.now()
 
     mail ({
