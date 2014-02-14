@@ -1,26 +1,28 @@
 require 'yaml'
 require 'ostruct'
 
+OUTPUT = 'members.yml'
+
 def find_meta(id, type)
   case type
-    when :active then key = '_u_active'
+    when :active  then key = '_u_active'
     when :address then key = '_u_address'
-    when :city   then key = '_u_city'
-    when :state  then key = '_u_state'
-    when :zip    then key = '_u_zip'
-    when :phone1 then key = '_u_home_phone'
-    when :phone2 then key = '_u_work_phone'
-    when :phone3 then key = '_u_cell_phone'
+    when :city    then key = '_u_city'
+    when :state   then key = '_u_state'
+    when :zip     then key = '_u_zip'
+    when :phone1  then key = '_u_home_phone'
+    when :phone2  then key = '_u_work_phone'
+    when :phone3  then key = '_u_cell_phone'
     else key = type.to_s
   end
   @db.each do |record|
     return record['meta_value'] if record.has_key?('meta_key') and record['meta_key'] == key and record['user_id'] == id
   end
-  puts "Could not find #{key} for record-#{id}!"
+  puts ">> Could not find #{key} for record-#{id}!"
 end
 
 def get_meta(id)
-  @metatypes.each { |type| @members[id].merge!( type => find_meta(id, type).to_s.strip ) }
+  @metatypes.each { |type| @members[id].merge!( type => find_meta(id, type.to_sym).to_s.strip ) }
 end
 
 # Cleans and removes bad records
@@ -28,35 +30,29 @@ def scrub_data(id)
   member = @members[id]
 
   # Delete records without required fields
-  if member[:email].empty? or member[:last_name].empty? or member[:first_name].empty?
-    @members.delete(id)
-    return true
-  end
+  return false if member['email'].empty? or member['last_name'].empty? or member['first_name'].empty?
 
   # Delete utility accounts
-  if %w(Admin Class Business Last).include?(member[:last_name])
-    @members.delete(id)
-    return true
-  end
+  return false if %w(Admin Class Business Last).include?(member['last_name'])
 
   # Clean address data
-  [:address, :city, :state, :zip].each do |type|
-    member[type] = nil if member[type].to_s.downcase == type.to_s
-  end
+  %w(address city state zip).each { |type| member[type] = nil if member[type].to_s.downcase == type }
 
   # Clean phone data
-  [:phone1, :phone2, :phone3].each do |phone|
-    member[phone] = nil if member[phone].to_s.downcase.gsub(/ /, '') == phone.to_s
+  %w(phone1 phone2 phone3).each do |phone|
+    member[phone] = nil if member[phone].to_s.downcase.gsub(/ /, '') == phone or
+                           member[phone].to_i == 0
   end
 
-  false
+  true
 end
 
 # Load the YAML file
 @db = YAML.load_file('wwit_members.yml')
 
 # Metadata Record Types
-@metatypes = [:first_name, :last_name, :phone1, :phone2, :phone3, :address, :city, :state, :zip, :active]
+#@metatypes = [:first_name, :last_name, :phone1, :phone2, :phone3, :address, :city, :state, :zip, :active]
+@metatypes = %w(first_name last_name phone1 phone2 phone3 address city state zip active)
 
 # Our main container
 @members = {}
@@ -66,25 +62,31 @@ end
 
   # Grab Member ID and email address
   id = record['ID']
-  @members[id] = { :email => record['user_email'] }
+  @members[id] = { 'email' => record['user_email'] }
 end
 
 # We now have all members in the members hash, fill in the metadata and output our file
-output = File.new('members.db', 'w')
 
 @members.each_key do |id|
+  email = @members[id]['email']
+
+  print ">> #{email} #{'.' * (40 - email.length)} "
+
   # populate metadata
   get_meta(id)
 
   # Clean the data
-  next if scrub_data(id)
+  unless scrub_data(id)
+    puts 'UNCLEAN - REMOVED'
+    @members.delete(id)
+    next
+  end
 
-  # Output the data
-  puts ">>> #{@members[id][:first_name]} #{@members[id][:last_name]}"
-  output << ([:email] + @metatypes).collect { |type| @members[id][type] }.join(':') + "\n"
+  puts 'OKAY'
 end
 
-puts "Wrote #{@members.count} members to #{output.path}"
+# Output the data
+File.open(OUTPUT, 'w') { |f| f.write @members.sort_by{ |id| id }.to_yaml }
 
-output.close
+puts "Wrote #{@members.count} members to #{OUTPUT}"
 

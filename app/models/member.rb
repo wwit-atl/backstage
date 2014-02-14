@@ -56,7 +56,7 @@ class Member < ActiveRecord::Base
   end
 
   def fullname
-    [ firstname, lastname ].map{ |n| n.titleize }.join(' ')
+    [ firstname, lastname ].join(' ').strip.squeeze(' ').titlecase
   end
   alias :name :fullname
 

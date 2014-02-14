@@ -18,4 +18,4 @@
 # Ignore other files
 backstage_schema.*
 wwit_members.yml
-members.db
+members.yml

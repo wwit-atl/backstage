@@ -125,7 +125,9 @@ end
       email:     email,
       active:    true,
       password:  password,
-      password_confirmation: password )
+      password_confirmation: password,
+      slug:      nil # Re-Create the slug for this record (in case the name has changed)
+  )
 
     member = Member.where(email: email).first
     roles.each { |role| member.add_role role.to_sym }
