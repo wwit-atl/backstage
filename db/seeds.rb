@@ -110,11 +110,12 @@ end
 # Create Members
 #
 [
-    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',   [:management, :ms, :mc        ] ],
-    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',   [:admin, :management, :ms, :mc] ],
-    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',  [:management, :ms, :mc        ] ],
-    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com', [:management, :ms, :mc        ] ],
-    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',    [:admin, :us                  ] ],
+    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:admin, :management, :ms, :mc] ],
+    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc        ] ],
+    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc        ] ],
+    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',    [:management, :ms, :mc        ] ],
+    [ 'Elizabeth',   'King',         'elizabeth@wholeworldtheatre.com', [:management, :us             ] ],
+    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',       [:admin, :us                  ] ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."
   password = firstname.split.first.downcase + '@wwit'
