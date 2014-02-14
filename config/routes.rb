@@ -17,7 +17,7 @@ Backstage::Application.routes.draw do
   resource :inbox, controller: 'inbox', :only => [:show,:create] # For email WebHooks
 
   resources :show_templates, except: [:show]
-  resources :skills,  :concerns => [ :notable, :sortable ]
+  resources :skills,  :concerns => :sortable
   resources :shows,   :concerns => :notable do
     collection do
       get 'schedule', to: 'shows#schedule'

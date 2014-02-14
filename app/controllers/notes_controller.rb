@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   authorize_resource
 
-  before_action :load_notable
+  before_action :load_notable, except: [:destroy]
 
   def index
     @notes = @notable.notes
@@ -21,12 +21,21 @@ class NotesController < ApplicationController
     end
   end
 
+  def destroy
+    Note.find(params[:id]).destroy!
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   # if we use :resource/:id/notes type paths
   def load_notable
-    resource, id = request.path.split('/')[1, 2]
-    @notable = resource.singularize.classify.constantize.find(id)
+    resource, id= request.path.split('/')[1, 2]
+    resource_class = resource.singularize.classify.constantize
+    @notable = resource_class.respond_to?(:friendly) ? resource_class.friendly.find(id) : resource_class.find(id)
   end
 
   def note_params

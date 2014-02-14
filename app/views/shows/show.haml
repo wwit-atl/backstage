@@ -35,7 +35,7 @@
   .col-md-12
     .well
       Notes
-      = render 'notes/notes'
+      = render 'notes/notes', klass: @show
       = render 'notes/form'
 
 - if can? :update, @show

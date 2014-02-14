@@ -132,8 +132,8 @@
     .col-md-12
       .plaque
         Notes
-        = render 'notes/notes'
-        = render 'notes/form'
+        = render 'notes/notes', klass: @member
+        .pad-top-20= render 'notes/form'
 
 - if can? :update, @member
   = link_to 'Edit', edit_member_path(@member)
