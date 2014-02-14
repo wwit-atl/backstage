@@ -1,12 +1,6 @@
 require 'yaml'
 require 'ostruct'
 
-# Load the YAML file
-@db = YAML.load_file('wwit_members.yml')
-
-# Metadata Record Types
-@metatypes = [:first_name, :last_name, :phone1, :phone2, :phone3, :address, :city, :state, :zip, :active]
-
 def find_meta(id, type)
   case type
     when :active then key = '_u_active'
@@ -58,6 +52,12 @@ def scrub_data(id)
   false
 end
 
+# Load the YAML file
+@db = YAML.load_file('wwit_members.yml')
+
+# Metadata Record Types
+@metatypes = [:first_name, :last_name, :phone1, :phone2, :phone3, :address, :city, :state, :zip, :active]
+
 # Our main container
 @members = {}
 
@@ -70,7 +70,6 @@ end
 end
 
 # We now have all members in the members hash, fill in the metadata and output our file
-
 output = File.new('members.db', 'w')
 
 @members.each_key do |id|
@@ -88,3 +87,4 @@ end
 puts "Wrote #{@members.count} members to #{output.path}"
 
 output.close
+
