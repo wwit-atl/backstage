@@ -3,17 +3,25 @@
     = render 'partials/form_errors', model: @show_template
 
   .row
-    .col-md-2=  f.label :name
+    .col-md-2.text-right=  f.label :name
     .col-md-10= f.input :name, label: false
   .row
-    .col-md-2= f.label :day_of_week
+    .col-md-2.text-right= f.label :day_of_week
     .col-md-2= f.input :dow, collection: @days_of_week, label: false
-  .row
-    .col-md-2= f.label :calltime
+    .col-md-1.col-md-offset-1.text-right= f.label :calltime
     .col-md-2= f.input :calltime, :as => :string, input_html: { class: 'timepicker' }, label: false
-  .row
-    .col-md-2= f.label :showtime
+    .col-md-1.col-md-offset-1.text-right= f.label :showtime
     .col-md-2= f.input :showtime, :as => :string, input_html: { class: 'timepicker' }, label: false
+  .row
+    .col-md-2.text-right=  f.label 'Primary Cast Group'
+    .col-md-4
+      = f.association :group,
+        :collection    => @groups,
+        :include_blank => true,
+        :label         => false,
+        :label_method  => :title,
+        :disabled      => !(can? :manage, @show),
+        :input_html    => { class: 'chosen-select', multiple: false, data: { placeholder: 'All Groups' } }
   .row
     .col-md-2=  f.label 'Required Skills'
     .col-md-10= f.association :skills, collection: @skills, as: :check_boxes, label: false

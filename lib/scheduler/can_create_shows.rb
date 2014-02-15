@@ -38,7 +38,8 @@ module Scheduler
           date:     date,
           name:     template.name,
           showtime: template.showtime,
-          calltime: template.calltime
+          calltime: template.calltime,
+          group_id: template.group_id
       ).skills = template.skills
     end
   end

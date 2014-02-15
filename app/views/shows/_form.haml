@@ -4,9 +4,16 @@
 
   = can? :manage, @show
   .row
-    .col-md-4= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }
-    .col-md-4= f.input :showtime, :as => :string, label: 'Show Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
-    .col-md-4= f.input :calltime, :as => :string, label: 'Call Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
+    .col-md-3= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }
+    .col-md-3= f.input :showtime, :as => :string, label: 'Show Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
+    .col-md-3= f.input :calltime, :as => :string, label: 'Call Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
+    .col-md-3
+      = f.association :group,
+        :collection    => @groups,
+        :include_blank => true,
+        :label_method  => :title,
+        :disabled      => !(can? :manage, @show),
+        :input_html    => { class: 'chosen-select', multiple: false, data: { placeholder: 'All Groups' } }
 
   .row
     .col-md-4

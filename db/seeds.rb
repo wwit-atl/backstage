@@ -71,19 +71,20 @@ end
 # Create initial Show Templates
 #
 puts 'Create Show Templates'
-#  DoW (Sun = 0), Name,         Call Time,         Show Time,         Associated Skills
+#  DoW (Sun = 0), Name,         Call Time,         Show Time,       Group, Associated Skills
 [
-  [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), %w(HM LSS BO) ],
-  [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), %w(HM LS SS CS BO) ],
-  [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), %w(HM LS SS CS BO MU) ],
-  [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), %w(HM LS SS CS BO) ],
-  [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), [] ],
-].each do |dow, name, calltime, showtime, skills|
+  [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), :us, %w(HM LSS BO) ],
+  [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), :us, %w(HM LS SS CS BO) ],
+  [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), :ms, %w(HM LS SS CS BO MU) ],
+  [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), :ms, %w(HM LS SS CS BO) ],
+  [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), :ms, [] ],
+].each do |dow, name, calltime, showtime, group, skills|
   skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
   ShowTemplate.where(name: name).first_or_create.update_attributes(
       dow: dow,
       calltime: calltime,
       showtime: showtime,
+      group_id: Role.where(name: group.to_s).first.try(:id),
       skill_ids: skill_ids
   )
 end

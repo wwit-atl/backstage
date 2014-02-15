@@ -22,6 +22,7 @@
         %th Call Time
         %th Show Time
         %th Required Shifts
+        %th Group
         %th
           -if can? :create, @show_templates
             .text-right= link_to_new new_show_template_path
@@ -39,6 +40,7 @@
                 N/A
               - show_template.skills.each do |skill|
                 %li= skill.name
+          %td= show_template.group.try(:code) || 'All'
 
           %td= render 'partials/admin_commands', klass: show_template
 

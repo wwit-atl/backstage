@@ -3,7 +3,7 @@ class ShowTemplatesController < ApplicationController
 
   before_action :set_show_template, only: [:edit, :update, :destroy]
   before_action :set_days_of_week
-  before_action :set_skills, only: [:new, :create, :edit, :update]
+  before_action :set_supporting, only: [:new, :create, :edit, :update]
 
   # GET /show_templates
   # GET /show_templates.json
@@ -68,8 +68,9 @@ class ShowTemplatesController < ApplicationController
       @days_of_week = Date::DAYNAMES.each_with_index
     end
 
-    def set_skills
+    def set_supporting
       @skills = Skill.all
+      @groups = Role.castable
     end
 
     def set_show_template
@@ -78,6 +79,6 @@ class ShowTemplatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_template_params
-      params.require(:show_template).permit(:name, :dow, :showtime, :calltime, skill_ids: [])
+      params.require(:show_template).permit(:name, :dow, :showtime, :calltime, :group_id, skill_ids: [])
     end
 end

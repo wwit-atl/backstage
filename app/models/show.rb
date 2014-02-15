@@ -8,6 +8,7 @@ class Show < ActiveRecord::Base
   has_many :notes, :as => :notable
 
   belongs_to :mc, class_name: 'Member', :inverse_of => :mc_shifts
+  belongs_to :group, class_name: 'Role'
 
   has_and_belongs_to_many :actors, class_name: 'Member', join_table: 'actors_shows'
 

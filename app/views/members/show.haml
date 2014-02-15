@@ -110,7 +110,7 @@
       .row
         %fieldset
           %legend Confidential Information
-          .col-md-2 Sex: #{@member.sex.nil? ? 'N/A' : @member.sex}
+          .col-md-2 Sex: #{@member.sex || 'N/A'}
           .col-md-4 Birthday: #{@member.birthday}
           .col-md-2 Address:
           .col-md-4

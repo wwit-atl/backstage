@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213200635) do
+ActiveRecord::Schema.define(version: 20140215192924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20140213200635) do
     t.time     "calltime"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "group_id"
   end
 
   create_table "show_templates_skills", id: false, force: true do |t|
@@ -211,6 +212,7 @@ ActiveRecord::Schema.define(version: 20140213200635) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "mc_id"
+    t.integer  "group_id"
   end
 
   add_index "shows", ["date"], name: "index_shows_on_date", using: :btree
