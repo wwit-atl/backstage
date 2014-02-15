@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
   extend FriendlyId
 
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :confirmable, :validatable
   rolify
   friendly_id :fullname, :use => :slugged
 
