@@ -114,6 +114,10 @@ class Member < ActiveRecord::Base
     skills.pluck(:code).include?(skill)
   end
 
+  def castable_groups
+    roles.castable.pluck(:name)
+  end
+
   def eligible_for_show?(show)
     return self if show.nil?
     return nil if conflicts.map{ |c| c.date == show.date }.any?
@@ -134,6 +138,10 @@ class Member < ActiveRecord::Base
     # Has the member reached the minimum shift limit?
     # If so, add them to the potential crew list
     return 0 if shift_count_for_month(show.month) >= min_shifts
+
+    # Return 1 if the member is part of the same group as the show.
+    # This is to prefer crewing ISP members for US shows, and visa-versa
+    return 1 if castable_groups.include?(show.group.try(:name))
 
     true
   end

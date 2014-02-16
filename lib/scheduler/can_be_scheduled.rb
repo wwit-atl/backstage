@@ -72,28 +72,45 @@ module Scheduler
 
     # Runs through a list of members, checking if they eligible to work this show
     def vet_members(members, min_shifts, max_shifts)
-      crew_list = []
-      potential_crew = []
+      crew_list       = []
+      potential_crew  = []
+      same_group_crew = []
 
       members.each do |member|
         eligible = member.eligible_for_shift?(self, min_shifts, max_shifts)
         next unless eligible
 
-        if eligible == 0
-          # Add the member to the potential list
-          potential_crew << member
-        else
-          # We made it here, add the member to the crew list
-          crew_list << member
+        Rails.logger.debug "Vetting #{member.name}"
+
+        case eligible
+          when 0
+            # Add the member to the potential list
+            Rails.logger.debug "#{member.name} is at shift limit"
+            potential_crew << member
+          when 1
+            # Member part of same group, add to same_group list
+            Rails.logger.debug "#{member.name} is part of #{self.group.name}"
+            same_group_crew << member
+          else
+            # If we made it here, add the member to the crew list
+            Rails.logger.debug "Adding #{member.name} to eligible crew_list"
+            crew_list << member
         end
       end
 
       # If the crew list is empty but we have potential crew members, re-run using those
-      if crew_list.empty? and potential_crew.size > 0
-        crew_list = vet_members(potential_crew, min_shifts+1, max_shifts)
+      if crew_list.empty?
+        if same_group_crew.size > 0
+          # If Same-Group members exist, go ahead and assign them anyway (randomly)
+          Rails.logger.debug 'Eligible Crew list is empty, assigning same-group members'
+          crew_list << same_group_crew.sample(1)
+        elsif potential_crew.size > 0
+          crew_list = vet_members(potential_crew, min_shifts+1, max_shifts)
+        end
       end
 
       # Return the crew list (even if empty)
+      Rails.logger.debug "#{crew_list.size} members eligible"
       crew_list
     end
 
