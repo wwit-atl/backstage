@@ -1,5 +1,6 @@
 class Phone < ActiveRecord::Base
   belongs_to :member
+
   before_validation :strip_number
   validates_length_of :number, minimum: 10, allow_blank: true
 

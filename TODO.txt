@@ -5,10 +5,6 @@ DONE  - to managers when new annoucements are created.
 TODO  - members when cast in a show or scheduled on a shift,
 TODO  - crew members 24 hours prior to a cast shift call time.
 
-ToDo: Shows need roles so that auto-schedule will try not to schedule US on US shows and ISP on ISP shows.
-
 ToDo: Add a print function for the dashboard(?)
-
 ToDo: Add Volunteer role with extreamly limited access.
-
 ToDo: Add emergency contact information to member record(?)

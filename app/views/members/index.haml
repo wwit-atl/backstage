@@ -1,7 +1,7 @@
 #member-list
   .row
     .col-md-4
-      %h1 Listing members
+      %h1 Listing #{pluralize(@members.count, 'Member')}
     .col-md-4.col-md-offset-4
       = form_tag members_path, :method => 'get', role: 'form', class: 'pad-top-20 form-inline', id: 'member_search' do
         .input-group
