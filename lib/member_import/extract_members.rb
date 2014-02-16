@@ -1,7 +1,8 @@
 require 'yaml'
 require 'ostruct'
 
-OUTPUT = 'members.yml'
+OUTPUT_FILE = 'members.yml'
+INPUT_FILE  = 'wwit_members.yml'
 
 def find_meta(id, type)
   case type
@@ -50,7 +51,7 @@ def scrub_data(id)
 end
 
 # Load the YAML file
-@db = YAML.load_file('wwit_members.yml')
+@db = YAML.load_file(INPUT_FILE)
 
 # Metadata Record Types
 #@metatypes = [:first_name, :last_name, :phone1, :phone2, :phone3, :address, :city, :state, :zip, :active]
@@ -88,7 +89,7 @@ end
 end
 
 # Output the data
-File.open(OUTPUT, 'w') { |f| f.write @members.sort_by{ |id| id }.to_yaml }
+File.open(OUTPUT_FILE, 'w') { |f| f.write @members.sort_by{ |id| id }.to_yaml }
 
-puts "Wrote #{@members.count} members to #{OUTPUT}"
+puts "Wrote #{@members.count} members to #{OUTPUT_FILE}"
 
