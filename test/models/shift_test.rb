@@ -6,10 +6,10 @@ class ShiftTest < ActiveSupport::TestCase
     @shift = create(:shift)
   end
 
-  test 'Cannot create without show_id' do
-    @shift = build(:shift, show: nil)
-    refute @shift.valid?, 'Allows create without a show id'
-  end
+  #test 'Cannot create without show_id' do
+  #  @shift = build(:shift, show: nil)
+  #  refute @shift.valid?, 'Allows create without a show id'
+  #end
 
   test 'Should assign the CAST skill by default' do
     @shift = create(:shift, skill: nil)

@@ -15,6 +15,6 @@ class Role < ActiveRecord::Base
   alias_attribute :description, :desc
 
   def code
-    name.upcase
+    name.upcase.to_s
   end
 end

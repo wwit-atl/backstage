@@ -50,7 +50,7 @@ module ApplicationHelper
       when :member   then icon_class = 'user'
       when :back     then icon_class = 'circle-arrow-left'
       when :next     then icon_class = 'circle-arrow-right'
-      else icon_class = type
+      else icon_class = type.to_s
     end
     content_tag(:span, nil, class: ["glyphicon glyphicon-#{icon_class}", opts[:class]].compact, title: opts[:title]) +
         ( opts[:text].nil? ? nil : "&nbsp;#{opts[:text]}".html_safe )

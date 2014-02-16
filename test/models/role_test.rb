@@ -1,11 +1,7 @@
 require "test_helper"
 
 class RoleTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-
-  test "title should display titlecase of name" do
-    assert 'Test Role' == create(:role).title
+  test 'code should display uppercase of name' do
+    assert_equal 'TR', create(:role).code, 'role.code is not uppercase of name.'
   end
 end
