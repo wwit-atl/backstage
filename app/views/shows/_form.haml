@@ -2,7 +2,8 @@
   - if @show.errors.any?
     = render 'partials/form_errors', model: @show
 
-  = can? :manage, @show
+  .row
+    .col-md-6= f.input :name
   .row
     .col-md-3= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }
     .col-md-3= f.input :showtime, :as => :string, label: 'Show Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
@@ -20,15 +21,6 @@
       %fieldset
         %legend Cast the Show:
         #cast
-          -#= f.association :actors,
-          -#    :as => :grouped_select,
-          -#    :group_method => :members,
-          -#    :collection => @castable,
-          -#    :include_blank => true,
-          -#    :disabled => !(can? :cast, @show),
-          -#    :label => 'Actors ',
-          -#    :input_html => { class: 'chosen-select', multiple: :true, data: { placeholder: 'Select Members' } }
-
           = f.association :mc,
               :collection => @mcs,
               :include_blank => true,

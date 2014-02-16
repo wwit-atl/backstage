@@ -22,7 +22,7 @@ class Show < ActiveRecord::Base
 
   default_scope { by_date }
 
-  validates_presence_of :date
+  validates_presence_of :date, :name
 
   def call_time
     format_time(calltime)
