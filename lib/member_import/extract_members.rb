@@ -1,8 +1,8 @@
 require 'yaml'
 require 'ostruct'
+require 'open-uri'
 
 OUTPUT_FILE = 'members.yml'
-INPUT_FILE  = 'wwit_members.yml'
 
 def find_meta(id, type)
   case type
@@ -51,10 +51,9 @@ def scrub_data(id)
 end
 
 # Load the YAML file
-@db = YAML.load_file(INPUT_FILE)
+@db = YAML.load open('https://s3.amazonaws.com/wwit_backstage/wwit_members.yml')
 
 # Metadata Record Types
-#@metatypes = [:first_name, :last_name, :phone1, :phone2, :phone3, :address, :city, :state, :zip, :active]
 @metatypes = %w(first_name last_name phone1 phone2 phone3 address city state zip active)
 
 # Our main container
