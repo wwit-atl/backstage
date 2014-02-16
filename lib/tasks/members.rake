@@ -33,4 +33,60 @@ namespace :members do
     desc 'Create all sample Members'
     task :all => [:ms, :us, :isp, :train]
   end
+
+  desc 'Export members from WWIT database'
+  task :export => :environment do
+    system "cd #{Rails.root + 'lib/member_import'} && ruby ./export_members.rb"
+  end
+
+  desc 'Import Members from members.yml file'
+  task :import => :environment do
+    import_file = Rails.root + 'lib/member_import/members.yml'
+    puts "Importing members from #{import_file}"
+    YAML.load_file(import_file).each do |id, record|
+      puts "> Creating #{record['first_name']} #{record['last_name']}..."
+
+      #password = record['first_name'].split.first.downcase + '@wwit'
+      password = Devise.friendly_token.first(10)
+      member_email = record['email']
+
+      if Member.where(email: member_email).first_or_create.update_attributes(
+          firstname: record['first_name'],
+          lastname:  record['last_name'],
+          email:     member_email,
+          active:    ( record['active'].to_i == 1 ),
+          password:  password,
+          password_confirmation: password,
+          slug:      nil # Re-Create the slug for this record (in case the name has changed)
+      )
+
+        member = Member.where(email: member_email).first
+
+        # Create Phone Records
+        %w(phone1 phone2 phone3).each do |phone|
+          types = %w(Home Work Mobile)
+          if !record[phone].nil?
+            Phone.create(
+                member: member,
+                ntype:  types[phone.to_i-1],
+                number: record[phone],
+            )
+          end
+        end
+
+        # Create Address Record
+        if !record['address'].nil?
+          Address.create(
+              member:  member,
+              atype:   'Home',
+              street1: record['address'],
+              city:    record['city'],
+              state:   record['state'],
+              zip:     record['zip'],
+          )
+        end
+
+      end
+    end
+  end
 end

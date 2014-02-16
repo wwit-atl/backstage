@@ -43,6 +43,8 @@ def scrub_data(id)
     member[phone] = nil if member[phone].to_s.downcase.gsub(/ /, '') == phone or
                            member[phone].to_i == 0
   end
+  member['phone2'] = nil if member['phone2'] == member['phone1']
+  member['phone3'] = nil if member['phone3'] == member['phone1']
 
   true
 end
