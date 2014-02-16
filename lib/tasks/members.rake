@@ -34,58 +34,64 @@ namespace :members do
     task :all => [:ms, :us, :isp, :train]
   end
 
-  desc 'Extract members from WWIT database to members.yml'
-  task :extract => :environment do
-    system "cd #{Rails.root + 'lib/member_import/'} && ruby ./extract_members.rb"
-  end
-
-  desc 'Import Members from members.yml file'
+  desc 'Import Members from wwit_members.yml file on S3'
   task :import => :environment do
-    import_file = Rails.root + 'lib/member_import/members.yml'
-    puts "Importing members from #{import_file}"
-    YAML.load_file(import_file).each do |id, record|
-      puts "> Creating #{record['first_name']} #{record['last_name']}..."
+    require Rails.root + 'lib/member_import/extract_members'
 
-      password = record['first_name'].split.first.downcase + '@wwit'
-      #password = Devise.friendly_token.first(10)
-      member_email = record['email']
+    # We don't want to send out mass-emails during import
+    ENV['NO_EMAIL'] = 'true'
 
-      if Member.where(email: member_email).first_or_create.update_attributes(
-          firstname: record['first_name'],
-          lastname:  record['last_name'],
-          email:     member_email,
-          active:    ( record['active'].to_i == 1 ),
-          password:  password,
-          password_confirmation: password,
-          slug:      nil # Re-Create the slug for this record (in case the name has changed)
-      )
+    puts 'Importing members'
 
-        member = Member.where(email: member_email).first
+    YAML.load(WWIT::Import.to_yaml).each do |id, record|
 
-        # Create Phone Records
-        %w(phone1 phone2 phone3).each do |phone|
-          types = %w(Home Work Mobile)
-          if !record[phone].nil?
-            Phone.create(
-                member: member,
-                ntype:  types[phone.to_i-1],
-                number: record[phone],
-            )
-          end
-        end
+      member_email = record['email'].strip.downcase
+      member = Member.where(email: member_email).first_or_create
 
-        # Create Address Record
-        if !record['address'].nil?
-          Address.create(
-              member:  member,
-              atype:   'Home',
-              street1: record['address'],
-              city:    record['city'],
-              state:   record['state'],
-              zip:     record['zip'],
+      puts "> #{member.new_record? ? 'Creating' : 'Updating'} #{record['first_name']} #{record['last_name']} (#{member_email})"
+
+      member.firstname = record['first_name']
+      member.lastname  = record['last_name']
+      member.email     = member_email
+      member.active    = ( record['active'].to_i == 1 )
+      member.slug      = nil # Re-Create the slug for this record (in case the name has changed)
+
+      if member.new_record?
+        password = Devise.friendly_token.first(10)
+        member.password = password
+        member.password_confirmation = password
+      end
+
+      # Create Phone Records
+      %w(phone1 phone2 phone3).each do |phone|
+        types = %w(Home Work Mobile)
+        if !record[phone].nil?
+          number = record[phone].gsub!(/\D/, '')
+          member.phones.where(number: number).first_or_create.update_attributes(
+              member: member,
+              ntype:  types[phone[/\d/].to_i - 1],
+              number: number,
           )
         end
+      end
 
+      # Create Address Record
+      if !record['address'].nil?
+        member.addresses.where(street1: record['address']).first_or_create.update_attributes(
+            member:  member,
+            atype:   'Home',
+            street1: record['address'],
+            city:    record['city'],
+            state:   record['state'],
+            zip:     record['zip'],
+        )
+      end
+
+      unless member.save
+        puts "Whoops -- could not save #{member.name}:"
+        member.errors.full_messages.each do |msg|
+          puts msg
+        end
       end
     end
   end
