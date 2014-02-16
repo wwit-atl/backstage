@@ -115,7 +115,7 @@ end
     [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc        ] ],
     [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc        ] ],
     [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',    [:management, :ms, :mc        ] ],
-    [ 'Elizabeth',   'King',         'elizabeth@wholeworldtheatre.com', [:management, :us             ] ],
+    [ 'Elizabeth',   'King',         'elizabeth.mccown.king@gmail.com', [:management, :us             ] ],
     [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',       [:admin, :us                  ] ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."

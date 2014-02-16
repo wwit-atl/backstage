@@ -34,14 +34,14 @@ namespace :members do
     task :all => [:ms, :us, :isp, :train]
   end
 
-  desc 'Extract members from WWIT database to tmp/members.yml'
+  desc 'Extract members from WWIT database to members.yml'
   task :extract => :environment do
-    system "cd #{Rails.root + 'tmp'} && ruby #{Rails.root + 'lib/member_import/extract_members.rb'}"
+    system "cd #{Rails.root + 'lib/member_import/'} && ruby ./extract_members.rb"
   end
 
-  desc 'Import Members from tmp/members.yml file'
+  desc 'Import Members from members.yml file'
   task :import => :environment do
-    import_file = Rails.root + 'tmp/members.yml'
+    import_file = Rails.root + 'lib/member_import/members.yml'
     puts "Importing members from #{import_file}"
     YAML.load_file(import_file).each do |id, record|
       puts "> Creating #{record['first_name']} #{record['last_name']}..."
