@@ -34,7 +34,10 @@ module Backstage
         :password =>       ENV['MANDRILL_TESTING'] != 'true' ? ENV['MANDRILL_APIKEY'] : ENV['MANDRILL_TEST_APIKEY'],
         :authentication => :plain
     }
-    config.action_mailer.default_options = { from: 'Laughing Larry <larry@wholeworldtheatre.com>' }
+    config.action_mailer.default_options = {
+        from: 'Laughing Larry <larry@wholeworldtheatre.com>',
+        reply_to: ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
+    }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = ( ENV['NO_EMAIL'] != 'true' )
   end
