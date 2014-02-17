@@ -39,6 +39,6 @@ module Backstage
         reply_to: ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
     }
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.perform_deliveries = ( ENV['NO_EMAIL'] != 'true' )
+    config.action_mailer.perform_deliveries = false unless ENV['NO_EMAIL'].nil?
   end
 end
