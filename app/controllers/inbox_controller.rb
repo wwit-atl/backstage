@@ -14,12 +14,16 @@ class InboxController < ApplicationController
     message_id = event_payload['msg']['metadata']['message_id']
     return if message_id.nil?
 
+    puts ">>> Received WebHook for message_id: #{message_id}"
+
     message = Message.where(email_message_id: message_id).first
-    if !message.nil?
+    if message.nil?
+      puts '>>> No message matches'
+    else
+      puts ">>> Applying to message #{message.id}"
+
       message.delivered_at = Time.at(event_payload['ts']).to_datetime.utc
       message.save
-    else
-      puts ">>> Could not find message for #{message_id}"
     end
   end
 
