@@ -41,10 +41,13 @@
         .col-md-10
           - @shifts.each do |shift|
             .row
-              .col-md-6= link_to_member shift.member
-              .col-md-6
+              .col-sm-6.hidden-xs
                 = shift.skill.name
                 = ' (T)' if shift.training?
+              .col-xs-4.visible-xs
+                = shift.skill.code
+                = ' (T)' if shift.training?
+              .col-xs-8.col-sm-6= link_to_member shift.member
 
 .row
   .col-md-12
