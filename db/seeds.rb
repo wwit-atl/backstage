@@ -35,7 +35,8 @@ puts 'Create Roles'
   [ :apprentice, true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
   [ :us,         true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
   [ :isp,        true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
-  [ :volunteer,  true,  true,  'WWIT Volunteer',      'Volunteer, limited access'                         ],
+  [ :staff,      false, true,  'Staff Member',        'Official Company Staff, normal access'             ],
+  [ :volunteer,  false, true,  'WWIT Volunteer',      'Volunteer, limited access'                         ],
 ].each do |code, cast, crew, title, desc|
   Role.where(name: code.to_s).first_or_create.update_attributes( title: title, desc: desc, cast: cast, crew: crew )
 end
