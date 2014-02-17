@@ -8,6 +8,7 @@ class InboxController < ApplicationController
   def handle_send(event_payload)
     puts '>>> Send Event Received'
 
+    return if event_payload.nil?
     return unless event_payload['msg'].has_key?('metadata')
 
     message_id = event_payload['msg']['metadata']['message_id']
