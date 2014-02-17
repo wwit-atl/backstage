@@ -102,7 +102,7 @@ class ShowsController < ApplicationController
       params.require(:show).permit(
           :name, :date, :showtime, :calltime, :mc_id, :group_id,
           actor_ids: [],
-          shifts_attributes: [ :id, :member_id, :skill_id, :_destroy ],
+          shifts_attributes: [ :id, :training, :member_id, :skill_id, :_destroy ],
           #scenes_attributes: [
           #    :id, :_destroy, :stage_id, :position, :suggestion,
           #    notes_attributes: [ :id, :content, :_destroy ]

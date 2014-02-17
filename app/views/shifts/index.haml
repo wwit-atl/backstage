@@ -28,8 +28,12 @@
       - @shifts.each do |shift|
         = content_tag_for :tr, shift do
           %td.col-xs-2= link_to_show shift.show
-          %td.col-sm-4.hidden-xs= link_to_skill shift.skill
-          %td.col-xs-4.visible-xs= shift.skill.code
+          %td.col-sm-4.hidden-xs
+            = link_to_skill shift.skill
+            = ' (Training)' if shift.training?
+          %td.col-xs-4.visible-xs
+            = shift.skill.code
+            = ' (T)' if shift.training?
           %td.col-xs-6
             = simple_form_for shift, url: shifts_path(id: shift), remote: true do |f|
               .col-xs-8= f.input :member_id,

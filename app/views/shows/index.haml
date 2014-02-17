@@ -37,7 +37,9 @@
                 - show.shifts.by_skill_priority.each do |shift|
                   %li
                     .shift-code= shift.skill.code + ':'
-                    .shift-name= shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to_member( shift.member )
+                    .shift-name
+                      = shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to_member( shift.member )
+                      = ' (T)' if shift.training?
 
             %td
               %ul.list-unstyled

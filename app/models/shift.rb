@@ -19,7 +19,9 @@ class Shift < ActiveRecord::Base
 
   def text
     text = "#{show.date} [#{show.dow}]"
-    text + " - #{skill.name}" unless skill.nil?
+    text += " - #{skill.name}" unless skill.nil?
+    text += ' (training)' if training?
+    text.html_safe
   end
 
 end

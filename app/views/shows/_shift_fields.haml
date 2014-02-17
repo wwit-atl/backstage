@@ -1,16 +1,19 @@
 .nested-fields
-  .field
-    .col-md-5
+  .row.field
+    .col-md-4
       = f.association :skill, collection: @skills, include_blank: false, label: false,
         disabled: !(can? :manage, @show),
         input_html: { class: 'chosen-select' },
         :wrapper_html => { :style => 'display: inline' }
 
-    .col-md-6
+    .col-md-4
       = f.association :member, collection: @crewable, include_blank: true, label: false,
         disabled: !(can? :manage, @show),
         input_html: { class: 'chosen-select', data: { placeholder: 'No one scheduled' } },
         :wrapper_html => { :style => 'display: inline' }
+
+    .col-md-2
+      = f.input :training, label: 'Training?'
 
     .col-md-1
       - if can? :manage, @show

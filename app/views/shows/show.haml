@@ -42,7 +42,9 @@
           - @shifts.each do |shift|
             .row
               .col-md-6= link_to_member shift.member
-              .col-md-6= shift.skill.name
+              .col-md-6
+                = shift.skill.name
+                = ' (T)' if shift.training?
 
 .row
   .col-md-12
