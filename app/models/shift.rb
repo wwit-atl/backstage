@@ -18,7 +18,7 @@ class Shift < ActiveRecord::Base
   scope :recent, -> { joins(:show).where('shows.date > ?', Date.today - 30.days) }
 
   def text
-    text = "#{show.date} [#{show.dow}]"
+    text = "#{show.date} [#{show.dow} #{show.call_time} / #{show.show_time}]"
     text += " - #{skill.name}" unless skill.nil?
     text += ' (training)' if training?
     text.html_safe

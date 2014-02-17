@@ -25,11 +25,11 @@ class Show < ActiveRecord::Base
   validates_presence_of :date, :name
 
   def call_time
-    format_time(calltime)
+    calltime.strftime('%l:%M %P')
   end
 
   def show_time
-    format_time(showtime)
+    showtime.strftime('%l:%M %P')
   end
 
   def human_date
