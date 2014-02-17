@@ -36,7 +36,7 @@
           - else
             - if message.delivered?
               - if can? :manage, message
-                .status delivered at #{simple_format message.time_stamp(:delivered) }
+                .status Delivered at #{simple_format message.time_stamp(:delivered) }
               - else
                 .status Delivered
             - else
