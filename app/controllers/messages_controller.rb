@@ -21,6 +21,8 @@ class MessagesController < ApplicationController
   # GET /messages/new
   def new
     @message = Message.new
+    @message.subject = params[:subject]
+    @message.member_ids = params[:members]
   end
 
   # GET /messages/1/edit

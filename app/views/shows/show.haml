@@ -1,6 +1,17 @@
-%h1
-  = @show.human_date
-  %small= @show.name
+
+.row
+  .col-md-8
+    %h1
+      = @show.human_date
+      %small= @show.name
+  .col-md-2.pad-top-20
+    = link_to get_icon(:email, text: 'Email Cast'),
+      new_message_path( subject: "Re: #{@show.date}", members: @show.actors.map(&:id) ),
+      class: 'btn btn-default'
+  .col-md-2.pad-top-20
+    = link_to get_icon(:email, text: 'Email Crew'),
+      new_message_path( subject: "Re: #{@show.date}", members: @show.crew_members.map(&:id) ),
+      class: 'btn btn-default'
 
 %ul.list-inline
   %li Show Time: #{format_time_ampm @show.showtime}
