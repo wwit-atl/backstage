@@ -37,13 +37,13 @@ class Message < ActiveRecord::Base
   end
 
   def date
-    created_at.strftime('%D')
+    created_at.strftime('%m/%d/%Y')
   end
 
   def time_stamp(column = :delivered, format_type = :short)
     column = column.to_s + '_at'
     if self.respond_to?(column) and !self.send(column).nil?
-      format = format_type.to_sym == :short ? '%D %I:%M %p' : '%A%n%B %e, %Y%n%I:%M %p'
+      format = format_type.to_sym == :short ? '%m/%d/%Y %I:%M %p' : '%A%n%B %e, %Y%n%I:%M %p'
       self.send(column).strftime(format)
     else
       'N/A'
