@@ -113,9 +113,9 @@ class ShowsController < ApplicationController
     def set_supporting
       @stages   = Stage.all
       @skills   = Skill.all
-      @crewable = Member.company_members.by_name
-      @groups   = Role.castable
+      @crewable = Member.crewable.by_name
       @castable = Member.castable.by_name
+      @groups   = Role.castable
       @mcs = Member.active.has_role(:mc)
     end
 
