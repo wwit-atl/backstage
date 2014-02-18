@@ -25,6 +25,6 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
           %td= role.crew ? 'Yes' : 'No'
           %td= role.schedule ? 'Yes' : 'No'
           %th
-            %ul
+            %ul.list-unstyled
               - role.members.by_name.each do |member|
                 %li= link_to_member member
