@@ -290,6 +290,7 @@ DEPENDENCIES
   pry-rails
   rails (= 4.0.0)
   rails_12factor
+  rails_serve_static_assets
   rb-fsevent
   recipient_interceptor
   redcarpet

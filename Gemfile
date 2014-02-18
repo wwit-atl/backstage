@@ -65,6 +65,7 @@ end
 
 group :staging, :production do
   gem 'newrelic_rpm', '>= 3.6.7'
+  gem 'rails_serve_static_assets'
   gem 'rails_12factor'
 end
 
