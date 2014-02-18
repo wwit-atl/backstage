@@ -15,12 +15,14 @@ class Ability
     can :manage, [ Member, Show, Message, Note ] if member.has_role? :management
     can :read,   [ Member, Show, Note ] if member.company_member?
 
+    cannot :read, [ Member, Show ] if member.has_role? :volunteer
+
     #can :create, Note if member.company_member?
     #can [:read, :update, :destroy], Note, member_id: member.id
 
     can [:edit, :update, :cast], Show, mc_id: member.id
 
-    can [:edit, :update], Member, id: member.id
+    can [:read, :edit, :update], Member, id: member.id
     can :manage, Conflict, member_id: member.id
 
     can [:edit, :update, :destroy], Message, sender_id: member.id, approver_id: nil, sent_at: nil

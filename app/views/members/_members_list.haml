@@ -13,10 +13,17 @@
 
     %tbody
       - @members.each do |member|
+        - next unless can? :read, member
         %tr
           %td.name
-            - if member.inactive? and can? :edit, member
-              = get_icon(:ban, class: 'inactive')
+            - if member.inactive?
+              = get_icon(:ban, class: 'icon inactive')
+            - elsif member.has_role?(:volunteer)
+              = get_icon(:record, class: 'icon')
+            - elsif current_member.is_admin? and member.is_admin?
+              = get_icon(:tower, class: 'icon')
+            - else
+              = get_icon(:user, class: 'icon')
             = link_to_member member
           %td.phone
             - member.phones.by_type.each do |phone|

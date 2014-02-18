@@ -1,4 +1,13 @@
 #member-list {
+  .icon {
+    color: gray;
+    font-size: .8em;
+  }
+
+  .inactive {
+    color: $wwit-red;
+  }
+
   .confirmed-false {
     font-style: italic;
     a { color: red; }
