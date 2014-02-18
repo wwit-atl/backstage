@@ -6,7 +6,9 @@ delay = (->
 )()
 
 ready = ->
-  $('.bs-popover').popover()
+  $('.bs-popover').popover(
+    html: true
+  )
 
   $('.chosen-select').chosen
     allow_single_deselect: true

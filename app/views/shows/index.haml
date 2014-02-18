@@ -48,6 +48,13 @@
                 - show.actors.each do |actor|
                   %li= link_to_member actor
 
-            %td= render 'partials/admin_commands', klass: show, show: true
+            %td
+              = render 'partials/admin_commands', klass: show, show: true
+              - if show.notes.any?
+                .bs-popover.member-count{ title: 'Notes',
+                  data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
+                          content: show.notes.order(:created_at).collect{|n| n.content}.join('<br/>') },
+                          html: true }
+                  = get_icon(:comment)
 
 
