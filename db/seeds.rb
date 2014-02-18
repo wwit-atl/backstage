@@ -112,7 +112,7 @@ end
 # Create Members
 #
 [
-    [ 'Guest',       'Volunteer',    'nobody@wholeworldtheatre.com',    [:volunteer] ],
+    [ 'Guest',       'Volunteer',    'volunteer@wholeworldtheatre.com', [:volunteer] ],
     [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:admin, :management, :ms, :mc] ],
     [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc        ] ],
     [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc        ] ],
