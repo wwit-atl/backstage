@@ -110,8 +110,8 @@ class Member < ActiveRecord::Base
     !active?
   end
 
-  def has_skill?(skill)
-    skills.pluck(:code).include?(skill)
+  def schedule_groups
+    roles.auto_schedule.pluck(:name)
   end
 
   def castable_groups
@@ -126,6 +126,9 @@ class Member < ActiveRecord::Base
 
   # Returns true if eligible, 0 if at min_shifts, false if ineligible
   def eligible_for_shift?(show, min_shifts, max_shifts)
+    # Is the member part of a auto_schedule group?
+    return false if schedule_groups.empty?
+
     # Is the member already at the maximum number of shifts?
     return false if shift_count_for_month(show.month) >= max_shifts
 

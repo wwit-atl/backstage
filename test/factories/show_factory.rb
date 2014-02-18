@@ -37,6 +37,13 @@ FactoryGirl.define do
       end
     end
 
+    trait :ms do
+      after(:create) do |show|
+        show.group_id = Role.where(name: 'ms').first.id
+        show.save
+      end
+    end
+
     trait :us do
       after(:create) do |show|
         show.group_id = Role.where(name: 'us').first.id

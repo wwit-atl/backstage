@@ -12,6 +12,7 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
         %th Description
         %th Castable?
         %th Crewable?
+        %th AutoSched?
         %th Members
 
     %tbody
@@ -22,6 +23,7 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
           %td= role.desc
           %td= role.cast ? 'Yes' : 'No'
           %td= role.crew ? 'Yes' : 'No'
+          %td= role.schedule ? 'Yes' : 'No'
           %th
             %ul
               - role.members.by_name.each do |member|

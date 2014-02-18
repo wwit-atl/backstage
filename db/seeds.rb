@@ -22,23 +22,23 @@ end
 # Create Roles
 #
 puts 'Create Roles'
-#   Role         Cast?  Crew?  Title                  Description
+#   Role         Cast?  Crew?  Sched? Title                  Description
 [
-  [ :admin,      false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
-  [ :management, false, false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
-  [ :sponsor,    false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
-  [ :friend,     false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
-  [ :alumni,     false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
-  [ :student,    false, false, 'WWIT Student',        'Improv Student, limited access'                    ],
-  [ :mc,         false, false, 'Master of Ceremonies','MC, able to cast shows'                            ],
-  [ :ms,         true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
-  [ :apprentice, true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
-  [ :us,         true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
-  [ :isp,        true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
-  [ :staff,      false, true,  'Staff Member',        'Official Company Staff, normal access'             ],
-  [ :volunteer,  false, true,  'WWIT Volunteer',      'Volunteer, limited access'                         ],
-].each do |code, cast, crew, title, desc|
-  Role.where(name: code.to_s).first_or_create.update_attributes( title: title, desc: desc, cast: cast, crew: crew )
+  [ :admin,      false, false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
+  [ :management, false, false, false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
+  [ :sponsor,    false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
+  [ :friend,     false, false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
+  [ :alumni,     false, false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
+  [ :mc,         false, false, false, 'Master of Ceremonies','MC, able to cast shows'                            ],
+  [ :ms,         true,  true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
+  [ :apprentice, true,  true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
+  [ :us,         true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
+  [ :isp,        true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
+  [ :student,    false, true,  false, 'WWIT Student',        'Improv Student, limited access'                    ],
+  [ :staff,      false, true,  false, 'Staff Member',        'Official Company Staff, normal access'             ],
+  [ :volunteer,  false, true,  false, 'WWIT Volunteer',      'Volunteer, limited access'                         ],
+].each do |code, cast, crew, sched, title, desc|
+  Role.where(name: code.to_s).first_or_create.update_attributes( title: title, desc: desc, cast: cast, crew: crew, schedule: sched )
 end
 
 #
@@ -112,6 +112,7 @@ end
 # Create Members
 #
 [
+    [ 'Guest',       'Volunteer',    'nobody@wholeworldtheatre.com',    [:volunteer] ],
     [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:admin, :management, :ms, :mc] ],
     [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc        ] ],
     [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc        ] ],

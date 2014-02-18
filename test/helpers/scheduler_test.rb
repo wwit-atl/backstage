@@ -5,8 +5,10 @@ class SchedulerTest < ActiveSupport::TestCase
   def setup
     create(:konfig, name: 'MemberMinShifts', value: 3)
     create(:konfig, name: 'MemberMaxShifts', value: 5)
-    create(:role, name: 'us', cast: 'true', crew: 'true')
-    create(:role, name: 'isp', cast: 'true', crew: 'true')
+    create(:role, name: 'ms',        cast: 'true',  crew: 'true', schedule: 'false')
+    create(:role, name: 'us',        cast: 'true',  crew: 'true', schedule: 'true')
+    create(:role, name: 'isp',       cast: 'true',  crew: 'true', schedule: 'true')
+    create(:role, name: 'volunteer', cast: 'false', crew: 'true', schedule: 'false')
   end
 
   def create_show(group = :us)
@@ -34,6 +36,9 @@ class SchedulerTest < ActiveSupport::TestCase
     assert build(:show).respond_to?(:schedule), 'Model does not respond to schedule'
   end
 
+  ##
+  # NOTE:  Must create shows before members, because show factory creates skills
+  ##
   test 'schedule shows' do
     us_show    = create_show(:us)
     us_member  = create_member(:us)
@@ -54,4 +59,27 @@ class SchedulerTest < ActiveSupport::TestCase
     refute_equal isp_member, isp_show.shifts.with_skill(:hm).member, 'Schedule assigns ISP member to ISP shift'
   end
 
+  test 'auto-schedules for ms shows' do
+    show = create_show(:ms)
+    member = create :member, :us, :train_hm
+
+    assert_equal 1, Member.crewable.count, 'There are no crew members to test schedule'
+    assert_equal 1, Member.crewable.has_skill(:hm).count, 'test did not create HM member'
+
+    show.schedule
+
+    assert_equal member, show.shifts.with_skill(:hm).member, 'Schedule auto-assigns volunteer members'
+  end
+
+  test 'does not auto-schedule volunteers' do
+    show = create_show(:ms)
+    create :member, :volunteer, :train_hm
+
+    assert_equal 1, Member.crewable.count, 'There are no crew members to test schedule'
+    assert_equal 1, Member.crewable.has_skill(:hm).count, 'test did not create HM member'
+
+    show.schedule
+
+    assert_equal nil, show.shifts.with_skill(:hm).member, 'Schedule auto-assigns volunteer members'
+  end
 end

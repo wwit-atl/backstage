@@ -6,6 +6,7 @@ class Role < ActiveRecord::Base
 
   scope :castable, -> { where(cast: 'true' ) }
   scope :crewable, -> { where(crew: 'true' ) }
+  scope :auto_schedule, -> { where(schedule: 'true' ) }
 
   scope :by_name, -> { order(:name) }
   scope :by_member_name, -> { joins(:members).order('members.lastname') }
