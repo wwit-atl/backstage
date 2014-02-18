@@ -32,7 +32,7 @@
           - @actors.each do |cast|
             .row
               .col-md-6= link_to_member( cast )
-              .col-md-6= cast.roles.castable.map { |r| r.title }.to_sentence
+              .col-md-6.hidden-xs= cast.roles.castable.map { |r| r.title }.to_sentence
 
   .col-md-6
     .box

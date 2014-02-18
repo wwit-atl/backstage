@@ -113,8 +113,8 @@ class ShowsController < ApplicationController
     def set_supporting
       @stages   = Stage.all
       @skills   = Skill.all
-      @crewable = Member.crewable.by_name
-      @castable = Member.castable.by_name
+      @crewable = Member.crewable.by_name.to_a.uniq
+      @castable = Member.castable.by_name.to_a.uniq
       @groups   = Role.castable
       @mcs = Member.active.has_role(:mc)
     end
