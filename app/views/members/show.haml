@@ -24,25 +24,26 @@
           - if @shows.empty?
             %p No upcoming Shows
           - else
-            %table.table.table-condensed
-              %th Date / Name
-              %th Cast
-              %th Crew
-              - @shows.each do |show|
-                %tr
-                  %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
-                  %td.col-md-4
-                    %ul
-                      - if !show.mc.nil?
-                        %li= link_to_member( show.mc ) + ' (MC)'
-                      - show.actors.each do |member|
-                        %li= link_to_member member
-                  %td.col-md-4
-                    %ul.list-unstyled
-                      - show.shifts.each do |shift|
-                        %li
-                          .shift-code= shift.skill.code + ':'
-                          = link_to_member shift.member
+            .table-responsive
+              %table.table.table-condensed
+                %th Date / Name
+                %th Cast
+                %th Crew
+                - @shows.each do |show|
+                  %tr
+                    %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
+                    %td.col-md-4
+                      %ul
+                        - if !show.mc.nil?
+                          %li= link_to_member( show.mc ) + ' (MC)'
+                        - show.actors.each do |member|
+                          %li= link_to_member member
+                    %td.col-md-4
+                      %ul.list-unstyled
+                        - show.shifts.each do |shift|
+                          %li
+                            .shift-code= shift.skill.code + ':'
+                            = link_to_member shift.member
 
   .row
     - if @member.is_crewable?
