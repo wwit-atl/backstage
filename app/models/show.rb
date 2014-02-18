@@ -16,7 +16,8 @@ class Show < ActiveRecord::Base
   accepts_nested_attributes_for :shifts, allow_destroy: true
 
   scope :recent, -> { where('date > ?', Date.today - 30.days) }
-  scope :by_date, -> { order(:date) }
+  scope :by_date, -> { order(:date, :showtime) }
+  scope :by_date_desc, -> { order(:date => :desc, :showtime => :asc) }
 
   scope :for_month, ->(cdate = Date.today) { where('date >= ? AND date <= ?', cdate.beginning_of_month, cdate.end_of_month) }
 
