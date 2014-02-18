@@ -29,6 +29,7 @@
                 %th Date / Name
                 %th Cast
                 %th Crew
+                %th
                 - @shows.each do |show|
                   %tr
                     %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
@@ -44,6 +45,13 @@
                           %li
                             .shift-code= shift.skill.code + ':'
                             = link_to_member shift.member
+                    %td
+                      - if show.notes.any?
+                        .bs-popover{ title: 'Notes',
+                          data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
+                                  content: show.notes.order(:created_at).collect{|n| n.content}.join('<br/>') },
+                                  html: true }
+                          = get_icon(:comment)
 
   .row
     - if @member.is_crewable?

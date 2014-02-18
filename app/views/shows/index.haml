@@ -51,7 +51,7 @@
             %td
               = render 'partials/admin_commands', klass: show, show: true
               - if show.notes.any?
-                .bs-popover.member-count{ title: 'Notes',
+                .bs-popover{ title: 'Notes',
                   data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
                           content: show.notes.order(:created_at).collect{|n| n.content}.join('<br/>') },
                           html: true }
