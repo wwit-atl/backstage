@@ -6,7 +6,7 @@
 @viewport           { width: device-width; }
 
 body {
-  background: white url('background-logo.jpg') no-repeat fixed -200px -100px;
+  background: white image-url('background-logo.jpg') no-repeat fixed -200px -100px;
   padding-top: 50px;
   padding-bottom: 100px;
 }
@@ -117,7 +117,7 @@ fieldset {
   right: 50px;
   height: 256px;
   width: 335px;
-  background-image: url('WWIT-Logo-sm.png')
+  background-image: image-url('WWIT-Logo-sm.png')
 }
 
 .shift-code {

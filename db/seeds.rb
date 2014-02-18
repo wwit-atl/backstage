@@ -111,6 +111,7 @@ end
 #
 # Create Members
 #
+ENV['NO_EMAIL'] = 'true'
 [
     [ 'Guest',       'Volunteer',    'volunteer@wholeworldtheatre.com', [:volunteer] ],
     [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:admin, :management, :ms, :mc] ],

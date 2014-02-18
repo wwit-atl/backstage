@@ -63,9 +63,13 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :staging, :production do
+group :production do
+end
+
+group :production do
   gem 'newrelic_rpm', '>= 3.6.7'
-  gem 'rails_serve_static_assets'
+  gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
+  gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
   gem 'rails_12factor'
 end
 
