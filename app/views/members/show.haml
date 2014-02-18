@@ -54,14 +54,15 @@
           - else
             - @shifts.each do |shift|
               .row
-                .col-md-4= link_to "#{shift.show.date} [#{shift.show.dow}]", shift.show
-                .col-md-4
+                .col-sm-5.col-xs-6
+                  .hidden-xs= link_to "#{shift.show.human_date} [#{shift.show.dow} #{shift.show.show_time}]", shift.show
+                  .visible-xs= link_to shift.show.human_date, shift.show
+                .col-sm-4.col-xs-6
                   = shift.skill.name
                   = ' (training)' if shift.training?
-                .col-md-2.col-xs-6
-                  = "Call: #{shift.show.call_time}"
-                .col-md-2.col-xs-6
-                  = "Show: #{shift.show.show_time}"
+                .col-sm-3.hidden-xs
+                  Call Time:
+                  = shift.show.call_time
 
   - if @member == current_member
     .row
