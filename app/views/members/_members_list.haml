@@ -22,6 +22,8 @@
               = get_icon(:record, class: 'icon')
             - elsif current_member.is_admin? and member.is_admin?
               = get_icon(:tower, class: 'icon')
+            - elsif current_member.is_admin? and member.has_role?(:management)
+              = get_icon(:star, class: 'icon')
             - else
               = get_icon(:user, class: 'icon')
             = link_to_member member
