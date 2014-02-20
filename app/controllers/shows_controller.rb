@@ -8,6 +8,7 @@ class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
   def index
+    session[:date_params] = params[:date]
   end
 
   # GET /shows/1
