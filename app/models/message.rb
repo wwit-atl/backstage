@@ -59,7 +59,7 @@ class Message < ActiveRecord::Base
   private
 
   def check_and_add_members
-    self.members = Member.company_members if self.members.empty?
+    self.members = Member.company_members.to_a.uniq if self.members.empty?
   end
 
 end

@@ -22,23 +22,30 @@ end
 # Create Roles
 #
 puts 'Create Roles'
-#   Role         Cast?  Crew?  Sched? Title                  Description
+#   Role         Cast?  Crew?  cm?    Sched? Title                  Description
 [
-  [ :admin,      false, false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
-  [ :management, false, false, false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
-  [ :sponsor,    false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
-  [ :friend,     false, false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
-  [ :alumni,     false, false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
-  [ :mc,         false, false, false, 'Master of Ceremonies','MC, able to cast shows'                            ],
-  [ :ms,         true,  true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
-  [ :apprentice, true,  true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
-  [ :us,         true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
-  [ :isp,        true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
-  [ :student,    false, true,  false, 'WWIT Student',        'Improv Student, limited access'                    ],
-  [ :staff,      false, true,  false, 'Staff Member',        'Official Company Staff, normal access'             ],
-  [ :volunteer,  false, true,  false, 'WWIT Volunteer',      'Volunteer, limited access'                         ],
-].each do |code, cast, crew, sched, title, desc|
-  Role.where(name: code.to_s).first_or_create.update_attributes( title: title, desc: desc, cast: cast, crew: crew, schedule: sched )
+  [ :admin,      false, false, false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
+  [ :management, false, false, true,  false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
+  [ :sponsor,    false, false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
+  [ :friend,     false, false, false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
+  [ :alumni,     false, false, false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
+  [ :mc,         false, false, false, false, 'Master of Ceremonies','MC, able to cast shows'                            ],
+  [ :ms,         true,  true,  true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
+  [ :apprentice, true,  true,  true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
+  [ :us,         true,  true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
+  [ :isp,        true,  true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
+  [ :student,    false, true,  false, false, 'WWIT Student',        'Improv Student, limited access'                    ],
+  [ :staff,      false, true,  true,  false, 'Staff Member',        'Official Company Staff, normal access'             ],
+  [ :volunteer,  false, true,  false, false, 'WWIT Volunteer',      'Volunteer, limited access'                         ],
+].each do |code, cast, crew, cm, sched, title, desc|
+  Role.where(name: code.to_s).first_or_create.update_attributes(
+      title:    title,
+      desc:     desc,
+      cast:     cast,
+      crew:     crew,
+      cm:       cm,
+      schedule: sched
+  )
 end
 
 #
@@ -60,11 +67,11 @@ puts 'Create Skills'
   [ nil, 'TEACH', 'Improv Teacher',       '', true,  false ]
 ].each do |priority, code, name, desc, training, autocrew|
   Skill.where(code: code).first_or_create.update_attributes(
-    name: name,
+    name:        name,
     description: desc,
-    training: training,
-    autocrew: autocrew,
-    priority: priority,
+    training:    training,
+    autocrew:    autocrew,
+    priority:    priority,
   )
 end
 

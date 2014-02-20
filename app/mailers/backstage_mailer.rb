@@ -4,11 +4,8 @@ class BackstageMailer < ActionMailer::Base
 
   def announcements(message)
     @message = message
-    message_id = SecureRandom.uuid
 
-    headers['X-MC-Metadata'] = { message_id: message_id }.to_json
-
-    message.email_message_id = message_id
+    message.email_message_id = set_message_id
     message.sent_at = Time.now.utc
 
     mail ({
@@ -29,6 +26,12 @@ class BackstageMailer < ActionMailer::Base
   end
 
   private
+
+    def set_message_id
+      message_id = SecureRandom.uuid
+      headers['X-MC-Metadata'] = { message_id: message_id }.to_json
+      message_id
+    end
 
     def set_headers
       headers['X-MC-Autotext'] = 'true'

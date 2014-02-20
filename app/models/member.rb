@@ -30,13 +30,14 @@ class Member < ActiveRecord::Base
   scope :active,   -> { where(active: true) }
   scope :inactive, -> { where(active: false)}
 
-  scope :castable, -> { active.joins(:roles).merge(Role.castable) }
-  scope :crewable, -> { active.joins(:roles).merge(Role.crewable) }
+  scope :castable, -> { active.joins(:roles).merge(Role.castable)   }
+  scope :crewable, -> { active.joins(:roles).merge(Role.crewable)   }
+  scope :company_members, -> { active.joins(:roles).merge(Role.company_member) }
 
   # ToDo Need a method that determines if a Member is eligible for a given date (checking conflicts, crews, and cast)
   #scope :castable_for_date, ->(date) { castable & !conflicts.includes?(date) & !shifts.}
 
-  scope :company_members, -> { castable || crewable }
+  #scope :company_members, -> { ( castable || crewable ) && emailable }
   scope :uses_conflicts, -> { castable || crewable }
 
   scope :has_role,      ->(role)  { joins(:roles).where(roles: {name: role.to_s}) }
@@ -91,7 +92,7 @@ class Member < ActiveRecord::Base
   end
 
   def company_member?
-    active? && ( is_crewable? || is_castable? )
+    active? && roles.company_member.count > 0
   end
 
   def uses_conflicts?

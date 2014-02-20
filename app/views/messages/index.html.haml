@@ -27,7 +27,7 @@
           .bs-popover.member-count{ title: "Sent to the following #{pluralize(message.members.count, 'Member')}",
             data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
                     content: message.members.collect{|m| m.name}.to_sentence } }
-            = "Sent to #{pluralize(message.members.count, 'Member')}"
+            = get_icon :envelope, text: "Sent to #{pluralize(message.members.count, 'Member')}"
         .col-sm-2
           - if !message.approved?
             .status Waiting on Approval

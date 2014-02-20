@@ -1,7 +1,11 @@
 %h1
   Listing Roles
 
-Intended as a reference and quick-view of member assignments.  You cannot directly modify roles.
+%ul
+  %li Cast?  : Are members of this group eligible for casting?
+  %li Crew?  : Are members of this group eligible to crew shifts?
+  %li CM?    : Are members of this group considered a "Company Member"?  (By default, mass Announcements will only go to these members)
+  %li Sched? : Should we attempt to auto-schedule members of this group?
 
 .table-responsive
   %table.table.table-striped.table-condensed
@@ -12,6 +16,7 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
         %th Description
         %th Cast?
         %th Crew?
+        %th CM?
         %th Sched?
         %th Members
 
@@ -21,8 +26,9 @@ Intended as a reference and quick-view of member assignments.  You cannot direct
           %td= role.code
           %td= role.title
           %td= role.desc
-          %td= role.cast ? 'Yes' : 'No'
-          %td= role.crew ? 'Yes' : 'No'
+          %td= role.cast     ? 'Yes' : 'No'
+          %td= role.crew     ? 'Yes' : 'No'
+          %td= role.cm       ? 'Yes' : 'No'
           %td= role.schedule ? 'Yes' : 'No'
           %th
             %ul.list-unstyled
