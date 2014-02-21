@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.0'
 
-gem 'rails', '4.0.0'
+gem 'rails', '~> 4.0.0'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -68,8 +68,8 @@ end
 
 group :production do
   gem 'newrelic_rpm', '>= 3.6.7'
-  gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
-  gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
+  #gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
+  #gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
   gem 'rails_12factor'
 end
 
