@@ -9,7 +9,7 @@
 
   %h1 Shows in #{@date.strftime('%B, %Y')}
 
-  = render 'partials/month_controls', today: 'Today'
+  = render 'partials/month_controls'
 
   .table-responsive
     %table.table.table-striped
@@ -27,7 +27,7 @@
 
       %tbody
         - @shows.each do |show|
-          %tr
+          %tr{ class: ('is-soon' if show.is_soon? ) }
             %td= link_to show.human_date, show_path(show)
             %td= link_to show.name, show_path(show)
             %td.hidden-xs.hidden-sm= format_time_ampm show.calltime

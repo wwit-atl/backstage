@@ -61,4 +61,12 @@ class Show < ActiveRecord::Base
   def cast?
     !casting_sent_at.nil?
   end
+
+  def to_datetime
+    DateTime.new(date.year, date.month, date.day, calltime.hour, calltime.min)
+  end
+
+  def is_soon?
+    ( 6.hours.ago.to_datetime .. 24.hours.from_now.to_datetime ).cover?(to_datetime)
+  end
 end

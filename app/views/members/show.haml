@@ -31,7 +31,7 @@
                 %th Crew
                 %th
                 - @shows.each do |show|
-                  %tr
+                  %tr{ class: ('is-soon' if show.is_soon? )}
                     %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
                     %td.col-md-4
                       %ul.list-unstyled
@@ -62,7 +62,7 @@
             %p No upcoming Shifts
           - else
             - @shifts.each do |shift|
-              .row
+              .row{ class: ('is-soon' if shift.show.is_soon?)}
                 .col-sm-5.col-xs-6
                   .hidden-xs= link_to "#{shift.show.human_date} [#{shift.show.dow} #{shift.show.show_time}]", shift.show
                   .visible-xs= link_to shift.show.human_date, shift.show
