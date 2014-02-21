@@ -32,7 +32,7 @@ class BackstageMailer < ActionMailer::Base
             bcc: Member.company_members.email_tags.uniq,
         subject: "[WWIT-CASTING] Cast List for #{@show.human_date} @#{@show.show_time}"
     }
-    mail_opts.merge!( to: @show.mc.email_tag, reply_to: @show.mc.email_tag ) if @show.mc
+    mail_opts.merge!( reply_to: @show.mc.email_tag ) if @show.mc
 
     mail mail_opts
   end
