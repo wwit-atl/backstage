@@ -2,7 +2,8 @@
   = @show.name
   %small #{@show.human_date} @#{@show.show_time}
 
-%p MC: #{@show.mc.try(:name)}
+- if @show.mc
+  %p MC: #{@show.mc.name}
 
 %p
   %strong= @show.actors.by_name_last.map(&:name).to_sentence

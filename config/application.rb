@@ -36,6 +36,7 @@ module Backstage
     }
     config.action_mailer.default_options = {
         from: 'Laughing Larry <larry@wholeworldtheatre.com>',
+        to: 'Laughing Larry <larry@wholeworldtheatre.com>',
         reply_to: ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
     }
     config.action_mailer.delivery_method = :smtp
