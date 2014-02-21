@@ -34,13 +34,12 @@ class Conflict < ActiveRecord::Base
   end
 
   def locked?
-    datetime < Date.today
+    lock?
   end
 
-  def css_class
-    css = []
-    css << 'locked' if locked?
-    css.join(' ')
+  def lock!
+    self.lock = true
+    self.save
   end
 
 end

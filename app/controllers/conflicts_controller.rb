@@ -37,7 +37,7 @@ class ConflictsController < ApplicationController
     @conflict = @member.conflicts.for_date(@conflict_date).first
 
     if @conflict
-      @conflict.destroy
+      @conflict.destroy if current_member.is_admin? or !@conflict.locked?
     else
       conflict_date = Date.parse(@conflict_date)
       unless Conflict.create( month: conflict_date.month,

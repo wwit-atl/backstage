@@ -58,7 +58,7 @@ module CalendarHelper
       classes << 'today'    if day == Date.today
       classes << 'notmonth' if day.month != date.month
       classes << 'selected' unless event.nil?
-      classes << event.try(:css_class)
+      classes << 'locked'   if event.try(:locked?)
       classes.flatten.compact.join(' ')
     end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140221053911) do
+ActiveRecord::Schema.define(version: 20140221212515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140221053911) do
     t.integer  "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "lock"
   end
 
   add_index "conflicts", ["member_id"], name: "index_conflicts_on_member_id", using: :btree

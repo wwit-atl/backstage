@@ -40,7 +40,7 @@
 
 
       = calendar( date: @date, events: @conflicts ) do |date|
-        -if Date.today <= date or current_member.is_admin?
+        -if current_member.is_admin? or ( Date.today <= date and !@conflicts.for_date(date).first.try(:locked?) )
           = link_to date.day, { date: date, :action => :set_conflicts }, :method => :put, remote: true, onclick: "calendarClick('#{date.to_s}')"
         - else
           = date.day
