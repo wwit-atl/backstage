@@ -63,7 +63,7 @@ class Show < ActiveRecord::Base
   end
 
   def to_datetime
-    DateTime.new(date.year, date.month, date.day, calltime.hour, calltime.min)
+    DateTime.new(date.year, date.month, date.day, showtime.in_time_zone('UTC').hour, showtime.in_time_zone('UTC').min)
   end
 
   def is_soon?
