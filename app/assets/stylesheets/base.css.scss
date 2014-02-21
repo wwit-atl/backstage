@@ -54,11 +54,16 @@ fieldset {
   margin-top: 0;
 }
 
-.red { color: $wwit-red; }
+.green   { color: $wwit-green; }
+.darkgreen { color: darken($wwit-green, 10%); }
+.red     { color: $wwit-red; }
 .darkred { color: darken($wwit-red, 10%); }
+
+.red-bg { background-color: transparentize(red, .8); }
+
 .text-large { font-size: 1.2em; }
-.bold { font-weight: bold; }
-.handle { color: #777; cursor: move; }
+.bold    { font-weight: bold; }
+.handle  { color: #777; cursor: move; }
 
 #body-header {
   z-index: 99999;

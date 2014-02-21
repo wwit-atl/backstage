@@ -32,11 +32,19 @@
 }
 
 #conflicts-index {
+  .conflict-dates {
+    color: $wwit-red;
+  }
+
   .over-limit {
     color: red;
     font-weight: bold;
   }
   .under-limit {
     color: green;
+  }
+
+  .locked {
+    color: $wwit-green;
   }
 }

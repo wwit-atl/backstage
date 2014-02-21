@@ -1,7 +1,7 @@
 class ConflictsController < ApplicationController
   authorize_resource
 
-  before_action :get_member, :except => :index
+  before_action :get_member, :except => [ :index, :lock_conflicts ]
   before_action :get_config, :authorize
 
   # GET /conflicts
@@ -50,6 +50,14 @@ class ConflictsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to manage_member_conflicts_path(@member) }
+      format.js {}
+    end
+  end
+
+  def lock_conflicts
+    Conflict.find_each(&:lock!)
+    respond_to do |format|
+      format.html { redirect_to conflicts_path, notice: 'All existing conflicts have been locked.' }
       format.js {}
     end
   end

@@ -30,12 +30,13 @@ Backstage::Application.routes.draw do
   resources :members, :concerns => :notable do
     resource :conflicts do
       get :manage
-      get :get_conflicts, :as => :get
-      put :set_conflicts, :as => :set
+      get :get_conflicts,  :as => :get
+      put :set_conflicts,  :as => :set
     end
   end
-  get '/conflicts', to: 'conflicts#index'
-  get '/roles',     to: 'members#roles'
+  get '/conflicts',      to: 'conflicts#index'
+  put '/lock_conflicts', to: 'conflicts#lock_conflicts'
+  get '/roles',          to: 'members#roles'
 
   resources :configs, controller: 'konfigs', only: [ :index, :update ] do
     collection do
