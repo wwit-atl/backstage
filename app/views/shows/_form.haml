@@ -3,7 +3,7 @@
     = render 'partials/form_errors', model: @show
 
   .row
-    .col-md-6= f.input :name
+    .col-md-6= f.input :name, disabled: !(can? :manage, @show)
   .row
     .col-md-3= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }
     .col-md-3= f.input :showtime, :as => :string, label: 'Show Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }
