@@ -69,4 +69,8 @@ class Show < ActiveRecord::Base
   def is_soon?
     ( 6.hours.ago.to_datetime.utc .. 24.hours.from_now.to_datetime.utc ).cover?(to_datetime)
   end
+
+  def is_today?
+    date == Date.today
+  end
 end

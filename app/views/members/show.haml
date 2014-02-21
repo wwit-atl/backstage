@@ -31,7 +31,7 @@
                 %th Crew
                 %th
                 - @shows.each do |show|
-                  %tr{ class: ('is-soon' if show.is_soon? )}
+                  %tr{ class: ('is-soon' if show.is_today? )}
                     %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
                     %td.col-md-4
                       %ul.list-unstyled
