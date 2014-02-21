@@ -90,6 +90,22 @@ class ShowsController < ApplicationController
     end
   end
 
+  def casting_announcement
+    return unless params[:show_id]
+
+    @show = Show.find(params[:show_id])
+    unauthorized unless can? :cast, @show
+
+    @show.casting_sent_at = Time.now
+
+    if BackstageMailer.casting_announcement(@show).deliver
+      @show.save
+      redirect_to :back, flash: { success: 'Casting Announcement Sent' }
+    else
+      redirect_to :back, flash: { error: 'Unable to send email(s)!' }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_show

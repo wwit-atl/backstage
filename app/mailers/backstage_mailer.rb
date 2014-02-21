@@ -25,6 +25,16 @@ class BackstageMailer < ActionMailer::Base
     })
   end
 
+  def casting_announcement(show)
+    @show = show
+    mail ({
+             to: @show.mc.try(:email_tag),
+       reply_to: @show.mc.try(:email_tag),
+            bcc: Member.company_members.email_tags.uniq,
+        subject: "[WWIT-CASTING] Cast List for #{@show.human_date} @#{@show.show_time}"
+    })
+  end
+
   private
 
     def set_message_id

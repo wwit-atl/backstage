@@ -14,6 +14,7 @@ Backstage::Application.routes.draw do
     get :approve
     get :resend_email
   end
+
   resource :inbox, controller: 'inbox', :only => [:show,:create] # For email WebHooks
 
   resources :show_templates, except: [:show]
@@ -23,6 +24,7 @@ Backstage::Application.routes.draw do
       get 'schedule', to: 'shows#schedule'
       get 'create',   to: 'shows#create_shows', as: 'create'
     end
+    post 'casting_announcement'
   end
 
   resources :members, :concerns => :notable do

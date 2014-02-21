@@ -33,6 +33,10 @@ class Show < ActiveRecord::Base
     showtime.strftime('%l:%M %P')
   end
 
+  def casting_sent
+    casting_sent_at.strftime('%m/%d/%Y @ %l:%M %P')
+  end
+
   def human_date
     date.strftime('%m/%d/%Y')
   end
@@ -52,5 +56,9 @@ class Show < ActiveRecord::Base
   def shift(code = nil)
     return unless code
     shifts.where(skill: Skill.class_eval(code.to_s.downcase)).first
+  end
+
+  def cast?
+    !casting_sent_at.nil?
   end
 end

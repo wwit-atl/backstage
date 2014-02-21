@@ -1,0 +1,14 @@
+%h2
+  = @show.name
+  %small #{@show.human_date} @#{@show.show_time}
+
+%p MC: #{@show.mc.try(:name)}
+
+%p
+  %strong= @show.actors.by_name_last.map(&:name).to_sentence
+
+%p
+  %em Call time is #{@show.call_time}
+
+= link_to 'Visit Show page', show_url(@show)
+

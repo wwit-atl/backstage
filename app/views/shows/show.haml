@@ -1,13 +1,21 @@
 
 .row
-  .col-md-8
+  .col-md-5
     %h1
       = @show.human_date
       %small= @show.name
-  .col-md-2.pad-top-20
-    - if @show.actors.any?
+  - if @show.actors.any?
+    - if can? :cast, @show
+      .col-md-3.pad-top-20
+        = link_to get_icon(:email, text: @show.cast? ? "Sent at #{@show.casting_sent}" : 'Send Cast Announcement' ),
+                  show_casting_announcement_path(@show),
+                  class: 'btn btn-default',
+                  method: :post,
+                  title: ( 'Re-Send?' if @show.cast? ),
+                  data: { disable_with: 'Sending emails, please wait', confirm: ('Re-Send Announcement?' if @show.cast?) }
+    .col-md-2.pad-top-20
       = link_to get_icon(:email, text: 'Email Cast'),
-        new_message_path( subject: "Re: #{@show.date}", members: @show.actors.map(&:id) ),
+        new_message_path( subject: "Re: #{@show.human_date}", members: @show.actors.map(&:id) ),
         class: 'btn btn-default'
   .col-md-2.pad-top-20
     - if @show.crew_members.any?
