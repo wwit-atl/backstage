@@ -91,37 +91,6 @@
               .visible-xs= link_to truncate(message.subject, length: 60, seperator: ' '), message_path(message)
               .pad-top-20= sanitize message.formatted_text
 
-  .row
-    - if @member.is_castable? or @member.is_crewable?
-      .col-md-4
-        .plaque
-          %h3.no-top-pad Group Memberships
-          %ul
-            - @member.roles.each do |role|
-              %li= role.title
-
-      .col-md-4
-        .plaque
-          %h3.no-top-pad Shift Skills
-          - if @skills.empty?
-            %p No Skills Assigned
-          - else
-            %ul
-              - @skills.each do |skill|
-                %li= skill.name
-
-      .col-md-4
-        .plaque
-          %h3.no-top-pad Conflicts
-          - if @conflicts.empty?
-            %p No Conflicts
-          - else
-            %ul
-              - @conflicts.each do |conflict|
-                %li= conflict.date
-          - if is_authorized?(@member)
-            = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
-
   - if can? :update, @member
     .box
       .row
@@ -144,6 +113,37 @@
                 = address.zip
             - if @member.addresses.empty?
               No Address Provided
+
+  .row
+    .col-md-4
+      .plaque
+        %h3.no-top-pad Group Memberships
+        %ul
+          - @member.roles.each do |role|
+            %li= role.title
+
+    - if @member.is_castable? or @member.is_crewable?
+      .col-md-4
+        .plaque
+          %h3.no-top-pad Shift Skills
+          - if @skills.empty?
+            %p No Skills Assigned
+          - else
+            %ul
+              - @skills.each do |skill|
+                %li= skill.name
+
+      .col-md-4
+        .plaque
+          %h3.no-top-pad Conflicts
+          - if @conflicts.empty?
+            %p No Conflicts
+          - else
+            %ul
+              - @conflicts.each do |conflict|
+                %li= conflict.date
+          - if is_authorized?(@member)
+            = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
 
   .row
     .col-md-12
