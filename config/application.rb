@@ -20,12 +20,12 @@ module Backstage
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.action_mailer.default_url_options = { host: 'localhost' }
 
     config.i18n.enforce_available_locales = true
 
     # ActionMailer Settings
     config.action_mailer.default_url_options = {  host: ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com'  }
+
     config.action_mailer.smtp_settings = {
         :domain         => ENV['MANDRILL_DOMAIN']       || 'wholeworldtheatre.com',
         :port           => ENV['MANDRILL_SMTP_PORT']    || '587',
@@ -34,11 +34,13 @@ module Backstage
         :password       => ENV['MANDRILL_TESTING'] != 'true' ? ENV['MANDRILL_APIKEY'] : ENV['MANDRILL_TEST_APIKEY'],
         :authentication => :plain
     }
+
     config.action_mailer.default_options = {
         :from           => 'Laughing Larry <larry@wholeworldtheatre.com>',
         :to             => 'Laughing Larry <larry@wholeworldtheatre.com>',
         :reply_to       => ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
     }
+
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = false if ENV['NO_EMAIL']
   end

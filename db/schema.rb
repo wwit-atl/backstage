@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140221212515) do
+ActiveRecord::Schema.define(version: 20140222224157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20140221212515) do
     t.integer "skill_id"
     t.integer "member_id"
     t.boolean "training"
+    t.string  "uuid"
   end
 
   add_index "shifts", ["member_id"], name: "index_shifts_on_member_id", using: :btree

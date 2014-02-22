@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
 
   alias_method :current_user, :current_member
 
+  def default_url_options
+    {
+        host:   ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com',
+        locale: I18n.locale
+    }
+  end
+
   def admin_only!
     unauthorized unless ( current_member and current_member.is_admin? )
   end

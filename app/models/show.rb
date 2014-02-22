@@ -62,8 +62,8 @@ class Show < ActiveRecord::Base
     !casting_sent_at.nil?
   end
 
-  def to_datetime
-    DateTime.new(date.year, date.month, date.day, showtime.in_time_zone('UTC').hour, showtime.in_time_zone('UTC').min)
+  def to_datetime(time = :showtime)
+    DateTime.new(date.year, date.month, date.day, self.send(time).in_time_zone('UTC').hour, self.send(time).in_time_zone('UTC').min)
   end
 
   def is_soon?

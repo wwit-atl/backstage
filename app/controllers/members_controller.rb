@@ -53,6 +53,17 @@ class MembersController < ApplicationController
     @notable = @member
     @notes = @notable.notes
     @note = Note.new
+
+    respond_to do |format|
+      format.html {}
+      format.json { render :json => @shifts.map(&:to_json) }
+      format.ics do
+        calendar = Icalendar::Calendar.new
+        @shifts.each { |event| calendar.add_event(event.to_ics) }
+        calendar.publish
+        render :text => calendar.to_ical
+      end
+    end
   end
 
   def roles
