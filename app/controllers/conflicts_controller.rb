@@ -55,6 +55,8 @@ class ConflictsController < ApplicationController
   end
 
   def lock_conflicts
+    unauthorized unless can? :manage, Conflict
+
     Conflict.find_each(&:lock!)
     respond_to do |format|
       format.html { redirect_to conflicts_path, notice: 'All existing conflicts have been locked.' }
