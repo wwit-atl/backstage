@@ -55,8 +55,6 @@ class ConflictsController < ApplicationController
   end
 
   def lock_conflicts
-    unauthorized && return unless can? :manage, Conflict
-
     Conflict.find_each(&:lock!)
     respond_to do |format|
       format.html { redirect_to conflicts_path, notice: 'All existing conflicts have been locked.' }
@@ -70,7 +68,7 @@ class ConflictsController < ApplicationController
     #  @conflict = Conflict.find(params[:id])
     #end
     def authorize
-      authorized?(@member)
+      authorized?(@member, Conflict)
     end
 
     def get_config

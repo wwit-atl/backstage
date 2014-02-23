@@ -20,12 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_only!
-    unauthorized unless can? :manage, :all
+    unauthorized unless current_member.has_role?(:admin) or current_user.has_role?(:management)
   end
   helper_method :admin_only!
 
-  def authorized?(member = Member.none)
-    unauthorized unless ( current_member and ( current_member.is_admin? or can? :manage, member ) )
+  def authorized?(member = Member.none, klass = Member)
+    unauthorized unless current_member and can? :manage, klass
   end
 
   def unauthorized(alert = nil)
