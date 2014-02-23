@@ -38,6 +38,9 @@ ready = ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
   );
 
+  # Hide search box when JS is loaded
+#  $('#member_search input[type="submit"]').hide();
+
   # Ajax search on keyup
   $('#member_search input').keyup( ->
     delay (->

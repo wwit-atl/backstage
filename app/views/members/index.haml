@@ -1,14 +1,20 @@
 #member-list
   .row
     .col-md-4
-      %h1 Listing #{pluralize(@members.count, 'Member')}
+      %h1
+        Members List
+        %small.count
+          = pluralize(@member_count, 'Member')
+          = ( params[:search].nil? or params[:search].blank? ) ? 'Total' : 'Found'
+
     .col-md-4.col-md-offset-4
       = form_tag members_path, :method => 'get', role: 'form', class: 'pad-top-20 form-inline', id: 'member_search' do
         .input-group
           = search_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search'
-          %span.input-group-btn= submit_tag "Search", :name => nil, class: 'btn btn-default'
+          %span.input-group-btn
+            = button_tag class: 'btn btn-default', title: 'Search' do
+              = get_icon(:search)
 
   #members-table= render 'members_list'
 
-  = will_paginate @members, renderer: BootstrapPagination::Rails
 

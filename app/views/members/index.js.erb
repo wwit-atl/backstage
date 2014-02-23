@@ -1,1 +1,6 @@
 $('#members-table').html("<%= escape_javascript(render('members_list')) %>");
+<% if params[:search].nil? or params[:search].blank? %>
+    $('#member-list small.count').text("<%= pluralize(@member_count, 'Member') %> Total");
+<% else %>
+    $('#member-list small.count').text("<%= pluralize(@member_count, 'Member') %> Found");
+<% end %>

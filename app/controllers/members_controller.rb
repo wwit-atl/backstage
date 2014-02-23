@@ -33,7 +33,11 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = ( ( can? :manage, Member ) ? Member.all : Member.active.accessible_by(current_ability) ).search(params[:search]).by_name.paginate(:page => params[:page], :per_page => 30)
+    @members = ( can? :manage, Member ) ? Member.all : Member.active.accessible_by(current_ability)
+    @members = @members.search(params[:search]) if params[:search]
+    @members = @members.by_name.paginate(:page => params[:page], :per_page => 25)
+    @member_count = @members.count
+
     respond_to do |format|
       format.html
       format.js { render :layout => false }
