@@ -169,7 +169,12 @@ class Member < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where{sift :member_search, search}
+      (keyword, value) = search.split(':')
+      case keyword
+        when 'skill' then has_skill(value)
+        when 'group', 'role' then has_role(value)
+        else where{sift :member_search, keyword}
+      end
     else
       self.all
     end
@@ -178,5 +183,9 @@ class Member < ActiveRecord::Base
   def self.email_tags(whom = :all)
     return [] unless self.respond_to?(whom)
     self.send(whom).map { |member| member.email_tag }
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || firstname_changed? || lastname_changed?
   end
 end
