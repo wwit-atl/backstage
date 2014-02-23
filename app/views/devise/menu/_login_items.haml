@@ -40,7 +40,7 @@
               - if current_member.superuser?
                 %li= link_to 'Admin Mode ' + ( current_member.is_admin? ? 'Off' : 'On' ), admin_path, remote: true
 
-              - if current_member.has_role?(:management)
+              - if current_member.has_role?(:management) or current_member.has_role?(:admin)
                 %li.divider
                 %li{ class: is_active?(show_templates_path) }= link_to 'Show Templates', show_templates_path
                 %li{ class: is_active?(conflicts_path)      }= link_to 'Manage Conflicts', conflicts_path

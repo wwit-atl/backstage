@@ -15,7 +15,7 @@ class MembersController < ApplicationController
   end
 
   def admin
-    unauthorized && return unless current_member and current_member.is_super?
+    unauthorized && return unless current_member and current_member.superuser?
 
     logger.debug ">>> Checking ADMIN status on #{current_member.name}"
     if current_member.is_admin?
