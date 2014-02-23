@@ -7,7 +7,7 @@ class ConflictsController < ApplicationController
   # GET /conflicts
   # GET /conflicts.json
   def index
-    admin_only!
+    unauthorized unless can? :manage, Member
     @members = Member.uses_conflicts.by_name.paginate(:page => params[:page], :per_page => 30)
     respond_to do |format|
       format.html
@@ -55,7 +55,7 @@ class ConflictsController < ApplicationController
   end
 
   def lock_conflicts
-    unauthorized unless can? :manage, Conflict
+    unauthorized && return unless can? :manage, Conflict
 
     Conflict.find_each(&:lock!)
     respond_to do |format|

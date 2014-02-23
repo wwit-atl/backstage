@@ -24,7 +24,6 @@ end
 puts 'Create Roles'
 #   Role         Cast?  Crew?  cm?    Sched? Title                  Description
 [
-  [ :super,      false, false, false, false, 'Super Administrator', 'Full Access to all Site Feature, can add/remove admin role'],
   [ :admin,      false, false, false, false, 'Administrator',       'Full Access to all Site Feature'                    ],
   [ :management, false, false, true,  false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
   [ :sponsor,    false, false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'      ],
@@ -121,13 +120,13 @@ end
 #
 ENV['NO_EMAIL'] = 'true'
 [
-    [ 'Guest',       'Volunteer',    'volunteer@wholeworldtheatre.com', [:volunteer                           ] ],
-    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:super, :admin, :management, :ms, :mc] ],
-    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc                ] ],
-    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc                ] ],
-    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',    [:management, :ms, :mc                ] ],
-    [ 'Elizabeth',   'King',         'elizabeth.mccown.king@gmail.com', [:management, :us                     ] ],
-    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',       [:super, :admin, :us                  ] ],
+    [ 'Guest',       'Volunteer',    'volunteer@wholeworldtheatre.com', [:volunteer                   ] ],
+    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:admin, :management, :ms, :mc] ],
+    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc        ] ],
+    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc        ] ],
+    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',    [:management, :ms, :mc        ] ],
+    [ 'Elizabeth',   'King',         'elizabeth.mccown.king@gmail.com', [:management, :us             ] ],
+    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',       [:admin, :us                  ] ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."
   password = firstname.split.first.downcase + '@wwit'

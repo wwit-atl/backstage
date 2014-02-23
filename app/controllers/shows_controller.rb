@@ -94,7 +94,7 @@ class ShowsController < ApplicationController
     return unless params[:show_id]
 
     @show = Show.find(params[:show_id])
-    unauthorized unless can? :cast, @show
+    unauthorized && return unless can? :cast, @show
 
     @show.casting_sent_at = Time.now
 

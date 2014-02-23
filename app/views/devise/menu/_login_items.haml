@@ -37,17 +37,20 @@
               %li= link_to 'Your Profile', member_path(current_member)
               %li= link_to 'Manage Conflicts', manage_member_conflicts_path(current_member)
               %li= link_to 'Sign Out', destroy_member_session_path, method: :delete
-              - if test_mode or current_member.has_role?(:super)
+              - if current_member.superuser?
                 %li= link_to 'Admin Mode ' + ( current_member.is_admin? ? 'Off' : 'On' ), admin_path, remote: true
 
-              - if current_member.is_admin?
+              - if current_member.has_role?(:management)
                 %li.divider
-                %li{ class: is_active?(configs_path)        }= link_to 'Configuration', configs_path
-                %li{ class: is_active?(roles_path)          }= link_to 'View Roles', roles_path
                 %li{ class: is_active?(show_templates_path) }= link_to 'Show Templates', show_templates_path
-                %li{ class: is_active?(conflicts_path)      }= link_to 'Conflicts', conflicts_path
-                %li{ class: is_active?(skills_path)         }= link_to 'Manage Skills', skills_path
+                %li{ class: is_active?(conflicts_path)      }= link_to 'Manage Conflicts', conflicts_path
                 %li{ class: is_active?(shifts_path)         }= link_to 'Manage Shifts', shifts_path
+                %li{ class: is_active?(roles_path)          }= link_to 'View Roles', roles_path
+
+              - if current_member.has_role?(:admin)
+                %li.divider
+                %li{ class: is_active?(skills_path)         }= link_to 'Manage Skills', skills_path
+                %li{ class: is_active?(configs_path)        }= link_to 'Configuration', configs_path
         - else
           %li= link_to 'Sign In', member_session_path
 

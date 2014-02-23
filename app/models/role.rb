@@ -18,10 +18,7 @@ class Role < ActiveRecord::Base
   alias_attribute :description, :desc
 
   def self.viewable(member)
-    case
-      when (member.has_role?(:super) and member.has_role?(:admin)) then Role.where.not(:name => :super)
-      else Role.where.not(:name => [:super, :admin])
-    end
+    member.has_role?(:admin) ? Role.all : Role.where.not(:name => :admin)
   end
 
   def code

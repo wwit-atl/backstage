@@ -10,13 +10,10 @@ class Ability
     # Guest can't do anything here
     return if member.new_record?
 
-    can :manage, :all if member.has_role? :admin
+    can :manage, :all if member.has_role?(:admin) or member.has_role?(:management)
+    cannot :manage, [ Konfig ] if member.has_role?(:management)
 
-    can :manage, [ Member, Show, Message, Note ] if member.has_role? :management
-    can :read,   [ Member, Show, Note ]          if member.company_member?
-
-    #can :create, Note if member.company_member?
-    #can [:read, :update, :destroy], Note, member_id: member.id
+    can :read, [ Member, Show, Note ] if member.company_member?
 
     can [:edit, :update, :cast], Show,     mc_id: member.id
     can [:read, :edit, :update], Member,   id: member.id

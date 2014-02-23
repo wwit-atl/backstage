@@ -15,7 +15,7 @@ class MembersController < ApplicationController
   end
 
   def admin
-    redirect_to root_path unless test_mode
+    unauthorized && return unless current_member and current_member.is_super?
 
     logger.debug ">>> Checking ADMIN status on #{current_member.name}"
     if current_member.is_admin?
@@ -27,6 +27,7 @@ class MembersController < ApplicationController
     end
 
     respond_to do |format|
+      format.html { render :nothing }
       format.js { render :layout => false }
     end
   end
@@ -72,7 +73,7 @@ class MembersController < ApplicationController
   end
 
   def roles
-    admin_only!
+    unauthorized unless can? :manage, Role
   end
 
   # GET /members/new
@@ -85,6 +86,7 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
+    unauthorized unless can? :edit, @member
     #@member.phones.new unless @member.phones.any?
     #@member.addresses.new unless @member.addresses.any?
   end
@@ -92,7 +94,7 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
-    update_params = current_user.is_admin? ? admin_params : member_params
+    update_params = can?(:admin, Member) ? admin_params : member_params
 
     @member = Member.new(update_params)
 
@@ -111,7 +113,7 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
-    update_params = current_user.is_admin? ? admin_params : member_params
+    update_params = can?(:admin, @member) ? admin_params : member_params
 
     if update_params[:password].blank?
       update_params.delete(:password)

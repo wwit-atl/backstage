@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
-    unauthorized if @message.approved?
+    unauthorized && return if @message.approved?
     @members = Member.all
     @message.destroy
     respond_to do |format|
