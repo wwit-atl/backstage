@@ -57,7 +57,8 @@
     - if @member.is_crewable?
       .col-md-12
         .plaque
-          .pull-right= link_to get_icon(:calendar, text: 'Add to Calendar'), member_path(@member, :format => :ics)
+          - if @shifts.any?
+            .pull-right= link_to get_icon(:calendar, text: 'Add to Calendar'), member_path(@member, :format => :ics)
           %h3.no-top-pad Recent and Upcoming Shifts
           - if @shifts.empty?
             %p No upcoming Shifts
