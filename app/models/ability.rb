@@ -13,7 +13,7 @@ class Ability
     can :manage, :all if member.has_role? :admin
 
     can :manage, [ Member, Show, Message, Note ] if member.has_role? :management
-    can :read,   [ Member, Show, Note ] if member.company_member?
+    can :read,   [ Member, Show, Note ]          if member.company_member?
 
     #can :create, Note if member.company_member?
     #can [:read, :update, :destroy], Note, member_id: member.id

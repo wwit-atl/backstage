@@ -124,7 +124,7 @@ class MessagesController < ApplicationController
     def set_members
       @members = Member.active.by_name
       @skills = Skill.all
-      @roles = Role.all
+      @roles = Role.viewable(current_member)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

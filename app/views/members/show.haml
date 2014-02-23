@@ -122,6 +122,7 @@
         %h3.no-top-pad Group Memberships
         %ul
           - @member.roles.each do |role|
+            - next if role.name == 'super'
             %li= role.title
 
     - if @member.is_castable? or @member.is_crewable?

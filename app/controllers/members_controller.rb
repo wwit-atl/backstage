@@ -7,6 +7,7 @@ class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :create, :update]
   before_action :total_skills, only: [:new, :edit, :create, :update]
+  before_action :get_roles, only: [:roles, :new, :edit, :create, :update]
 
   def public_profile
     # TODO:  This is where the member's public profile will be shown... not yet implemented.
@@ -72,7 +73,6 @@ class MembersController < ApplicationController
 
   def roles
     admin_only!
-    @roles = Role.all
   end
 
   # GET /members/new
@@ -92,7 +92,9 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(member_params)
+    update_params = current_user.is_admin? ? admin_params : member_params
+
+    @member = Member.new(update_params)
 
     respond_to do |format|
       if @member.save
@@ -109,13 +111,15 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
-    if member_params[:password].blank?
-      member_params.delete(:password)
-      member_params.delete(:password_confirmation)
+    update_params = current_user.is_admin? ? admin_params : member_params
+
+    if update_params[:password].blank?
+      update_params.delete(:password)
+      update_params.delete(:password_confirmation)
     end
 
     # https://github.com/plataformatec/devise/wiki/How-To%3a-Allow-users-to-edit-their-account-without-providing-a-password
-    successfully_updated = needs_password?(@member, member_params) ? @member.update(member_params) : @member.update_without_password(member_params)
+    successfully_updated = needs_password?(update_params) ? @member.update(update_params) : @member.update_without_password(update_params)
 
     respond_to do |format|
       if successfully_updated
@@ -158,18 +162,25 @@ class MembersController < ApplicationController
     @phone_types ||= Phone.ntypes
   end
 
+  def get_roles
+    @roles = Role.viewable(current_member)
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def member_params
     params.required(:member).permit(
         :firstname, :lastname, :email, :sex, :dob, :active,
         :password, :password_confirmation,
-        skill_ids: [], role_ids: [],
         phones_attributes: [:id, :ntype, :number, :_destroy],
         addresses_attributes: [:id, :atype, :street1, :street2, :city, :state, :zip, :_destroy ],
     )
   end
 
-  def needs_password?(member, params)
+  def admin_params
+    params.required(:member).permit!
+  end
+
+  def needs_password?(params)
     params[:password].present?
   end
 end

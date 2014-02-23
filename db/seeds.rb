@@ -24,19 +24,20 @@ end
 puts 'Create Roles'
 #   Role         Cast?  Crew?  cm?    Sched? Title                  Description
 [
-  [ :admin,      false, false, false, false, 'Super Administrator', 'Full Access to all Site Feature'                   ],
+  [ :super,      false, false, false, false, 'Super Administrator', 'Full Access to all Site Feature, can add/remove admin role'],
+  [ :admin,      false, false, false, false, 'Administrator',       'Full Access to all Site Feature'                    ],
   [ :management, false, false, true,  false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
-  [ :sponsor,    false, false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'     ],
-  [ :friend,     false, false, false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'      ],
-  [ :alumni,     false, false, false, false, 'WWIT Alumni',         'Former Company Member, limited access'             ],
-  [ :mc,         false, false, false, false, 'Master of Ceremonies','MC, able to cast shows'                            ],
-  [ :ms,         true,  true,  true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'               ],
-  [ :apprentice, true,  true,  true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'               ],
-  [ :us,         true,  true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'         ],
-  [ :isp,        true,  true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                      ],
-  [ :student,    false, true,  false, false, 'WWIT Student',        'Improv Student, limited access'                    ],
-  [ :staff,      false, true,  true,  false, 'Staff Member',        'Official Company Staff, normal access'             ],
-  [ :volunteer,  false, true,  false, false, 'WWIT Volunteer',      'Volunteer, limited access'                         ],
+  [ :sponsor,    false, false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'      ],
+  [ :friend,     false, false, false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'       ],
+  [ :alumni,     false, false, false, false, 'WWIT Alumni',         'Former Company Member, limited access'              ],
+  [ :mc,         false, false, false, false, 'Master of Ceremonies','MC, able to cast shows'                             ],
+  [ :ms,         true,  true,  true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'                ],
+  [ :apprentice, true,  true,  true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'                ],
+  [ :us,         true,  true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'          ],
+  [ :isp,        true,  true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                       ],
+  [ :student,    false, true,  false, false, 'WWIT Student',        'Improv Student, limited access'                     ],
+  [ :staff,      false, true,  true,  false, 'Staff Member',        'Official Company Staff, normal access'              ],
+  [ :volunteer,  false, true,  false, false, 'WWIT Volunteer',      'Volunteer, limited access'                          ],
 ].each do |code, cast, crew, cm, sched, title, desc|
   Role.where(name: code.to_s).first_or_create.update_attributes(
       title:    title,
@@ -120,13 +121,13 @@ end
 #
 ENV['NO_EMAIL'] = 'true'
 [
-    [ 'Guest',       'Volunteer',    'volunteer@wholeworldtheatre.com', [:volunteer] ],
-    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:admin, :management, :ms, :mc] ],
-    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc        ] ],
-    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc        ] ],
-    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',    [:management, :ms, :mc        ] ],
-    [ 'Elizabeth',   'King',         'elizabeth.mccown.king@gmail.com', [:management, :us             ] ],
-    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',       [:admin, :us                  ] ],
+    [ 'Guest',       'Volunteer',    'volunteer@wholeworldtheatre.com', [:volunteer                           ] ],
+    [ 'Eric',        'Goins',        'eric@wholeworldtheatre.com',      [:super, :admin, :management, :ms, :mc] ],
+    [ 'Chip',        'Powell',       'chip@wholeworldtheatre.com',      [:management, :ms, :mc                ] ],
+    [ 'Emily Reily', 'Russell',      'emily@wholeworldtheatre.com',     [:management, :ms, :mc                ] ],
+    [ 'Lauren',      'Revard Goins', 'lauren@wholeworldtheatre.com',    [:management, :ms, :mc                ] ],
+    [ 'Elizabeth',   'King',         'elizabeth.mccown.king@gmail.com', [:management, :us                     ] ],
+    [ 'Donovan C.',  'Young',        'Donovan.C.Young@gmail.com',       [:super, :admin, :us                  ] ],
 ].each do |firstname, lastname, email, roles|
   puts "Creating #{firstname} #{lastname}..."
   password = firstname.split.first.downcase + '@wwit'
