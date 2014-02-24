@@ -2,7 +2,7 @@
 
 #shows-index
 
-  -if can? :manage, Show
+  -if can? :generate, Show
     .pull-right
       = link_to create_shows_path(date: @date), class: 'btn btn-info', data: { disable_with: 'Processing', remote: true } do
         = get_icon 'calendar', text: "Create Shows for #{@date.strftime('%B %Y')}"

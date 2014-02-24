@@ -73,7 +73,7 @@ class MembersController < ApplicationController
   end
 
   def roles
-    unauthorized unless can? :manage, Role
+    unauthorized unless can? :read, Role
   end
 
   # GET /members/new

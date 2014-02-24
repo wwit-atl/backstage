@@ -30,7 +30,7 @@ class KonfigsController < ApplicationController
   private
 
   def get_configs
-    admin_only!
+    unauthorized unless can? :manage, Konfig
     @configs = Konfig.order(:name)
   end
 

@@ -144,7 +144,7 @@
             %ul
               - @conflicts.each do |conflict|
                 %li= conflict.date
-          - if is_authorized?(@member)
+          - if can? :update, Conflict
             = link_to 'Manage Conflicts', manage_member_conflicts_path(@member)
 
   .row

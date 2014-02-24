@@ -19,15 +19,6 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def admin_only!
-    unauthorized unless current_member.has_role?(:admin) or current_user.has_role?(:management)
-  end
-  helper_method :admin_only!
-
-  def authorized?(member = Member.none, klass = Member)
-    unauthorized unless current_member and can? :manage, klass
-  end
-
   def unauthorized(alert = nil)
     render 'public/403', :status => :unauthorized, :alert => alert
   end
@@ -57,7 +48,6 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
 
   private
 

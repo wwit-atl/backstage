@@ -2,12 +2,13 @@ class ConflictsController < ApplicationController
   authorize_resource
 
   before_action :get_member, :except => [ :index, :lock_conflicts ]
-  before_action :get_config, :authorize
+  before_action :get_config
+  before_action :authorize
 
   # GET /conflicts
   # GET /conflicts.json
   def index
-    unauthorized unless can? :manage, Member
+    unauthorized && return unless can? :manage, Conflict
     @members = Member.uses_conflicts.by_name.paginate(:page => params[:page], :per_page => 30)
     respond_to do |format|
       format.html
@@ -16,7 +17,7 @@ class ConflictsController < ApplicationController
     end
   end
 
-  def manage
+  def manage_conflicts
     unauthorized unless can? :read, @member
     @conflicts = @member.conflicts
     @date = params[:date] ? Date.parse(params[:date]) : Date.today + 1.month # By default, select next month
@@ -55,6 +56,7 @@ class ConflictsController < ApplicationController
   end
 
   def lock_conflicts
+    unauthorized unless can? :lock, Conflict
     Conflict.find_each(&:lock!)
     respond_to do |format|
       format.html { redirect_to conflicts_path, notice: 'All existing conflicts have been locked.' }
@@ -63,12 +65,8 @@ class ConflictsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    #def set_conflict
-    #  @conflict = Conflict.find(params[:id])
-    #end
     def authorize
-      authorized?(@member, Conflict)
+      unauthorized unless can? :update, Conflict
     end
 
     def get_config

@@ -12,10 +12,12 @@
           %span.red Unlocked
           )
         %th Over?
-        %th= link_to get_icon(:lock, text: 'Lock All'), lock_conflicts_path, method: :put
+        %th
+          - if can? :lock_conflicts, Conflict
+            = link_to get_icon(:lock, text: 'Lock All'), lock_conflicts_path, method: :put
 
     %tbody
-      - @members.each do |member|
+      - @members.to_a.uniq.each do |member|
         - over_limit = false ; months = []
         - member.conflicts.future.group_by{ |c| c.month }.each do |k,v|
           - if v.count > @max_conflicts

@@ -75,10 +75,6 @@ module ApplicationHelper
     link_to show.date, skill_path(show)
   end
 
-  def is_authorized?(member = Member.none)
-    ( current_member and ( current_member.is_admin? or current_member == member ) )
-  end
-
   def theatre_url
     'http://www.wholeworldtheatre.com'
   end

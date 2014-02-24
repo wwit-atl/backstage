@@ -1,4 +1,4 @@
--if can? :manage, Show
+-if can? :auto_sched, Shift
   #scheduler.errors
   .pull-right.pad-top-20
     = link_to schedule_shows_path, class: 'btn btn-info auto-schedule', data: { disable_with: 'Processing', remote: true } do

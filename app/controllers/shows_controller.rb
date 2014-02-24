@@ -71,7 +71,7 @@ class ShowsController < ApplicationController
   end
 
   def schedule
-    admin_only!
+    unauthorized unless can? :schedule, Show
     @exceptions = Show.schedule
     flash.notice = 'Auto Schedule completed successfully' if @exceptions.empty?
     respond_to do |format|
@@ -80,7 +80,7 @@ class ShowsController < ApplicationController
   end
 
   def create_shows
-    admin_only!
+    unauthorized unless can? :create, Show
     date = ( Date.parse(params[:date]) || Date.today )
     logger.debug "Creating shows for #{date}"
     ShowTemplate.create_shows_for(date.month, date.year)

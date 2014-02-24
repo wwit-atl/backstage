@@ -7,17 +7,23 @@ class Ability
 
     member ||= Member.new # guest user (not logged in)
 
+    alias_action :create, :read, :update, :destroy, :to => :crud
+
     # Guest can't do anything here
     return if member.new_record?
 
-    can :manage, :all if member.has_role?(:admin) or member.has_role?(:management)
-    cannot :manage, [ Konfig ] if member.has_role?(:management)
+    if member.has_role?(:admin)
+      can :manage, :all
+    elsif member.has_role?(:management)
+      can :manage, [ Member, Show, Note ]
+      can :read, Role
+    end
 
     can :read, [ Member, Show, Note ] if member.company_member?
 
     can [:edit, :update, :cast], Show,     mc_id: member.id
     can [:read, :edit, :update], Member,   id: member.id
-    can :manage,                 Conflict, member_id: member.id
+    can [:crud, :manage_conflicts, :set_conflicts, :get_conflicts], Conflict, member_id: member.id
 
     can [:edit, :update, :destroy], Message, sender_id: member.id, approver_id: nil, sent_at: nil
     can :create, Message, member.company_member? => :true
