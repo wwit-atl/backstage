@@ -15,7 +15,7 @@ class Ability
     if member.has_role?(:admin)
       can :manage, :all
     elsif member.has_role?(:management)
-      can :manage, [ Member, Show, Note ]
+      can :manage, [ Member, Show, Message, Note ]
       can :read, [ Role, Skill ]
     end
 
