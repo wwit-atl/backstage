@@ -29,7 +29,7 @@ Backstage::Application.routes.draw do
 
   resources :members, :concerns => :notable do
     resource :conflicts do
-      get :manage
+      get :manage_conflicts, :as => :manage
       get :get_conflicts,  :as => :get
       put :set_conflicts,  :as => :set
     end
