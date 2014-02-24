@@ -14,7 +14,7 @@
       - if can? :read, klass and show == true
         = link_to get_icon(:show), klass, class: 'btn xbtn-default', title: 'View'
 
-      - if move == true
+      - if can? :move, klass and move == true
         .btn.xbtn-default
           .handle= get_icon :move, title: 'Reposition'
 

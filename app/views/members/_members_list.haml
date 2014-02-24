@@ -21,9 +21,9 @@
               = get_icon(:ban, class: 'icon inactive')
             - elsif member.has_role?(:volunteer)
               = get_icon(:record, class: 'icon')
-            - elsif current_member.is_admin? and member.is_admin?
+            - elsif current_member.has_role?(:admin) and member.has_role?(:admin)
               = get_icon(:tower, class: 'icon')
-            - elsif current_member.is_admin? and member.has_role?(:management)
+            - elsif current_member.has_role?(:admin) and member.has_role?(:management)
               = get_icon(:star, class: 'icon')
             - else
               = get_icon(:user, class: 'icon')
