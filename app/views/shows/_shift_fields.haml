@@ -13,7 +13,7 @@
         :wrapper_html => { :style => 'display: inline' }
 
     .col-md-2
-      .pull-left= f.input :training, label: 'Train?'
+      .pull-left= f.input :training, label: 'Train?', disabled: !(can? :manage, @show)
 
       - if can? :manage, @show
         .text-right= link_to_remove_association get_icon(:remove, title: 'Remove Shift'), f
