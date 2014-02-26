@@ -1,0 +1,7 @@
+The following message is waiting for your approval:
+
+Sent By: #{@message.sender.name}
+Subject: #{@message.subject}
+= sanitize @message.formatted_text
+
+Please visit #{message_url(@message)} to approve.

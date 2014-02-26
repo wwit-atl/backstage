@@ -1,0 +1,9 @@
+#{@show.name} - #{@show.human_date} @#{@show.show_time}"
+
+- if @show.mc
+  MC: #{@show.mc.name}
+
+= @show.actors.by_name_last.map(&:name).to_sentence
+
+Call time is #{@show.call_time}
+

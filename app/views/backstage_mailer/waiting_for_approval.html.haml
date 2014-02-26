@@ -6,6 +6,8 @@ Subject: #{@message.subject}<br/>
 %hr
 %br
 You may
-= link_to 'View this message', message_url(@message)
-or
-= link_to 'approve this message.', message_approve_url(@message)
+= link_to 'click here to approve this message.', message_approve_url(@message)
+%br
+%em or
+%br
+= link_to 'click here to View this message', message_url(@message)

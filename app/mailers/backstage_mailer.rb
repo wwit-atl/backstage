@@ -29,7 +29,7 @@ class BackstageMailer < ActionMailer::Base
     @show = show
 
     mail_opts = {
-            bcc: Member.company_members.email_tags.uniq,
+            bcc: Member.company_members.email_tags,
         subject: "[WWIT-CASTING] Cast List for #{@show.human_date} @#{@show.show_time}"
     }
     mail_opts.merge!( reply_to: @show.mc.email_tag ) if @show.mc
@@ -46,6 +46,6 @@ class BackstageMailer < ActionMailer::Base
     end
 
     def set_headers
-      headers['X-MC-Autotext'] = 'true'
+      #headers['X-MC-Autotext'] = 'true'
     end
 end
