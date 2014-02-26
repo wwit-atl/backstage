@@ -10,9 +10,9 @@ class BackstageMailer < ActionMailer::Base
 
     mail ({
            from: message.sender.email_tag,
-       reply_to: message.sender.email_tag,
              to: message.sender.email_tag,
-            bcc: message.members.email_tags,
+       reply_to: message.sender.email_tag,
+            bcc: message.members.email_tags - message.sender.email_tag,
         subject: "[WWIT-ANNOUNCEMENT] #{message.subject}",
     })
   end

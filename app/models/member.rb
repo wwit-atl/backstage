@@ -182,7 +182,7 @@ class Member < ActiveRecord::Base
 
   def self.email_tags(whom = :all)
     return [] unless self.respond_to?(whom)
-    self.send(whom).map { |member| member.email_tag }
+    self.send(whom).map { |member| member.email_tag }.uniq
   end
 
   def should_generate_new_friendly_id?
