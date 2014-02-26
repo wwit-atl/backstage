@@ -8,6 +8,8 @@ class BackstageMailer < ActionMailer::Base
     message.email_message_id = set_message_id
     message.sent_at = Time.now.utc
 
+    add_tag(:announcement)
+
     mail ({
            from: message.sender.email_tag,
              to: message.sender.email_tag,
@@ -19,6 +21,9 @@ class BackstageMailer < ActionMailer::Base
 
   def waiting_for_approval(message)
     @message = message
+
+    add_tag(:admin)
+
     mail ({
              to: Member.managers.email_tags,
         subject: '[WWIT-ADMIN] New message waiting for approval'
@@ -27,6 +32,8 @@ class BackstageMailer < ActionMailer::Base
 
   def casting_announcement(show)
     @show = show
+
+    add_tag(:casting)
 
     mail_opts = {
             bcc: Member.company_members.email_tags,
@@ -38,6 +45,10 @@ class BackstageMailer < ActionMailer::Base
   end
 
   private
+    def add_tag(tag)
+      return unless tag
+      headers['X-MC-Tags'] = ( headers['X-MC-Tags'].split(',').map(&:strip) << tag ).join(', ')
+    end
 
     def set_message_id
       message_id = SecureRandom.uuid
@@ -46,6 +57,7 @@ class BackstageMailer < ActionMailer::Base
     end
 
     def set_headers
-      #headers['X-MC-Autotext'] = 'true'
+      headers['X-MC-Tags']  = '' if headers['X-MC-Tags'].nil?
+      headers['X-MC-Track'] = 'opens, clicks'
     end
 end
