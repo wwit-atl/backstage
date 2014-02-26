@@ -2,6 +2,6 @@ The following message is waiting for your approval:
 
 Sent By: #{@message.sender.name}
 Subject: #{@message.subject}
-= sanitize @message.formatted_text
+#{@message.formatted_text(:plain)}
 
 Please visit #{message_url(@message)} to approve.

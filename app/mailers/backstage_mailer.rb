@@ -14,7 +14,7 @@ class BackstageMailer < ActionMailer::Base
            from: message.sender.email_tag,
              to: message.sender.email_tag,
        reply_to: message.sender.email_tag,
-            bcc: message.members.email_tags - message.sender.email_tag,
+            bcc: message.members.email_tags - [message.sender.email_tag],
         subject: "[WWIT-ANNOUNCEMENT] #{message.subject}",
     })
   end
@@ -46,9 +46,8 @@ class BackstageMailer < ActionMailer::Base
 
   private
     def add_tag(tag)
-      return # fix bug!
       return unless tag
-      headers['X-MC-Tags'] = ( headers['X-MC-Tags'].split(',').map(&:strip) << tag ).join(', ')
+      headers['X-MC-Tags'] = tag
     end
 
     def set_message_id
@@ -58,7 +57,6 @@ class BackstageMailer < ActionMailer::Base
     end
 
     def set_headers
-      headers['X-MC-Tags']  = '' if headers['X-MC-Tags'].nil?
       headers['X-MC-Track'] = 'opens, clicks'
     end
 end
