@@ -46,6 +46,7 @@ class BackstageMailer < ActionMailer::Base
 
   private
     def add_tag(tag)
+      return # fix bug!
       return unless tag
       headers['X-MC-Tags'] = ( headers['X-MC-Tags'].split(',').map(&:strip) << tag ).join(', ')
     end
