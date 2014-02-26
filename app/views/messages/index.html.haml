@@ -32,7 +32,10 @@
           - if !message.approved?
             .status Waiting on Approval
             - if can? :manage, message
-              .admin-controls= link_to get_icon( 'thumbs-up', title: 'Approve' ), message_approve_path(message)
+              .admin-controls
+                = link_to get_icon( 'thumbs-up', title: 'Approve' ),
+                    message_approve_path(message),
+                    data: { disable_with: '...', remote: true }
           - else
             - if message.delivered?
               - if can? :manage, message

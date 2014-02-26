@@ -83,16 +83,20 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:message_id])
     if can? :approve, @message
       if @message.approved?
-        redirect_to messages_path, notice: "Message was already approved by #{@message.approver.name}"
+        flash[:notice] = "Message was already approved by #{@message.approver.name}"
       else
         @message.approver = current_member
         if BackstageMailer.announcements(@message).deliver
           @message.save
-          redirect_to messages_path, flash: { success: 'Message Approved and Sent' }
+          flash[:success] = 'Message Approved and Sent'
         else
-          redirect_to messages_path, flash: { error: 'Unable to approve message' }
+          flash[:error] = 'Unable to approve message'
         end
       end
+    end
+    respond_to do |format|
+      format.html { redirect_to messages_path }
+      format.js { render :layout => false }
     end
   end
 
