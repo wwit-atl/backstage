@@ -33,7 +33,12 @@
                 %th
                 - @shows.each do |show|
                   %tr{ class: ('is-soon' if show.is_today? )}
-                    %td.col-md-4= link_to "#{show.date} - #{show.name}", show_path(show)
+                    %td.col-md-4
+                      = link_to "#{show.date} - #{show.name}", show_path(show)
+                      %br
+                      %small
+                        %em Call Time: #{show.call_time} /
+                        %em Show Time: #{show.show_time}
                     %td.col-md-4
                       %ul.list-unstyled
                         - if !show.mc.nil?
