@@ -70,8 +70,8 @@ module ApplicationHelper
   end
 
   def link_to_show(show)
-    return 'No Show Assigned' unless show.respond_to?(:date)
-    link_to show.datetime, skill_path(show)
+    return 'No Show Assigned' unless show.respond_to?(:datetime)
+    link_to show.datetime, show_path(show)
   end
 
   def theatre_url
