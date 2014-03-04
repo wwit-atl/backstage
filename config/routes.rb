@@ -28,6 +28,7 @@ Backstage::Application.routes.draw do
   end
 
   resources :members, :concerns => :notable do
+    get :cast_list
     resource :conflicts do
       get :manage_conflicts, :as => :manage
       get :get_conflicts,  :as => :get

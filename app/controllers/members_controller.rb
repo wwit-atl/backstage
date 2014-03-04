@@ -4,7 +4,7 @@ class MembersController < ApplicationController
 
   skip_before_action :authenticate_member!, only: [:public_profile, :admin]
 
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_member, only: [:cast_list, :show, :edit, :update, :destroy]
   before_action :get_phone_types, only: [:new, :edit, :create, :update]
   before_action :total_skills, only: [:new, :edit, :create, :update]
   before_action :get_roles, only: [:roles, :new, :edit, :create, :update]
@@ -51,7 +51,7 @@ class MembersController < ApplicationController
     unauthorized unless @member.active? or can? :edit, @member
 
     @shows  = @member.mc_shifts.recent.by_date_desc | @member.shows.recent.by_date_desc
-    @shifts = @member.shifts.recent.by_show
+    @shifts = @member.shifts.recent.by_show_desc
     @skills = @member.skills
     @conflicts = @member.conflicts.current
     @announcements = Message.for_member(@member).recent.by_created.limit(5)
@@ -70,6 +70,10 @@ class MembersController < ApplicationController
         render :text => calendar.to_ical
       end
     end
+  end
+
+  def cast_list
+    @shows = @member.shows.by_date_desc
   end
 
   def roles

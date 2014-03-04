@@ -20,6 +20,7 @@
     .col-md-12
       - if @member.is_castable?
         .plaque
+          .pull-right= link_to get_icon(:list, text: 'All Castings'), member_cast_list_path(@member)
           %h3.no-top-pad Recent and Upcoming Shows
           - if @shows.empty?
             %p No upcoming Shows

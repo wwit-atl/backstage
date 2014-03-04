@@ -1,0 +1,5 @@
+%h1 Cast listings for #{@member.name}
+
+- @shows.each do |show|
+  .col-sm-4.col-md-3
+    %h3= link_to_show show
