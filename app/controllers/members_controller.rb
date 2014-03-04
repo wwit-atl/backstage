@@ -152,11 +152,12 @@ class MembersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_member
-    if params[:id].nil?
+    if params[:id].nil? and params[:member_id].nil?
       redirect_to members_url unless current_member
       @member = current_member
     else
-      @member = Member.friendly.find(params[:id])
+      @member ||= Member.friendly.find(params[:id]) if params[:id]
+      @member ||= Member.friendly.find(params[:member_id]) if params[:member_id]
     end
   end
 

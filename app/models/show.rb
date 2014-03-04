@@ -17,7 +17,7 @@ class Show < ActiveRecord::Base
 
   scope :recent, -> { where('date > ?', Date.today - 10.days) }
   scope :by_date, -> { order(:date, :showtime) }
-  scope :by_date_desc, -> { order(:date => :desc, :showtime => :asc) }
+  scope :by_date_desc, -> { order(:date => :desc, :showtime => :desc) }
 
   scope :for_month, ->(cdate = Date.today) { where('date >= ? AND date <= ?', cdate.beginning_of_month, cdate.end_of_month) }
 
