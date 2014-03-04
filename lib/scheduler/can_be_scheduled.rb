@@ -22,9 +22,10 @@ module Scheduler
       def schedule
         @exceptions = {}
 
-        Rails.logger.debug "[AUTOSCHED] >> Scheduling shifts for #{self.name}"
+        Rails.logger.debug "[AUTOSCHED] >> Scheduling shifts for #{self.title}"
 
-        raise( Scheduler::NoShiftError, 'Show has no shifts to assign' ) if self.shifts.empty?
+        #return { self.date => [ "#{self.name}; has no shifts to assign" ] } if self.shifts.empty?
+        return {} if self.shifts.empty?
 
         self.shifts.by_skill_priority.each do |shift|
           Rails.logger.debug "[AUTOSCHED] Checking #{shift.skill.name}"

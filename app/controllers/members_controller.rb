@@ -51,7 +51,7 @@ class MembersController < ApplicationController
     unauthorized unless @member.active? or can? :edit, @member
 
     @shows  = @member.mc_shifts.recent.by_date_desc | @member.shows.recent.by_date_desc
-    @shifts = @member.shifts.recent.by_show_desc
+    @shifts = @member.shifts.recent.by_show
     @skills = @member.skills
     @conflicts = @member.conflicts.current
     @announcements = Message.for_member(@member).recent.by_created.limit(5)

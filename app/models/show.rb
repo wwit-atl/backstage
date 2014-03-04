@@ -57,6 +57,10 @@ class Show < ActiveRecord::Base
     "#{human_date} #{show_time}"
   end
 
+  def title
+    "#{datetime} - #{name}"
+  end
+
   def shift(code = nil)
     return unless code
     shifts.where(skill: Skill.class_eval(code.to_s.downcase)).first
