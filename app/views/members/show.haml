@@ -67,7 +67,9 @@
             - @shifts.each do |shift|
               .row{ class: ('is-soon' if shift.show.is_soon?)}
                 .col-sm-5.col-xs-6
-                  .hidden-xs= link_to "#{shift.show.human_date} [#{shift.show.dow} #{shift.show.show_time}]", shift.show
+                  .hidden-xs
+                    = link_to "#{shift.show.human_date} @ #{shift.show.show_time} &#8211; #{shift.show.dow}".html_safe,
+                              shift.show
                   .visible-xs= link_to shift.show.human_date, shift.show
                 .col-sm-4.col-xs-6
                   = shift.skill.name
