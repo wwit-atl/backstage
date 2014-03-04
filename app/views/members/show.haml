@@ -99,7 +99,12 @@
         %fieldset
           %legend Confidential Information
           .col-md-2 Sex: #{@member.sex || 'N/A'}
-          .col-md-4 Birthday: #{@member.birthday}
+          .col-md-4
+            Birthday: #{@member.birthday}
+            - if current_member.is_admin?
+              %p.pad-top-20
+                %em Current Sign-in: #{human_datetime(@member.current_sign_in_at)}<br />
+                %em Confirmed At: #{human_datetime(@member.confirmed_at)}
           .col-md-2 Address:
           .col-md-4
             - @member.addresses.each do |address|

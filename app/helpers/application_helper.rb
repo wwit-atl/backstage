@@ -10,13 +10,12 @@ module ApplicationHelper
 
   def format_time_ampm(time)
     return time.strftime('%l:%M %P') if time.respond_to?(:strftime)
-    'Invalid Time Format'
+    'N/A'
   end
 
-  def format_date(input)
-    date = Date.parse(input)
-    return date.strftime('%m/%d/%Y') if date.respond_to?(:strftime)
-    'Invalid Date Format'
+  def human_datetime(input)
+    return input.strftime('%m/%d/%Y %l:%M %P') if input.respond_to?(:strftime)
+    'N/A'
   end
 
   def is_active?(link)
