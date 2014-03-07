@@ -1,4 +1,6 @@
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV']  ||= 'test'
+ENV['RAILS_HOST'] ||= 'test.host'
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'support/factory_girl'
