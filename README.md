@@ -1,111 +1,53 @@
-README
-======
+# Welcome
 
-This is the back-end members only website for Whole World Improv Theatre.
+This is the official source code for Whole World Theatre's Backstage 2.0 website, written by Donovan C. Young.
 
-Written by Donovan C. Young
-Copyright (c) 2013 Whole World Improv Theatre
+**&copy;2014, Whole World Improv Theatre**
 
-Development Roadmap
--------------------
+Although we encourage pull requests and other helpful submissions, we must state that the code and all images or other
+source materials used herein are strictly copyrighted (except where otherwise superceeded by included sources).
 
-- Dashboard
-  - Calendar of Events
-  - Upcoming Shows/Shifts
-  - Latest Notes
-  - Latest Announcements
-  - Quick Links to
-    - New Announcement
-    - New Note
+Please, do not use this stuff without direct written consent from Whole World Improv Theatre, Atlanta GA.
 
-- Roles (has_and_belongs_to_many Members)
-  - Admin
-  - Management
-  - Main Stage
-  - Apprentice
-  - Unusual Suspects
-  - ISP
-  - Sponsors
-  - Friends
+TODOs
+-----
 
-- Skills
-  - Shift
-    - EmCee
-    - House Manager
-    - Stage Manager
-    - Lights
-    - Sound
-    - Camera
-    - Suggestions
-    - Bartending
-  - Performance
-    - stage_presence
+This is a quick list of items that need to be completed
 
-- Members
-  - Full Name
-  - Email
-  - Phone(s)
-  - Note(s)
-  - Role(s)
-  - Skill(s)
+Completed
+---------
 
-- PerformanceMatrix
-  - stage_presence
+  [X] Create Members
+  [X] Create Roles
+  [X] Create Skills
+  [X] Create Shows
+  [X] Create Notes
+  [X] Create Dashboard
+  [X] Create Event Calendar
+  [X] Create Auto-Shift-Engine
+  [X] Create Announcements
+  [X] Send 'waiting for approval' emails to manager on new Annoucements
 
-- Stages
-  - Up Right
-  - Down Right
-  - Up Left
-  - Down Left
-  - Stage Right
-  - Stage Left
-  - Center
+Pushed to a future release
+--------------------------
 
-- Shows
-  - Date
-  - CallTime
-  - ShowTime
-  - EmCee(s)
-  - Actor(s)
-  - Shift(s)
-  - Scene(s)
-  - Note(s)
+ [ ] Send emails to crew 12 hours before shift
+ [ ] Create Student Manager
+ [ ] Create check-in Functionality for Cast/Crew
+ [ ] Link show videos to show (store vids on S3)
 
-- Scenes
-  - Actor(s)
-  - Stage
-  - Game
-  - Suggestion(s) [Freeform or pick from previous entries]
-  - Note(s)
+### Build Shows on-site
+ [ ] Create Games
+ [ ] Create Stages
+ [ ] Create Scenes
+ [ ] Create Suggestions
+ [ ] Create Renegades
 
-- Suggestions
-  - Who?
-  - Where?
-  - What?
-  - Text
+#### Potential Stuff
 
-- Renegades
-  - Date
-  - Runtime
-  - Name
-  - Description
-  - Format
-
-- Games
-  - Name
-  - Skill Level [Beginner, Intermediate, Advanced]
-  - Suggested # of Player
-  - Description
-
-- Notes (behave like comments)
-  - Member
-  - Schedule
-  - Show
-
-- Announcements
-  - To All (Members)
-  - To Company  -> Roles checked as 'Include In Company'
-  - To Role(s)  -> Through Members
-  - To Skill(s) -> Through Members
-  - To Member(s)
+ [ ] Shift Swap functionality
+     send a swap request to another actor, which they can accept or decline.
+ [ ] Add a print function for the dashboard(?)
+ [X] Add Volunteer role with extreamly limited access.
+ [ ] Add emergency contact information to member record(?)
 
