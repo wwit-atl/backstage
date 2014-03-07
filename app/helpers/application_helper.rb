@@ -59,19 +59,19 @@ module ApplicationHelper
     link_to get_icon(:add, text: text), path
   end
 
-  def link_to_member(member)
+  def link_to_member(member, opts = {})
     return 'No Member Assigned' unless member.respond_to?(:name)
-    link_to member.name, member_path(member)
+    link_to opts[:text] || member.name, member_path(member)
   end
 
-  def link_to_skill(skill)
+  def link_to_skill(skill, opts = {})
     return 'No Skill Assigned' unless skill.respond_to?(:name)
-    link_to skill.name, skill_path(skill)
+    link_to opts[:text] || skill.name, skill_path(skill)
   end
 
-  def link_to_show(show)
-    return 'No Show Assigned' unless show.respond_to?(:datetime)
-    link_to show.datetime, show_path(show)
+  def link_to_show(show, opts = {})
+    return 'No Show Assigned' unless show
+    link_to opts[:text] || show.title, show_path(show)
   end
 
   def theatre_url
