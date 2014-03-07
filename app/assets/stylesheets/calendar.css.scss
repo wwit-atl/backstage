@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #calendar {
+
   .cal-table {
     border-collapse: collapse;
     width: 100%;
@@ -51,6 +52,12 @@
         }
       }
 
+      &.tiny {
+        height: 20px;
+        width: 20px;
+        text-align: right;
+      }
+
       &.past { background-color: #DDD }
       &.notmonth, &.notmonth a { color: #BBB; }
       &.today { background-color: #D7F2FF; }
@@ -86,4 +93,15 @@
   }
 }
 
+.tiny-calendar {
+  font-size: .6em;
+
+  td:hover { border: 2px solid $wwit-yellow !important; }
+
+  .title {
+    font-size: 1.6em;
+    margin: 0 0 2px 0;
+    padding: 0;
+  }
+}
 

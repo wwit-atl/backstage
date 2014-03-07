@@ -1,12 +1,17 @@
 module CalendarHelper
   def calendar(options = {}, &block)
-    date = options[:date] || Date.today
+    date   = options[:date]   || Date.today
     events = options[:events] || {}
-    Calendar.new(self, date, events, block).table
+    size   = options[:size]   || nil
+    Calendar.new(self, date, events, size, block).table
   end
 
-  class Calendar < Struct.new(:view, :date, :events, :callback)
+  class Calendar < Struct.new(:view, :date, :events, :calsize, :callback)
     HEADER = {
+        tiny: {
+            classes: nil,
+            days: %w[S M T W T F S]
+        },
         sm: {
             classes: 'visible-xs',
             days: %w[Su Mo Tu We Th Fr Sa]
@@ -26,7 +31,11 @@ module CalendarHelper
 
     def table
       content_tag :table, class: 'cal-table' do
-        HEADER.keys.map { |size| header(size) }.join.html_safe + week_rows
+        if calsize
+          header(calsize.to_sym) + week_rows
+        else
+          [:sm, :md, :lg].map { |size| header(size) }.join.html_safe + week_rows
+        end
       end
     end
 
@@ -59,6 +68,7 @@ module CalendarHelper
       classes << 'notmonth' if day.month != date.month
       classes << 'selected' unless event.nil?
       classes << 'locked'   if event.try(:locked?)
+      classes << calsize.to_s if calsize
       classes.flatten.compact.join(' ')
     end
 

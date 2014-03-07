@@ -20,7 +20,7 @@ class Shift < ActiveRecord::Base
   scope :by_skill,          -> { by_show.by_skill_priority }
   scope :by_member,         -> { by_show.joins(:member).order(['members.lastname', 'members.firstname']) }
 
-  scope :recent, -> { joins(:show).where('shows.date > ?', Date.today - 10.days) }
+  scope :recent, -> { joins(:show).where('shows.date > ?', Date.today - 1.month) }
 
   def to_ics
     # Helpers
@@ -56,6 +56,10 @@ class Shift < ActiveRecord::Base
 
     # Return the event
     event
+  end
+
+  def date
+    show.date.to_formatted_s(:db)
   end
 
   private

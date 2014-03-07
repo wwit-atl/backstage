@@ -59,29 +59,37 @@
                                   html: true }
                           = get_icon(:comment)
 
-  .row
-    - if @member.is_crewable?
-      .col-md-12
+  - if @member.is_crewable?
+    .row
+      .col-xs-12
         .plaque
           - if @member == current_member and @shifts.any?
             .pull-right= link_to get_icon(:calendar, text: 'Add to Calendar'), member_path(@member, :format => :ics)
           %h3.no-top-pad Recent and Upcoming Shifts
-          - if @shifts.empty?
-            %p No upcoming Shifts
-          - else
-            - @shifts.each do |shift|
-              .row{ class: ('is-soon' if shift.show.is_soon?)}
-                .col-sm-5.col-xs-6
-                  .hidden-xs
-                    = link_to "#{shift.show.human_date} @ #{shift.show.show_time} &#8211; #{shift.show.dow}".html_safe,
-                              shift.show
-                  .visible-xs= link_to shift.show.human_date, shift.show
-                .col-sm-4.col-xs-6
-                  = shift.skill.name
-                  = ' (training)' if shift.training?
-                .col-sm-3.hidden-xs
-                  Call Time:
-                  = shift.show.call_time
+          .row
+            .col-xs-12.col-sm-10
+              - if @shifts.empty?
+                %p No upcoming Shifts
+              - else
+                - @shifts.each do |shift|
+                  .row{ class: ('is-soon' if shift.show.is_soon?)}
+                    .col-sm-5.col-xs-6
+                      .hidden-xs
+                        = link_to "#{shift.show.human_date} @ #{shift.show.show_time} &#8211; #{shift.show.dow}".html_safe,
+                                  shift.show
+                      .visible-xs= link_to shift.show.human_date, shift.show
+                    .col-sm-4.col-xs-6
+                      = shift.skill.name
+                      = ' (training)' if shift.training?
+                    .col-sm-3.hidden-xs.hidden-sm
+                      Call Time:
+                      = shift.show.call_time
+            .col-sm-2.hidden-xs
+              .tiny-calendar.pull-right
+                .title.text-center= Date::MONTHNAMES[Date.today.month]
+                #calendar
+                  = calendar( events: @shifts, size: 'tiny' ) do |date|
+                    = date.day
 
   - if @member == current_member
     .row
