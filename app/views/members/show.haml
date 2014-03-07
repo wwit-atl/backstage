@@ -51,6 +51,7 @@
                           %li
                             .shift-code= shift.skill.code + ':'
                             = link_to_member shift.member
+                            = '(Training)' if shift.training?
                     %td
                       - if show.notes.any?
                         .bs-popover{ title: 'Notes',
