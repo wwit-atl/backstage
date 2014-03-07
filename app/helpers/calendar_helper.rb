@@ -8,7 +8,7 @@ module CalendarHelper
 
   class Calendar < Struct.new(:view, :date, :events, :calsize, :callback)
     HEADER = {
-        tiny: {
+        mini: {
             classes: nil,
             days: %w[S M T W T F S]
         },

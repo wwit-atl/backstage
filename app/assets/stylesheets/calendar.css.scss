@@ -39,6 +39,7 @@
 
     .cal-day {
       padding: 5px;
+      text-align: right;
 
       a {
         color: #666;
@@ -52,10 +53,9 @@
         }
       }
 
-      &.tiny {
+      &.mini {
         height: 20px;
         width: 20px;
-        text-align: right;
       }
 
       &.past { background-color: #DDD }
@@ -93,15 +93,15 @@
   }
 }
 
-.tiny-calendar {
+.mini-calendar {
   font-size: .6em;
+  background-color: white;
 
   td:hover { border: 2px solid $wwit-yellow !important; }
 
   .title {
     font-size: 1.6em;
-    margin: 0 0 2px 0;
-    padding: 0;
+    padding: 0 0 2px 0;
   }
 }
 
