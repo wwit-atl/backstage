@@ -1,6 +1,7 @@
 # Welcome
 
-This is the official source code for Whole World Theatre's Backstage 2.0 website, written by Donovan C. Young.
+This is the official source code for Whole World Theatre's Backstage 2.0 website
+written by Donovan C. Young.
 
 **&copy;2014, Whole World Improv Theatre**
 
@@ -17,16 +18,16 @@ This is a quick list of items that need to be completed
 Completed
 ---------
 
-  - [X] Create Members
-  - [X] Create Roles
-  - [X] Create Skills
-  - [X] Create Shows
-  - [X] Create Notes
-  - [X] Create Dashboard
-  - [X] Create Event Calendar
-  - [X] Create Auto-Shift-Engine
-  - [X] Create Announcements
-  - [X] Send 'waiting for approval' emails to manager on new Annoucements
+ - [X] Create Members
+ - [X] Create Roles
+ - [X] Create Skills
+ - [X] Create Shows
+ - [X] Create Notes
+ - [X] Create Dashboard
+ - [X] Create Event Calendar
+ - [X] Create Auto-Shift-Engine
+ - [X] Create Announcements
+ - [X] Send 'waiting for approval' emails to manager on new Annoucements
 
 Pushed to a future release
 --------------------------
