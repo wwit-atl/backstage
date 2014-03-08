@@ -6,9 +6,8 @@ delay = (->
 )()
 
 ready = ->
-  $('.bs-popover').popover(
-    html: true
-  )
+  $('body').tooltip({ selector: '.bs-tooltip' });
+  $('body').popover({ selector: '.bs-popover' });
 
   $('.chosen-select').chosen
     allow_single_deselect: true
@@ -50,5 +49,6 @@ ready = ->
   )
 
 $(document).ready(ready)
-$(document).on 'page:load', ready
-$(document).on 'cocoon:after-insert', ready
+$(document).on( 'ajax:complete',       ready )
+$(document).on( 'page:load',           ready )
+$(document).on( 'cocoon:after-insert', ready )

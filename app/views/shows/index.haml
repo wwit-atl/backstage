@@ -36,7 +36,8 @@
               %ul.list-unstyled
                 - show.shifts.by_skill_priority.each do |shift|
                   %li
-                    .shift-code= shift.skill.code + ':'
+                    .shift-code
+                      .bs-tooltip{ title: shift.skill.name, data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
                     .shift-name
                       = shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to_member( shift.member )
                       = ' (T)' if shift.training?

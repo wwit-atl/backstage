@@ -14,6 +14,12 @@ class Shift < ActiveRecord::Base
   scope :with_skill, ->(code) { joins(:skill).where(skills: {code: code.to_s.upcase}).readonly(false).first }
   scope :for_month,  ->(date) { joins(:show).where('shows.date >= ? AND date <= ?', date.beginning_of_month, date.end_of_month) }
 
+  scope :for_date, ->(date = Date.today) do
+    if my_date = Date.parse(date.to_s)
+      joins(:show).where('shows.date' => my_date)
+    end
+  end
+
   scope :by_show,           -> { joins(:show).order('shows.date', 'shows.showtime') }
   scope :by_show_desc,      -> { joins(:show).order('shows.date desc', 'shows.showtime desc') }
   scope :by_skill_priority, -> { joins(:skill).order('skills.priority').readonly(false) }

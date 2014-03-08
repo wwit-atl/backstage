@@ -49,7 +49,7 @@
                       %ul.list-unstyled
                         - show.shifts.each do |shift|
                           %li
-                            .shift-code= shift.skill.code + ':'
+                            .shift-code.bs-tooltip{ title: shift.skill.name, data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
                             = link_to_member shift.member
                             = '(Training)' if shift.training?
                     %td
