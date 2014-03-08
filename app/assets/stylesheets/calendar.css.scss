@@ -60,7 +60,8 @@
 
       &.past { background-color: #DDD }
       &.notmonth, &.notmonth a { color: #BBB; }
-      &.today { background-color: #D7F2FF; }
+//      &.today { background-color: #D7F2FF; }
+      &.today { background-color: $wwit-blue-light; }
 
       &.selected {
         a { color: $wwit-yellow; }
@@ -91,17 +92,21 @@
     font-size: 0.8em;
     color: $wwit-red;
   }
+
+  .prev-month, .next-month { padding: 0; margin: 0; }
+  .prev-month { padding-left:  15px; }
+  .next-month { padding-right: 15px; }
 }
 
-.mini-calendar {
+#mini-calendar {
+  @extend #calendar;
+
   font-size: .6em;
   background-color: white;
 
-  td:hover { border: 2px solid $wwit-yellow !important; }
+  .month { font-size: 1.3em; }
+  .prev-month { padding-left:  10px; }
 
-  .title {
-    font-size: 1.6em;
-    padding: 0 0 2px 0;
-  }
+  td:hover { border: 2px solid $wwit-yellow !important; }
 }
 

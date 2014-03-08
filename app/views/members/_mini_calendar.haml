@@ -1,0 +1,3 @@
+.controls= render 'partials/month_controls', mini: true, remote: true
+= calendar( date: @date, events: @shifts, size: 'mini' ) do |date|
+  = date.day

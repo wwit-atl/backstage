@@ -86,17 +86,13 @@
                       Call Time:
                       = shift.show.call_time
             .col-sm-3.col-lg-2.hidden-xs
-              .box.mini-calendar.pull-right
-                .title.text-center= Date::MONTHNAMES[Date.today.month]
-                #calendar
-                  = calendar( events: @shifts, size: 'mini' ) do |date|
-                    = date.day
+              #mini-calendar.box.pull-right= render 'mini_calendar'
 
   - if @member == current_member
     .row
       .col-md-12
         .box
-          %h3.no-top-pad Latest Announcements
+          %h3.no-pad-top Latest Announcements
           - @announcements.each do |message|
             .panel.pad-top-20
               .row

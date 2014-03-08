@@ -50,6 +50,8 @@ class MembersController < ApplicationController
   def show
     unauthorized unless @member.active? or can? :edit, @member
 
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+
     @shows  = @member.mc_shifts.recent.by_date_desc | @member.shows.recent.by_date_desc
     @shifts = @member.shifts.recent.by_show
     @skills = @member.skills
@@ -62,6 +64,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       format.html {}
+      format.js { render :layout => false }
       format.json { render :json => @shifts.map(&:to_json) }
       format.ics do
         calendar = Icalendar::Calendar.new

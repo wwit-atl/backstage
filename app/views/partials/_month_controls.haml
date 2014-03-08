@@ -1,10 +1,13 @@
+- mini   ||= nil
+- remote ||= nil
 - today = @date.strftime('%B %Y') if today.nil?
 .month-controls
   .row
-    .col-xs-2.text-left
-      = link_to get_icon('circle-arrow-left', text: 'Prev Month'), { date: @date.prev_month }
+    .prev-month.text-left{ class: mini ? 'col-xs-1' : 'col-xs-2' }
+      = link_to get_icon('circle-arrow-left', text: ( mini ? nil : 'Prev Month')), { date: @date.prev_month, remote: !remote.nil? }
 
-    .bold.text-large.col-xs-8.text-center= link_to today, { date: Date.today }, title: "Click to go to #{Date.today.strftime('%B %Y')}"
+    .month.text-center.no-pad{ class: mini ? 'col-xs-10' : 'col-xs-8 text-large bold' }
+      = link_to today, { date: Date.today, remote: !remote.nil? }, title: "Click to go to #{Date.today.strftime('%B %Y')}"
 
-    .col-xs-2.text-right
-      = link_to "Next Month #{get_icon('circle-arrow-right')}".html_safe, { date: @date.next_month }
+    .next-month.text-right{ class: mini ? 'col-xs-1' : 'col-xs-2' }
+      = link_to "#{mini ? nil : 'Next Month'} #{get_icon('circle-arrow-right')}".html_safe, { date: @date.next_month, remote: !remote.nil? }
