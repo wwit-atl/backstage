@@ -27,7 +27,9 @@ $wwit-blue:   #1b92b1;
 $wwit-green:  #9cc41e;
 
 $wwit-red-dark: darken($wwit-red, 25%);
+
 $wwit-blue-dark: darken($wwit-blue, 10%);
+$wwit-blue-light: lighten($wwit-blue, 10%);
 
 // Grid Settings
 $grid-float-breakpoint: 1024px;

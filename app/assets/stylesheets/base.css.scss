@@ -49,7 +49,8 @@ fieldset {
 .padding-5 { padding: 5px; }
 .pad-top-20 { margin-top: 20px; }
 
-.no-top-pad, .no-pad-top {
+.no-pad { padding: 0; margin: 0; }
+.no-pad-top {
   padding-top: 0;
   margin-top: 0;
 }
