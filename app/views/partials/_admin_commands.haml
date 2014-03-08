@@ -6,13 +6,13 @@
   .pull-right
     .btn-group.btn-group-xs
       - if can? :destroy, klass and destroy == true
-        = link_to get_icon(:delete), klass, class: 'btn xbtn-default', title: 'Delete', :method => :delete, data: { confirm: 'Are you sure?' }
+        = link_to get_icon(:delete, title: 'Delete'), klass, class: 'btn xbtn-default', :method => :delete, data: { confirm: 'Are you sure?' }
 
       - if can? :edit, klass and edit == true
-        = link_to get_icon(:edit), send('edit_' + klass.class.to_s.underscore + '_path', klass), class: 'btn xbtn-default', title: 'Edit'
+        = link_to get_icon(:edit, title: 'Edit'), send('edit_' + klass.class.to_s.underscore + '_path', klass), class: 'btn xbtn-default'
 
       - if can? :read, klass and show == true
-        = link_to get_icon(:show), klass, class: 'btn xbtn-default', title: 'View'
+        = link_to get_icon(:show, title: 'Show'), klass, class: 'btn xbtn-default'
 
       - if can? :move, klass and move == true
         .btn.xbtn-default
