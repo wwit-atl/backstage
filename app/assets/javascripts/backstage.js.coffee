@@ -6,8 +6,18 @@ delay = (->
 )()
 
 ready = ->
-  $('body').tooltip({ selector: '.bs-tooltip' });
-  $('body').popover({ selector: '.bs-popover' });
+  $('body').tooltip(
+    selector: '[rel=tooltip]'
+    delay: ( show: 250, hide: 500 )
+  )
+
+  $('body').popover(
+    selector: '[rel=popover]'
+    html: true
+  ).hover (->
+    $('[rel=popover]').css "cursor", "pointer"
+  ), ->
+    $('[rel=popover]').css "cursor", "auto"
 
   $('.chosen-select').chosen
     allow_single_deselect: true
@@ -35,7 +45,7 @@ ready = ->
     handle: '.handle'
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
-  );
+  )
 
   # Hide search box when JS is loaded
 #  $('#member_search input[type="submit"]').hide();

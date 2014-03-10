@@ -51,8 +51,8 @@ module ApplicationHelper
       when :next     then icon_class = 'circle-arrow-right'
       else icon_class = type.to_s
     end
-    content_tag(:span, nil, class: ["bs-tooltip glyphicon glyphicon-#{icon_class}", opts[:class]].compact,
-                title: opts[:title], data_toggle: 'tooltip' ) + ( opts[:text].nil? ? nil : "&nbsp;#{opts[:text]}".html_safe )
+    content_tag(:span, nil, rel: ( 'tooltip' if opts[:title] ), class: ["glyphicon glyphicon-#{icon_class}", opts[:class]].compact,
+                title: opts[:title], data:{ toggle: 'tooltip' } ) + ( opts[:text].nil? ? nil : "&nbsp;#{opts[:text]}".html_safe )
   end
 
   def link_to_new(path, text = 'Add New')

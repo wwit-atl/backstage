@@ -137,6 +137,22 @@ fieldset {
   z-index: 99999;
 }
 
+.popover-title {
+  font-size: 1.2em;
+  letter-spacing: 1.2px;
+  color: $wwit-yellow;
+  text-shadow: 1px 1px 3px black;
+}
+
+.popover-content {
+  color: white;
+  a { color: $wwit-red; }
+  a:hover {
+    color: $wwit-red;
+    text-shadow: 1px 1px 3px black;
+  }
+}
+
 #notes {
   hr {
     border-color: $wwit-orange;

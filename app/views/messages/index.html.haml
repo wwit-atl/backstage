@@ -24,7 +24,7 @@
           .panel.padding-5
             .message-subject= message.subject
             .message-body= sanitize message.formatted_text
-          .bs-popover.member-count{ title: "Sent to the following #{pluralize(message.members.count, 'Member')}",
+          %span.member-count{ rel: 'popover', title: "Sent to the following #{pluralize(message.members.count, 'Member')}",
             data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
                     content: message.members.collect{|m| m.name}.to_sentence } }
             = get_icon :envelope, text: "Sent to #{pluralize(message.members.count, 'Member')}"

@@ -104,6 +104,12 @@ $badge-color:                             $wwit-blue-dark;
 
 $base-font-size:                          20px;
 
+$popover-bg:                              $wwit-red;
+$popover-arrow-color:                     $popover-bg;
+$popover-border-color:                    rgba(0,0,0,.5);
+
+$tooltip-bg:                              $wwit-orange;
+
 @function em($px, $base: $base-font-size) {
   @return ($px / $base) * 1em;
 }

@@ -49,15 +49,14 @@
                       %ul.list-unstyled
                         - show.shifts.each do |shift|
                           %li
-                            .shift-code.bs-tooltip{ title: shift.skill.name, data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
+                            %span.shift-code{ rel: 'tooltip', title: shift.skill.name, data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
                             = link_to_member shift.member
                             = '(Training)' if shift.training?
                     %td
                       - if show.notes.any?
-                        .bs-popover{ title: 'Notes',
-                          data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
-                                  content: show.notes.order(:created_at).collect{|n| n.content}.join('<br/>') },
-                                  html: true }
+                        %span{ rel: 'popover', title: 'Notes',
+                               data: { container: 'body', toggle: 'popover', placement: 'auto left',
+                                       content: show.notes.order(:created_at).collect{|n| n.content}.join('<br/>') }}
                           = get_icon(:comment)
 
   - if @member.is_crewable?
