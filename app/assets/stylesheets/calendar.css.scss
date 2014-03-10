@@ -53,14 +53,8 @@
         }
       }
 
-      &.mini {
-        height: 20px;
-        width: 20px;
-      }
-
       &.past { background-color: #DDD }
       &.notmonth, &.notmonth a { color: #BBB; }
-//      &.today { background-color: #D7F2FF; }
       &.today { background-color: $wwit-blue-light; }
 
       &.selected {
@@ -100,6 +94,11 @@
 
 #mini-calendar {
   @extend #calendar;
+
+  .cal-day.mini {
+    height: 28px;
+    width:  28px;
+  }
 
   font-size: .6em;
   background-color: white;

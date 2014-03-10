@@ -1,6 +1,7 @@
 .controls= render 'partials/month_controls', mini: true, remote: true
 = calendar( date: @date, events: @shifts, size: 'mini' ) do |date|
-  -if @shifts.joins(:show).pluck('shows.date').include?(date)
-    .bs-tooltip{ title: @shifts.for_date(date).first.skill.name, data: { toggle: 'tooltip' } }= date.day
+  - shift = @shifts.for_date(date).first
+  -if shift
+    %span{ rel: 'popover', data: { content: link_to( shift.skill.name, shift.show), placement: 'top' } }= date.day
   - else
     = date.day
