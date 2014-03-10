@@ -1,5 +1,5 @@
 %header#body-header.hidden-print
   - unless ENV['SITE_TAG'].nil?
-    .site-tag= content_tag( :span, ENV['SITE_TAG'], class: 'beta' )
+    .hidden-xs.site-tag= content_tag( :span, ENV['SITE_TAG'], class: 'beta' )
   = render 'devise/menu/login_items'
 
