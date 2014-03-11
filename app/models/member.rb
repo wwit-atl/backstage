@@ -75,8 +75,8 @@ class Member < ActiveRecord::Base
   end
 
   def conflict?(date)
-    (year, month, day) = date.strftime('%Y|%m|%d').split('|')
-    !conflicts.where(year: year, month: month, day: day).empty?
+    (year, month, day) = date_to_params(date)
+    conflicts.where(year: year, month: month).limit(Konfig.member_max_conflicts).pluck(:day).include?(day)
   end
 
   def has_shift_for?(show)
@@ -187,5 +187,11 @@ class Member < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     slug.blank? || firstname_changed? || lastname_changed?
+  end
+
+  private
+
+  def date_to_params(date)
+    date.strftime('%Y|%m|%d').split('|').map(&:to_i)
   end
 end
