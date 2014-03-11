@@ -46,7 +46,7 @@
 
               - if current_member.has_role?(:admin)
                 %li.divider
-                %li{ class: is_active?(conflicts_path)      }= link_to 'Manage Conflicts', conflicts_path
+                %li{ class: is_active?(conflicts_path)      }= link_to 'Member Conflicts', conflicts_path
                 %li{ class: is_active?(shifts_path)         }= link_to 'Manage Shifts', shifts_path
                 %li{ class: is_active?(skills_path)         }= link_to 'Manage Skills', skills_path
                 %li{ class: is_active?(show_templates_path) }= link_to 'Show Templates', show_templates_path

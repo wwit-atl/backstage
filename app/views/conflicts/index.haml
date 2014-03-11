@@ -1,17 +1,19 @@
+- member_min_shifts = Konfig.member_min_shifts
+
 #conflicts-index
-  %h1 Listing conflicts
+  %h1 Member Conflicts
 
   %table.table.table-striped
     %thead
       %tr
         %th Member Name
         %th
-          Upcoming Conflicts (
+          Conflicts (
           %span.darkgreen Locked
           \/
           %span.red Unlocked
           )
-        %th Over?
+        %th # Shifts
         %th
           - if can? :lock_conflicts, Conflict
             = link_to get_icon(:lock, text: 'Lock All'), lock_conflicts_path, method: :put
@@ -28,7 +30,7 @@
           %td.name= link_to member.name, member
           %td.col-md-6.upcoming
             - if member.conflicts.future.empty?
-              No Upcoming Conflicts
+              No Conflicts
             - else
               %ul.list-unstyled
                 - member.conflicts.future.group_by{|c| c.month}.each do |month, conflicts|
@@ -36,8 +38,11 @@
                     %ul.list-inline.conflict-dates
                       - conflicts.each do |conflict|
                         %li{ class: conflict.locked? ? 'darkgreen' : 'red' }= conflict.us_date
-          %td.col-md-1.limit{ class: over_limit ? 'over-limit' : 'under-limit' }= over_limit ? 'YES' : 'No'
-          %td.manage= link_to 'Manage', manage_member_conflicts_path(member)
+          %td
+            %ul.list-unstyled
+              - member.shifts.future.group_by{|s| s.show.date.month}.each do |month, shifts|
+                %li= link_to "#{Date::MONTHNAMES[month]}: #{shifts.count}", shifts_path(date: shifts.first.date)
+          %td.manage= link_to 'Conflicts', manage_member_conflicts_path(member)
 
   = will_paginate @members, renderer: BootstrapPagination::Rails
 

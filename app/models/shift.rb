@@ -14,6 +14,8 @@ class Shift < ActiveRecord::Base
   scope :with_skill, ->(code) { joins(:skill).where(skills: {code: code.to_s.upcase}).readonly(false).first }
   scope :for_month,  ->(date) { joins(:show).where('shows.date >= ? AND date <= ?', date.beginning_of_month, date.end_of_month) }
 
+  scope :future, -> { joins(:show).where('shows.date >= ?', Date.today.beginning_of_month) }
+
   scope :for_date, ->(date = Date.today) do
     if my_date = Date.parse(date.to_s)
       joins(:show).where('shows.date' => my_date)
