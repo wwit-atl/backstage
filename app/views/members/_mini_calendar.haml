@@ -2,6 +2,6 @@
 = calendar( date: @date, events: @shifts, size: 'mini' ) do |date|
   - shift = @shifts.for_date(date).first
   -if shift
-    %span{ rel: 'popover', data: { content: link_to( shift.skill.name, shift.show), placement: 'top' } }= date.day
+    %span{ rel: 'tooltip', data: { title: shift.skill.name, placement: 'top' } }= link_to date.day, shift.show
   - else
     = date.day
