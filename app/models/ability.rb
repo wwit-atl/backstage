@@ -16,13 +16,13 @@ class Ability
       can :manage, :all
     elsif member.has_role?(:management)
       can :manage, [ Member, Show, Message, Note ]
-      can :read, [ Role, Skill ]
+      can :read, [ Role, Skill, Conflict ]
     end
 
     can :read, [ Member, Show, Note ] if member.company_member?
 
-    can [:edit, :update, :cast], Show,     mc_id: member.id
-    can [:read, :edit, :update], Member,   id: member.id
+    can [:edit, :update, :cast], Show, mc_id: member.id
+    can [:read, :edit, :update, :cast_list], Member, id: member.id
     can [:crud, :manage_conflicts, :set_conflicts, :get_conflicts], Conflict, member_id: member.id
 
     can [:edit, :update, :destroy], Message, sender_id: member.id, approver_id: nil, sent_at: nil
