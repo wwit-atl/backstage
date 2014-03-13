@@ -12,7 +12,7 @@ WWIT Backstage Change Log
  - Various minor bug fixes / screen improvements
 
 ### v2.0.1 - _bug fix release_
-Status: _Deployed_
+Status: _Deployed 2014-03-13 10:06 AM_
 
  - Fixes bug wherein regular members did not have access to cast list
  - Fixes bug wherein MC's could not send out Cast Annoucements
