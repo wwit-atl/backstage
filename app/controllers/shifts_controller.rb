@@ -6,7 +6,7 @@ class ShiftsController < ApplicationController
     sort = params[:sort] ||= :show
     case sort.to_sym
       when :skill then @shifts = Shift.for_month(@date).by_show.by_skill_priority
-      when :member then @shifts = Shift.for_month(@date).by_show.by_member
+      when :member then @shifts = Shift.for_month(@date).by_member
       else @shifts = Shift.for_month(@date).by_skill_priority.by_show
     end
     @sorted_by = sort.to_sym
