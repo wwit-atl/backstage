@@ -11,7 +11,7 @@ WWIT Backstage Change Log
  - Adds '# of Shifts' column to Conflicts Management list
  - Various minor bug fixes / screen improvements
 
-### v2.0.1 - _bug fix release (deployed)_
+### v2.0.1 - _bug fix release_
 Status: _Deployed_
 
  - Fixes bug wherein regular members did not have access to cast list
