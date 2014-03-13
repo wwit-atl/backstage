@@ -21,7 +21,7 @@ class Ability
 
     can :read, [ Member, Show, Note ] if member.company_member?
 
-    can [:edit, :update, :cast], Show, mc_id: member.id
+    can [:edit, :update, :cast, :casting_announcement], Show, mc_id: member.id
     can [:read, :edit, :update, :cast_list], Member, id: member.id
     can [:crud, :manage_conflicts, :set_conflicts, :get_conflicts], Conflict, member_id: member.id
 
