@@ -68,7 +68,7 @@ module Scheduler
       crew = vet_members(crew_members, min_shifts, max_shifts)
 
       # Return nil or a random crew member
-      crew.empty? ? nil : crew.sample
+      crew.sample
     end
 
     # Runs through a list of members, checking if they eligible to work this show
@@ -106,9 +106,9 @@ module Scheduler
         if same_group_crew.count > 0
           # If Same-Group members exist, go ahead and assign them anyway (randomly)
           Rails.logger.debug '[AUTOSCHED] >> Eligible Crew list is empty, assigning same-group members'
-          crew_list << same_group_crew.sample(1)
+          crew_list = same_group_crew
         elsif potential_crew.count > 0
-          Rails.logger.debug '[AUTOSCHED] >> Eligible Crew list is empty, re-processing with potential list'
+          Rails.logger.debug '[AUTOSCHED] >> Eligible Crew list is empty, increasing min shift and re-processing with potential list'
           crew_list = vet_members(potential_crew, min_shifts+1, max_shifts)
         end
       end
