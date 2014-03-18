@@ -35,7 +35,7 @@ puts 'Create Roles'
   [ :us,         true,  true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'          ],
   [ :isp,        true,  true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                       ],
   [ :student,    false, true,  false, false, 'WWIT Student',        'Improv Student, limited access'                     ],
-  [ :staff,      false, true,  true,  false, 'Staff Member',        'Official Company Staff, normal access'              ],
+  [ :staff,      false, true,  true,  true,  'Staff Member',        'Official Company Staff, normal access'              ],
   [ :volunteer,  false, true,  false, false, 'WWIT Volunteer',      'Volunteer, limited access'                          ],
 ].each do |code, cast, crew, cm, sched, title, desc|
   Role.where(name: code.to_s).first_or_create.update_attributes(
@@ -52,25 +52,26 @@ end
 # Create Skills
 #
 puts 'Create Skills'
-#  Pri,  Code,  Name,         Description, train?, autocrew?
+#  Pri,  Code,  Name,         Description, train?, autocrew?, limits?
 [
-  [ 1,   'HM', 'House Manager',           '', true,  true  ],
-  [ 2,   'LS', 'Lightboard Operator',     '', true,  true  ],
-  [ 3,   'SS', 'Soundboard Operator',     '', true,  true  ],
-  [ 4,   'LSS','Lights & Sound Operator', '', true,  true  ],
-  [ 5,   'CS', 'Camera Operator',         '', true,  true  ],
-  [ 6,   'SM', 'Stage Manager',           '', true,  true  ],
-  [ 7,   'SG', 'Suggestion Taker',        '', false, true  ],
-  [ nil, 'MU', 'Musician',                '', true,  false ],
-  [ nil, 'BO', 'Box Office Attendant',    '', true,  false ],
-  [ nil, 'BAR','Bartender',               '', true,  false ],
-  [ nil, 'TEACH', 'Improv Teacher',       '', true,  false ]
-].each do |priority, code, name, desc, training, autocrew|
+  [ 1,   'HM', 'House Manager',           '', true,  true,  true  ],
+  [ 2,   'LS', 'Lightboard Operator',     '', true,  true,  true  ],
+  [ 3,   'SS', 'Soundboard Operator',     '', true,  true,  true  ],
+  [ 4,   'LSS','Lights & Sound Operator', '', true,  true,  true  ],
+  [ 5,   'CS', 'Camera Operator',         '', true,  true,  true  ],
+  [ 6,   'SM', 'Stage Manager',           '', true,  true,  true  ],
+  [ 7,   'SG', 'Suggestion Taker',        '', false, true,  true  ],
+  [ nil, 'MU', 'Musician',                '', true,  false, false ],
+  [ nil, 'BO', 'Box Office Attendant',    '', true,  false, false ],
+  [ nil, 'BAR','Bartender',               '', true,  false, false ],
+  [ nil, 'TEACH', 'Improv Teacher',       '', true,  false, false ]
+].each do |priority, code, name, desc, training, autocrew, limits|
   Skill.where(code: code).first_or_create.update_attributes(
     name:        name,
     description: desc,
     training:    training,
     autocrew:    autocrew,
+    limits:      limits,
     priority:    priority,
   )
 end

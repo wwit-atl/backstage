@@ -13,6 +13,7 @@
   .row
     .checkbox-inline= f.input :training, label: 'Is training required?', class: :checkbox
     .checkbox-inline= f.input :autocrew, label: 'Should we auto-schedule?', class: :checkbox
+    .checkbox-inline= f.input :limits, label: 'Does this skill use Shift Limits?', class: :checkbox
 
   .form-group= f.input :description, input_html: { rows: 3 }
 

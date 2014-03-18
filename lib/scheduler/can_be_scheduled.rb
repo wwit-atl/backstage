@@ -56,13 +56,17 @@ module Scheduler
     def get_crew(shift)
       Rails.logger.debug "[AUTOSCHED] >> Looking for eligible crew for #{shift.skill.name}"
 
-      min_shifts = Konfig.where(name: 'MemberMinShifts').first.value.to_i || 3
-      max_shifts = Konfig.where(name: 'MemberMaxShifts').first.value.to_i || 5
+      min_shifts = max_shifts = -1
+
+      if shift.skill.limits
+        min_shifts = Konfig.where(name: 'MemberMinShifts').first.value.to_i || 3
+        max_shifts = Konfig.where(name: 'MemberMaxShifts').first.value.to_i || 5
+      end
 
       if shift.skill.training
-        crew_members = Member.crewable.has_skill(shift.skill.code) || []
+        crew_members = Member.schedulable.has_skill(shift.skill.code) || []
       else
-        crew_members = Member.crewable || []
+        crew_members = Member.schedulable || []
       end
 
       crew = vet_members(crew_members, min_shifts, max_shifts)

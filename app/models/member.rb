@@ -30,8 +30,10 @@ class Member < ActiveRecord::Base
   scope :active,   -> { where(active: true) }
   scope :inactive, -> { where(active: false)}
 
-  scope :castable, -> { active.joins(:roles).merge(Role.castable)   }
-  scope :crewable, -> { active.joins(:roles).merge(Role.crewable)   }
+  scope :castable,    -> { active.joins(:roles).merge(Role.castable)      }
+  scope :crewable,    -> { active.joins(:roles).merge(Role.crewable)      }
+  scope :schedulable, -> { active.joins(:roles).merge(Role.auto_schedule) }
+
   scope :company_members, -> { active.joins(:roles).merge(Role.company_member) }
 
   # ToDo Need a method that determines if a Member is eligible for a given date (checking conflicts, crews, and cast)
@@ -51,6 +53,7 @@ class Member < ActiveRecord::Base
   scope :admins,   -> { has_role(:admin)      }
   scope :managers, -> { has_role(:management) }
   scope :mcs,      -> { has_role(:mc)         }
+  scope :staff,    -> { has_role(:staff)      }
 
   sifter :member_search do |search|
     lastname.matches("%#{search}%") | firstname.matches("%#{search}%") | email.matches("%#{search}%")
@@ -130,18 +133,18 @@ class Member < ActiveRecord::Base
     # Is the member part of a auto_schedule group?
     return false if schedule_groups.empty?
 
-    # Is the member already at the maximum number of shifts?
-    return false if shift_count_for_month(show.month) >= max_shifts
-
     # Does the member have a conflict for this date?
     return false if conflict?(show.date)
 
     # Is the member already scheduled on a shift for this show?
     return false if has_shift_for?(show)
 
+    # Is the member already at the maximum number of shifts?
+    return false if shift_count_for_month(show.month) >= max_shifts unless max_shifts < 0
+
     # Has the member reached the minimum shift limit?
     # If so, add them to the potential crew list
-    return 0 if shift_count_for_month(show.month) >= min_shifts
+    return 0 if shift_count_for_month(show.month) >= min_shifts unless min_shifts < 0
 
     # Return 1 if the member is part of the same group as the show.
     # This is to prefer crewing ISP members for US shows, and visa-versa
