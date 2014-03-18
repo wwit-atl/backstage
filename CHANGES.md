@@ -2,7 +2,7 @@ WWIT Backstage Change Log
 -------------------------
 
 ### v2.1.1 - _bug fix release_
- Status: _Deployed 2014-03-17 @ 10:30 PM_
+ Status: _Deployed 2014-03-17 @ 11:00 PM_
 
  - Fixes bug keeping Auto-Schedule from working properly
  - Adds "Exempt from Conflicts" flag to members, allowing auto-schedule to ignore conflict limits
