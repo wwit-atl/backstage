@@ -72,7 +72,13 @@ class ShowsController < ApplicationController
 
   def schedule
     unauthorized unless can? :schedule, Show
+
+    # First, lock all existing conflicts
+    Conflict.find_each(&:lock!)
+
+    # Now schedule shifts
     @exceptions = Show.schedule
+
     flash.notice = 'Auto Schedule completed successfully' if @exceptions.empty?
     respond_to do |format|
       format.js { render :layout => false }

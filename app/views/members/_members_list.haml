@@ -33,7 +33,7 @@
               = get_icon :user, class: 'icon', title: 'Company Member'
             = link_to_member member
           - if can? :manage, Member
-            %td.hidden-xs.hidden-sm= get_icon :th, class: 'icon', title: 'Exempt from Conflicts' if member.conflict_exempt?
+            %td.hidden-xs.hidden-sm= get_icon :th, class: 'icon', title: 'Exempt from Conflict Limits' if member.conflict_exempt?
           %td.phone
             - member.phones.by_type.each do |phone|
               = link_to phone.listing, phone.as_tel_link
