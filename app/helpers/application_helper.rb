@@ -47,6 +47,8 @@ module ApplicationHelper
       when :email    then icon_class = 'send'
       when :delete   then icon_class = 'trash'
       when :member   then icon_class = 'user'
+      when :admin    then icon_class = 'tower'
+      when :staff    then icon_class = 'star-empty'
       when :back     then icon_class = 'circle-arrow-left'
       when :next     then icon_class = 'circle-arrow-right'
       else icon_class = type.to_s

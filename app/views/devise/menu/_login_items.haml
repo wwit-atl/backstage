@@ -27,7 +27,7 @@
           %li.dropdown
             = link_to root_path, class: 'dropdown-toggle', data: { toggle: 'dropdown', target: '#' } do
               - if current_member.is_admin?
-                = get_icon :tower
+                = get_icon :admin
               - else
                 = get_icon :member
               = current_member.name

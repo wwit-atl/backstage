@@ -3,6 +3,8 @@
     %thead
       %tr
         %th Name
+        - if can? :manage, Member
+          %th
         %th Phone(s)
         %th Email
         - if can? :manage, Member
@@ -18,16 +20,20 @@
         %tr
           %td.name
             - if member.inactive?
-              = get_icon(:ban, class: 'icon inactive')
+              = get_icon :ban, class: 'icon inactive', title: 'Inactive Member'
             - elsif member.has_role?(:volunteer)
-              = get_icon(:record, class: 'icon')
+              = get_icon :record, class: 'icon', title: 'Volunteer'
             - elsif current_member.has_role?(:admin) and member.has_role?(:admin)
-              = get_icon(:tower, class: 'icon')
+              = get_icon :admin, class: 'icon', title: 'Administrator'
             - elsif current_member.has_role?(:admin) and member.has_role?(:management)
-              = get_icon(:star, class: 'icon')
+              = get_icon :star, class: 'icon', title: 'Management'
+            - elsif current_member.has_role?(:admin) and member.has_role?(:staff)
+              = get_icon :staff, class: 'icon', title: 'Staff Member'
             - else
-              = get_icon(:user, class: 'icon')
-            %span{ class: ( 'red-bg' if member.conflict_exempt? )}= link_to_member member
+              = get_icon :user, class: 'icon', title: 'Company Member'
+            = link_to_member member
+          - if can? :manage, Member
+            %td.hidden-xs.hidden-sm= get_icon :th, class: 'icon', title: 'Exempt from Conflicts' if member.conflict_exempt?
           %td.phone
             - member.phones.by_type.each do |phone|
               = link_to phone.listing, phone.as_tel_link
