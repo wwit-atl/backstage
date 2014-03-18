@@ -1,12 +1,13 @@
 WWIT Backstage Change Log
 -------------------------
 
-### v2.1.1 - _bug fix release_
+### v2.1.1 - _Maintenance Release_
  Status: _Deployed 2014-03-17 @ 11:00 PM_
 
  - Fixes bug keeping Auto-Schedule from working properly
  - Adds "Exempt from Conflicts" flag to members, allowing auto-schedule to ignore conflict limits
  - Adds "Ignore Max Shifts" flag to Skills, so certain skills can be scheduled more than the normal limits
+ - Minor visual improvements (specifically in Member index)
 
 ### v2.1.0 - _Enhancement Release_
  Status: _Deployed 2014-03-13 @ 4:30 PM_
