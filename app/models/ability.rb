@@ -17,6 +17,7 @@ class Ability
     elsif member.has_role?(:management)
       can :manage, [ Member, Show, Message, Note ]
       can :read, [ Role, Skill, Conflict ]
+      cannot :generate, Show
     end
 
     can :read, [ Member, Show, Note ] if member.company_member?

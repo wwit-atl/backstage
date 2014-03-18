@@ -3,6 +3,8 @@ require 'icalendar'
 class Shift < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
+  can_be_scheduled
+
   before_save :generate_uuid
 
   belongs_to :show
@@ -13,6 +15,8 @@ class Shift < ActiveRecord::Base
 
   scope :with_skill, ->(code) { joins(:skill).where(skills: {code: code.to_s.upcase}).readonly(false).first }
   scope :for_month,  ->(date) { joins(:show).where('shows.date >= ? AND date <= ?', date.beginning_of_month, date.end_of_month) }
+
+  scope :unassigned, -> { where(member_id: nil) }
 
   scope :future, -> { joins(:show).where('shows.date >= ?', Date.today.beginning_of_month) }
 

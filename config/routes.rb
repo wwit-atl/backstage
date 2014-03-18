@@ -17,16 +17,17 @@ Backstage::Application.routes.draw do
 
   resource :inbox, controller: 'inbox', :only => [:show,:create] # For email WebHooks
 
-  resources :show_templates, except: [:show]
   resources :skills,  :concerns => :sortable
+
+  resources :show_templates, except: [:show]
   resources :shows,   :concerns => :notable do
     collection do
-      get 'schedule', to: 'shows#schedule'
       get 'create',   to: 'shows#create_shows', as: 'create'
     end
     post 'casting_announcement'
   end
 
+  get '/members/schedule'
   resources :members, :concerns => :notable do
     get :cast_list
     resource :conflicts do
@@ -47,6 +48,7 @@ Backstage::Application.routes.draw do
 
   get   '/shifts', to: 'shifts#index'
   patch '/shifts', to: 'shifts#update'
+  get 'shifts/schedule'
 
   # Used for testing (inactive when in production mode)
   get '/admin', to: 'members#admin'

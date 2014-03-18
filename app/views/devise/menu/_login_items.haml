@@ -42,7 +42,8 @@
 
               - if current_member.has_role?(:management) or current_member.has_role?(:admin)
                 %li.divider
-                %li{ class: is_active?(roles_path)          }= link_to 'View Roles', roles_path
+                %li{ class: is_active?(members_schedule_path) }= link_to 'View Schedule', members_schedule_path
+                %li{ class: is_active?(roles_path)            }= link_to 'View Roles', roles_path
 
               - if current_member.has_role?(:admin)
                 %li.divider

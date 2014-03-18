@@ -7,10 +7,10 @@ module Scheduler
         include Scheduler::CanBeScheduled::LocalInstanceMethods
       end
 
-      def schedule
+      def schedule(date = Date.today)
         @exceptions = {}
-        Rails.logger.info "[AUTOSCHED] Scheduling all available shifts"
-        self.order('RANDOM()').each do |instance|
+        Rails.logger.info "[AUTOSCHED] Scheduling all available shifts for #{date.strftime('%B, %Y')}"
+        self.for_month(date).by_skill_priority.each do |instance|
           @exceptions.merge! instance.schedule
         end
         return @exceptions
@@ -22,26 +22,24 @@ module Scheduler
       def schedule
         @exceptions = {}
 
-        Rails.logger.debug "[AUTOSCHED] >> Scheduling shifts for #{self.title}"
+        Rails.logger.debug "[AUTOSCHED] >> Scheduling #{self.show.title} #{self.skill.name}"
 
         #return { self.date => [ "#{self.name}; has no shifts to assign" ] } if self.shifts.empty?
-        return {} if self.shifts.empty?
+        # return {} if self.shifts.empty?
 
-        self.shifts.by_skill_priority.each do |shift|
-          Rails.logger.debug "[AUTOSCHED] Checking #{shift.skill.name}"
+        # Rails.logger.debug "[AUTOSCHED] Checking #{self.skill.name}"
 
-          next unless shift.skill.autocrew
-          next unless shift.member.nil?
+        return {} unless self.skill.autocrew
+        return {} unless self.member.nil?
 
-          crew = get_crew(shift)
+        crew = get_crew(self)
 
-          if crew.nil?
-            ( @exceptions[shift.show.date] ||= [] ) << shift.skill.name
-          else
-            Rails.logger.info "[AUTOSCHED] Assigning #{crew.name} to #{shift.skill.name}"
-            shift.member = crew
-            shift.save!
-          end
+        if crew.nil?
+          ( @exceptions[self.show.date] ||= [] ) << self.skill.name
+        else
+          Rails.logger.info "[AUTOSCHED] Assigning #{crew.name} to #{self.skill.name}"
+          self.member = crew
+          self.save!
         end
 
         @exceptions.each { |date,shift| Rails.logger.error "[AUTOSCHED] No eligible members were available for #{shift} on #{date.to_s}" }
@@ -54,6 +52,8 @@ module Scheduler
 
     # When successful, returns a single member name, vetted to work the shift
     def get_crew(shift)
+      crew_list = {}
+
       Rails.logger.debug "[AUTOSCHED] >> Looking for eligible crew for #{shift.skill.name}"
 
       min_shifts = max_shifts = -1
@@ -72,7 +72,16 @@ module Scheduler
       crew = vet_members(crew_members, min_shifts, max_shifts)
 
       # Return nil or a random crew member
-      crew.sample
+      return nil if crew.empty?
+
+      # Select a random member with the least amount of shifts
+      crew.each do |member|
+        c = member.shifts.for_month(shift.show.date).count
+        crew_list[c] = [] if crew_list[c].nil?
+        crew_list[c] << member
+      end
+
+      crew_list[crew_list.keys.min].sample
     end
 
     # Runs through a list of members, checking if they eligible to work this show
@@ -84,7 +93,7 @@ module Scheduler
       Rails.logger.debug "[AUTOSCHED] >> #{members.count} members being vetted"
 
       members.each do |member|
-        eligible = member.eligible_for_shift?(self, min_shifts, max_shifts)
+        eligible = member.eligible_for_shift?(self.show, min_shifts, max_shifts)
         next unless eligible
 
         Rails.logger.debug "[AUTOSCHED] >> Vetting #{member.name}"
@@ -96,7 +105,7 @@ module Scheduler
             potential_crew << member
           when 1
             # Member part of same group, add to same_group list
-            Rails.logger.debug "[AUTOSCHED] >> #{member.name} is in the same group as the show (#{self.group.name}), will only schedule if no other members qualify."
+            Rails.logger.debug "[AUTOSCHED] >> #{member.name} is in the same group as the show (#{self.show.group.name}), will only schedule if no other members qualify."
             same_group_crew << member
           else
             # If we made it here, add the member to the crew list

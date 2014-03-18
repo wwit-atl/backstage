@@ -83,6 +83,14 @@ class MembersController < ApplicationController
     unauthorized unless can? :read, Role
   end
 
+  def schedule
+    @exceptions = session[:exceptions] && session.delete(:exceptions) if session[:exceptions]
+
+    @members = Member.schedulable.by_name_last
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @shifts = Shift.for_month(@date).by_show
+  end
+
   # GET /members/new
   def new
     @member = Member.new

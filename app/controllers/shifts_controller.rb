@@ -27,4 +27,22 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def schedule
+    unauthorized unless can? :schedule, Shift
+
+    date = params[:date].nil? ? Date.today : Date.parse(params[:date])
+
+    # First, lock all existing conflicts
+    Conflict.find_each(&:lock!)
+
+    # Now schedule shifts
+    @exceptions = Shift.schedule(date)
+    flash.notice = "Auto Schedule completed successfully for #{date.strftime('%B, %Y')}" if @exceptions.empty?
+
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html { redirect_to members_schedule_path(date: date) }
+    end
+  end
+
 end

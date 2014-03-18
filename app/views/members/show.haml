@@ -181,6 +181,8 @@
         = render 'notes/notes', klass: @member
         .pad-top-20= render 'notes/form'
 
+= link_to get_icon(:back, text: 'Back'), :back
+
 - if can? :update, @member
-  = link_to get_icon(:edit) + ' Edit', edit_member_path(@member)
+  .pull-right= link_to get_icon(:edit) + ' Edit', edit_member_path(@member)
 

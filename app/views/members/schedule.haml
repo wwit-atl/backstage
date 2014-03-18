@@ -1,0 +1,38 @@
+-if can? :auto_sched, Shift
+  #scheduler.errors
+  .pull-right.pad-top-20
+    = link_to shifts_schedule_path(date: @date), class: 'btn btn-info auto-schedule', data: { disable_with: 'Processing... Please Wait' } do
+      = get_icon 'calendar', text: "Auto Schedule #{@date.strftime('%B, %Y')}"
+
+#members-schedule
+  %h1 Schedule for #{@date.strftime('%B, %Y')}
+  = render 'partials/month_controls'
+
+  - if @exceptions and @exceptions.any?
+    .plaque
+      %h2.red.no-pad-top Exceptions!
+      %ul.list-group
+      - @exceptions.sort.each do |date, shifts|
+        %li.list-group-item= "#{date}: No eligible members were available for #{shifts.to_sentence}"
+
+  %table.table
+    %thead
+      %tr
+        %th Member
+        %th Shift
+    %tbody
+      %tr
+        %td Unassigned
+        %td
+          %ul.list-unstyled
+            - @shifts.unassigned.each do |shift|
+              %li #{link_to_show shift.show} - #{shift.skill.name}
+
+      - @members.each do |member|
+        %tr
+          %td= link_to_member member
+          %td
+            %ul.list-unstyled
+              - member.shifts.for_month(@date).by_show.each do |shift|
+                %li #{link_to_show shift.show} - #{shift.skill.name}
+

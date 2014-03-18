@@ -1,5 +1,4 @@
 class Show < ActiveRecord::Base
-  can_be_scheduled
 
   has_many :shifts, :dependent => :destroy
   has_many :crew_members, :through => :shifts, :source => :member
