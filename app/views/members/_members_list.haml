@@ -27,7 +27,7 @@
               = get_icon(:star, class: 'icon')
             - else
               = get_icon(:user, class: 'icon')
-            = link_to_member member
+            %span{ class: ( 'red-bg' if member.conflict_exempt? )}= link_to_member member
           %td.phone
             - member.phones.by_type.each do |phone|
               = link_to phone.listing, phone.as_tel_link
@@ -35,7 +35,8 @@
           %td.email{ class: can?( :manage, member ) ? "confirmed-#{member.confirmed?}" : nil }= mail_to member.email
 
           - if can? :manage, Member
-            %td.hidden-xs.hidden-sm= link_to member.skills.by_code.map{|r| r.code}.join(', '), skills_path
+            %td.hidden-xs.hidden-sm
+              = member.skills.by_code.collect { |s| content_tag :span, s.code, rel: 'tooltip', data: { title: s.name, placement: 'top' } }.to_sentence.html_safe
             %td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
 
           %td= render 'partials/admin_commands', klass: member, show: true

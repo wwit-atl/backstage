@@ -50,7 +50,8 @@
                       %ul.list-unstyled
                         - show.shifts.each do |shift|
                           %li
-                            %span.shift-code{ rel: 'tooltip', title: shift.skill.name, data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
+                            %span.shift-code{ rel: 'tooltip', title: shift.skill.name,
+                              data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
                             = link_to_member shift.member
                             = '(T)' if shift.training?
                     %td
@@ -111,7 +112,15 @@
       .row
         %fieldset
           %legend Confidential Information
-          .col-md-2 Sex: #{@member.sex || 'N/A'}
+          .col-md-2
+            Sex: #{@member.sex || 'N/A'}<br/>
+            - if current_member.is_admin?
+              %p.pad-top-20
+                = content_tag :span, "Active: #{@member.active? ? 'Yes' : 'No' }",
+                  class: ( 'pad-2 red-bg' if @member.inactive? )
+                %br
+                = content_tag :span, "Exempt: #{@member.conflict_exempt? ? 'Yes' : 'No' }",
+                  class: ( 'pad-2 red-bg' if @member.conflict_exempt? )
           .col-md-4
             Birthday: #{@member.birthday}
             - if current_member.is_admin?
@@ -173,5 +182,5 @@
         .pad-top-20= render 'notes/form'
 
 - if can? :update, @member
-  = link_to 'Edit', edit_member_path(@member)
+  = link_to get_icon(:edit) + ' Edit', edit_member_path(@member)
 

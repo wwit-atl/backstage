@@ -78,8 +78,10 @@ class Member < ActiveRecord::Base
   end
 
   def conflict?(date)
+    limit = self.conflict_exempt? ? nil : Konfig.member_max_conflicts
+
     (year, month, day) = date_to_params(date)
-    conflicts.where(year: year, month: month).limit(Konfig.member_max_conflicts).pluck(:day).include?(day)
+    conflicts.where(year: year, month: month).limit(limit).pluck(:day).include?(day)
   end
 
   def has_shift_for?(show)
