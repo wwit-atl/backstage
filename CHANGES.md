@@ -1,6 +1,14 @@
 WWIT Backstage Change Log
 -------------------------
 
+### v2.1.2 - _Auto-Schedule Fixes_
+ Status: _Deployed 2014-03-18 @ 11:00 PM_
+
+ - New Schedule view, showing all assigned and unassigned shifts
+ - Refactors auto-schedule code to use Shifts instead of Shows (more efficient scheduling)
+ - Assigns a random member with the least amount of current shifts (evens out schedule)
+ - Back button on most pages now actually takes you back to where you were. I know, right?
+
 ### v2.1.1 - _Maintenance Release_
  Status: _Deployed 2014-03-17 @ 11:00 PM_
 
