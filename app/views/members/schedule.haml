@@ -36,3 +36,4 @@
               - member.shifts.for_month(@date).by_show.each do |shift|
                 %li #{link_to_show shift.show} - #{shift.skill.name}
 
+  = render 'partials/month_controls'
