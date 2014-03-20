@@ -37,7 +37,7 @@ class ShowsController < ApplicationController
 
     respond_to do |format|
       if @show.save
-        format.html { redirect_back_to @show, notice: 'Show was successfully created.' }
+        format.html { redirect_to @show, notice: 'Show was successfully created.' }
         format.json { render action: 'show', status: :created, location: @show }
       else
         format.html { render action: 'new' }
@@ -51,7 +51,7 @@ class ShowsController < ApplicationController
   def update
     respond_to do |format|
       if @show.update(show_params)
-        format.html { redirect_back_to @show, notice: 'Show was successfully updated.' }
+        format.html { redirect_to @show, notice: 'Show was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
