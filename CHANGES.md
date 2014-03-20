@@ -1,6 +1,11 @@
 WWIT Backstage Change Log
 -------------------------
 
+### v2.1.4 - _Minor Revision_
+ Status: _Deployed 2014-03-20_
+
+ - Revert back to show page after create/update in Shows (better UX)
+ 
 ### v2.1.3 - _Back Button Fix_
  Status: _Deployed 2014-03-19_
 
