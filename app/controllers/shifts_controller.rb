@@ -30,10 +30,10 @@ class ShiftsController < ApplicationController
   def schedule
     unauthorized unless can? :schedule, Shift
 
-    date = params[:date].nil? ? Date.today : Date.parse(params[:date])
+    date = Date.parse(params[:date] || Date.today.to_s)
 
     # First, lock all existing conflicts
-    Conflict.find_each(&:lock!)
+    Conflict.for_month(date.month).find_each(&:lock!)
 
     # Now schedule shifts
     @exceptions = Shift.schedule(date)
