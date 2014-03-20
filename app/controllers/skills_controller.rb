@@ -19,6 +19,7 @@ class SkillsController < ApplicationController
 
   # GET /skills/1/edit
   def edit
+    session[:redirect_to] = request.referrer
   end
 
   # POST /skills
@@ -28,7 +29,7 @@ class SkillsController < ApplicationController
 
     respond_to do |format|
       if @skill.save
-        format.html { redirect_to skills_url, notice: 'Skill was successfully created.' }
+        format.html { redirect_back_to skills_url, notice: 'Skill was successfully created.' }
         format.json { head :no_content }
       else
         format.html { render action: 'new' }
@@ -42,7 +43,7 @@ class SkillsController < ApplicationController
   def update
     respond_to do |format|
       if @skill.update(skill_params)
-        format.html { redirect_to skills_url, notice: 'Skill was successfully updated.' }
+        format.html { redirect_back_to skills_url, notice: 'Skill was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,7 +57,7 @@ class SkillsController < ApplicationController
   def destroy
     @skill.destroy
     respond_to do |format|
-      format.html { redirect_to skills_url }
+      format.html { redirect_back_to skills_url }
       format.json { head :no_content }
     end
   end

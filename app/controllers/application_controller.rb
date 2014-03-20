@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_member!
   before_action :configure_permitted_parameters, :if => :devise_controller?
   before_action :set_host
+  before_action :set_referrer, except: [:create, :update, :destroy]
 
   alias_method :current_user, :current_member
 
@@ -27,6 +28,38 @@ class ApplicationController < ActionController::Base
     # This should return the number of new messages based upon:
     # current_member.last_message_id
     # messages.maximum(:id)
+  end
+
+  def set_referrer
+    # Do nothing if it's a refresh
+    return if request.url == request.referrer
+
+    # Create the array if it doesn't exist
+    session[:redirect_to] = [] unless session[:redirect_to].kind_of?(Array)
+
+    if request.url == session_referrer
+      # If we've gone back, pop it off the stack
+      session[:redirect_to].pop
+    else
+      # Push our referrer onto the array unless we came from an edit page or it's already on the stack
+      session[:redirect_to].push request.referrer unless request.referrer =~ /(edit|sign_in)/ or
+                                                         request.referrer == session_referrer
+    end
+
+    # Clean up the session array so it doesn't grow too large
+    session[:redirect_to].shift(session[:redirect_to].count - 10) if session[:redirect_to].count > 10
+
+    # Don't return anything
+    nil
+  end
+
+  def session_referrer
+    session[:redirect_to][-1]
+  end
+  helper_method :session_referrer
+
+  def redirect_back_to(url = root_path, opts = {})
+    redirect_to session_referrer || url, opts
   end
 
   def test_mode

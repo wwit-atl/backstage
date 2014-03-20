@@ -18,6 +18,7 @@
               %li= link_to_member member
       %br
 
-- if can? :update, @skill
-  .pull-right= link_to get_icon(:edit, text: 'Edit'), edit_skill_path(@skill)
-= link_to get_icon(:back, text: 'Back'), :back
+.pad-top-20
+  - if can? :update, @skill
+    .pull-right= link_to get_icon(:edit, text: 'Edit'), edit_skill_path(@skill)
+  = link_to_back

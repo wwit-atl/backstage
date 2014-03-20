@@ -69,7 +69,7 @@
       = render 'notes/notes', klass: @show
       = render 'notes/form'
 
-- if can? :update, @show
-  .pull-right= link_to get_icon(:edit, text: 'Edit'), edit_show_path(@show)
-
-= link_to get_icon(:back, text: 'Back'), :back
+.pad-top-20
+  - if can? :update, @show
+    .pull-right= link_to get_icon(:edit, text: 'Edit'), edit_show_path(@show)
+  = link_to_back

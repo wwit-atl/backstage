@@ -28,7 +28,7 @@ class ShowTemplatesController < ApplicationController
 
     respond_to do |format|
       if @show_template.save
-        format.html { redirect_to show_templates_url, notice: 'Show template was successfully created.' }
+        format.html { redirect_back_to show_templates_url, notice: 'Show template was successfully created.' }
         format.json { render action: 'show', status: :created, location: @show_template }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class ShowTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @show_template.update(show_template_params)
-        format.html { redirect_to show_templates_url, notice: 'Show template was successfully updated.' }
+        format.html { redirect_back_to show_templates_url, notice: 'Show template was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,7 +56,7 @@ class ShowTemplatesController < ApplicationController
   def destroy
     @show_template.destroy
     respond_to do |format|
-      format.html { redirect_to show_templates_url }
+      format.html { redirect_back_to show_templates_url }
       format.json { head :no_content }
     end
   end

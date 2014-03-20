@@ -76,6 +76,10 @@ module ApplicationHelper
     link_to opts[:text] || show.title, show_path(show)
   end
 
+  def link_to_back(url = root_url, opts = {})
+    link_to get_icon(:back, text: opts[:text] || 'Back'), session_referrer || url, opts
+  end
+
   def theatre_url
     'http://www.wholeworldtheatre.com'
   end

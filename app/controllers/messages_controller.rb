@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
         # Send managers an email letting them know there's a new message
         BackstageMailer.waiting_for_approval(@message).deliver unless can? :approve, @message
 
-        format.html { redirect_to messages_path, flash: { success: 'Message was successfully created.' } }
+        format.html { redirect_back_to messages_path, flash: { success: 'Message was successfully created.' } }
         format.json { render action: 'show', status: :created, location: @message }
       else
         format.html { render action: 'new' }
@@ -58,7 +58,7 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to messages_path, flash: { success: 'Message was successfully updated.' } }
+        format.html { redirect_back_to messages_path, flash: { success: 'Message was successfully updated.' } }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -74,7 +74,7 @@ class MessagesController < ApplicationController
     @members = Member.all
     @message.destroy
     respond_to do |format|
-      format.html { redirect_to messages_url }
+      format.html { redirect_back_to messages_url }
       format.json { head :no_content }
     end
   end

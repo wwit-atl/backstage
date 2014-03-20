@@ -116,7 +116,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       if @member.save
         #format.html { redirect_to @member, notice: 'Member was successfully created.' }
-        format.html { redirect_to members_path, notice: 'Member was successfully created.' }
+        format.html { redirect_back_to members_path, notice: 'Member was successfully created.' }
         format.json { render action: 'show', status: :created, location: @member }
       else
         format.html { render action: 'new' }
@@ -140,7 +140,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if successfully_updated
-        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+        format.html { redirect_back_to @member, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -154,7 +154,7 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
     respond_to do |format|
-      format.html { redirect_to members_url }
+      format.html { redirect_back_to members_url }
       format.json { head :no_content }
     end
   end
