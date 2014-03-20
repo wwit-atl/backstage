@@ -1,8 +1,14 @@
 WWIT Backstage Change Log
 -------------------------
 
+### v2.1.3 - _Back Button Fix_
+ Status: _Deployed 2014-03-19_
+
+ - Duplicates month controls on the bottom of a few longer pages
+ - Redesign back button to fix issues introducted in v2.1.2
+
 ### v2.1.2 - _Auto-Schedule Fixes_
- Status: _Deployed 2014-03-18 @ 11:00 PM_
+ Status: _Deployed 2014-03-18_
 
  - New Schedule view, showing all assigned and unassigned shifts
  - Refactors auto-schedule code to use Shifts instead of Shows (more efficient scheduling)
@@ -10,7 +16,7 @@ WWIT Backstage Change Log
  - Back button on most pages now actually takes you back to where you were. I know, right?
 
 ### v2.1.1 - _Maintenance Release_
- Status: _Deployed 2014-03-17 @ 11:00 PM_
+ Status: _Deployed 2014-03-17_
 
  - Fixes bug keeping Auto-Schedule from working properly
  - Adds "Exempt from Conflicts" flag to members, allowing auto-schedule to ignore conflict limits
@@ -34,4 +40,4 @@ WWIT Backstage Change Log
  - Fixes bug wherein MC's could not send out Cast Announcements
 
 ### v2.0.0 - _Initial Release_
- Status: _LIVE_
+ Status: _LIVE 2014-03-01_
