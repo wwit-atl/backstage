@@ -35,10 +35,8 @@ Pushed to a future release
 ### Planned
  - [ ] Send emails to crew 12 hours before shift
  - [ ] Create Student Manager
- - [ ] Create check-in Functionality for Cast/Crew
- - [ ] Link show videos to show (store vids on S3)
  - [ ] Electronic check-in for cast/crew during show night
- - [ ] Create shows on main WWIT website
+ - [ ] Link show videos to show (store vids on S3)
 
 #### Build Shows on-site
  - [ ] Create Games
@@ -49,6 +47,7 @@ Pushed to a future release
 
 ### Potential Stuff
 
+ - [ ] Create shows on main WWIT website (?)
  - [ ] Shift Swap functionality
        send a swap request to another actor, which they can accept or decline.
  - [ ] Add a print function for the dashboard(?)
