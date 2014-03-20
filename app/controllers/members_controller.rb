@@ -11,7 +11,6 @@ class MembersController < ApplicationController
 
   def public_profile
     # TODO:  This is where the member's public profile will be shown... not yet implemented.
-    # TODO:  Also need friendly-id implemented on Member
   end
 
   def admin

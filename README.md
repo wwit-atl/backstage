@@ -27,27 +27,31 @@ Completed
  - [X] Create Auto-Shift-Engine
  - [X] Create Announcements
  - [X] Send 'waiting for approval' emails to manager on new Annoucements
+ - [X] Add Volunteer role with extreamly limited access.
 
 Pushed to a future release
 --------------------------
 
+### Planned
  - [ ] Send emails to crew 12 hours before shift
  - [ ] Create Student Manager
  - [ ] Create check-in Functionality for Cast/Crew
  - [ ] Link show videos to show (store vids on S3)
+ - [ ] Electronic check-in for cast/crew during show night
+ - [ ] Create shows on main WWIT website
 
-### Build Shows on-site
+#### Build Shows on-site
  - [ ] Create Games
  - [ ] Create Stages
  - [ ] Create Scenes
  - [ ] Create Suggestions
  - [ ] Create Renegades
 
-#### Potential Stuff
+### Potential Stuff
 
  - [ ] Shift Swap functionality
-     send a swap request to another actor, which they can accept or decline.
+       send a swap request to another actor, which they can accept or decline.
  - [ ] Add a print function for the dashboard(?)
- - [X] Add Volunteer role with extreamly limited access.
  - [ ] Add emergency contact information to member record(?)
+ - [ ] Pull current show ticket sales and display on Show page
 
