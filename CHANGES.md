@@ -1,6 +1,12 @@
 WWIT Backstage Change Log
 -------------------------
 
+### v2.1.5 - _hotfix for conflict auto-lock_
+ Status: _Deployed 2014-03-20_
+
+ - Only auto-lock conflicts for the month being scheduled.  Future conflicts
+   should remain unlocked.
+
 ### v2.1.4 - _Minor Revision_
  Status: _Deployed 2014-03-20_
 
