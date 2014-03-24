@@ -1,7 +1,13 @@
 WWIT Backstage Change Log
 -------------------------
 
-### v2.1.5 - _hotfix for conflict auto-lock_
+### v2.1.6 - _Record Deletion Hotfix_
+ Status: _Deployed 2014-03-24_
+
+ - Improved verbiage on all deletion prompts
+ - Only Admin can delete Shows
+
+### v2.1.5 - _Conflict Auto-Lock Hotfix_
  Status: _Deployed 2014-03-20_
 
  - Only auto-lock conflicts for the month being scheduled.  Future conflicts
@@ -16,7 +22,7 @@ WWIT Backstage Change Log
  Status: _Deployed 2014-03-19_
 
  - Duplicates month controls on the bottom of a few longer pages
- - Redesign back button to fix issues introducted in v2.1.2
+ - Redesign back button to fix issues introduced in v2.1.2
 
 ### v2.1.2 - _Auto-Schedule Fixes_
  Status: _Deployed 2014-03-18_
