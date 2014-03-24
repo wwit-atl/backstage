@@ -6,4 +6,4 @@
       .byline= "-- #{note.author}"
       - if can? :destroy, note
         = link_to get_icon(:delete), send(klass.class.to_s.underscore + '_note_path', klass.id, note.id), class: 'btn', title: 'Delete', :method => :delete,
-                  data: { confirm: 'Are you sure?' }
+                  data: { confirm: 'Delete Note, Are you sure?' }

@@ -6,7 +6,8 @@
   .pull-right
     .btn-group.btn-group-xs
       - if can? :destroy, klass and destroy == true
-        = link_to get_icon(:delete, title: 'Delete'), klass, class: 'btn xbtn-default', :method => :delete, data: { confirm: 'Are you sure?' }
+        = link_to get_icon(:delete, title: 'Delete'), klass, class: 'btn xbtn-default', :method => :delete,
+                  data: { confirm: 'Delete this Record?  Are you sure?' }
 
       - if can? :edit, klass and edit == true
         = link_to get_icon(:edit, title: 'Edit'), send('edit_' + klass.class.to_s.underscore + '_path', klass), class: 'btn xbtn-default'
