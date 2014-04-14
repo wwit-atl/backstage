@@ -1,8 +1,0 @@
-%h2= "Welcome #{@member.firstname}!"
-%p
-  - unless @skills.empty?
-    Congratulaions, you've been trained in the following skills:
-    %ul
-      - @skills.each do |skill|
-        %li= skill.description
-

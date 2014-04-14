@@ -1,3 +1,8 @@
+- if @member == current_member
+  - content_for :header do
+    / Refresh the dashboard page once every 5 minutes
+    %meta{ content: '300', 'http-equiv' => 'refresh' }
+
 #member
   .row
     .col-md-6

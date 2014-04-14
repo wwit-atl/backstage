@@ -8,6 +8,7 @@
     = render 'partials/favicons'
     = render 'partials/shim'
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+    = yield :header
 
   %body
     = render 'partials/flash_messages', flash: flash if flash.any?
