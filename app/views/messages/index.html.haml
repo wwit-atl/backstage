@@ -43,13 +43,7 @@
               - else
                 .status Delivered
             - else
-              - if message.sent?
-                - if can? :manage, message
-                  .status Sent at #{simple_format message.time_stamp(:sent) }
-                - else
-                  .status Sending
-              - else
-                .status Not Yet Sent
+              .status= message.sent? ? "Sent at #{simple_format message.time_stamp(:sent)}" : 'Not Sent Yet'
 
               - if can? :manage, message
                 .admin-controls= link_to get_icon( :email, title: 'Retry' ), message_resend_email_path(message)

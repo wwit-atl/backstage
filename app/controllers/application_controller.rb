@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
   end
 
   def session_referrer
-    session[:redirect_to][-1]
+    session[:redirect_to][-1] rescue nil
   end
   helper_method :session_referrer
 

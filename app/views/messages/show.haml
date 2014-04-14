@@ -17,13 +17,15 @@
             .col-xs-4 Delivered
             .col-xs-8= @message.time_stamp(:delivered)
 
-  - if can? :manage, @message
-    .pad-top-20 Sent To:
-    .col-sm-12.box
-      - @message.members.each do |member|
-        .col-lg-2.col-md-4.col-sm-6= link_to_member member
+  .pad-top-20 Sent To:
+  .col-sm-12.box
+    - @message.members.each do |member|
+      .col-lg-2.col-md-4.col-sm-6= link_to_member member
 
   .row
-    .col-md-12 Approved by #{link_to_member @message.approver}
+    .col-md-12
+      Approved by #{link_to_member @message.approver}
+      - if can? :approve, @message and @message.approved_at
+        at #{@message.time_stamp(:approved)}
 
   .pad-top-20= link_to_back

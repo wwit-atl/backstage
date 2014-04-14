@@ -86,6 +86,7 @@ class MessagesController < ApplicationController
         flash[:notice] = "Message was already approved by #{@message.approver.name}"
       else
         @message.approver = current_member
+        @message.approved_at = Time.now
         if BackstageMailer.announcements(@message).deliver
           @message.save
           flash[:success] = 'Message Approved and Sent'
