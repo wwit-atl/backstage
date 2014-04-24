@@ -38,7 +38,7 @@
                     .shift-code
                       %span{ rel: 'tooltip', title: shift.skill.name, data: { toggle: 'tooltip', placement: 'left' } }= shift.skill.code + ':'
                     .shift-name
-                      = shift.member.nil? ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to_member( shift.member )
+                      = ( shift.member.nil? or shift.hidden? ) ? content_tag( :span, 'Not Assigned', class: 'red' ) : link_to_member( shift.member )
                       = ' (T)' if shift.training?
 
             %td

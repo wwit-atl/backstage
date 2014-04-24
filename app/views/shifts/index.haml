@@ -1,43 +1,44 @@
-%h1
-  Managing Shifts
-  %small sorted by #{@sorted_by.to_s.capitalize}
+#shifts
+  %h1
+    Managing Shifts
+    %small sorted by #{@sorted_by.to_s.capitalize}
 
-= render 'partials/month_controls'
+  = render 'partials/month_controls'
 
-.table-responsive
-  %table.table.table-striped
-    %thead
-      %tr
-        %th
-          = link_to 'Show', date: @date, :sort => :show
-          = content_tag( :span, nil, class: 'caret') if @sorted_by == :show
-        %th
-          = link_to 'Skill', date: @date, :sort => :skill
-          = content_tag( :span, nil, class: 'caret') if @sorted_by == :skill
-        %th
-          = link_to 'Member', date: @date, :sort => :member
-          = content_tag( :span, nil, class: 'caret') if @sorted_by == :member
-
-    %tbody
-      - @shifts.each do |shift|
-        = content_tag_for :tr, shift do
-          %td.col-xs-2= link_to_show shift.show
-          %td.col-sm-4.hidden-xs
-            = link_to_skill shift.skill
-            = ' (Training)' if shift.training?
-          %td.col-xs-4.visible-xs
-            = shift.skill.code
-            = ' (T)' if shift.training?
-          %td.col-xs-6
-            = simple_form_for shift, url: shifts_path(id: shift), remote: true do |f|
-              .col-xs-8= f.input :member_id,
-                :collection => @members,
-                :include_blank => true,
-                :label => false,
-                :input_html => { onchange: "$('#shift_#{shift.id}').find('input').removeClass('hide')", class: 'chosen-select', data: { placeholder: 'No Member Selected' } }
-              .col-xs-4.text-right= f.submit 'Update', class: 'btn btn-default btn-xs hide'
-      - if @shifts.empty?
+  .table-responsive
+    %table.table.table-striped
+      %thead
         %tr
-          %td{colspan: 3} No Shifts Match Criteria
+          %th
+            = link_to 'Show', date: @date, :sort => :show
+            = content_tag( :span, nil, class: 'caret') if @sorted_by == :show
+          %th
+            = link_to 'Skill', date: @date, :sort => :skill
+            = content_tag( :span, nil, class: 'caret') if @sorted_by == :skill
+          %th
+            = link_to 'Member', date: @date, :sort => :member
+            = content_tag( :span, nil, class: 'caret') if @sorted_by == :member
 
-= render 'partials/month_controls'
+      %tbody
+        - @shifts.each do |shift|
+          = content_tag_for :tr, shift, class: ('no-member' if shift.member.nil?) do
+            %td.col-xs-2= link_to_show shift.show
+            %td.col-sm-4.hidden-xs
+              = link_to_skill shift.skill
+              = ' (Training)' if shift.training?
+            %td.col-xs-4.visible-xs
+              = shift.skill.code
+              = ' (T)' if shift.training?
+            %td.col-xs-6
+              = simple_form_for shift, url: shifts_path(id: shift), remote: true do |f|
+                .col-xs-8= f.input :member_id,
+                  :collection => @members,
+                  :include_blank => true,
+                  :label => false,
+                  :input_html => { onchange: "$('#shift_#{shift.id}').find('input').removeClass('hide')", class: 'chosen-select', data: { placeholder: 'No Member Selected' } }
+                .col-xs-4.text-right= f.submit 'Update', class: 'btn btn-default btn-xs hide'
+        - if @shifts.empty?
+          %tr
+            %td{colspan: 3} No Shifts Match Criteria
+
+  = render 'partials/month_controls'

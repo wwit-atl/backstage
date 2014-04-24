@@ -17,6 +17,8 @@ class Shift < ActiveRecord::Base
   scope :for_month,  ->(date) { joins(:show).where('shows.date >= ? AND date <= ?', date.beginning_of_month, date.end_of_month) }
 
   scope :unassigned, -> { where(member_id: nil) }
+  scope :visible,    -> { where(hidden: false)  }
+  scope :hidden,     -> { where(hidden: true)   }
 
   scope :future, -> { joins(:show).where('shows.date >= ?', Date.today.beginning_of_month) }
 

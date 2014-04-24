@@ -52,7 +52,7 @@ class MembersController < ApplicationController
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
 
     @shows  = @member.mc_shifts.recent.by_date_desc | @member.shows.recent.by_date_desc
-    @shifts = @member.shifts.recent.by_show
+    @shifts = @member.shifts.visible.recent.by_show
     @skills = @member.skills
     @conflicts = @member.conflicts.current
     @announcements = Message.for_member(@member).recent.by_created.limit(5)

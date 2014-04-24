@@ -35,7 +35,7 @@
               .col-xs-4.visible-xs
                 = shift.skill.code
                 = ' (T)' if shift.training?
-              .col-xs-8.col-sm-6= link_to_member shift.member
+              .col-xs-8.col-sm-6= shift.hidden? ? 'Not Published' : link_to_member( shift.member )
 
 .row
   .col-xs-12.col-sm-6.col-md-4

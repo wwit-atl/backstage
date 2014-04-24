@@ -9,3 +9,10 @@
     background: $wwit-red;
   }
 }
+
+#shifts {
+  tr.no-member {
+    border-left: 3px solid $wwit-red;
+    border-right: 3px solid $wwit-red;
+  }
+}

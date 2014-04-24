@@ -45,4 +45,14 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def publish
+    date = Date.parse(params[:date] || Date.today.to_s)
+    Shift.hidden.for_month(date).update_all(hidden: false)
+
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html { redirect_to members_schedule_path(date: date) }
+    end
+  end
+
 end

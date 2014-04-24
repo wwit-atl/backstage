@@ -51,8 +51,11 @@ module ApplicationHelper
       when :staff    then icon_class = 'star-empty'
       when :back     then icon_class = 'circle-arrow-left'
       when :next     then icon_class = 'circle-arrow-right'
+      when :hidden   then icon_class = 'eye-close'
       else icon_class = type.to_s
     end
+
+    # Return a span element with the icon and any options provided
     content_tag(:span, nil, rel: ( 'tooltip' if opts[:title] ), class: ["glyphicon glyphicon-#{icon_class}", opts[:class]].compact,
                 title: opts[:title], data:{ toggle: 'tooltip' } ) + ( opts[:text].nil? ? nil : "&nbsp;#{opts[:text]}".html_safe )
   end

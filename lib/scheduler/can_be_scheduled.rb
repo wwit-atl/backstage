@@ -39,6 +39,7 @@ module Scheduler
         else
           Rails.logger.info "[AUTOSCHED] Assigning #{crew.name} to #{self.skill.name}"
           self.member = crew
+          self.hidden = true # don't publish the auto-generated shifts
           self.save!
         end
 
