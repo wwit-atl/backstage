@@ -26,6 +26,6 @@
     .col-md-12
       Approved by #{link_to_member @message.approver}
       - if can? :approve, @message and @message.approved_at
-        at #{@message.time_stamp(:approved)}
+        on #{@message.time_stamp(:approved, :long)}
 
   .pad-top-20= link_to_back
