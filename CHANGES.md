@@ -2,7 +2,7 @@ WWIT Backstage Change Log
 -------------------------
 
 ### v2.1.7 - _Shift Publishing_
- Status: _Waiting Approval_
+ Status: _Deployed 2014-04-24_
 
  - Auto-scheduled shifts are now hidden from members and must be published before being visible.
  - Added approval timestamp to messages and lifted restrictions on sent-to list in show view.
