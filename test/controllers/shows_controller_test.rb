@@ -3,8 +3,8 @@ require "test_helper"
 class ShowsControllerTest < ActionController::TestCase
 
   def setup
-    @show = create(:show)
-    @member = create(:member, :admin)
+    @show = FactoryGirl.create(:show)
+    @member = FactoryGirl.create(:member, :admin)
     sign_in @member
   end
 
@@ -15,14 +15,14 @@ class ShowsControllerTest < ActionController::TestCase
   end
 
   test 'Get new Show' do
-    @member = build(:member)
+    @member = FactoryGirl.build(:member)
     get :new
     assert_response :success
   end
 
   test 'create new Show' do
     assert_difference('Show.count') do
-      post :create, show: attributes_for(:show, date: Date.today)
+      post :create, show: FactoryGirl.attributes_for(:show, date: Date.today)
     end
 
     assert_redirected_to show_path(assigns(:show))
@@ -39,7 +39,7 @@ class ShowsControllerTest < ActionController::TestCase
   end
 
   test 'Update a Show' do
-    patch :update, id: @show, show: attributes_for(:show)
+    patch :update, id: @show, show: FactoryGirl.attributes_for(:show)
     assert_redirected_to show_path(assigns(:show))
   end
 

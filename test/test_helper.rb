@@ -3,7 +3,7 @@ ENV['RAILS_HOST'] ||= 'test.host'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'support/factory_girl'
+# require 'support/factory_girl'
 
 require 'minitest/spec'
 require 'minitest/autorun'
@@ -20,6 +20,8 @@ end
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
+  ActiveRecord::Migration.maintain_test_schema!
+
   DatabaseCleaner.strategy = :transaction
 
   def setup

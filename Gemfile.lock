@@ -266,7 +266,7 @@ DEPENDENCIES
   delayed_job_active_record (>= 4.0.0)
   devise (~> 3.1.0)
   email_validator
-  factory_girl_rails (~> 4.0)
+  factory_girl_rails (~> 4)
   faker
   foreman
   friendly_id (~> 5.0.0)

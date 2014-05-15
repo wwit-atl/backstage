@@ -3,7 +3,7 @@ require 'test_helper'
 class MembersControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member, :admin)
+    @member = FactoryGirl.create(:member, :admin)
     sign_in @member
   end
 
@@ -26,7 +26,7 @@ class MembersControllerTest < ActionController::TestCase
 
   test "should create member" do
     assert_difference('Member.count') do
-      post :create, member: attributes_for(:member, lastname: 'unique')
+      post :create, member: FactoryGirl.attributes_for(:member, lastname: 'unique')
     end
 
     assert_redirected_to members_path

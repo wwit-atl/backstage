@@ -3,9 +3,9 @@ require "test_helper"
 class ShowTemplatesControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member, :admin)
+    @member = FactoryGirl.create(:member, :admin)
     sign_in @member
-    @show_template = create(:show_template)
+    @show_template = FactoryGirl.create(:show_template)
   end
 
   def teardown
@@ -26,7 +26,7 @@ class ShowTemplatesControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference('ShowTemplate.count') do
-      post :create, show_template: attributes_for(:show_template)
+      post :create, show_template: FactoryGirl.attributes_for(:show_template)
     end
 
     assert_redirected_to show_templates_path
@@ -38,7 +38,7 @@ class ShowTemplatesControllerTest < ActionController::TestCase
   end
 
   def test_update
-    patch :update, id: @show_template, show_template: attributes_for(:show_template, name: 'Unique Show')
+    patch :update, id: @show_template, show_template: FactoryGirl.attributes_for(:show_template, name: 'Unique Show')
     assert_redirected_to show_templates_path
   end
 

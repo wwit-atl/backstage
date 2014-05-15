@@ -3,8 +3,8 @@ require "test_helper"
 class SkillsControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member, :admin)
-    @skill = create(:skill)
+    @member = FactoryGirl.create(:member, :admin)
+    @skill = FactoryGirl.create(:skill)
     sign_in @member
   end
 
@@ -27,7 +27,7 @@ class SkillsControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference('Skill.count') do
-      post :create, skill: attributes_for(:skill, code: 'UT', name: 'Unique Test')
+      post :create, skill: FactoryGirl.attributes_for(:skill, code: 'UT', name: 'Unique Test')
     end
 
     assert_redirected_to skills_path
@@ -39,7 +39,7 @@ class SkillsControllerTest < ActionController::TestCase
   end
 
   def test_update
-    patch :update, id: @skill, skill: attributes_for(:skill)
+    patch :update, id: @skill, skill: FactoryGirl.attributes_for(:skill)
     assert_redirected_to skills_path
   end
 

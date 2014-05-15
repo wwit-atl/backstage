@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :konfig do
-    name "MyString"
-    value "MyString"
+    name 'TestConfigItem'
+    value 0
   end
 end

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PhoneTest < ActiveSupport::TestCase
   setup do
-    @phone = create(:phone, number: '1234567890', member_id: 1)
+    @phone = FactoryGirl.create(:phone, number: '1234567890', member_id: 1)
   end
 
   test "should not save without number" do
@@ -11,13 +11,13 @@ class PhoneTest < ActiveSupport::TestCase
   end
 
   test "should strip non-digits from number before a save" do
-    @phone = create(:phone, number: '(098) 765-4321')
+    @phone = FactoryGirl.create(:phone, number: '(098) 765-4321')
     assert :success
     assert_equal '0987654321', @phone.number
   end
 
   test "phone without 10 digits should fail" do
-    phone = build(:phone, number: '1234567' )
+    phone = FactoryGirl.build(:phone, number: '1234567' )
     refute phone.valid?
     assert_raises( ActiveRecord::RecordInvalid ) { phone.save! }
   end

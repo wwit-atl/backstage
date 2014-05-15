@@ -3,23 +3,23 @@ require 'test_helper'
 class ShiftTest < ActiveSupport::TestCase
 
   def setup
-    @shift = create(:shift)
+    @shift = FactoryGirl.create(:shift)
   end
 
   #test 'Cannot create without show_id' do
-  #  @shift = build(:shift, show: nil)
+  #  @shift = FactoryGirl.build(:shift, show: nil)
   #  refute @shift.valid?, 'Allows create without a show id'
   #end
 
   test 'Should assign the CAST skill by default' do
-    @shift = create(:shift, skill: nil)
+    @shift = FactoryGirl.create(:shift, skill: nil)
     assert @shift.valid?, 'Shift does not provide a default skill'
     assert_equal Skill.where(code: 'CAST').first, @shift.skill
   end
 
   test 'Can assign member' do
-    @shift = create(:shift, member: nil)
-    @member = create(:member)
+    @shift = FactoryGirl.create(:shift, member: nil)
+    @member = FactoryGirl.create(:member)
 
     @shift.member = @member
     assert_equal @member.name, @shift.member.name

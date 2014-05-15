@@ -35,7 +35,7 @@ gem 'email_validator'
 gem 'recipient_interceptor'
 gem 'icalendar'
 
-gem 'factory_girl_rails', '~> 4.0'
+gem 'factory_girl_rails', '~> 4'
 gem 'faker'
 
 group :development do

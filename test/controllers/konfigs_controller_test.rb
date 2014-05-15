@@ -3,7 +3,7 @@ require "test_helper"
 class KonfigsControllerTest < ActionController::TestCase
 
   def setup
-    @member = create(:member)
+    @member = FactoryGirl.create(:member)
     sign_in @member
   end
 
@@ -13,7 +13,7 @@ class KonfigsControllerTest < ActionController::TestCase
   end
 
   test "can log in as admin" do
-    sign_in create(:member, :admin)
+    sign_in FactoryGirl.create(:member, :admin)
     get :index
     assert_response :success
   end
