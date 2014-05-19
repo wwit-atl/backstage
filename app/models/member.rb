@@ -55,10 +55,6 @@ class Member < ActiveRecord::Base
   scope :mcs,      -> { has_role(:mc)         }
   scope :staff,    -> { has_role(:staff)      }
 
-  # sifter :member_search do |search|
-  #   lastname.matches("%#{search}%") | firstname.matches("%#{search}%") | email.matches("%#{search}%")
-  # end
-
   def fullname
     [ firstname, lastname ].join(' ').strip.squeeze(' ').titlecase
   end
@@ -178,7 +174,7 @@ class Member < ActiveRecord::Base
       case keyword
         when 'skill' then has_skill(value)
         when 'group', 'role' then has_role(value)
-        else where( 'lastname LIKE "%?%" OR firstname LIKE "%?%" OR email LIKE "%?%"', keyword, keyword, keyword)
+        else where( 'lastname LIKE ? OR firstname LIKE ? OR email LIKE ?', "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
       end
     else
       self.all
