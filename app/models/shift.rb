@@ -42,30 +42,31 @@ class Shift < ActiveRecord::Base
 
     # Create the event
     event = Icalendar::Event.new
-    event.start           = show.to_datetime(:calltime).strftime('%Y%m%dT%H%M%S')
-    event.end             = (show.to_datetime + 4.hours).strftime('%Y%m%dT%H%M%S')
+
+    event.dtstart         = show.to_datetime(:calltime).strftime('%Y%m%dT%H%M%S')
+    event.dtend           = (show.to_datetime + 4.hours).strftime('%Y%m%dT%H%M%S')
     event.summary         = skill.name
     event.description     = show.name
     event.location        = 'Whole World Improv Theatre; 1216 Spring St NW, Atlanta GA 30309'
-    event.klass           = 'PUBLIC'
+    event.ip_class        = 'PUBLIC'
     event.created         = DateTime.now
     event.url             = show_url(show, host: ( ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com' ))
     event.uid             = uuid
 
-    event.add_comment( 'Added by WWIT Backstage 2.0' )
+    # event.add_comment( 'Added by WWIT Backstage 2.0' )
 
     # Add email alarm 2 hours prior
-    event.alarm do
-      action        'EMAIL'
-      description   "[WWIT-BACKSTAGE-SHIFT] Your #{skill.name} shift starts in 2 hours"
-      summary       "#{skill.name} Shift in 2 hours"
-      trigger       '-PT2H0M0S'
+    event.alarm do |a|
+      a.action        = 'EMAIL'
+      a.description   = "[WWIT-BACKSTAGE-SHIFT] Your #{skill.name} shift starts in 2 hours"
+      a.summary       = "#{skill.name} Shift in 2 hours"
+      a.trigger       = '-PT2H0M0S'
     end
 
     # Add display alarm 30 minutes prior
-    event.alarm do
-      summary       "#{skill.name} shift starts in 30 minutes"
-      trigger       '-PT0H30M0S'
+    event.alarm do |a|
+      a.summary       = "#{skill.name} shift starts in 30 minutes"
+      a.trigger       = '-PT0H30M0S'
     end
 
     # Return the event
