@@ -1,6 +1,10 @@
 WWIT Backstage Change Log
 -------------------------
 
+### v2.1.8 - _Update Rails (bugfixes)_
+  - Update rails to version 4.1.1
+  - Removing the auto-refresh because it's causing some problems
+  
 ### v2.1.7 - _Shift Publishing_
  Status: _Deployed 2014-04-24_
 

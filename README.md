@@ -38,6 +38,14 @@ Pushed to a future release
  - [ ] Electronic check-in for cast/crew during show night
  - [ ] Link show videos to show (store vids on S3)
 
+### Potential Stuff
+
+ - [ ] Shift Swap functionality
+       send a swap request to another actor, which they can accept or decline.
+ - [ ] Add a print function for the dashboard(?)
+ - [ ] Add emergency contact information to member record(?)
+ - [ ] Pull current show ticket sales and display on Show page
+ 
 #### Build Shows on-site
  - [ ] Create Games
  - [ ] Create Stages
@@ -45,12 +53,5 @@ Pushed to a future release
  - [ ] Create Suggestions
  - [ ] Create Renegades
 
-### Potential Stuff
 
- - [ ] Create shows on main WWIT website (?)
- - [ ] Shift Swap functionality
-       send a swap request to another actor, which they can accept or decline.
- - [ ] Add a print function for the dashboard(?)
- - [ ] Add emergency contact information to member record(?)
- - [ ] Pull current show ticket sales and display on Show page
 
