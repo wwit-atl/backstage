@@ -9,7 +9,7 @@ class ConflictsController < ApplicationController
   # GET /conflicts.json
   def index
     unauthorized && return unless can? :manage, Conflict
-    @members = Member.uses_conflicts.by_name.paginate(:page => params[:page], :per_page => 30)
+    @members = Member.by_name.uses_conflicts.paginate(:page => params[:page], :per_page => 50)
     respond_to do |format|
       format.html
       format.json {}

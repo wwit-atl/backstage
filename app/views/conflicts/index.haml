@@ -3,6 +3,8 @@
 #conflicts-index
   %h1 Member Conflicts
 
+  = will_paginate @members, renderer: BootstrapPagination::Rails
+
   %table.table.table-striped
     %thead
       %tr
@@ -20,20 +22,17 @@
 
     %tbody
       - @members.to_a.uniq.each do |member|
-        - over_limit = false ; months = []
-        - member.conflicts.future.group_by{ |c| c.month }.each do |k,v|
-          - if v.count > @max_conflicts
-            - over_limit = true
-            - months << k
+        - months = []; member_conflicts = member.conflicts.current_and_future
+        - member_conflicts.group_by{ |c| c.month }.each { |k,v| months << k if v.count > @max_conflicts }
 
         %tr
           %td.name= link_to member.name, member
           %td.col-md-6.upcoming
-            - if member.conflicts.future.empty?
+            - if member_conflicts.empty?
               No Conflicts
             - else
               %ul.list-unstyled
-                - member.conflicts.future.group_by{|c| c.month}.each do |month, conflicts|
+                - member_conflicts.group_by{|c| c.month}.each do |month, conflicts|
                   %li{ class: months.include?(month) ? 'red-bg' : nil }
                     %ul.list-inline.conflict-dates
                       - conflicts.each do |conflict|

@@ -15,6 +15,7 @@ class Conflict < ActiveRecord::Base
   scope :this_year,  -> { for_year( Date.today.year ) }
 
   scope :current, -> { this_month | next_month }
+  scope :current_and_future, -> { current | future }
   scope :future,  -> { where('year >= ?', Date.today.year).where('month > ?', Date.today.month) }
 
   scope :by_date, -> { order([:year, :month, :day]) }
