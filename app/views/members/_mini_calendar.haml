@@ -4,4 +4,8 @@
   -if shift
     %span{ rel: 'tooltip', data: { title: shift.skill.name, placement: 'top' } }= link_to date.day, shift.show
   - else
-    = date.day
+    - show = Show.for_date(date).first
+    - if show
+      = link_to date.day, show_path(show)
+    - else
+      = date.day
