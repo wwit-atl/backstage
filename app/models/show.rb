@@ -20,7 +20,7 @@ class Show < ActiveRecord::Base
 
   scope :for_month, ->(cdate = Date.today) { where('date >= ? AND date <= ?', cdate.beginning_of_month, cdate.end_of_month) }
 
-  default_scope { by_date }
+  # default_scope { by_date }
 
   validates_presence_of :date, :name
 

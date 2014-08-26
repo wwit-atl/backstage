@@ -20,7 +20,7 @@ class Conflict < ActiveRecord::Base
 
   scope :by_date, -> { order([:year, :month, :day]) }
 
-  default_scope -> { by_date }
+  # default_scope -> { by_date }
 
   def date
     '%4d-%02d-%02d' % [year, month, day]

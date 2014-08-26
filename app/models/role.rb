@@ -13,7 +13,7 @@ class Role < ActiveRecord::Base
   scope :by_name, -> { order(:name) }
   scope :by_member_name, -> { joins(:members).order('members.lastname') }
 
-  default_scope { order(:id) }
+  # default_scope { order(:id) }
 
   alias_attribute :description, :desc
 
