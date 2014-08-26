@@ -174,7 +174,7 @@ class Member < ActiveRecord::Base
       case keyword
         when 'skill' then has_skill(value)
         when 'group', 'role' then has_role(value)
-        else where( 'lastname LIKE ? OR firstname LIKE ? OR email LIKE ?', "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
+        else where( 'lastname ILIKE ? OR firstname ILIKE ? OR email ILIKE ?', "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
       end
     else
       self.all
