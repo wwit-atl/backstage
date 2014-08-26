@@ -14,14 +14,15 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require jquery.ui.core
-//= require jquery.ui.datepicker
-//= require jquery.ui.sortable
+//= require jquery-ui
+// require jquery.ui.core
+// require jquery.ui.datepicker
+// require jquery.ui.sortable
 //= require jquery.ui.touch-punch.min
 //= require jquery.timepicker
 
 // Loads all Bootstrap javascripts
-//= require bootstrap
+//= require bootstrap-sprockets
 
 // Cocoon provides form insert/delete (e.g. phones)
 //= require cocoon

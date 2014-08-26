@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.2'
 
 gem 'rails', '~> 4.1'
 gem 'pg'
@@ -7,8 +7,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4'
 gem 'haml', '~> 4'
 gem 'haml-rails'
-gem 'sass-rails', '>= 4' # sass-rails needs to be higher than 3.2
-gem 'bootstrap-sass', '~> 3'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'sass-rails', '>= 3.2'
+gem 'autoprefixer-rails'
 gem 'will_paginate-bootstrap'
 
 # gem 'therubyracer', platforms: :ruby
@@ -61,9 +62,6 @@ end
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
-end
-
-group :production do
 end
 
 group :production do

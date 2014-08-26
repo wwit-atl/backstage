@@ -9,15 +9,16 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require jquery.ui.all
- *= require jquery.timepicker.css
+ *= require jquery-ui
+ *= require jquery.timepicker
  *= require chosen
  *= require chosen-bootstrap
  */
 
 @import 'defaults';
 
-@import 'bootstrap';
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import 'bootstrap/theme';
 
 @import 'base';
