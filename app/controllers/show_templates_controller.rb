@@ -69,7 +69,7 @@ class ShowTemplatesController < ApplicationController
     end
 
     def set_supporting
-      @skills = Skill.all
+      @skills = Skill.all.by_code
       @groups = Role.castable
     end
 

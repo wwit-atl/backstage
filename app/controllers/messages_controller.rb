@@ -132,7 +132,7 @@ class MessagesController < ApplicationController
 
     def set_members
       @members = Member.active.by_name
-      @skills = Skill.all
+      @skills = Skill.all.by_code
       @roles = Role.viewable(current_member)
     end
 
