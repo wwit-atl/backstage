@@ -53,7 +53,7 @@ class MembersController < ApplicationController
 
     @shows  = @member.mc_shifts.recent.by_date_desc | @member.shows.recent.by_date_desc
     @shifts = @member.shifts.visible.recent.by_show
-    @skills = @member.skills
+    @skills = @member.skills.by_priority
     @conflicts = @member.conflicts.current
     @announcements = Message.for_member(@member).recent.by_created.limit(5)
 

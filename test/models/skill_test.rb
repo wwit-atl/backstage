@@ -17,7 +17,7 @@ class SkillTest < ActiveSupport::TestCase
       'Beta Delta', 'Beta Echo', 'Beta Foxtrot',
       'Charlie Golf', 'Charlie Hotel', 'Charlie Indigo',
     ].shuffle.each { |name| FactoryGirl.create(:skill, name: name) }
-    assert_not_equal %w( AA AB AC BD BE BF CG CH CI ), Array(Skill.all.map { |c| c.code })
-    assert_equal %w( AA AB AC BD BE BF CG CH CI ), Array(Skill.by_code.map { |c| c.code })
+    assert_not_equal %w( AA AB AC BD BE BF CG CH CI ), Skill.all.map(&:code)
+    assert_equal %w( AA AB AC BD BE BF CG CH CI ), Skill.by_code.map(&:code)
   end
 end
