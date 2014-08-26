@@ -10,6 +10,15 @@
   %h1 Shows in #{@date.strftime('%B, %Y')}
   = render 'partials/month_controls'
 
+  #calendar
+    = calendar( date: @date, events: @shows ) do |date|
+      - show = @shows.for_date(date).first
+      -if show
+        %span{ rel: 'tooltip', data: { title: show.name, placement: 'top' } }= link_to date.day, "#cal-#{show.date}"
+      - else
+        // ToDo: Need code to determine the type of show and stylize it appropriately.
+        = date.day
+
   .table-responsive
     %table.table.table-striped
       %thead
@@ -26,7 +35,7 @@
 
       %tbody
         - @shows.each do |show|
-          %tr{ class: ('is-soon' if show.is_today? ) }
+          %tr{ class: ('is-soon' if show.is_today? ), id: 'cal-' + show.date.to_s }
             %td= link_to show.human_date, show_path(show)
             %td= link_to show.name, show_path(show)
             %td.hidden-xs.hidden-sm= format_time_ampm show.calltime
