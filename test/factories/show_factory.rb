@@ -24,7 +24,7 @@ FactoryGirl.define do
         show.skills = [
           Skill.where(code: 'MC').first_or_create(FactoryGirl.attributes_for(:skill, code: 'MC', name: 'Master of Ceremonies', training: true)),
           Skill.where(code: 'HM').first_or_create(FactoryGirl.attributes_for(:skill, code: 'HM', name: 'House Manager', training: true, autocrew: true)),
-          Skill.where(code: 'LS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'LS', name: 'Lights')),
+          Skill.where(code: 'LS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'LS', name: 'Lights', training: true, autocrew: true)),
           Skill.where(code: 'SS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'SS', name: 'Sound')),
           Skill.where(code: 'CS').first_or_create(FactoryGirl.attributes_for(:skill, code: 'CS', name: 'Camera')),
         ]

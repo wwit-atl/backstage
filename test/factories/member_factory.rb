@@ -56,6 +56,10 @@ FactoryGirl.define do
       after(:create) { |m| m.skills << Skill.with_code(:hm) }
     end
 
+    trait :train_ls do
+      after(:create) { |m| m.skills << Skill.with_code(:ls) }
+    end
+
     trait :cast do
       after(:create) { |m| m.add_role :cast }
     end
