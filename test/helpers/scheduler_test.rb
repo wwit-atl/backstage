@@ -62,14 +62,17 @@ class SchedulerTest < ActiveSupport::TestCase
 
   test 'auto-schedules for ms shows' do
     show = create_show(:ms)
-    member = FactoryGirl.create :member, :us, :train_hm
+    hm_member = FactoryGirl.create :member, :us, :train_hm
+    ls_member = FactoryGirl.create :member, :us, :train_ls
 
-    assert_equal 1, Member.crewable.count, 'There are no crew members to test schedule'
+    assert_equal 2, Member.crewable.count, 'There are no crew members to test schedule'
     assert_equal 1, Member.crewable.has_skill(:hm).count, 'test did not create HM member'
+    assert_equal 1, Member.crewable.has_skill(:ls).count, 'test did not create HM member'
 
     Shift.schedule
 
-    assert_equal member, show.shifts.with_skill(:hm).member, 'Schedule auto-assigns volunteer members'
+    assert_equal hm_member, show.shifts.with_skill(:hm).member, 'Schedule does not auto-assign HM members'
+    assert_equal ls_member, show.shifts.with_skill(:ls).member, 'Schedule does not auto-assign LS members'
   end
 
   test 'does not auto-schedule volunteers' do
@@ -81,6 +84,18 @@ class SchedulerTest < ActiveSupport::TestCase
 
     Shift.schedule
 
-    assert_equal nil, show.shifts.with_skill(:hm).member, 'Schedule auto-assigns volunteer members'
+    assert_nil show.shifts.with_skill(:hm).member, 'Schedule auto-assigns volunteer members'
+  end
+
+  test 'does not auto-schedule untrained members to trained shifts' do
+    show = create_show :ms
+    assert_includes show.shifts.map{|s| s.skill.code}, 'HM', 'Test Show does not have HM shift'
+
+    member = FactoryGirl.create :member, :us, :train_ls
+    refute_includes member.skills.map(&:code), 'HM', 'test member trained in HM, but should not be'
+
+    Shift.schedule
+
+    assert_nil show.shifts.with_skill(:hm).member, 'Schedule auto-assigns untrained members to trained shifts'
   end
 end
