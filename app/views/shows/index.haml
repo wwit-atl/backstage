@@ -1,6 +1,7 @@
 #scheduler.errors
 
 #shows-index
+  =link_to '', name: 'top'
 
   -if can? :generate, Show
     .pull-right
@@ -62,7 +63,7 @@
                   data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
                           content: show.notes.order(:created_at).collect{|n| n.content}.join('<hr/>') }}
                   = get_icon(:comment)
-              = render 'partials/admin_commands', klass: show, show: true
+              = render 'partials/admin_commands', klass: show, show: true, uparrow: true
 
-  .scroll-to-top= link_to 'Top', '#'
+  = link_to 'Top', '', class: 'scroll-to-top'
   = render 'partials/month_controls'

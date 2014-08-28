@@ -2,6 +2,8 @@
 - show    ||= false
 - edit    ||= true
 - destroy ||= true
+- uparrow ||= false
+
 .admin-commands
   .pull-right
     .btn-group.btn-group-xs
@@ -18,4 +20,7 @@
       - if can? :move, klass and move == true
         .btn.xbtn-default
           .handle= get_icon :move, title: 'Reposition'
+
+      - if uparrow
+        = link_to get_icon(:'arrow-up', title: 'Go to Top'), '#top', class: 'btn xbtn-default scroll-to-top'
 
