@@ -1,11 +1,6 @@
 #calendar
   = calendar( date: @date, events: @shows ) do |date|
-    - show = @shows.for_date(date).first
-    -if show
-      %span{ rel: 'tooltip', data: { title: show.name, placement: 'top' } }
-        -#= link_to date.day, '', onclick: "scrollTo('#{show.date}-link', 1000, { offset: -50 }).stop"
-        = link_to date.day, "##{show.date}-link", class: 'scroll-to-link'
-    - else
-      // ToDo: Need code to determine the type of show and stylize it appropriately.
-      = date.day
+    .cal-date= date.day
+    - @shows.for_date(date).each do |show|
+      = link_to show.cal_title, "#show-#{show.id.to_s}", class: ['cal-listing', 'scroll-to-link', ( show.group.name if show.group )]
 

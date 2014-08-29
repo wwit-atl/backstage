@@ -61,6 +61,10 @@ class Show < ActiveRecord::Base
     "#{datetime} - #{name}"
   end
 
+  def cal_title
+    "#{show_time} - #{name}"
+  end
+
   def dowtitle
     "#{datetime} #{dow}"
   end
