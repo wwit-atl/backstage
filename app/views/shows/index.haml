@@ -1,6 +1,7 @@
 #scheduler.errors
 
 #shows-index
+  =link_to '', name: 'top'
 
   -if can? :generate, Show
     .pull-right
@@ -9,6 +10,10 @@
 
   %h1 Shows in #{@date.strftime('%B, %Y')}
   = render 'partials/month_controls'
+
+  .hidden-xs.hidden-sm
+    = render 'show_calendar'
+    %h2 Shows by Date
 
   .table-responsive
     %table.table.table-striped
@@ -26,7 +31,7 @@
 
       %tbody
         - @shows.each do |show|
-          %tr{ class: ('is-soon' if show.is_today? ) }
+          %tr{ class: ('is-soon' if show.is_today? ), id: 'show-' + show.id.to_s }
             %td= link_to show.human_date, show_path(show)
             %td= link_to show.name, show_path(show)
             %td.hidden-xs.hidden-sm= format_time_ampm show.calltime
@@ -58,6 +63,7 @@
                   data: { container: 'body', toggle: 'popover', placement: 'auto left', trigger: 'click',
                           content: show.notes.order(:created_at).collect{|n| n.content}.join('<hr/>') }}
                   = get_icon(:comment)
-              = render 'partials/admin_commands', klass: show, show: true
+              = render 'partials/admin_commands', klass: show, show: true, uparrow: true
 
+  = link_to 'Top', '', class: 'scroll-to-top'
   = render 'partials/month_controls'

@@ -1,1 +1,27 @@
+@mixin color-box($color) {
+  color: $wwit-red-dark;
+  background-color: transparentize($color, .8);
+}
+
 .is-soon { border: 5px solid $wwit-orange; }
+
+#shows-index {
+  #calendar {
+    .cal-listing {
+      border-radius: 5px;
+      font-size: .8em;
+      padding: 5px;
+      margin-bottom: 2px;
+      text-align: left;
+      width: 100%;
+      display: inline-block;
+      border: 1px solid;
+      @include color-box($wwit-green);
+
+      &.ms  { @include color-box($wwit-red); }
+      &.us  { @include color-box($wwit-orange); }
+      &.isp { @include color-box($wwit-yellow); }
+    }
+
+  }
+}

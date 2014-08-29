@@ -1,0 +1,6 @@
+#calendar
+  = calendar( date: @date, events: @shows ) do |date|
+    .cal-date= date.day
+    - @shows.for_date(date).each do |show|
+      = link_to show.cal_title, "#show-#{show.id.to_s}", class: ['cal-listing', 'scroll-to-link', ( show.group.name if show.group )]
+

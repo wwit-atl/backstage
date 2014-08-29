@@ -14,6 +14,27 @@ jQuery.fn.fadeInClass = (klass) ->
   else
     $(this).addClass(klass).promise().done( -> $(this).fadeIn() )
 
+jQuery ->
+  $('.scroll-to-top').click( (event)->
+    event.preventDefault()
+    $('html,body').animate({scrollTop:0}, 500, 'swing')
+    return false
+  )
+
+  $('.scroll-to-link').click( (event)->
+    dest = 0
+    target = this.hash
+
+    event.preventDefault()
+
+    if( $(target).offset().top > $(document).height()-$(window).height())
+      dest = $(document).height()-$(window).height()
+    else
+      dest=$(target).offset().top
+
+    $('html,body').animate({scrollTop:dest - 60}, 500, 'swing')
+  )
+
 window.calendarClick = (eventDate) ->
   changeCounts = (cur, max) ->
     $('span.cur-count').text(curCount)

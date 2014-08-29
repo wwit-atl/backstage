@@ -18,6 +18,7 @@ class Show < ActiveRecord::Base
   scope :by_date, -> { order(:date, :showtime) }
   scope :by_date_desc, -> { order(:date => :desc, :showtime => :desc) }
 
+  scope :for_date, ->(date) { where(date: date) }
   scope :for_month, ->(cdate = Date.today) { where('date >= ? AND date <= ?', cdate.beginning_of_month, cdate.end_of_month) }
 
   # default_scope { by_date }
@@ -58,6 +59,10 @@ class Show < ActiveRecord::Base
 
   def title
     "#{datetime} - #{name}"
+  end
+
+  def cal_title
+    "#{show_time} - #{name}"
   end
 
   def dowtitle
