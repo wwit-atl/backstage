@@ -120,6 +120,12 @@ fieldset {
   }
 }
 
+#body-footer-signin {
+  @extend #body-footer;
+  position: fixed;
+  bottom: 0px;
+}
+
 .wwit-logo {
   position: fixed;
   top: 80px;
