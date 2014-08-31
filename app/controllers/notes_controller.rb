@@ -11,6 +11,9 @@ class NotesController < ApplicationController
     @notes = @notable.notes.new
   end
 
+  def edit
+  end
+
   def create
     @notes = @notable.notes.new(note_params)
     @notes.member_id = current_member.id
@@ -18,6 +21,17 @@ class NotesController < ApplicationController
       redirect_to @notable, notice: 'Your note was created.'
     else
       render :new
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @note.update(note_params)
+        format.html { redirect_to @notable }
+        format.json { head :no_content }
+      else
+        render action: 'edit'
+      end
     end
   end
 
@@ -36,6 +50,7 @@ class NotesController < ApplicationController
     resource, id= request.path.split('/')[1, 2]
     resource_class = resource.singularize.classify.constantize
     @notable = resource_class.respond_to?(:friendly) ? resource_class.friendly.find(id) : resource_class.find(id)
+    @note = Note.find(params[:id]) if params[:id]
   end
 
   def note_params
