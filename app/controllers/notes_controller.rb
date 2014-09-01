@@ -25,12 +25,14 @@ class NotesController < ApplicationController
   end
 
   def update
+    @note.member_id = current_member.id
     respond_to do |format|
       if @note.update(note_params)
         format.html { redirect_to @notable }
         format.json { head :no_content }
       else
-        render action: 'edit'
+        format.html { render action: 'edit' }
+        format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end

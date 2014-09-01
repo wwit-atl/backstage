@@ -15,14 +15,14 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
-// require jquery.ui.core
-// require jquery.ui.datepicker
-// require jquery.ui.sortable
 //= require jquery.ui.touch-punch.min
 //= require jquery.timepicker
 
 // Loads all Bootstrap javascripts
 //= require bootstrap-sprockets
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
+
 
 // Cocoon provides form insert/delete (e.g. phones)
 //= require cocoon
@@ -34,6 +34,7 @@
 //= require backstage
 //= require calendars
 //= require scheduler
+//= require editable
 
 // Finally, Turbolinks must come last
 //= require turbolinks

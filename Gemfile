@@ -35,6 +35,7 @@ gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'
 gem 'recipient_interceptor'
 gem 'icalendar'
+gem 'bootstrap-editable-rails'
 
 gem 'factory_girl_rails', '~> 4'
 gem 'faker'

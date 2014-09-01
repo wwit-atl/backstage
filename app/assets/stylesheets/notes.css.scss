@@ -1,0 +1,34 @@
+#notes {
+  hr {
+    border-color: $wwit-orange;
+    margin: 10px 0;
+    padding: 0;
+  }
+
+  .note {
+    margin-bottom: 5px;
+    .editable {
+      border: none;
+    }
+    .byline {
+      padding-top: 10px;
+    }
+  }
+
+  .editable-container {
+    width: 100%;
+
+    .control-group {
+      width: 100%;
+      
+      textarea { width: 100%; }
+
+      .editable-input { width: 100%; }
+
+      .editable-buttons {
+        @extend .btn-group;
+        @extend .pull-left;
+      }
+    }
+  }
+}
