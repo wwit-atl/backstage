@@ -1,0 +1,17 @@
+'Sup #{@shift.member.firstname},
+= "\n"
+Remember, you're scheduled for #{@shift.skill.name.strip} on #{@shift.show.human_date}.
+The call time is #{@shift.show.call_time.strip}, please be on time.
+= "\n"
+- if @shift.show.mc
+  If, for any reason, you're going to be late please call #{@shift.show.mc.fullname} at
+  #{@shift.show.mc.phones.map(&:fnumber).join(' or ')}.
+= "\n"
+For your reference, here's who you'll be working with:
+= "\n"
+- @shift.show.shifts.each do |shift|
+  = "\t%-30.30s %-25s %s\n".html_safe % [ shift.skill.name.strip, shift.member.fullname, shift.member.phones.map(&:fnumber).join(' or ') ]
+= "\n"
+Your pal,
+= '  -- Larry'
+

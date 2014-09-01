@@ -44,6 +44,20 @@ class BackstageMailer < ActionMailer::Base
     mail mail_opts
   end
 
+  def schedule_reminder(shift)
+    @shift = shift
+
+    add_tag(:reminder)
+
+    mail_opts = {
+           to: shift.member.email_tag,
+      subject: "[WWIT-REMINDER] Upcoming #{shift.skill.name.strip} Shift"
+    }
+    mail_opts.merge!( reply_to: @shift.show.mc.email_tag ) if @shift.show.mc
+
+    mail mail_opts
+  end
+
   private
     def add_tag(tag)
       return unless tag

@@ -1,0 +1,29 @@
+'Sup #{@shift.member.firstname},
+
+%p
+  Remember, you're scheduled for #{@shift.skill.name.strip} on #{@shift.show.human_date}.
+  The call time is #{@shift.show.call_time.strip}, please be on time.
+
+- if @shift.show.mc
+  %p
+    If, for any reason, you're going to be late please call #{@shift.show.mc.fullname} at
+    #{@shift.show.mc.phones.map{|p| link_to p.fnumber, p.as_tel_link}.join(' or ').html_safe}
+
+%p
+  For your reference, here's who you'll be working with:
+
+  %table
+  - @shift.show.shifts.each do |shift|
+    %tr
+      %td= shift.skill.name.strip
+      %td= shift.member.fullname
+      %td
+        %ul
+          - shift.member.phones.each do |phone|
+            %li= link_to phone.fnumber, phone.as_tel_link
+
+%p
+  Your pal,
+  = '  -- Larry'
+
+%p= link_to 'Visit Show page', show_url(@shift.show)
