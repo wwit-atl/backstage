@@ -28,12 +28,12 @@ Completed
  - [X] Create Announcements
  - [X] Send 'waiting for approval' emails to manager on new Annoucements
  - [X] Add Volunteer role with extreamly limited access.
+ - [X] Send emails to crew 12 hours before shift
 
 Pushed to a future release
 --------------------------
 
 ### Planned
- - [ ] Send emails to crew 12 hours before shift
  - [ ] Create Student Manager
  - [ ] Electronic check-in for cast/crew during show night
  - [ ] Link show videos to show (store vids on S3)
