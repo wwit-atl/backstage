@@ -19,7 +19,7 @@ namespace :jobs do
 
     desc 'Send reminder email to shift members'
     task :reminders => :environment do
-      Shift.for_date(Date.today + 1.day).each do |shift|
+      Shift.for_date(Date.today).each do |shift|
         Rails.logger.info "Sending reminder to #{shift.member.fullname.strip} for #{shift.skill.name.strip} on #{shift.show.human_date}"
         BackstageMailer.schedule_reminder(shift).deliver
       end
