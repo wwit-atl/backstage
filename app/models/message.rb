@@ -1,7 +1,7 @@
 class Message < ActiveRecord::Base
   include MessagesHelper
 
-  has_and_belongs_to_many :members
+  has_and_belongs_to_many :members, autosave: true
   belongs_to :sender,   class_name: Member, :foreign_key => :sender_id
   belongs_to :approver, class_name: Member, :foreign_key => :approver_id
   before_save :check_and_add_members

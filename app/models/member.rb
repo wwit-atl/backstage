@@ -17,7 +17,7 @@ class Member < ActiveRecord::Base
 
   has_and_belongs_to_many :shows, join_table: 'actors_shows'
   has_and_belongs_to_many :skills
-  has_and_belongs_to_many :messages
+  has_and_belongs_to_many :messages, autosave: true
 
   accepts_nested_attributes_for :phones, allow_destroy: true
   accepts_nested_attributes_for :addresses, allow_destroy: true
