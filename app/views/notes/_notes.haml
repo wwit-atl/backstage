@@ -1,11 +1,18 @@
 #notes
   - @notes.order(created_at: :asc).each do |note|
     - if can? :read, note
+      - path = "#{klass.class.to_s.underscore}_note_path"
+      - note_path = send(path, klass.id, note.id)
       %hr
-      .note= simple_format note.content
-      .byline= "-- #{note.author}"
-      - if can? :destroy, note
-        = link_to get_icon(:delete), send(klass.class.to_s.underscore + '_note_path', klass.id, note.id), class: 'btn', title: 'Delete', :method => :delete,
-                  data: { confirm: 'Delete Note, Are you sure?' }
-      - if can? :edit, note
-        = link_to get_icon(:edit), send('edit_' + klass.class.to_s.underscore + '_note_path', klass.id, note.id), class: 'btn', title: 'Edit'
+      .note
+        .editable{ data: { type: 'textarea', pk: note.id, name: 'content', url: note_path, resource: 'note'} }
+          = textarea_format note.content
+
+        .byline= "-- #{note.author}"
+
+      .btn-group.btn-group-xs
+        - if can? :destroy, note
+          = link_to get_icon(:delete), note_path, class: 'btn', title: 'Delete', :method => :delete,
+                    data: { confirm: 'Delete Note, Are you sure?' }
+        - if can? :edit, note
+          = link_to get_icon(:edit), send("edit_#{path}", klass.id, note.id), class: 'btn editable-toggle', title: 'Edit', data: {pk: note.id}
