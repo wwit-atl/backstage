@@ -1,7 +1,7 @@
 'Sup #{@shift.member.firstname},
 
 %p
-  Remember, you're scheduled for #{@shift.skill.name.strip} #{@shift.show.human_date}.
+  Remember, you're scheduled #{shift.show.human_date} for #{@shift.skill.name.strip}.
   The call time is #{@shift.show.call_time.strip}, please be on time.
 
 - if @shift.show.mc
