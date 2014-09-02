@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Backstage::Application.config.secret_key_base = '668a871d957158bf67d54782de932df0fbda1dd212ab92cd59d046880844eb411cab51a39c3640cd68d5450a2d51d99ffd66dc521798a3157da8bebbc1eeafd4'
+Backstage::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
