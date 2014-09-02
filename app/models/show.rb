@@ -37,8 +37,17 @@ class Show < ActiveRecord::Base
     casting_sent_at.strftime('%m/%d/%Y @ %l:%M %P')
   end
 
-  def human_date
+  def gregorian_date
     date.strftime('%m/%d/%Y')
+  end
+
+  def human_date
+    case date
+      when Date.today     then 'Today'
+      when Date.tomorrow  then 'Tomorrow'
+      when Date.yesterday then 'Yesterday'
+      else gregorian_date
+    end
   end
 
   def year
@@ -54,7 +63,7 @@ class Show < ActiveRecord::Base
   end
 
   def datetime
-    "#{human_date} #{show_time}"
+    "#{gregorian_date} #{show_time}"
   end
 
   def title

@@ -1,6 +1,6 @@
 
 %h1
-  = @show.human_date
+  = @show.gregorian_date
   %small= @show.name
 
 %ul.list-inline.pad-top-20
@@ -52,7 +52,7 @@
       - if can? :cast, @show
         %span.pad-top-20.visible-xs
       = link_to get_icon(:email, text: 'Email Cast'),
-        new_message_path( subject: "Re: #{@show.human_date}", members: @show.actors.map(&:id) ),
+        new_message_path( subject: "Re: #{@show.gregorian_date}", members: @show.actors.map(&:id) ),
         class: 'btn btn-default'
   .col-xs-6.col-sm-3.col-md-2.text-right
     - if @show.crew_members.any?

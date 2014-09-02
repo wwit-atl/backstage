@@ -32,7 +32,7 @@
       %tbody
         - @shows.each do |show|
           %tr{ class: ('is-soon' if show.is_today? ), id: 'show-' + show.id.to_s }
-            %td= link_to show.human_date, show_path(show)
+            %td= link_to show.gregorian_date, show_path(show)
             %td= link_to show.name, show_path(show)
             %td.hidden-xs.hidden-sm= format_time_ampm show.calltime
             %td.hidden-xs.hidden-sm= format_time_ampm show.showtime
