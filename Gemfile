@@ -43,6 +43,11 @@ group :production do
   gem 'newrelic_rpm', '>= 3.6.7'
 end
 
+group :staging do
+  # Needed for Heroku
+  gem 'rails_12factor'
+end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -66,10 +71,6 @@ end
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
-end
-
-group :staging do
-  gem 'rails_12factor'
 end
 
 # Rails Server
