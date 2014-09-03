@@ -35,13 +35,10 @@ gem 'recipient_interceptor'
 gem 'icalendar'
 gem 'bootstrap-editable-rails'
 gem 'whenever', require: false
+gem 'newrelic_rpm', '~> 3.7'
 
 gem 'factory_girl_rails', '~> 4'
 gem 'faker'
-
-group :production do
-  gem 'newrelic_rpm', '>= 3.6.7'
-end
 
 group :staging do
   # Needed for Heroku
