@@ -36,6 +36,7 @@ gem 'email_validator'
 gem 'recipient_interceptor'
 gem 'icalendar'
 gem 'bootstrap-editable-rails'
+gem 'whenever', require: false
 
 gem 'factory_girl_rails', '~> 4'
 gem 'faker'
