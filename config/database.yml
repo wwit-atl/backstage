@@ -14,7 +14,7 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
-development:
+development: &development
   adapter: postgresql
   encoding: unicode
   database: backstage_development
@@ -55,3 +55,6 @@ production:
   database: backstage_production
   pool: 5
   password:
+
+staging:
+  <<: *development

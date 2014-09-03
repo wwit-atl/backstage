@@ -12,8 +12,6 @@ gem 'sass-rails', '>= 3.2'
 gem 'autoprefixer-rails'
 gem 'will_paginate-bootstrap'
 
-# gem 'therubyracer', platforms: :ruby
-
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
@@ -66,14 +64,14 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :staging do
+  gem 'rails_12factor'
+end
+
 group :production do
   gem 'newrelic_rpm', '>= 3.6.7'
-  #gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
-  #gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
-  gem 'rails_12factor'
 end
 
 # Rails Server
 gem 'unicorn'
-#gem 'puma'
 
