@@ -18,7 +18,7 @@
       - if !message.approved?
         .controls= render 'partials/admin_commands', klass: message
       .row
-        .col-sm-2= link_to simple_format( message.time_stamp(:created, :long) ), message_path(message)
+        .col-sm-2= link_to message.time_stamp(:created, :long), message_path(message)
         .col-sm-8
           .signature #{link_to_member message.sender} wrote:
           .panel.padding-5
@@ -39,11 +39,11 @@
           - else
             - if message.delivered?
               - if can? :manage, message
-                .status Delivered at #{simple_format message.time_stamp(:delivered) }
+                .status Delivered at #{message.time_stamp(:delivered)}
               - else
                 .status Delivered
             - else
-              .status= message.sent? ? "Sent at #{simple_format message.time_stamp(:sent)}" : 'Not Sent Yet'
+              .status= message.sent? ? "Sent at #{message.time_stamp(:sent)}" : 'Not Sent Yet'
 
               - if can? :manage, message
                 .admin-controls= link_to get_icon( :email, title: 'Retry' ), message_resend_email_path(message)
