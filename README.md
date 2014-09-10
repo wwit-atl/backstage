@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/wwit-atl/backstage.svg?branch=production)
+
 # Welcome
 
 This is the official source code for Whole World Theatre's Backstage 2.0 website, written by Donovan C. Young.
