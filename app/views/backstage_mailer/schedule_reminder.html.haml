@@ -18,7 +18,7 @@
       %tr
         %td= shift.skill.name.strip
         %td= shift.member.fullname
-        %td= @shift.member.phones.map{|p| link_to p.fnumber, p.as_tel_link}.join(' or ').html_safe
+        %td= shift.member.phones.map{|p| link_to p.fnumber, p.as_tel_link}.join(' or ').html_safe
 
 %p
   Your pal,
