@@ -67,48 +67,19 @@ namespace :db do
         # Need to push to AWS first
         puts "Pushing #{ninefold[:dump]} to AWS..."
         # system "s3cmd put '#{ninefold[:dump]}' 's3://#{aws[:bucket]}'"
-        awsobj = AWS::S3.new( access_key_id: aws[:access_key], secret_access_key: aws[:secret_key] )
-            .buckets[aws[:bucket]]
-            .objects[ninefold[:dump]]
-            .write(ninefold[:dump], { :acl => :public_read })
+        bucket = AWS::S3.new( access_key_id: aws[:access_key], secret_access_key: aws[:secret_key] ).buckets[aws[:bucket]]
+        awsobj = bucket.objects[ninefold[:dump]]
+        awsobj.write(:file => ninefold[:dump], :acl => :public_read )
 
-        puts 'Restoring backup file to Heroku Staging...'
+        puts "Restoring backup file from #{awsobj.public_url} to Heroku Staging..."
         system "heroku maintenance:on -a #{heroku[:staging]}"
         system "heroku pgbackups:restore DATABASE '#{awsobj.public_url}' --confirm wwit-backstage-staging -a #{heroku[:staging]}"
+        system "heroku run rake db:migrate -a #{heroku[:staging]}"
         system "heroku maintenance:off -a #{heroku[:staging]}"
 
       end
 
     end # :to_staging
-
-    # Migrate to ninefold
-    namespace :heroku do
-      desc 'Push Heroku database to Ninefold'
-      task :to_ninefold do
-        check_file_time heroku[:dump], heroku[:limit] unless ENV['FORCE']
-
-        puts 'Migrating Heroku DB to Ninefold'
-
-        Bundler.with_clean_env do
-
-          heroku_database_url = %x(heroku pgbackups:url -a #{heroku[:prod]})
-
-          puts 'Creating database backup on Heroku...'
-          system "heroku pgbackups:capture -a #{heroku[:prod]}"
-
-          puts 'Retrieving database backup from Heroku...'
-          system "curl --silent --output '#{heroku[:dump]}' '#{heroku_database_url}'"
-          sleep 1
-
-          check_dump heroku[:dump]
-
-          puts 'Restoring database backup file to ninefold...'
-          system "pg_restore -c -h #{ninefold[:ip]} -p #{ninefold[:port]} -U #{ninefold[:user]} -d #{ninefold[:db]} #{heroku[:dump]}"
-
-        end
-
-      end # :to_ninefold
-    end # :heroku
 
   end # :push
 end # :db
