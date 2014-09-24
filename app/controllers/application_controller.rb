@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, :if => :devise_controller?
   before_action :set_host
   before_action :set_referrer, except: [:create, :update, :destroy]
+  before_action :set_current_user
 
   alias_method :current_user, :current_member
 
@@ -51,6 +52,11 @@ class ApplicationController < ActionController::Base
 
     # Don't return anything
     nil
+  end
+
+  # Set the current user on the Member model
+  def set_current_user
+    Member.current = current_user unless current_user.nil?
   end
 
   def session_referrer

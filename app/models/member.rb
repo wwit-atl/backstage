@@ -55,6 +55,14 @@ class Member < ActiveRecord::Base
   scope :mcs,      -> { has_role(:mc)         }
   scope :staff,    -> { has_role(:staff)      }
 
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
   def fullname
     [ firstname, lastname ].join(' ').strip.squeeze(' ').titlecase
   end
@@ -161,11 +169,7 @@ class Member < ActiveRecord::Base
   end
 
   def inactive_message
-    if !active?
-      :inactive
-    else
-      super # Use whatever other message
-    end
+    active? ? super : :inactive
   end
 
   def self.search(search)
