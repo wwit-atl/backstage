@@ -46,10 +46,15 @@ Backstage::Application.routes.draw do
     end
   end
 
+  # Shifts
   get   '/shifts', to: 'shifts#index'
   patch '/shifts', to: 'shifts#update'
   get 'shifts/schedule'
   get 'shifts/publish'
+
+  # Audit logs
+  get '/audit',       to: 'audits#index'
+  get '/audit/:type', to: 'audits#index'
 
   # Used for testing (inactive when in production mode)
   get '/admin', to: 'members#admin'

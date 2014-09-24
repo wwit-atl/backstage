@@ -9,9 +9,9 @@ module Scheduler
 
       def schedule(date = Date.today)
         @exceptions = {}
-        Rails.logger.info "[AUTOSCHED] Scheduling all available shifts for #{date.strftime('%B, %Y')}"
+        Audit.logger :autosched, "Begin scheduling all available shifts for #{date.strftime('%B, %Y')}"
         self.for_month(date).by_skill_priority.each do |instance|
-          @exceptions.merge! instance.schedule
+          @exceptions.merge! instance.schedule if instance.skill.autocrew and instance.member.nil?
         end
         return @exceptions
       end
@@ -22,28 +22,29 @@ module Scheduler
       def schedule
         @exceptions = {}
 
-        Rails.logger.debug "[AUTOSCHED] >> Scheduling #{self.show.title} #{self.skill.name}"
+        Audit.logger :autosched, "Begin scheduling for #{self.show.title}: #{self.skill.name}"
 
-        #return { self.date => [ "#{self.name}; has no shifts to assign" ] } if self.shifts.empty?
-        # return {} if self.shifts.empty?
+        unless self.skill.autocrew
+          Audit.logger :autosched, "#{self.show.title}: #{self.skill.name} is not auto-scheduled, skipping"
+          return {}
+        end
 
-        # Rails.logger.debug "[AUTOSCHED] Checking #{self.skill.name}"
-
-        return {} unless self.skill.autocrew
-        return {} unless self.member.nil?
+        unless self.member.nil?
+          Audit.logger :autosched, "#{self.show.title}: #{self.skill.name} is already crewed by #{self.member.name}"
+          return {}
+        end
 
         crew = get_crew(self)
 
         if crew.nil?
+          Audit.logger :autosched, "No eligible members were available for #{self.skill.name}"
           ( @exceptions[self.show.date] ||= [] ) << self.skill.name
         else
-          Rails.logger.info "[AUTOSCHED] Assigning #{crew.name} to #{self.skill.name}"
           self.member = crew
           self.hidden = true # don't publish the auto-generated shifts
           self.save!
         end
 
-        @exceptions.each { |date,shift| Rails.logger.error "[AUTOSCHED] No eligible members were available for #{shift} on #{date.to_s}" }
         return @exceptions
       end
 
@@ -55,7 +56,7 @@ module Scheduler
     def get_crew(shift)
       crew_list = {}
 
-      Rails.logger.debug "[AUTOSCHED] >> Looking for eligible crew for #{shift.skill.name}"
+      Audit.logger :autosched, "Looking for eligible crew for #{shift.skill.name}"
 
       min_shifts = max_shifts = -1
 
@@ -78,11 +79,13 @@ module Scheduler
       # Select a random member with the least amount of shifts
       crew.each do |member|
         c = member.shifts.for_month(shift.show.date).count
-        crew_list[c] = [] if crew_list[c].nil?
-        crew_list[c] << member
+        ( crew_list[c] ||= [] ) << member
       end
 
-      crew_list[crew_list.keys.min].sample
+      member = crew_list[crew_list.keys.min].sample
+      Audit.logger :autosched, "Randomly assigning #{member.name} to #{self.skill.name} out of #{crew.count} eligible members."
+
+      member
     end
 
     # Runs through a list of members, checking if they eligible to work this show
@@ -91,27 +94,28 @@ module Scheduler
       potential_crew  = []
       same_group_crew = []
 
-      Rails.logger.debug "[AUTOSCHED] >> #{members.count} members being vetted"
+      # Audit.logger :autosched, "There are #{members.count} members being vetted"
 
       members.each do |member|
         eligible = member.eligible_for_shift?(self.show, min_shifts, max_shifts)
-        next unless eligible
 
-        Rails.logger.debug "[AUTOSCHED] >> Vetting #{member.name}"
+        # Audit.logger :autosched, "Vetting #{member.name}"
 
         case eligible
-          when 0
-            # Add the member to the potential list
-            Rails.logger.debug "[AUTOSCHED] >> #{member.name} is at shift limit, adding to potential list."
-            potential_crew << member
-          when 1
-            # Member part of same group, add to same_group list
-            Rails.logger.debug "[AUTOSCHED] >> #{member.name} is in the same group as the show (#{self.show.group.name}), will only schedule if no other members qualify."
-            same_group_crew << member
-          else
-            # If we made it here, add the member to the crew list
-            Rails.logger.debug "[AUTOSCHED] >> Adding #{member.name} to eligible crew_list"
+          when 0 # Member is eligible
+            Audit.logger :autosched, "Adding #{member.name} to eligible crew_list"
             crew_list << member
+          when 1 # Member part of same group, add to same_group list
+            Audit.logger :autosched, "#{member.name} is in the same group as the show (#{self.show.group.name}), will only schedule if no other members qualify."
+            same_group_crew << member
+          when 2 # Member at min shift limit, add to the potential list
+            Audit.logger :autosched, "#{member.name} is at min shift limit, adding to potential list."
+            potential_crew << member
+          when 3 then Audit.logger :autosched, "#{member.name} is at the maximum number of shifts."
+          when 4 then Audit.logger :autosched, "#{member.name} is already scheduled on another shift."
+          when 5 then Audit.logger :autosched, "#{member.name} has a conflict for this date."
+          when 6 then Audit.logger :autosched, "#{member.name} is not a member of any shift groups."
+          else        Audit.logger :autosched, "#{member.name} wasn't scheduled, but I have no idea why... this shouldn't happen."
         end
       end
 
@@ -119,16 +123,16 @@ module Scheduler
       if crew_list.empty?
         if same_group_crew.count > 0
           # If Same-Group members exist, go ahead and assign them anyway (randomly)
-          Rails.logger.debug '[AUTOSCHED] >> Eligible Crew list is empty, assigning same-group members'
+          Audit.logger :autosched, 'Eligible Crew list is empty, assigning same-group members'
           crew_list = same_group_crew
         elsif potential_crew.count > 0
-          Rails.logger.debug '[AUTOSCHED] >> Eligible Crew list is empty, increasing min shift and re-processing with potential list'
+          Audit.logger :autosched, 'Eligible Crew list is empty, increasing min shift and re-processing with potential list'
           crew_list = vet_members(potential_crew, min_shifts+1, max_shifts)
         end
       end
 
       # Return the crew list (even if empty)
-      Rails.logger.debug "[AUTOSCHED] >> #{crew_list.count} members are eligible"
+      # Audit.logger :autosched, "Found #{crew_list.count} members whom are eligible"
       crew_list
     end
 

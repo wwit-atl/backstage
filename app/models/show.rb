@@ -1,4 +1,5 @@
 class Show < ActiveRecord::Base
+  before_destroy :log_destroy
 
   has_many :shifts, :dependent => :destroy
   has_many :crew_members, :through => :shifts, :source => :member
@@ -97,5 +98,11 @@ class Show < ActiveRecord::Base
 
   def is_today?
     date == Date.today
+  end
+
+  private
+
+  def log_destroy
+    Audit.logger self.class.to_s, "Deleted #{self.title}"
   end
 end

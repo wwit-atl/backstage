@@ -73,7 +73,7 @@ class ShowsController < ApplicationController
   def create_shows
     unauthorized unless can? :create, Show
     date = ( Date.parse(params[:date]) || Date.today )
-    logger.debug "Creating shows for #{date}"
+    Audit.logger :show, "Begin create shows for #{date.strftime('%B %Y')}"
     ShowTemplate.create_shows_for(date.month, date.year)
     flash.notice = "Created shows for #{date.strftime('%B %Y')}"
     respond_to do |format|
@@ -88,6 +88,8 @@ class ShowsController < ApplicationController
     unauthorized && return unless can? :cast, @show
 
     @show.casting_sent_at = Time.now
+
+    Audit.logger :show, "Sent casting announcement for #{@show.title}"
 
     if BackstageMailer.casting_announcement(@show).deliver
       @show.save

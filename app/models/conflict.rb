@@ -1,4 +1,7 @@
 class Conflict < ActiveRecord::Base
+  before_create  :log_create
+  before_destroy :log_destroy
+
   belongs_to :member
 
   scope :for_date, ->(date = Date.today) do
@@ -39,8 +42,18 @@ class Conflict < ActiveRecord::Base
   end
 
   def lock!
+    return if locked?
+    Audit.logger self.class.to_s, "Conflict for #{self.member.name} on #{self.date} locked in"
     self.lock = true
     self.save
+  end
+
+  def log_create
+    Audit.logger self.class.to_s, "Conflict created for #{self.member.name} on #{self.date}"
+  end
+
+  def log_destroy
+    Audit.logger self.class.to_s, "Conflict removed for #{self.member.name} on #{self.date}"
   end
 
 end

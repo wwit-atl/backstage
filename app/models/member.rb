@@ -1,6 +1,8 @@
 class Member < ActiveRecord::Base
   extend FriendlyId
 
+  before_destroy :log_destroy
+
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :confirmable, :validatable
   rolify
   friendly_id :fullname, :use => :slugged
@@ -137,26 +139,26 @@ class Member < ActiveRecord::Base
   # Returns true if eligible, 0 if at min_shifts, false if ineligible
   def eligible_for_shift?(show, min_shifts, max_shifts)
     # Is the member part of a auto_schedule group?
-    return false if schedule_groups.empty?
+    return 6 if schedule_groups.empty?
 
     # Does the member have a conflict for this date?
-    return false if conflict?(show.date)
+    return 5 if conflict?(show.date)
 
     # Is the member already scheduled on a shift for this show?
-    return false if has_shift_for?(show)
+    return 4 if has_shift_for?(show)
 
     # Is the member already at the maximum number of shifts?
-    return false if shift_count_for_month(show.month) >= max_shifts unless max_shifts < 0
+    return 3 if shift_count_for_month(show.month) >= max_shifts unless max_shifts < 0
 
     # Has the member reached the minimum shift limit?
     # If so, add them to the potential crew list
-    return 0 if shift_count_for_month(show.month) >= min_shifts unless min_shifts < 0
+    return 2 if shift_count_for_month(show.month) >= min_shifts unless min_shifts < 0
 
     # Return 1 if the member is part of the same group as the show.
     # This is to prefer crewing ISP members for US shows, and visa-versa
     return 1 if castable_groups.include?(show.group.try(:name))
 
-    true
+    0
   end
 
   def shift_count_for_month(month = Time.now.month, year = Time.now.year)
@@ -198,5 +200,9 @@ class Member < ActiveRecord::Base
 
   def date_to_params(date)
     date.strftime('%Y|%m|%d').split('|').map(&:to_i)
+  end
+
+  def log_destroy
+    Audit.logger self.class.to_s, "Deleted #{self.name}"
   end
 end

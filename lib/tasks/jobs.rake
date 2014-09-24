@@ -11,7 +11,7 @@ namespace :jobs do
 
         messages = Message.where('created_at < ?', date).order(:created_at)
 
-        Rails.logger.info "Deleting #{messages.count} Announcements older than #{days} days"
+        Audit.logger :system, "Deleting #{messages.count} Announcements older than #{days} days"
         messages.each(&:destroy)
       end
 
@@ -20,7 +20,7 @@ namespace :jobs do
     desc 'Send reminder email to shift members'
     task :reminders => :environment do
       Shift.for_date(Date.today).each do |shift|
-        Rails.logger.info "Sending reminder to #{shift.member.fullname.strip} for #{shift.skill.name.strip} on #{shift.show.gregorian_date}"
+        Audit.logger :mail, "Sending reminder to #{shift.member.fullname.strip} for #{shift.skill.name.strip} on #{shift.show.gregorian_date}"
         BackstageMailer.schedule_reminder(shift).deliver
       end
     end

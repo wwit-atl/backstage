@@ -21,7 +21,7 @@ class ShiftsController < ApplicationController
         format.json { head :no_content }
         format.js { render :layout => false }
       else
-        format.html { render action: 'index', alert: 'Could not safe record' }
+        format.html { render action: 'index', alert: 'Could not save record' }
         format.json { render json: @shift.errors, status: :unprocessable_entity }
       end
     end
@@ -48,6 +48,8 @@ class ShiftsController < ApplicationController
   def publish
     date = Date.parse(params[:date] || Date.today.to_s)
     Shift.hidden.for_month(date).update_all(hidden: false)
+
+    Audit.logger :shift, "Published shifts for #{date.strftime('%B, %Y')}"
 
     respond_to do |format|
       format.js { render :layout => false }

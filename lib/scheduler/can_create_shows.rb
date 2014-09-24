@@ -31,7 +31,7 @@ module Scheduler
       # Abort if the show already exists
       return unless Show.where(date: date, showtime: template.showtime).empty?
 
-      Rails.logger.info "Creating show for #{template.name} on #{date.strftime('%m/%d/%Y')}"
+      Audit.logger :show, "Creating show for #{template.name} on #{date.strftime('%m/%d/%Y')}"
 
       # Create the show
       Show.create(
