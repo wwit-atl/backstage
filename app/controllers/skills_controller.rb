@@ -19,7 +19,6 @@ class SkillsController < ApplicationController
 
   # GET /skills/1/edit
   def edit
-    session[:redirect_to] = request.referrer
   end
 
   # POST /skills
