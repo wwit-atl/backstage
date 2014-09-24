@@ -110,7 +110,7 @@ fieldset {
   width: 100%;
   height: 80px;
   margin-top: 20px;
-  z-index: 9999;
+  z-index: 999;
 
   .copyright {
     font-style: italic;
@@ -162,3 +162,4 @@ fieldset {
   }
 }
 
+.dropdown-menu { z-index: 99999; }
