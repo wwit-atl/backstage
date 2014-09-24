@@ -17,10 +17,10 @@ class MembersController < ApplicationController
     unauthorized && return unless current_member and current_member.superuser?
 
     if current_member.is_admin?
-      Audit.logger :system, "#{name} became a Super Administrator."
+      Audit.logger :system, 'Is no longer an Administrator.'
       current_member.remove_role :admin
     else
-      Audit.logger :system, "#{name} dropped the Super Administrator Role."
+      Audit.logger :system, 'Became an Administrator.'
       current_member.add_role :admin
     end
 
