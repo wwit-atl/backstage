@@ -2,7 +2,7 @@
 class Konfig < ActiveRecord::Base
   def self.load!
     klass = class << self; self; end
-    Konfig.all.each { |c| klass.send(:define_method, c.name.tableize) { find(c).value.to_i } }
+    Konfig.all.each { |c| klass.send(:define_method, c.name.tableize) { find(c.id).value.to_i } }
   end
 
   self.load!

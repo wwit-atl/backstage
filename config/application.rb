@@ -23,6 +23,11 @@ module Backstage
 
     config.i18n.enforce_available_locales = true
 
+    # Currently, Active Record suppresses errors raised within after_rollback or after_commit callbacks and only
+    # prints them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will
+    # propagate normally just like in other Active Record callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
+
     # ActionMailer Settings
     config.action_mailer.default_url_options = {  host: ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com'  }
 
