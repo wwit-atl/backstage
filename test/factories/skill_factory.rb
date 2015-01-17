@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :skill do
     name 'Sample Skill'
+    description 'Sample Skill Description'
     code { name.split(' ').map { |n| n[0] }.join.upcase }
     training false
     autocrew false
