@@ -3,8 +3,8 @@ FactoryGirl.define do
     show   { create(:show) }
     skill  { create(:skill) }
     member { create(:member) }
-    hidden :false
-    training :false
+    hidden false
+    training false
   end
 end
 
