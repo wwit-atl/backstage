@@ -4,6 +4,8 @@
     font-size: .8em;
   }
 
+  .avatar img { border-radius: 16px; }
+
   .inactive {
     color: $wwit-red;
   }
@@ -11,5 +13,19 @@
   .confirmed-false {
     font-style: italic;
     a { color: red; }
+  }
+}
+
+#member {
+  h1.name {
+    margin-bottom: 0;
+  }
+  .email {
+    font-size: 1.2em;
+  }
+  .avatar {
+    img { border-radius: 5px; }
+    float: left;
+    padding: 10px 15px 5px 0;
   }
 }

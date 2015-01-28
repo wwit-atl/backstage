@@ -6,12 +6,13 @@
 
 #member
   .row
-    .col-md-6
-      %h1
+    .col-md-6.col-sm-9.title.pull-left
+      .hidden-xs.avatar= image_tag @member.avatar
+      %h1.name
         = @member.name
-        %small
-          = mail_to @member.email
-          %em.inactive= 'INACTIVE' if @member.inactive?
+      .email
+        = mail_to @member.email
+        %em.inactive= 'INACTIVE' if @member.inactive?
 
     .col-md-6
       %h4.text-right
