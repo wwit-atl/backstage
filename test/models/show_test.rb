@@ -46,4 +46,8 @@ class ShowTest < ActiveSupport::TestCase
     assert_equal @member.name, @show.shifts.with_skill(:un).member.name
   end
 
+  test '#tickets_total sums up ticket sales' do
+    Show.ticket_types.each { |type| @show.tickets[type] = 1 }
+    assert_equal Show.ticket_types.count, @show.tickets_total
+  end
 end

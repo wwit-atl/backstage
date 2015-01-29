@@ -8,6 +8,8 @@ FactoryGirl.define do
     showtime '20:00'
     calltime '18:30'
 
+    tickets Hash.new
+
     trait :with_shift do
       skills
       after(:create) do |show|

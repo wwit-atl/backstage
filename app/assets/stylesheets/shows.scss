@@ -25,3 +25,26 @@
 
   }
 }
+
+#ticket-sales {
+  float: right;
+  padding-top: 20px;
+
+  .box {
+    @include box-shadow(1px 1px 3px rgba(black, .4));
+    background-color: #EEE;
+  }
+
+  .header {
+    padding-bottom: 5px;
+    font-weight: bolder;
+    border-bottom: 1px solid;
+  }
+
+  .sales {
+    margin: 0;
+    padding-top: 5px;
+    font-style: italic;
+    .count, .type { display: inline; }
+  }
+}

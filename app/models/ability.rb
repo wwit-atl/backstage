@@ -17,6 +17,7 @@ class Ability
     elsif member.has_role?(:management)
       can :manage, [ Member, Show, Message, Note, Shift, Conflict ]
       can :read, [ Skill, ShowTemplate ]
+      can :sell, Show
       cannot [:generate, :destroy], Show
       cannot [:auto_sched], Shift
     end

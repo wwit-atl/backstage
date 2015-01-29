@@ -1,6 +1,8 @@
 class Show < ActiveRecord::Base
   before_destroy :log_destroy
 
+  store_accessor :tickets
+
   has_many :shifts, :dependent => :destroy
   has_many :crew_members, :through => :shifts, :source => :member
   has_many :skills, -> { order(:code) }, :through => :shifts
@@ -98,6 +100,14 @@ class Show < ActiveRecord::Base
 
   def is_today?
     date == Date.today
+  end
+
+  def self.ticket_types
+    %w(sold comp rush walkup)
+  end
+
+  def tickets_total
+    Show.ticket_types.map{ |t| tickets[t].to_i if tickets[t].present? }.inject(:+)
   end
 
   private

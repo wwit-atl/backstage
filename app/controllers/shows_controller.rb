@@ -22,6 +22,7 @@ class ShowsController < ApplicationController
   # GET /shows/new
   def new
     @show = Show.new
+    @show.tickets = {}
     @show.showtime = '8:00pm'
     @show.calltime = '6:30pm'
   end
@@ -117,7 +118,7 @@ class ShowsController < ApplicationController
           #    :id, :_destroy, :stage_id, :position, :suggestion,
           #    notes_attributes: [ :id, :content, :_destroy ]
           #]
-      )
+      ).tap { |whitelist| whitelist[:tickets] = params[:show][:tickets] }
     end
 
     def set_supporting
