@@ -15,7 +15,7 @@ class Show < ActiveRecord::Base
   accepts_nested_attributes_for :scenes, allow_destroy: true
   accepts_nested_attributes_for :shifts, allow_destroy: true
 
-  scope :recent, -> { where('date > ?', Date.today - 10.days) }
+  scope :recent, -> { where('date > ?', Date.today - 5.days) }
   scope :by_date, -> { order(:date, :showtime) }
   scope :by_date_desc, -> { order(:date => :desc, :showtime => :desc) }
 
