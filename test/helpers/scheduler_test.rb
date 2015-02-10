@@ -3,10 +3,7 @@ require 'test_helper'
 class SchedulerTest < ActiveSupport::TestCase
 
   def setup
-    FactoryGirl.create(:konfig, name: 'MemberMinShifts',    value: 3)
-    FactoryGirl.create(:konfig, name: 'MemberMaxShifts',    value: 5)
-    FactoryGirl.create(:konfig, name: 'MemberMaxConflicts', value: 4)
-    Konfig.load! # Ensures the Konfig model creates methods for the items above
+    load_config
 
     FactoryGirl.create(:role, name: 'ms',        cast: 'true',  crew: 'true', schedule: 'false')
     FactoryGirl.create(:role, name: 'us',        cast: 'true',  crew: 'true', schedule: 'true')

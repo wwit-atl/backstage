@@ -19,11 +19,21 @@ ready = ->
   ), ->
     $('[rel=popover]').css "cursor", "auto"
 
-  $('.chosen-select').chosen
+  $('.chosen-select').chosen(
     allow_single_deselect: true
     no_results_text: 'No results matched'
     disable_search_threshold: 10
     width: '100%'
+  ).change (event, params)->
+    $(this).next('.chosen-has-conflict').removeClass('chosen-has-conflict')
+    if $(this).data('check-conflicts') and typeof params != "undefined" and params.hasOwnProperty('selected')
+      member_id = params.selected
+      show_id = $(this).data('check-conflicts')
+      selector = $(this).next('div.chosen-container')
+      $.getJSON('/api/members/' + member_id + '/conflicts?for_show=' + show_id).done (json)->
+        if json.status == true
+          selector.addClass('chosen-has-conflict')
+          alert('WARNING: Member has a conflict for this date')
 
   $('.chosen-reset').click (event)->
     event.preventDefault()
@@ -59,6 +69,4 @@ ready = ->
   )
 
 $(document).ready(ready)
-$(document).on( 'ajax:complete',       ready )
-$(document).on( 'page:load',           ready )
 $(document).on( 'cocoon:after-insert', ready )

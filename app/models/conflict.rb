@@ -49,10 +49,12 @@ class Conflict < ActiveRecord::Base
   end
 
   def log_create
+    return if ENV['RAILS_ENV'] == 'test'
     Audit.logger self.class.to_s, "Conflict created for #{self.member.name} on #{self.date}"
   end
 
   def log_destroy
+    return if ENV['RAILS_ENV'] == 'test'
     Audit.logger self.class.to_s, "Conflict removed for #{self.member.name} on #{self.date}"
   end
 

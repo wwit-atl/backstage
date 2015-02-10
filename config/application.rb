@@ -46,6 +46,10 @@ module Backstage
         :reply_to       => ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
     }
 
+    config.generators do |g|
+      g.test_framework :minitest, spec: true, fixture: false
+    end
+
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = false if ENV['NO_EMAIL']
   end

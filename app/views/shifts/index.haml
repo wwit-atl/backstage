@@ -35,7 +35,9 @@
                   :collection => @members,
                   :include_blank => true,
                   :label => false,
-                  :input_html => { onchange: "$('#shift_#{shift.id}').find('input').removeClass('hide')", class: 'chosen-select', data: { placeholder: 'No Member Selected' } }
+                  :input_html => { onchange: "$('#shift_#{shift.id}').find('input').removeClass('hide')",
+                                   class: 'chosen-select',
+                                   data: { placeholder: 'No Member Selected', check_conflicts: shift.show.id } }
                 .col-xs-4.text-right= f.submit 'Update', class: 'btn btn-default btn-xs hide'
         - if @shifts.empty?
           %tr

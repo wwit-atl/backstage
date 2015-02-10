@@ -2,11 +2,7 @@ require "test_helper"
 
 class KonfigTest < ActiveSupport::TestCase
   def setup
-    FactoryGirl.create(:konfig, name: 'MemberMinShifts',    value: 3)
-    FactoryGirl.create(:konfig, name: 'MemberMaxShifts',    value: 4)
-    FactoryGirl.create(:konfig, name: 'MemberMaxConflicts', value: 4)
-    FactoryGirl.create(:konfig, name: 'CastMinShows',       value: 5)
-    Konfig.load!
+    load_config
   end
 
   test 'Config responds to member_min_shifts' do

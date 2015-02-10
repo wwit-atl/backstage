@@ -27,7 +27,7 @@
               :label_method => :name,
               :disabled => !(can? :manage, @show),
               :label => 'MC ',
-              :input_html => { class: 'chosen-select', multiple: false, data: { placeholder: 'Select MC' } }
+              :input_html => { class: 'chosen-select', multiple: false, data: { placeholder: 'Select MC', check_conflicts: @show.id } }
 
           = f.association :actors,
               :collection => @castable,
