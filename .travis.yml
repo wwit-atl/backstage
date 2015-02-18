@@ -6,4 +6,6 @@ script:
   - bundle exec rake db:migrate test
 before_script:
   - psql -c 'create database backstage_test' -U postgres
-
+addons:
+  code_climate:
+    repo_token: 8acb6cdd9945f3059d38771f0d75abdb471b9e93da68fec0fc8bfa4ea6aa3800
