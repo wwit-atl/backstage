@@ -59,7 +59,7 @@ GEM
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     builder (3.2.2)
-    cancan (1.6.10)
+    cancancan (1.10.1)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chosen-rails (1.3.0)
@@ -340,7 +340,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-editable-rails
   bootstrap-sass (~> 3)
-  cancan
+  cancancan
   chosen-rails
   cocoon
   coffee-rails (~> 4)
