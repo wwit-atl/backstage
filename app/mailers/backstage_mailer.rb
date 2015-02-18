@@ -3,9 +3,9 @@ class BackstageMailer < ActionMailer::Base
   before_action :set_headers
 
   def announcements(message)
-
     message.email_message_id = set_message_id
     message.sent_at = Time.now.utc
+    message.save
 
     @message = message
 

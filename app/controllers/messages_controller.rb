@@ -87,8 +87,8 @@ class MessagesController < ApplicationController
       else
         @message.approver = current_member
         @message.approved_at = Time.now
-        BackstageMailer.announcements(@message).deliver_later
         if @message.save
+          BackstageMailer.announcements(@message).deliver_later
           flash[:success] = 'Message Approved and Sent'
         else
           flash[:error] = 'Unable to approve message'
@@ -115,8 +115,8 @@ class MessagesController < ApplicationController
         return
       end
 
-      BackstageMailer.announcements(@message).deliver_later
       if @message.save
+        BackstageMailer.announcements(@message).deliver_later
         redirect_to messages_path, flash: { success: 'Email(s) Sent' }
       else
         redirect_to messages_path, flash: { error: 'Unable to send email(s)!' }
