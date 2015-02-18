@@ -1,4 +1,5 @@
 ![Build Status](https://travis-ci.org/wwit-atl/backstage.svg?branch=production)
+![Code Climate](https://codeclimate.com/github/wwit-atl/backstage/badges/gpa.svg)
 
 # Welcome
 
