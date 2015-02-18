@@ -91,7 +91,7 @@ class ShowsController < ApplicationController
 
     Audit.logger :show, "Sent casting announcement for #{@show.title}"
 
-    if BackstageMailer.casting_announcement(@show).deliver
+    if BackstageMailer.casting_announcement(@show).deliver_later
       @show.save
       redirect_to :back, flash: { success: 'Casting Announcement Sent' }
     else

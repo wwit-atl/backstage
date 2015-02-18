@@ -42,7 +42,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         # Send managers an email letting them know there's a new message
-        BackstageMailer.waiting_for_approval(@message).deliver unless can? :approve, @message
+        BackstageMailer.waiting_for_approval(@message).deliver_later unless can? :approve, @message
 
         format.html { redirect_back_to messages_path, flash: { success: 'Message was successfully created.' } }
         format.json { render action: 'show', status: :created, location: @message }
@@ -87,7 +87,7 @@ class MessagesController < ApplicationController
       else
         @message.approver = current_member
         @message.approved_at = Time.now
-        if BackstageMailer.announcements(@message).deliver
+        if BackstageMailer.announcements(@message).deliver_later
           @message.save
           flash[:success] = 'Message Approved and Sent'
         else
@@ -115,7 +115,7 @@ class MessagesController < ApplicationController
         return
       end
 
-      if BackstageMailer.announcements(@message).deliver
+      if BackstageMailer.announcements(@message).deliver_later
         @message.save
         redirect_to messages_path, flash: { success: 'Email(s) Sent' }
       else
