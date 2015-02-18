@@ -31,6 +31,14 @@ class ActiveSupport::TestCase
   def teardown
     DatabaseCleaner.clean
   end
+
+  def load_config
+    FactoryGirl.create(:konfig, name: 'MemberMinShifts',    value: 3)
+    FactoryGirl.create(:konfig, name: 'MemberMaxShifts',    value: 4)
+    FactoryGirl.create(:konfig, name: 'MemberMaxConflicts', value: 4)
+    FactoryGirl.create(:konfig, name: 'CastMinShows',       value: 5)
+    Konfig.load! # Ensures the Konfig model creates methods for the items above
+  end
 end
 
 class ActionController::TestCase

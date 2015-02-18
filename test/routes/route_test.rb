@@ -4,7 +4,7 @@ require "test_helper"
 #   MiniTest::Rails::Testing.default_tasks << "routes"
 
 class RouteTest < ActionDispatch::IntegrationTest
-  def test_root
+  test 'default route points to members#show' do
     assert_routing '/', controller: 'members', action: 'show'
   end
 end

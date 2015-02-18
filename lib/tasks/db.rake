@@ -1,46 +1,85 @@
 namespace :db do
-  namespace :push do
-    ninefold = {
-        ip: '124.47.148.107',
-        port: 5432,
-        user: 'app',
-        db: 'db9968',
-        dump: 'ninefold.dump',
-        limit: 3600
-    }
-    heroku = {
-        prod: 'wwit-backstage',
-        staging: 'wwit-backstage-staging',
-        dump: 'heroku.dump',
-        limit: 3600
-    }
-    aws = {
-        bucket: 'wwit-backstage/backups',
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_key: ENV['AWS_SECRET_ACCESS_KEY']
-    }
+  local = {
+      host: '127.0.0.1',
+      port: 5432,
+      user: 'dyoung',
+      db: 'backstage_development',
+      dump: 'localhost.dump',
+      limit: 3600
+  }
+  ninefold = {
+      host: '124.47.148.107',
+      port: 5432,
+      user: 'app',
+      db: 'db9968',
+      dump: 'ninefold.dump',
+      limit: 3600
+  }
+  heroku = {
+      prod: 'wwit-backstage',
+      staging: 'wwit-backstage-staging',
+      dump: 'heroku.dump',
+      limit: 3600
+  }
+  aws = {
+      bucket: 'wwit-backstage/backups',
+      access_key: ENV['AWS_ACCESS_KEY_ID'],
+      secret_key: ENV['AWS_SECRET_ACCESS_KEY']
+  }
 
-    def abort(message)
-      puts message
-      exit 1
-    end
+  def abort(message)
+    puts message
+    exit 1
+  end
 
-    def check_file_time(file, limit)
-      time = Time.now - File.ctime(file) if File.exists?(file)
-      if time.nil? or time > limit
-        File.unlink(file) if File.exists?(file)
-      else
+  def check_file_time(file, limit, abort = true)
+    time = Time.now - File.ctime(file) if File.exists?(file)
+    if time.nil? or time > limit
+      File.unlink(file) if File.exists?(file)
+    else
+      if abort
         abort "We've pushed a backup in the last #{limit} minutes, aborting (use FORCE=true to override)."
+      else
+        puts "Using existing #{file} file."
       end
     end
+  end
 
-    def check_dump(dumpfile)
-      abort "Whoops! #{dumpfile} does not exist. Cannot continue." unless File.exists?(dumpfile)
+  def check_dump(dumpfile)
+    abort "Whoops! #{dumpfile} is empty or does not exist. Cannot continue." unless File.size?(dumpfile)
+  end
+
+  # Clone database to Development
+  desc 'clone production database to development'
+  task :clone do
+    check_file_time( ninefold[:dump], local[:limit], false ) unless ENV['FORCE'] == 'true'
+
+    puts 'Cloning production DB to development'
+
+    Bundler.with_clean_env do
+
+      unless File.size?(ninefold[:dump])
+        puts 'Retrieving database backup from Ninefold'
+        system "pg_dump -w -h '#{ninefold[:host]}' " +
+                   "-p #{ninefold[:port]} " +
+                   "-U '#{ninefold[:user]}' " +
+                   '-a -N postgis -N topology -Fc ' +
+                   "-d '#{ninefold[:db]}' -f '#{ninefold[:dump]}'"
+      end
+
+      check_dump ninefold[:dump]
+
+      puts "Restoring #{ninefold[:dump]} to #{local[:db]}..."
+      system "pg_restore -C -h #{local[:host]} -p #{local[:port]} -U #{local[:user]} -d #{local[:db]} #{ninefold[:dump]}"
     end
+
+  end # :clone
+
+  namespace :push do
 
     # Push database to Staging
     desc 'Push production database to staging'
-    task :to_staging do
+    task :staging do
       require 'aws-sdk'
 
       check_file_time ninefold[:dump], ninefold[:limit] unless ENV['FORCE'] == 'true'
@@ -53,12 +92,12 @@ namespace :db do
 
       Bundler.with_clean_env do
 
-        unless File.exists?(ninefold[:dump])
+        unless File.size?(ninefold[:dump])
           puts 'Retrieving database backup from Ninefold'
-          system "pg_dump -w -h '#{ninefold[:ip]}' " +
+          system "pg_dump -c -w -h '#{ninefold[:host]}' " +
                    "-p #{ninefold[:port]} " +
                    "-U '#{ninefold[:user]}' " +
-                   '-a -N postgis -N topology -Fc ' +
+                   '-N postgis -N topology -Fc ' +
                    "-d '#{ninefold[:db]}' -f '#{ninefold[:dump]}'"
         end
 
@@ -73,13 +112,14 @@ namespace :db do
 
         puts "Restoring backup file from #{awsobj.public_url} to Heroku Staging..."
         system "heroku maintenance:on -a #{heroku[:staging]}"
-        system "heroku pgbackups:restore DATABASE '#{awsobj.public_url}' --confirm wwit-backstage-staging -a #{heroku[:staging]}"
+        system "heroku pg:reset DATABASE --confirm wwit-backstage-staging -a #{heroku[:staging]}"
         system "heroku run rake db:migrate -a #{heroku[:staging]}"
+        system "heroku pgbackups:restore DATABASE '#{awsobj.public_url}' --confirm wwit-backstage-staging -a #{heroku[:staging]}"
         system "heroku maintenance:off -a #{heroku[:staging]}"
 
       end
 
-    end # :to_staging
+    end # :staging
 
   end # :push
 end # :db

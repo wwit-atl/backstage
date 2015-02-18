@@ -39,7 +39,7 @@ class Member < ActiveRecord::Base
   scope :company_members, -> { active.joins(:roles).merge(Role.company_member) }
 
   # ToDo Need a method that determines if a Member is eligible for a given date (checking conflicts, crews, and cast)
-  #scope :castable_for_date, ->(date) { castable & !conflicts.includes?(date) & !shifts.}
+  # scope :castable_for_date, ->(date) { castable & !conflicts.includes?(date) & !shifts.}
 
   #scope :company_members, -> { ( castable || crewable ) && emailable }
   scope :uses_conflicts, -> { castable || crewable }

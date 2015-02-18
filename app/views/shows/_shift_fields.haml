@@ -9,7 +9,7 @@
     .col-md-5
       = f.association :member, collection: @crewable, include_blank: true, label: false,
         disabled: !(can? :manage, @show),
-        input_html: { class: 'chosen-select', data: { placeholder: 'No one scheduled' } },
+        input_html: { class: 'chosen-select', data: { placeholder: 'No one scheduled', check_conflicts: @show.id } },
         :wrapper_html => { :style => 'display: inline' }
 
     .col-md-2

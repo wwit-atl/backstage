@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :message do
-    subject      'Sample Subject'
-    message      'Sample Message'
-    sender       create(:member)
+    subject      { Faker::Lorem.sentence }
+    message      { Faker::Lorem.paragraph }
+    sender       { create(:member) }
 
     trait :approved do
       after(:create) { |m| m.approver = create(:member) }

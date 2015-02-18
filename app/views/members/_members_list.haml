@@ -9,7 +9,7 @@
         %th Email
         - if can? :manage, Member
           %th.hidden-xs.hidden-sm Skill(s)
-          %th.hidden-xs.hidden-sm Role(s)
+          -#%th.hidden-xs.hidden-sm Role(s)
         %th
           - if can? :create, @members
             .text-right= link_to_new new_member_path
@@ -43,7 +43,7 @@
           - if can? :manage, Member
             %td.hidden-xs.hidden-sm
               = member.skills.by_code.collect { |s| content_tag :span, s.code, rel: 'tooltip', data: { title: s.name, placement: 'top' } }.to_sentence.html_safe
-            %td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
+            -#%td.hidden-xs.hidden-sm= link_to member.roles.by_name.map{|r| r.name}.join(', '), roles_path
 
           %td= render 'partials/admin_commands', klass: member, show: true
 

@@ -1,8 +1,9 @@
 language: ruby
 bundler_args: "--without production --without development"
 rvm:
-  - 2.1.2
+  - 2.2.0
 script:
-  - bundle exec rake --trace db:migrate test
+  - bundle exec rake db:migrate test
 before_script:
   - psql -c 'create database backstage_test' -U postgres
+

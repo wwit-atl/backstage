@@ -10,6 +10,7 @@ guard 'minitest' do
   watch(%r|^test/.*test_helper\.rb|)   { "test" }
 
   # Rails 4.0
+  watch(%r|^app/controllers/api/v\d+/(.*)\.rb|) { |m| "test/controllers/#{m[1]}_test.rb" }
   watch(%r|^app/controllers/(.*)\.rb|) { |m| "test/controllers/#{m[1]}_test.rb" }
   watch(%r|^app/helpers/(.*)\.rb|)     { |m| "test/helpers/#{m[1]}_test.rb" }
   watch(%r|^app/models/(.*)\.rb|)      { |m| "test/models/#{m[1]}_test.rb" }

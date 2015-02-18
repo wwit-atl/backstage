@@ -8,6 +8,6 @@ class CreateShows < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index(:shows, :date)
+    #add_index(:shows, :date)
   end
 end

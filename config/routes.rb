@@ -1,3 +1,5 @@
+require 'api_constraints'
+
 Backstage::Application.routes.draw do
 
   devise_for :members
@@ -8,6 +10,15 @@ Backstage::Application.routes.draw do
 
   concern :sortable do
     collection { post :reposition }
+  end
+
+  # API Calls
+  namespace :api, defaults: { format: :json } do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      resources :members do
+        get :conflicts
+      end
+    end
   end
 
   resources :announcements, controller: 'messages', :as => :messages do
