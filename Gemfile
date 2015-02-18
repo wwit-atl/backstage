@@ -36,7 +36,7 @@ gem 'icalendar'
 gem 'bootstrap-editable-rails'
 gem 'whenever', require: false
 gem 'newrelic_rpm', '~> 3.7'
-gem "paperclip", "~> 4.2"
+gem 'paperclip', '~> 4.2'
 
 gem 'factory_girl_rails'
 gem 'faker'
@@ -66,7 +66,7 @@ group :development, :test do
   gem 'terminal-notifier-guard'
   gem 'rb-fsevent'
   gem 'database_cleaner'
-
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 group :doc do

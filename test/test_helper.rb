@@ -3,11 +3,13 @@ ENV['RAILS_HOST'] ||= 'test.host'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-# require 'support/factory_girl'
 
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'minitest/reporters'
+
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
 
 if ENV['RUBYMINE_TESTUNIT_REPORTER']
   MiniTest::Reporters.use! MiniTest::Reporters::RubyMineReporter
@@ -19,8 +21,11 @@ else
 end
 
 class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+
   ActiveRecord::Migration.check_pending!
   ActiveRecord::Migration.maintain_test_schema!
+
 
   DatabaseCleaner.strategy = :transaction
 
