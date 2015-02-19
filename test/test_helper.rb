@@ -1,3 +1,6 @@
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 ENV['RAILS_ENV']  ||= 'test'
 ENV['RAILS_HOST'] ||= 'test.host'
 
@@ -8,8 +11,6 @@ require 'minitest/spec'
 require 'minitest/autorun'
 require 'minitest/reporters'
 
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
 
 if ENV['RUBYMINE_TESTUNIT_REPORTER']
   MiniTest::Reporters.use! MiniTest::Reporters::RubyMineReporter
