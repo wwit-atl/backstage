@@ -1,5 +1,6 @@
 ![Build Status](https://travis-ci.org/wwit-atl/backstage.svg?branch=production)
 ![Code Climate](https://codeclimate.com/github/wwit-atl/backstage/badges/gpa.svg)
+![Test Coverage](https://codeclimate.com/github/wwit-atl/backstage/badges/coverage.svg)
 
 # Welcome
 
@@ -37,6 +38,7 @@ Pushed to a future release
 --------------------------
 
 ### Planned
+ - [ ] Public Show & Member pages (for promotions)
  - [ ] Create Student Manager
  - [ ] Electronic check-in for cast/crew during show night
  - [ ] Link show videos to show (store vids on S3)
