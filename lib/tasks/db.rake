@@ -22,6 +22,12 @@ namespace :db do
       limit: 3600
   }
   aws = {
+      host: 'aaa0i1u2zjf51q.clc64ittof4h.us-east-1.rds.amazonaws.com',
+      port: 5432,
+      user: 'wwit',
+      db: 'ebdb',
+      dump: 'aws.dump',
+      limit: 3600,
       bucket: 'wwit-backstage/backups',
       access_key: ENV['AWS_ACCESS_KEY_ID'],
       secret_key: ENV['AWS_SECRET_ACCESS_KEY']
@@ -95,10 +101,10 @@ namespace :db do
         unless File.size?(ninefold[:dump])
           puts 'Retrieving database backup from Ninefold'
           system "pg_dump -c -w -h '#{ninefold[:host]}' " +
-                   "-p #{ninefold[:port]} " +
-                   "-U '#{ninefold[:user]}' " +
-                   '-N postgis -N topology -Fc ' +
-                   "-d '#{ninefold[:db]}' -f '#{ninefold[:dump]}'"
+                     "-p #{ninefold[:port]} " +
+                     "-U '#{ninefold[:user]}' " +
+                     '-N postgis -N topology -Fc ' +
+                     "-d '#{ninefold[:db]}' -f '#{ninefold[:dump]}'"
         end
 
         check_dump ninefold[:dump]
@@ -120,6 +126,45 @@ namespace :db do
       end
 
     end # :staging
+
+    # Push database to EBS
+    desc 'Push production database to staging'
+    task :ebs do
+      require 'aws-sdk'
+
+      check_file_time ninefold[:dump], ninefold[:limit] unless ENV['FORCE'] == 'true'
+
+      if aws[:access_key].nil? or aws[:secret_key].nil?
+        abort 'No AWS Credentials supplied, please set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY.'
+      end
+
+      puts 'Pushing production DB to EBS'
+
+      Bundler.with_clean_env do
+
+        unless File.size?(ninefold[:dump])
+          puts 'Retrieving database backup from Ninefold'
+          system 'pg_dump --no-owner --no-acl --no-password --format=custom ' +
+                         "-h '#{ninefold[:host]}' " +
+                         "-p '#{ninefold[:port]}' " +
+                         "-U '#{ninefold[:user]}' " +
+                         "-d '#{ninefold[:db]}'   " +
+                         "-f '#{ninefold[:dump]}'"
+        end
+
+        check_dump ninefold[:dump]
+
+        puts 'Restoring database on EBS'
+        system 'pg_restore --clean --no-owner --no-acl --no-password --format=custom ' +
+                          "-h '#{aws[:host]}' " +
+                          "-p '#{aws[:port]}' " +
+                          "-U '#{aws[:user]}' " +
+                          "-d '#{aws[:db]}'   " +
+                          "#{ninefold[:dump]}"
+
+      end
+
+    end # :ebs
 
   end # :push
 end # :db
