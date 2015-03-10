@@ -83,6 +83,11 @@ module ApplicationHelper
     link_to get_icon(:back, text: opts[:text] || 'Back'), session_referrer || url, opts
   end
 
+  def tel_link(text, number = nil)
+    number ||= text
+    link_to text, "tel:+1#{number}"
+  end
+
   def theatre_url
     'http://www.wholeworldtheatre.com'
   end
