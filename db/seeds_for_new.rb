@@ -103,4 +103,3 @@ ENV['NO_EMAIL'] = 'true'
 
   end
 end
-

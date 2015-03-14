@@ -64,6 +64,7 @@ if Member.joins(:roles).where('roles.name' => 'admin').empty?
       password_confirmation: 'admin4wwit',
       notes: [note]
   )
+
   unless admin.valid?
     puts 'Could not create Admin Account!'
     puts admin.errors.messages.to_s
