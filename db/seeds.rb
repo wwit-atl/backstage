@@ -10,7 +10,7 @@ puts 'Create Configuration'
     'MemberMinShifts'     => [ 3,   'The minimum number of shifts each Member will be [auto]assigned per month.' ],
     'MemberMaxShifts'     => [ 4,   'The maximum number of shifts each Member will be [auto]assigned per month.' ],
     'CastMinShows'        => [ 5,   'The minimum number of shows a full-cast member is expected to perform in.'  ],
-    'DefaultShowCapacity' => [ 125, 'The default capacity for Shows.'                                            ]
+    'DefaultShowCapacity' => [ 123, 'The default capacity for Shows.'                                            ]
 }.each do |key, value|
   Konfig.where(name: key).first_or_create.update_attributes(value: value[0], desc: value[1])
 end
