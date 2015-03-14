@@ -66,11 +66,15 @@ class Show < ActiveRecord::Base
   end
 
   def datetime
-    "#{gregorian_date} #{show_time}"
+    "#{gregorian_date} @ #{show_time}"
   end
 
   def title
     "#{datetime} - #{name}"
+  end
+
+  def public_title
+    "#{dowtitle} - #{name}"
   end
 
   def cal_title

@@ -1,7 +1,8 @@
 class ShowsController < ApplicationController
   authorize_resource
+  skip_authorization_check only: [ :public ]
 
-  before_action :set_show, only: [:show, :edit, :update, :destroy]
+  before_action :set_show, only: [:show, :public, :edit, :update, :destroy]
   before_action :set_supporting, except: [ :schedule ]
   before_action :set_exceptions, only: [ :index, :schedule ]
 
@@ -19,6 +20,11 @@ class ShowsController < ApplicationController
     @note = Note.new
   end
 
+  # GET /public_show/1
+  def public
+    render layout: 'public_show'
+  end
+
   # GET /shows/new
   def new
     @show = Show.new
@@ -29,6 +35,7 @@ class ShowsController < ApplicationController
 
   # GET /shows/1/edit
   def edit
+    @show.capacity ||= Konfig.default_show_capacity
   end
 
   # POST /shows
@@ -103,7 +110,9 @@ class ShowsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_show
-      @show = Show.find(params[:id])
+      @show = Show.find(params[:id]) rescue nil
+      return if @show.nil?
+
       @actors = @show.actors.by_name
       @shifts = @show.shifts.by_skill_priority
     end
@@ -111,7 +120,7 @@ class ShowsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_params
       params.require(:show).permit(
-          :name, :date, :showtime, :calltime, :mc_id, :group_id,
+          :name, :date, :showtime, :calltime, :mc_id, :group_id, :capacity,
           actor_ids: [],
           shifts_attributes: [ :id, :training, :member_id, :skill_id, :_destroy ],
           #scenes_attributes: [

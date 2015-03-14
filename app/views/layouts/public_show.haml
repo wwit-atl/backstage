@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %title
+      = yield :title
+    = csrf_meta_tags
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = render 'partials/favicons'
+    = render 'partials/shim'
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+    = yield :header
+
+  %body#public
+    = render 'partials/flash_messages', flash: flash if flash.any?
+    = render 'partials/public_show_header'
+    .container#public= yield
+    = render 'partials/public_show_footer'
+
