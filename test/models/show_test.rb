@@ -46,8 +46,27 @@ class ShowTest < ActiveSupport::TestCase
     assert_equal @member.name, @show.shifts.with_skill(:un).member.name
   end
 
+  test 'capacity returns the default capacity when not set' do
+    assert_equal Konfig.default_show_capacity, @show.capacity
+  end
+
+  test '#tickets_total return 0 when no tickets sold' do
+    assert_equal 0, @show.tickets_total
+  end
+
   test '#tickets_total sums up ticket sales' do
     Show.ticket_types.each { |type| @show.tickets[type] = 1 }
     assert_equal Show.ticket_types.count, @show.tickets_total
+  end
+
+  test '#sold_out? returns false when tickets_total < capacity' do
+    @show.capacity = 5
+    refute @show.sold_out?, "#sold_out? should be false, but it's true"
+  end
+
+  test '#sold_out? returns true when tickets_total >= capacity' do
+    @show.capacity = 5
+    @show.tickets[Show.ticket_types.first] = @show.capacity
+    assert @show.sold_out?, "#sold_out? should be true, but it's false"
   end
 end

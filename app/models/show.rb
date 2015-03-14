@@ -1,5 +1,6 @@
 class Show < ActiveRecord::Base
   before_destroy :log_destroy
+  before_save    :set_capacity
 
   store_accessor :tickets
 
@@ -111,10 +112,21 @@ class Show < ActiveRecord::Base
   end
 
   def tickets_total
-    Show.ticket_types.map{ |t| tickets[t].to_i if tickets[t].present? }.inject(:+)
+    Show.ticket_types.map do |t|
+      tickets[t] == 0 if tickets[t].nil?
+      tickets[t].to_i
+    end.inject(:+)
+  end
+
+  def sold_out?
+    tickets_total >= capacity
   end
 
   private
+
+  def set_capacity
+    self.capacity ||= Konfig.default_show_capacity
+  end
 
   def log_destroy
     Audit.logger self.class.to_s, "Deleted #{self.title}"
