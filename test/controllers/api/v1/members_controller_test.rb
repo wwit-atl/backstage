@@ -3,8 +3,6 @@ require "test_helper"
 class Api::V1::MembersControllerTest < ActionController::TestCase
 
   def setup
-    load_config
-
     @request.accept = 'application/vnd.backstage.v1'
     @member = FactoryGirl.create(:member, :with_conflicts)
     @show   = FactoryGirl.create(:show)
