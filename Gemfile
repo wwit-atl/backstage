@@ -37,6 +37,7 @@ gem 'bootstrap-editable-rails'
 gem 'whenever', require: false
 gem 'newrelic_rpm', '~> 3.7'
 gem 'paperclip', '~> 4.2'
+gem 'aws-sdk'
 
 gem 'factory_girl_rails'
 gem 'faker'
@@ -47,7 +48,6 @@ group :staging do
 end
 
 group :development do
-  gem 'aws-sdk'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'
