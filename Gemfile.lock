@@ -38,6 +38,9 @@ GEM
       tzinfo (~> 1.1)
     acts_as_list (0.6.0)
       activerecord (>= 3.0)
+    airbrake (4.1.0)
+      builder
+      multi_json
     ansi (1.5.0)
     arel (6.0.0)
     autoprefixer-rails (4.0.2.2)
@@ -337,6 +340,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+  airbrake
   autoprefixer-rails (~> 4)
   aws-sdk
   bcrypt (~> 3)

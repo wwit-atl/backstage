@@ -38,6 +38,7 @@ gem 'whenever', require: false
 gem 'newrelic_rpm', '~> 3.7'
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'
+gem 'airbrake'
 
 gem 'factory_girl_rails'
 gem 'faker'
