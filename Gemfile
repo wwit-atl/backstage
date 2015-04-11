@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.2.0'
 
 gem 'rails', '~> 4.2'
 gem 'pg'
@@ -39,6 +39,7 @@ gem 'newrelic_rpm', '~> 3.7'
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'
 gem 'airbrake'
+gem 'therubyracer'
 
 gem 'factory_girl_rails'
 gem 'faker'
@@ -76,5 +77,5 @@ group :doc do
 end
 
 # Rails Server
-gem 'puma'
+gem 'unicorn'
 
