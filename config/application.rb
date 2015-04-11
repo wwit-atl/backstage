@@ -29,7 +29,7 @@ module Backstage
     config.active_record.raise_in_transactional_callbacks = true
 
     # ActiveJob Queue Adapter
-    config.active_job.queue_adapter = :delayed_job
+    # config.active_job.queue_adapter = :delayed_job
 
     # ActionMailer Settings
     config.action_mailer.default_url_options = {  host: ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com'  }
