@@ -33,7 +33,8 @@ module Backstage
 
     # ActionMailer Settings
     config.action_mailer.default_url_options = {  host: ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com'  }
-
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = false if ENV['NO_EMAIL']
     config.action_mailer.smtp_settings = {
         :domain         => ENV['MANDRILL_DOMAIN']       || 'wholeworldtheatre.com',
         :port           => ENV['MANDRILL_SMTP_PORT']    || '587',
@@ -52,8 +53,5 @@ module Backstage
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: false
     end
-
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.perform_deliveries = false if ENV['NO_EMAIL']
   end
 end
