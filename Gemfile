@@ -42,6 +42,7 @@ gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'
 gem 'airbrake'
 gem 'therubyracer', :group => :production
+gem 'compass-rails', '~> 2.0.2'
 
 gem 'factory_girl_rails'
 gem 'faker'
