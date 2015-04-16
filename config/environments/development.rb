@@ -28,4 +28,15 @@ Backstage::Application.configure do
   config.assets.debug = true
 
   config.time_zone = 'Eastern Time (US & Canada)'
-end
+
+  # action_mailer settings
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = {
+      :domain         => ENV['MANDRILL_DOMAIN']       || 'wholeworldtheatre.com',
+      :port           => ENV['MANDRILL_SMTP_PORT']    || '587',
+      :address        => ENV['MANDRILL_SMTP_ADDRESS'] || 'smtp.mandrillapp.com',
+      :user_name      => ENV['MANDRILL_USERNAME'],
+      :password       => ENV['MANDRILL_TEST_APIKEY'],
+      :authentication => :plain
+  }
+ end

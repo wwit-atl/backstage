@@ -63,10 +63,6 @@ Backstage::Application.configure do
   #config.assets.precompile += [ Proc.new {|path| File.basename(path) =~ /^[^_].*\.\w+$/} ]
   config.assets.precompile += ['ie.js', 'html5shiv.js', 'html5-printshiv.js', 'respond.min.js']
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  config.action_mailer.raise_delivery_errors = false
-
   # ActiveJob Queue Adapter
   config.active_job.queue_adapter = :delayed_job
 
@@ -79,6 +75,17 @@ Backstage::Application.configure do
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
+
+  # action_mailer settings
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = {
+      :domain         => ENV['MANDRILL_DOMAIN']       || 'wholeworldtheatre.com',
+      :port           => ENV['MANDRILL_SMTP_PORT']    || '587',
+      :address        => ENV['MANDRILL_SMTP_ADDRESS'] || 'smtp.mandrillapp.com',
+      :user_name      => ENV['MANDRILL_USERNAME'],
+      :password       => ENV['MANDRILL_TESTING'] != 'true' ? ENV['MANDRILL_APIKEY'] : ENV['MANDRILL_TEST_APIKEY'],
+      :authentication => :plain
+  }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
