@@ -1,10 +1,8 @@
-rails_env = new_resource.environment['RAILS_ENV']
-
-Chef::Log.info("Starting worker jobs for RAILS_ENV=#{rails_env}...")
+Chef::Log.info("Starting worker jobs...")
 
 execute 'start delayed_job worker(s)' do
   cwd release_path
-  command 'bundle exec bin/delayed_job -n2 start'
-  environment 'RAILS_ENV' => rails_env
+  command 'bin/delayed_job -n2 start'
+  environment new_resource.environment
 end
 
