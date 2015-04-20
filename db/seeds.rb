@@ -1,0 +1,53 @@
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+
+#
+# Create Configs
+#
+puts 'Create Configuration'
+{
+    'MemberMaxConflicts'  => [ 4,   'The maximum number of conflicts a Member is allowed in a given month.'      ],
+    'MemberMinShifts'     => [ 3,   'The minimum number of shifts each Member will be [auto]assigned per month.' ],
+    'MemberMaxShifts'     => [ 4,   'The maximum number of shifts each Member will be [auto]assigned per month.' ],
+    'CastMinShows'        => [ 5,   'The minimum number of shows a full-cast member is expected to perform in.'  ],
+    'DefaultShowCapacity' => [ 123, 'The default capacity for Shows.'                                            ]
+}.each do |key, value|
+  Konfig.where(name: key).first_or_create.update_attributes(value: value[0], desc: value[1])
+end
+
+#
+# Create Roles
+#
+# Cast:  Can this Role be cast in shows?
+# Crew:  Can this Role man Shifts?
+# cm:    Is this Role considered a "Company Member"?
+# Sched: Should this role be included in auto-scheduling?
+#
+puts 'Create Roles'
+#     Role         Cast?  Crew?  cm?    Sched? Title                  Description
+[
+    [ :admin,      false, false, false, false, 'Administrator',       'Full Access to all Site Feature'                    ],
+    [ :management, false, false, true,  false, 'Management Team',     'Part of the WWIT Management Team, heightened access'],
+    [ :sponsor,    false, false, false, false, 'WWIT Sponsor',        'Sponsor, limited access to site functionality'      ],
+    [ :friend,     false, false, false, false, 'Friend of WWIT',      'Friend, limited access to site functionality'       ],
+    [ :alumni,     false, false, false, false, 'WWIT Alumni',         'Former Company Member, limited access'              ],
+    [ :mc,         false, false, false, false, 'Master of Ceremonies','MC, able to cast shows'                             ],
+    [ :ms,         true,  true,  true,  false, 'Main Stage Cast',     'Main Stage Performer, normal access'                ],
+    [ :apprentice, true,  true,  true,  true,  'Apprentice Cast',     'Apprentice Performer, normal access'                ],
+    [ :us,         true,  true,  true,  true,  'Unusual Suspects',    'Unusual Suspects Performer, normal access'          ],
+    [ :isp,        true,  true,  true,  true,  'Improv Studies',      'ISP Performer, normal access'                       ],
+    [ :student,    false, true,  false, false, 'WWIT Student',        'Improv Student, limited access'                     ],
+    [ :staff,      false, true,  true,  true,  'Staff Member',        'Official Company Staff, normal access'              ],
+    [ :volunteer,  false, true,  false, false, 'WWIT Volunteer',      'Volunteer, limited access'                          ],
+].each do |code, cast, crew, cm, sched, title, desc|
+  Role.where(name: code.to_s).first_or_create.update_attributes(
+      title:    title,
+      desc:     desc,
+      cast:     cast,
+      crew:     crew,
+      cm:       cm,
+      schedule: sched
+  )
+end
+
+

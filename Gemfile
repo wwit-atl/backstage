@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'rails', '~> 4.2'
+gem 'nokogiri', '1.6.5'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4'
@@ -30,6 +31,7 @@ gem 'simple_form'
 gem 'redcarpet'
 gem 'friendly_id', '~> 5'
 gem 'delayed_job_active_record', '>= 4.0.0'
+gem 'daemons'
 gem 'email_validator'
 gem 'recipient_interceptor'
 gem 'icalendar'
@@ -37,6 +39,10 @@ gem 'bootstrap-editable-rails'
 gem 'whenever', require: false
 gem 'newrelic_rpm', '~> 3.7'
 gem 'paperclip', '~> 4.2'
+gem 'aws-sdk'
+gem 'airbrake'
+gem 'therubyracer', :group => :production
+gem 'compass-rails', '~> 2.0.2'
 
 gem 'factory_girl_rails'
 gem 'faker'
@@ -47,7 +53,6 @@ group :staging do
 end
 
 group :development do
-  gem 'aws-sdk'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'

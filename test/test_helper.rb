@@ -27,8 +27,16 @@ class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
   ActiveRecord::Migration.maintain_test_schema!
 
-
   DatabaseCleaner.strategy = :transaction
+
+  def self.load_config
+    FactoryGirl.create(:konfig, name: 'MemberMinShifts',     value: 3)
+    FactoryGirl.create(:konfig, name: 'MemberMaxShifts',     value: 4)
+    FactoryGirl.create(:konfig, name: 'MemberMaxConflicts',  value: 4)
+    FactoryGirl.create(:konfig, name: 'CastMinShows',        value: 5)
+    FactoryGirl.create(:konfig, name: 'DefaultShowCapacity', value: 123)
+    Konfig.load! # Ensures the Konfig model creates methods for the items above
+  end
 
   def setup
     DatabaseCleaner.start
@@ -38,16 +46,9 @@ class ActiveSupport::TestCase
     DatabaseCleaner.clean
   end
 
-  def load_config
-    FactoryGirl.create(:konfig, name: 'MemberMinShifts',    value: 3)
-    FactoryGirl.create(:konfig, name: 'MemberMaxShifts',    value: 4)
-    FactoryGirl.create(:konfig, name: 'MemberMaxConflicts', value: 4)
-    FactoryGirl.create(:konfig, name: 'CastMinShows',       value: 5)
-    Konfig.load! # Ensures the Konfig model creates methods for the items above
-  end
 end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+  ActiveSupport::TestCase.load_config
 end
-
