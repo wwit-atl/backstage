@@ -30,7 +30,7 @@ namespace :db do
       limit: 3600,
       bucket: 'wwit-backstage/backups',
       access_key: ENV['AWS_ACCESS_KEY_ID'],
-      secret_key: ENV['AWS_SECRET_ACCESS_KEY']
+      secret_key: ENV['AWS_SECRET_KEY']
   }
 
   def abort(message)

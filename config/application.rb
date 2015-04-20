@@ -28,29 +28,11 @@ module Backstage
     # propagate normally just like in other Active Record callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    # ActionMailer Settings
-    config.action_mailer.default_url_options = {  host: ENV['RAILS_HOST'] || 'backstage.wholeworldtheatre.com'  }
-
-    config.action_mailer.smtp_settings = {
-        :domain         => ENV['MANDRILL_DOMAIN']       || 'wholeworldtheatre.com',
-        :port           => ENV['MANDRILL_SMTP_PORT']    || '587',
-        :address        => ENV['MANDRILL_SMTP_ADDRESS'] || 'smtp.mandrillapp.com',
-        :user_name      => ENV['MANDRILL_USERNAME'],
-        :password       => ENV['MANDRILL_TESTING'] != 'true' ? ENV['MANDRILL_APIKEY'] : ENV['MANDRILL_TEST_APIKEY'],
-        :authentication => :plain
-    }
-
-    config.action_mailer.default_options = {
-        :from           => 'Laughing Larry <larry@wholeworldtheatre.com>',
-        :to             => 'Laughing Larry <larry@wholeworldtheatre.com>',
-        :reply_to       => ENV['DEFAULT_REPLY_TO'] || 'Eric Goins <eric@wholeworldtheatre.com>'
-    }
+    # ActiveJob Queue Adapter
+    # config.active_job.queue_adapter = :delayed_job
 
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: false
     end
-
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.perform_deliveries = false if ENV['NO_EMAIL']
   end
 end

@@ -63,9 +63,8 @@ Backstage::Application.configure do
   #config.assets.precompile += [ Proc.new {|path| File.basename(path) =~ /^[^_].*\.\w+$/} ]
   config.assets.precompile += ['ie.js', 'html5shiv.js', 'html5-printshiv.js', 'respond.min.js']
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  # ActiveJob Queue Adapter
+  config.active_job.queue_adapter = :delayed_job
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
@@ -76,6 +75,9 @@ Backstage::Application.configure do
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
+
+  # action_mailer settings
+  config.action_mailer.raise_delivery_errors = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new

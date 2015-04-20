@@ -13,8 +13,11 @@ Backstage::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # Raise errors if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  # ActiveJob Queue Adapter
+  config.active_job.queue_adapter = :delayed_job
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -26,6 +29,9 @@ Backstage::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings.merge! password: ENV['MANDRILL_TEST_APIKEY']
 
   config.time_zone = 'Eastern Time (US & Canada)'
 end
