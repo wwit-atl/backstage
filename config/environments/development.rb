@@ -28,4 +28,8 @@ Backstage::Application.configure do
   config.assets.debug = true
 
   config.time_zone = 'Eastern Time (US & Canada)'
-end
+
+  # action_mailer settings
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings.merge! password: ENV['MANDRILL_TEST_APIKEY']
+ end

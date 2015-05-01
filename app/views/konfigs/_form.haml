@@ -7,7 +7,7 @@
         = simple_fields_for "konfig_ids[]", config do |c|
           .col-xs-8.col-sm-3.text-right= c.label config.name.titleize
           .col-xs-2.col-sm-1= c.input :value, size: 5, label: false
-          .hidden-xs.col-sm-8= c.hint config.desc
+          .hidden-xs.col-sm-8= c.hint config.desc || 'No description provided'
 
     = submit_tag 'Update All', class: 'btn btn-default'
 

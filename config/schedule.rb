@@ -2,7 +2,7 @@
 #
 # Learn more: http://github.com/javan/whenever
 
-set :output, '/var/www/apps/9968/current/log/custom_deploy_after_migrate.log'
+set :output, './log/whenever.log'
 
 # All times are in UTC
 

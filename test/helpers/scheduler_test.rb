@@ -3,8 +3,6 @@ require 'test_helper'
 class SchedulerTest < ActiveSupport::TestCase
 
   def setup
-    load_config
-
     FactoryGirl.create(:role, name: 'ms',        cast: 'true',  crew: 'true', schedule: 'false')
     FactoryGirl.create(:role, name: 'us',        cast: 'true',  crew: 'true', schedule: 'true')
     FactoryGirl.create(:role, name: 'isp',       cast: 'true',  crew: 'true', schedule: 'true')
