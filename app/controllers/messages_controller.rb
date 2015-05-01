@@ -141,10 +141,14 @@ class MessagesController < ApplicationController
       params.required(:message).permit(:subject, :message, member_ids: [])
     end
 
+    def filter_inactive_members(member_ids)
+      member_ids.select{ |id| Member.find(id).try(:active?) }
+    end
+
     def parse_member_params
       members =  (params[:message][:member_ids] || []).map { |id| id.to_i unless id.blank? }
       members << (params[:skill_ids]  || []).map { |id| Skill.find(id).member_ids }
       members << (params[:role_ids]   || []).map { |id| Role.find(id).member_ids }
-      params[:message][:member_ids] = members.flatten.compact.uniq
+      params[:message][:member_ids] = filter_inactive_members(members.flatten.compact.uniq)
     end
 end
