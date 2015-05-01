@@ -1,8 +1,17 @@
 Chef::Log.info("Running deploy/before_migrate.rb...")
 Chef::Log.info("Symlinking #{release_path}/public/assets to #{new_resource.deploy_to}/shared/assets")
 
+shared_assets_dir = "#{new_resource.deploy_to}/shared/assets"
+
+directory shared_assets_dir do
+  owner 'deploy'
+  group 'www-data'
+  mode '0770'
+  action :create
+end
+
 link "#{release_path}/public/assets" do
-  to "#{new_resource.deploy_to}/shared/assets"
+  to shared_assets_dir
 end
 
 rails_env = new_resource.environment["RAILS_ENV"]
