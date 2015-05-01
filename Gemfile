@@ -57,12 +57,12 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'
-  gem 'pry-rails'
   gem 'dotenv-rails'
   gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'hirb'
   gem 'minitest'
   gem 'minitest-rails'
