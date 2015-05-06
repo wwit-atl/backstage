@@ -25,6 +25,7 @@
           %th.hidden-xs.hidden-sm Show Time
           %th Crew
           %th Cast
+          %th.hidden-xs.hidden-sm # Tix
           %th
             - if can? :create, Show
               .text-right= link_to_new new_show_path
@@ -56,6 +57,9 @@
                   %li= link_to_member( show.mc ) + ' (MC)'
                 - show.actors.each do |actor|
                   %li= link_to_member actor
+
+            %td.hidden-xs.hidden-sm{class: ('red' if show.sold_out?)}
+              = show.tickets_total
 
             %td
               - if show.notes.any?

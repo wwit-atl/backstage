@@ -33,6 +33,9 @@
   .box {
     @include box-shadow(1px 1px 3px rgba(black, .4));
     background-color: #EEE;
+    &.sold-out {
+      background-color: $wwit-red-light;
+    }
   }
 
   .header {
