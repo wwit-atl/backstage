@@ -40,7 +40,7 @@ gem 'bootstrap-editable-rails'
 gem 'whenever', require: false
 gem 'newrelic_rpm', '~> 3.7'
 gem 'paperclip', '~> 4.2'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 gem 'airbrake'
 gem 'therubyracer', :group => :production
 gem 'compass-rails', '~> 2.0.2'

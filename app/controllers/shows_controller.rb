@@ -119,9 +119,9 @@ class ShowsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_params
+      # ticket_keys = params[:show][:tickets].try(:keys)
       params.require(:show).permit(
-          :name, :date, :showtime, :calltime, :mc_id, :group_id, :capacity,
-          actor_ids: [],
+          :name, :date, :showtime, :calltime, :mc_id, :group_id, :capacity, actor_ids: [],
           shifts_attributes: [ :id, :training, :member_id, :skill_id, :_destroy ],
           #scenes_attributes: [
           #    :id, :_destroy, :stage_id, :position, :suggestion,

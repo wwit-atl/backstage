@@ -12,7 +12,11 @@ puts 'Create Configuration'
     'CastMinShows'        => [ 5,   'The minimum number of shows a full-cast member is expected to perform in.'  ],
     'DefaultShowCapacity' => [ 123, 'The default capacity for Shows.'                                            ]
 }.each do |key, value|
-  Konfig.where(name: key).first_or_create.update_attributes(value: value[0], desc: value[1])
+  record = Konfig.where(name: key).first_or_create
+  if record.new_record?
+    puts "Adding #{key}"
+    record.update_attributes(value: value[0], desc: value[1])
+  end
 end
 
 #

@@ -11,7 +11,7 @@
           - Show.ticket_types.each do |type|
             = ticket.input type,
               required: false,
-              input_html: { value: @show.tickets.try(type) },
+              input_html: { value: @show.send(type) },
               wrapper_html: { :class => 'col-md-' + ( 9 / Show.ticket_types.count ).to_i.to_s }
   .row
     .col-md-3= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }

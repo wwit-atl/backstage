@@ -4,6 +4,8 @@ class ShowTest < ActiveSupport::TestCase
 
   def setup
     @show = FactoryGirl.create(:show)
+    @types = Show.ticket_types || []
+    @type = @types.first || :foo
   end
 
   test 'not valid without date' do
@@ -47,26 +49,58 @@ class ShowTest < ActiveSupport::TestCase
   end
 
   test 'capacity returns the default capacity when not set' do
-    assert_equal Konfig.default_show_capacity, @show.capacity
+    show = FactoryGirl.create(:show, capacity: nil)
+    assert_equal Konfig.default_show_capacity, show.capacity
   end
 
   test '#tickets_total return 0 when no tickets sold' do
+    @show.tickets = {}
+    assert_equal 0, @show.tickets_total
+
+    @types.each { |type| @show.tickets[type] = 0 }
+    assert_equal 0, @show.tickets_total
+  end
+
+  # Test edge case, where tickets are nil (e.g. a new record)
+  test '#tickets_total returns 0 when tickets is nil' do
+    @show.tickets = nil
     assert_equal 0, @show.tickets_total
   end
 
   test '#tickets_total sums up ticket sales' do
-    Show.ticket_types.each { |type| @show.tickets[type] = 1 }
-    assert_equal Show.ticket_types.count, @show.tickets_total
+    @show.tickets = {}
+    @types.each { |type| @show.tickets[type] = 1 }
+    assert_equal @types.count, @show.tickets_total
   end
 
   test '#sold_out? returns false when tickets_total < capacity' do
     @show.capacity = 5
+    @show.tickets = { @type => @show.capacity - 1 }
     refute @show.sold_out?, "#sold_out? should be false, but it's true"
   end
 
   test '#sold_out? returns true when tickets_total >= capacity' do
     @show.capacity = 5
-    @show.tickets[Show.ticket_types.first] = @show.capacity
+    @show.tickets = { @type => @show.capacity }
     assert @show.sold_out?, "#sold_out? should be true, but it's false"
   end
+
+  test '#sold_out? returns false when tickets is nil' do
+    @show.capacity = 5
+    @show.tickets = nil
+    refute @show.sold_out?, "#sold_out? should be false, but it's true"
+  end
+
+  test 'responds to valid ticket_types' do
+    @types.each do |type|
+      assert_respond_to @show, type
+    end
+    assert_not_respond_to @show, :flimflam
+  end
+
+  test 'returns a valid ticket count using accessor' do
+    @show.tickets = { @type => 13 }
+    assert_equal @show.send(@type), 13
+  end
+
 end
