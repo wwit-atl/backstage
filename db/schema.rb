@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407011117) do
+ActiveRecord::Schema.define(version: 20151229175019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,18 +33,25 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.string   "zip",        limit: 255
     t.string   "atype",      limit: 255
     t.integer  "member_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
   end
 
   add_index "addresses", ["member_id"], name: "index_addresses_on_member_id", using: :btree
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token"
+    t.string   "note"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "audits", force: :cascade do |t|
     t.string   "ident",      limit: 255
     t.text     "message"
     t.integer  "member_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
   end
 
   add_index "audits", ["member_id"], name: "index_audits_on_member_id", using: :btree
@@ -54,8 +61,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.integer  "month"
     t.integer  "day"
     t.integer  "member_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
     t.boolean  "lock"
   end
 
@@ -78,11 +85,11 @@ ActiveRecord::Schema.define(version: 20150407011117) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",           limit: 255, null: false
-    t.integer  "sluggable_id",               null: false
+    t.string   "slug",           limit: 255,               null: false
+    t.integer  "sluggable_id",                             null: false
     t.string   "sluggable_type", limit: 50
     t.string   "scope",          limit: 255
-    t.datetime "created_at"
+    t.datetime "created_at",                 precision: 6
   end
 
   add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
@@ -94,8 +101,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.string   "name",       limit: 255
     t.string   "value",      limit: 255
     t.string   "desc",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
   end
 
   create_table "members", force: :cascade do |t|
@@ -104,26 +111,26 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.string   "firstname",              limit: 255
     t.string   "sex",                    limit: 255
     t.date     "dob"
-    t.boolean  "active",                             default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.boolean  "active",                                           default: true
+    t.datetime "created_at",                         precision: 6
+    t.datetime "updated_at",                         precision: 6
+    t.string   "encrypted_password",     limit: 255,               default: "",    null: false
     t.string   "reset_password_token",   limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "reset_password_sent_at",             precision: 6
+    t.datetime "remember_created_at",                precision: 6
+    t.integer  "sign_in_count",                                    default: 0,     null: false
+    t.datetime "current_sign_in_at",                 precision: 6
+    t.datetime "last_sign_in_at",                    precision: 6
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
     t.string   "confirmation_token",     limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at",                       precision: 6
+    t.datetime "confirmation_sent_at",               precision: 6
     t.string   "unconfirmed_email",      limit: 255
     t.integer  "last_message_id"
     t.string   "slug",                   limit: 255
     t.boolean  "superuser"
-    t.boolean  "conflict_exempt",                    default: false
+    t.boolean  "conflict_exempt",                                  default: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -159,12 +166,12 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.text     "message"
     t.integer  "sender_id"
     t.integer  "approver_id"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "delivered_at"
+    t.datetime "sent_at",                      precision: 6
+    t.datetime "created_at",                   precision: 6
+    t.datetime "updated_at",                   precision: 6
+    t.datetime "delivered_at",                 precision: 6
     t.string   "email_message_id", limit: 255
-    t.datetime "approved_at"
+    t.datetime "approved_at",                  precision: 6
   end
 
   create_table "notes", force: :cascade do |t|
@@ -172,8 +179,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.integer  "member_id"
     t.integer  "notable_id"
     t.string   "notable_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               precision: 6
+    t.datetime "updated_at",               precision: 6
   end
 
   add_index "notes", ["member_id"], name: "index_notes_on_member_id", using: :btree
@@ -183,8 +190,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.string   "number",     limit: 255
     t.string   "ntype",      limit: 255
     t.integer  "member_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
   end
 
   add_index "phones", ["member_id"], name: "index_phones_on_member_id", using: :btree
@@ -194,8 +201,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.string   "desc",          limit: 255
     t.integer  "resource_id"
     t.string   "resource_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                precision: 6
+    t.datetime "updated_at",                precision: 6
     t.boolean  "cast"
     t.boolean  "crew"
     t.string   "title",         limit: 255
@@ -212,8 +219,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.text     "suggestion"
     t.integer  "show_id"
     t.integer  "stage_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -234,8 +241,8 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.integer  "dow"
     t.time     "showtime"
     t.time     "calltime"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
     t.integer  "group_id"
   end
 
@@ -249,11 +256,11 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.date     "date"
     t.time     "showtime"
     t.time     "calltime"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  precision: 6
+    t.datetime "updated_at",                  precision: 6
     t.integer  "mc_id"
     t.integer  "group_id"
-    t.datetime "casting_sent_at"
+    t.datetime "casting_sent_at",             precision: 6
     t.hstore   "tickets"
     t.integer  "capacity"
   end
@@ -267,16 +274,16 @@ ActiveRecord::Schema.define(version: 20150407011117) do
     t.text     "description"
     t.boolean  "training"
     t.boolean  "autocrew"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "limits",                  default: true
+    t.datetime "created_at",              precision: 6
+    t.datetime "updated_at",              precision: 6
+    t.boolean  "limits",                                default: true
   end
 
   create_table "stages", force: :cascade do |t|
     t.string   "code",       limit: 255
     t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
   end
 
 end

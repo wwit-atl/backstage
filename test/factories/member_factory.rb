@@ -16,7 +16,7 @@ FactoryGirl.define do
     password_confirmation 'password'
     email                 { "#{firstname[0]}#{lastname}".downcase + '@example.com' }
 
-    after(:create) { |m| m.confirm! if m.respond_to?('confirm!') }
+    after(:create) { |m| m.confirm if m.respond_to?('confirm') }
 
     trait :with_phones do
       after(:create) do |member|

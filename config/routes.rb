@@ -18,6 +18,9 @@ Backstage::Application.routes.draw do
       resources :members do
         get :conflicts
       end
+
+      get 'event/:id',    to: 'events#event'
+      get 'events/:date', to: 'events#events'
     end
   end
 
