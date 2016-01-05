@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20151229175019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "actors_shows", id: false, force: :cascade do |t|
     t.integer "member_id"
@@ -69,17 +68,17 @@ ActiveRecord::Schema.define(version: 20151229175019) do
   add_index "conflicts", ["member_id"], name: "index_conflicts_on_member_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+    t.integer  "priority",                 default: 0, null: false
+    t.integer  "attempts",                 default: 0, null: false
+    t.text     "handler",                              null: false
     t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
+    t.datetime "run_at",     precision: 6
+    t.datetime "locked_at",  precision: 6
+    t.datetime "failed_at",  precision: 6
     t.string   "locked_by"
     t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
@@ -131,10 +130,6 @@ ActiveRecord::Schema.define(version: 20151229175019) do
     t.string   "slug",                   limit: 255
     t.boolean  "superuser"
     t.boolean  "conflict_exempt",                                  default: false
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true, using: :btree
@@ -261,8 +256,6 @@ ActiveRecord::Schema.define(version: 20151229175019) do
     t.integer  "mc_id"
     t.integer  "group_id"
     t.datetime "casting_sent_at",             precision: 6
-    t.hstore   "tickets"
-    t.integer  "capacity"
   end
 
   add_index "shows", ["date"], name: "index_shows_on_date", using: :btree
