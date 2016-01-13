@@ -6,12 +6,13 @@
 
 #member
   .row
-    .col-md-6
-      %h1
+    .col-md-6.col-sm-9.title.pull-left
+      .hidden-xs.avatar= image_tag @member.avatar
+      %h1.name
         = @member.name
-        %small
-          = mail_to @member.email
-          %em.inactive= 'INACTIVE' if @member.inactive?
+      .email
+        = mail_to @member.email
+        %em.inactive= 'INACTIVE' if @member.inactive?
 
     .col-md-6
       %h4.text-right
@@ -72,7 +73,7 @@
       .col-xs-12
         .plaque
           - if @member == current_member and @shifts.any?
-            .pull-right= link_to get_icon(:calendar, text: 'Add to Calendar'), member_path(@member, :format => :ics)
+            .pull-right= link_to get_icon(:calendar, text: 'Download Schedule'), member_path(@member, :format => :ics)
           %h3.no-pad-top Recent and Upcoming Shifts
           .row
             .col-sm-8.col-md-9.hidden-xs

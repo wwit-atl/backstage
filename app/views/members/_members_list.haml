@@ -18,6 +18,7 @@
       - @members.each do |member|
         - next unless can? :read, member
         %tr
+          %td.avatar= image_tag member.avatar.url(:tiny)
           %td.name
             - if member.inactive?
               = get_icon :ban, class: 'icon inactive', title: 'Inactive Member'

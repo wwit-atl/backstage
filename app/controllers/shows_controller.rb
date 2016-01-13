@@ -22,12 +22,14 @@ class ShowsController < ApplicationController
   # GET /shows/new
   def new
     @show = Show.new
+    @show.tickets = {}
     @show.showtime = '8:00pm'
     @show.calltime = '6:30pm'
   end
 
   # GET /shows/1/edit
   def edit
+    @show.capacity ||= Konfig.default_show_capacity
   end
 
   # POST /shows
@@ -102,22 +104,24 @@ class ShowsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_show
-      @show = Show.find(params[:id])
+      @show = Show.find(params[:id]) rescue nil
+      return if @show.nil?
+
       @actors = @show.actors.by_name
       @shifts = @show.shifts.by_skill_priority
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_params
+      # ticket_keys = params[:show][:tickets].try(:keys)
       params.require(:show).permit(
-          :name, :date, :showtime, :calltime, :mc_id, :group_id,
-          actor_ids: [],
+          :name, :date, :showtime, :calltime, :mc_id, :group_id, :capacity, actor_ids: [],
           shifts_attributes: [ :id, :training, :member_id, :skill_id, :_destroy ],
           #scenes_attributes: [
           #    :id, :_destroy, :stage_id, :position, :suggestion,
           #    notes_attributes: [ :id, :content, :_destroy ]
           #]
-      )
+      ).tap { |whitelist| whitelist[:tickets] = params[:show][:tickets] }
     end
 
     def set_supporting

@@ -10,11 +10,22 @@
 
   %fieldset
     .row
-      .col-md-6= f.input :password, autocomplete: 'off', required: false, hint: '<em>Leave password blank if you don\'t want to change it.</em>'.html_safe
+      .col-md-6= f.input :password,
+        autocomplete: 'off',
+        required: false,
+        hint: '<em>Leave password blank if you don\'t want to change it.</em>'.html_safe
+
       .col-md-6= f.input :password_confirmation, required: false
 
   %fieldset
     %legend Optional
+    .box
+      .row
+        .col-md-2.col-sm-3.col-xs-4= image_tag @member.avatar.url(:medium)
+        .col-sm-6.col-xs-8
+          = f.input :avatar,
+            label: @member.avatar_file_name,
+            hint: 'For best results, your Avatar should be square and no larger than 256x256'
     .box
       .row
         .col-md-4= f.label 'Phone Number (digits only, please):'
@@ -39,14 +50,19 @@
     .box
       .row
         .col-xs-1= f.label 'Sex:'
-        .col-xs-1.radio-inline= f.input :sex, as: :radio_buttons, collection: [ :M, :F ], class: :radio, boolean_style: :inline, label: false
+        .col-xs-1.radio-inline= f.input :sex,
+          as: :radio_buttons,
+          collection: [ :M, :F ],
+          class: :radio,
+          boolean_style: :inline,
+          label: false
 
         .col-xs-2.col-md-1.col-xs-offset-1= f.label 'Birthday:'
         .col-xs-6.form-inline= f.input :dob, as: :date, label: false,
-                  start_year: Date.today.year - 10,
-                  end_year:   Date.today.year - 90,
-                  order: [ :month, :day, :year ],
-                  include_blank: true
+          start_year: Date.today.year - 10,
+          end_year:   Date.today.year - 90,
+          order: [ :month, :day, :year ],
+          include_blank: true
 
   - if can? :admin, @member
     .plaque
@@ -54,7 +70,10 @@
         %legend Administrative
         .row
           .col-md-4= f.association :skills, :label_method => :name, :input_html => { size: @total_skills.count }
-          .col-md-4.col-md-offset-2= f.association :roles, label: 'Groups', collection: @roles, :label_method => :title, as: 'check_boxes'
+          .col-md-4.col-md-offset-2= f.association :roles, as: 'check_boxes',
+            label: 'Groups',
+            collection: @roles,
+            :label_method => :title
         .row
           .col-md-4
             = f.input :active, class: 'checkbox', label: 'Active Member?',

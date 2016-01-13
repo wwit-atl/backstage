@@ -1,5 +1,8 @@
 class Show < ActiveRecord::Base
   before_destroy :log_destroy
+  before_save    :set_capacity
+
+  store_accessor :tickets
 
   has_many :shifts, :dependent => :destroy
   has_many :crew_members, :through => :shifts, :source => :member
@@ -64,7 +67,7 @@ class Show < ActiveRecord::Base
   end
 
   def datetime
-    "#{gregorian_date} #{show_time}"
+    "#{gregorian_date} @ #{show_time}"
   end
 
   def title
@@ -100,7 +103,45 @@ class Show < ActiveRecord::Base
     date == Date.today
   end
 
+  def self.ticket_types
+    %w(sold comp rush walkup)
+  end
+
+  def tickets_total
+    Show.ticket_types.map { |t| tickets_for_type(t) }.inject(:+)
+  end
+
+  def sold_out?
+    tickets_total >= ( capacity || Konfig.default_show_capacity )
+  end
+
+  # Provides accessor methods for all ticket_types
+  def method_missing(method, *args)
+    if Show.ticket_types.include?(method.to_s)
+      tickets_for_type(method.to_s)
+    else
+      super
+    end
+  end
+
+  def respond_to?(method, include_private = false)
+    if Show.ticket_types.include?(method.to_s)
+      true
+    else
+      super
+    end
+  end
+
   private
+
+  def tickets_for_type(type)
+    return 0 if tickets.nil?
+    tickets.has_key?(type.to_s) ? tickets[type.to_s].to_i : 0
+  end
+
+  def set_capacity
+    self.capacity ||= Konfig.default_show_capacity
+  end
 
   def log_destroy
     Audit.logger self.class.to_s, "Deleted #{self.title}"

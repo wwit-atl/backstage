@@ -12,7 +12,11 @@ puts 'Create Configuration'
     'CastMinShows'        => [ 5,   'The minimum number of shows a full-cast member is expected to perform in.'  ],
     'DefaultShowCapacity' => [ 123, 'The default capacity for Shows.'                                            ]
 }.each do |key, value|
-  Konfig.where(name: key).first_or_create.update_attributes(value: value[0], desc: value[1])
+  record = Konfig.where(name: key).first_or_create
+  if record.new_record?
+    puts "Adding #{key}"
+    record.update_attributes(value: value[0], desc: value[1])
+  end
 end
 
 #
@@ -50,4 +54,27 @@ puts 'Create Roles'
   )
 end
 
+#
+# FailSafe: Create an Admin account ONLY when necessary
+#
+if Member.joins(:roles).where('roles.name' => 'admin').empty?
+  puts 'Create Admin account'
+  note  = Note.new(content: 'This is a temporary Administrative account, used to set up additional admins.  Please remove when possible.')
+  admin = Member.create(
+      firstname: 'Admin',
+      lastname:  'Admin',
+      email:    'admin@example.com',
+      password: 'admin4wwit',
+      password_confirmation: 'admin4wwit',
+      notes: [note]
+  )
 
+  unless admin.valid?
+    puts 'Could not create Admin Account!'
+    puts admin.errors.messages.to_s
+    exit
+  end
+
+  admin.add_role :admin
+  admin.confirm! if admin.respond_to?('confirm!')
+end

@@ -1,5 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+# This file should contain all the record creation needed to seed the database with base values.
 
 def get_time(time)
   Time.parse('2000-01-01 ' + time.to_s).to_s(:db)
@@ -11,25 +10,25 @@ end
 puts 'Create Skills'
 #  Pri,  Code,  Name,         Description, train?, autocrew?, limits?
 [
-  [ 1,   'HM', 'House Manager',           '', true,  true,  true  ],
-  [ 2,   'LS', 'Lightboard Operator',     '', true,  true,  true  ],
-  [ 3,   'SS', 'Soundboard Operator',     '', true,  true,  true  ],
-  [ 4,   'LSS','Lights & Sound Operator', '', true,  true,  true  ],
-  [ 5,   'CS', 'Camera Operator',         '', true,  true,  true  ],
-  [ 6,   'SM', 'Stage Manager',           '', true,  true,  true  ],
-  [ 7,   'SG', 'Suggestion Taker',        '', false, true,  true  ],
-  [ nil, 'MU', 'Musician',                '', true,  false, false ],
-  [ nil, 'BO', 'Box Office Attendant',    '', true,  false, false ],
-  [ nil, 'BAR','Bartender',               '', true,  false, false ],
-  [ nil, 'TEACH', 'Improv Teacher',       '', true,  false, false ]
+    [ 1,   'HM', 'House Manager',           '', true,  true,  true  ],
+    [ 2,   'LS', 'Lightboard Operator',     '', true,  true,  true  ],
+    [ 3,   'SS', 'Soundboard Operator',     '', true,  true,  true  ],
+    [ 4,   'LSS','Lights & Sound Operator', '', true,  true,  true  ],
+    [ 5,   'CS', 'Camera Operator',         '', true,  true,  true  ],
+    [ 6,   'SM', 'Stage Manager',           '', true,  true,  true  ],
+    [ 7,   'SG', 'Suggestion Taker',        '', false, true,  true  ],
+    [ nil, 'MU', 'Musician',                '', true,  false, false ],
+    [ nil, 'BO', 'Box Office Attendant',    '', true,  false, false ],
+    [ nil, 'BAR','Bartender',               '', true,  false, false ],
+    [ nil, 'TEACH', 'Improv Teacher',       '', true,  false, false ]
 ].each do |priority, code, name, desc, training, autocrew, limits|
   Skill.where(code: code).first_or_create.update_attributes(
-    name:        name,
-    description: desc,
-    training:    training,
-    autocrew:    autocrew,
-    limits:      limits,
-    priority:    priority,
+      name:        name,
+      description: desc,
+      training:    training,
+      autocrew:    autocrew,
+      limits:      limits,
+      priority:    priority,
   )
 end
 
@@ -39,11 +38,11 @@ end
 puts 'Create Show Templates'
 #  DoW (Sun = 0), Name,         Call Time,         Show Time,       Group, Associated Skills
 [
-  [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), :us, %w(HM LSS BO) ],
-  [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), :us, %w(HM LS SS CS BO) ],
-  [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), :ms, %w(HM LS SS CS BO MU) ],
-  [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), :ms, %w(HM LS SS CS BO) ],
-  [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), :ms, [] ],
+    [ 2, 'Improv Laboratory',     get_time('18:30'), get_time('20:00'), :us, %w(HM LSS BO) ],
+    [ 4, 'Unusual Suspects',      get_time('18:30'), get_time('20:00'), :us, %w(HM LS SS CS BO) ],
+    [ 5, 'Friday Night Improv',   get_time('19:30'), get_time('21:00'), :ms, %w(HM LS SS CS BO MU) ],
+    [ 6, 'Saturday Night Improv', get_time('18:30'), get_time('20:00'), :ms, %w(HM LS SS CS BO) ],
+    [ 6, 'Wheel of Improv',       get_time('21:00'), get_time('22:30'), :ms, [] ],
 ].each do |dow, name, calltime, showtime, group, skills|
   skill_ids = skills.map{ |code| Skill.where(code: code).first.id }.to_a
   ShowTemplate.where(name: name).first_or_create.update_attributes(
@@ -103,28 +102,4 @@ ENV['NO_EMAIL'] = 'true'
     member.confirm! if member.respond_to?('confirm!')
 
   end
-end
-
-#
-# FailSafe: Create an Admin account ONLY when necessary
-#
-if Member.joins(:roles).where('roles.name' => 'admin').empty?
-  puts 'Create Admin account'
-  note  = Note.new(content: 'This is a temporary Administrative account, used to set up additional admins.  Please remove when possible.')
-  admin = Member.create(
-      firstname: 'Admin',
-      lastname:  'Admin',
-      email:    'admin@example.com',
-      password: 'admin4wwit',
-      password_confirmation: 'admin4wwit',
-      notes: [note]
-  )
-  unless admin.valid?
-    puts 'Could not create Admin Account!'
-    puts admin.errors.messages.to_s
-    exit
-  end
-
-  admin.add_role :admin
-  admin.confirm! if admin.respond_to?('confirm!')
 end

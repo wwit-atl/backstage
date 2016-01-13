@@ -4,8 +4,16 @@ class Member < ActiveRecord::Base
   before_destroy :log_destroy
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :confirmable, :validatable
+
   rolify
   friendly_id :fullname, :use => :slugged
+
+  has_attached_file :avatar,
+                    :styles => { large: '256x256#', medium: '128x128#', thumb: '64x64#', tiny: '32x32#' },
+                    :default_url => ':style/larry.png',
+                    :default_style => :medium
+
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   belongs_to :last_message, class_name: Message
 

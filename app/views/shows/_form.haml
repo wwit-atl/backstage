@@ -4,6 +4,15 @@
 
   .row
     .col-md-6= f.input :name, disabled: !(can? :manage, @show)
+    .col-md-6.box
+      - if can? :sell, @show
+        .col-md-3= f.input :capacity
+        = f.simple_fields_for :tickets do |ticket|
+          - Show.ticket_types.each do |type|
+            = ticket.input type,
+              required: false,
+              input_html: { value: @show.send(type) },
+              wrapper_html: { :class => 'col-md-' + ( 9 / Show.ticket_types.count ).to_i.to_s }
   .row
     .col-md-3= f.input :date,     :as => :string, label: 'Show Date', disabled: !(can? :manage, @show), input_html: { class: 'datepicker' }
     .col-md-3= f.input :showtime, :as => :string, label: 'Show Time', disabled: !(can? :manage, @show), input_html: { class: 'timepicker' }

@@ -1,4 +1,13 @@
 
+#ticket-sales
+  .box{class: ('sold-out' if @show.sold_out?)}
+    .header Ticket Sales as of #{@show.updated_at.strftime('%m/%d/%Y @ %T')}
+    %ul.list-inline.sales
+      - Show.ticket_types.each do |type|
+        %li.sale
+          .type #{type.capitalize}:
+          .count #{@show.send(type)}
+
 %h1
   = @show.gregorian_date
   %small= @show.name

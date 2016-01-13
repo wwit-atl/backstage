@@ -34,5 +34,19 @@ module Backstage
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: false
     end
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = false if ENV['NO_EMAIL']
+
+    config.paperclip_defaults = {
+        :storage         => :s3,
+        :s3_credentials  => {
+            access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
+            secret_access_key: ENV['AWS_SECRET_KEY'],
+            bucket:            ENV['AWS_BUCKET']
+        },
+        :convert_options => { :all => '-strip' }
+    }
+    Paperclip.registered_attachments_styles_path = 'tmp/paperclip_attachments.yml'
   end
 end
