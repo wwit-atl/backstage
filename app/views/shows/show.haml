@@ -10,7 +10,7 @@
 
 %h1
   = @show.gregorian_date
-  %small= link_to @show.name, public_shows_path(@show)
+  %small= @show.name
 
 %ul.list-inline.pad-top-20
   %li Show Time: #{format_time_ampm @show.showtime}

@@ -1,8 +1,7 @@
 class ShowsController < ApplicationController
   authorize_resource
-  skip_authorization_check only: [ :public ]
 
-  before_action :set_show, only: [:show, :public, :edit, :update, :destroy]
+  before_action :set_show, only: [:show, :edit, :update, :destroy]
   before_action :set_supporting, except: [ :schedule ]
   before_action :set_exceptions, only: [ :index, :schedule ]
 
@@ -18,11 +17,6 @@ class ShowsController < ApplicationController
     @notable = @show
     @notes = @notable.notes
     @note = Note.new
-  end
-
-  # GET /public_show/1
-  def public
-    render layout: 'public_show'
   end
 
   # GET /shows/new

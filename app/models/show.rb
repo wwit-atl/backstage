@@ -74,10 +74,6 @@ class Show < ActiveRecord::Base
     "#{datetime} - #{name}"
   end
 
-  def public_title
-    "#{dowtitle} - #{name}"
-  end
-
   def cal_title
     "#{show_time} - #{name}"
   end

@@ -37,7 +37,6 @@ Backstage::Application.routes.draw do
   resources :shows,   :concerns => :notable do
     collection do
       get 'create',   to: 'shows#create_shows', as: 'create'
-      get ':id/public', to: 'shows#public', as: 'public'
     end
     post 'casting_announcement'
   end
