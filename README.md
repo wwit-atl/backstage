@@ -6,8 +6,6 @@
 
 This is the official source code for Whole World Theatre's Backstage 2.0 website, written by Donovan C. Young.
 
-**&copy;2014, Whole World Improv Theatre**
-
 Although we encourage pull requests and other helpful submissions, we must state that the code and all images or other
 source materials used herein are strictly copyrighted (except where otherwise superceeded by included sources).
 
