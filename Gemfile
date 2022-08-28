@@ -49,6 +49,7 @@ gem 'compass-rails', '~> 2.0.2'
 
 gem 'factory_girl_rails'
 gem 'faker'
+gem 'carrierwave'  
 
 group :staging do
   # Needed for Heroku

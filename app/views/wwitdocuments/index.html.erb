@@ -1,0 +1,36 @@
+<div class="container">   
+<% if !flash[:notice].blank? %>   
+   <div>   
+      <%= flash[:notice] %>   
+   </div>   
+<% end %>   
+  
+<br>   
+  
+<%= link_to "New Document", new_wwitdocument_path %>   
+<br>   
+<br>   
+  
+<table border="3">   
+   <thead>   
+      <tr>   
+         <th>Document Name</th>   
+         <th>Download Link</th>   
+         <th>Action</th>   
+      </tr>   
+   </thead>   
+      
+   <tbody>   
+      <% @wwitdocuments.each do |wwitdocument| %>   
+            
+         <tr>   
+            <td><%= wwitdocument.doc_name %></td>   
+            <td><%= link_to "Download", wwitdocument.attachment_url %></td>   
+            <td><%= link_to "Delete",  wwitdocument, method: :delete, confirm: "Are you sure you want to delete #{wwitdocument.doc_name}?" %></td>   
+         </tr>   
+            
+      <% end %>   
+   </tbody>   
+      
+</table>   
+</div> 

@@ -20,6 +20,7 @@
           %li{ class: is_active?(members_path)  }= link_to 'Members', members_path
           %li{ class: is_active?(shows_path)    }= link_to 'Shows', shows_path
           %li{ class: is_active?(messages_path) }= link_to 'Announcements', messages_path
+          %li{ class: is_active?(wwitdocuments_path) }= link_to 'Documents', wwitdocuments_path
 
       %ul.nav.navbar-nav.navbar-right
         - if member_signed_in?
