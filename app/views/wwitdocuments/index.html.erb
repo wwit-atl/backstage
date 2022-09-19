@@ -4,39 +4,44 @@
       <%= flash[:notice] %>   
    </div>   
 <% end %> 
+</div>
 
-  
 <br>  
 <% if current_member.has_role?(:admin) %>
-<%= link_to "New Document", new_wwitdocument_path %> 
+<div class="pull-right">
+  <%= link_to new_wwitdocument_path, class: 'btn btn-info' do %>
+    <%= get_icon :plus, text: 'Add New Document' %>
+  <% end %>
+</div>
 <% end %>
 <br>   
-<br>   
+<br>  
+
+<h1>Important Documents</h1>
+<div class="row">
+    <strong>
+      <div class="col-sm-6">Document Name</div>
+      <div class="col-sm-2">Download Link</div>
+      <% if current_member.has_role?(:admin) %>
+         <div class="col-sm-2">Action</div>     
+      <% end %>
+    </strong>
+    <hr/>
+</div>
   
-<table border="3">   
-   <thead>   
-      <tr>   
-         <th>Document Name</th>   
-         <th>Download Link</th> 
-         <% if current_member.has_role?(:admin) %>
-         <th>Action</th>     
-         <% end %>
-      </tr>   
-   </thead>   
-      
-   <tbody>   
-      <% @wwitdocuments.each do |wwitdocument| %>   
-            
-         <tr>   
-            <td><%= wwitdocument.doc_name %></td>   
-            <td><%= link_to "Download", wwitdocument.attachment_url %></td> 
-            <% if current_member.has_role?(:admin) %>
-            <td><%= link_to "Delete",  wwitdocument, method: :delete, confirm: "Are you sure you want to delete #{wwitdocument.doc_name}?" %></td>
-            <% end %>
-         </tr>   
-            
-      <% end %>   
-   </tbody>   
-      
-</table>   
-</div> 
+<%# Need to fix this section %>
+<% @wwitdocuments.each do |wwitdocument| %> 
+   <div class="row">
+   <div class="col-sm-6">
+   <%= wwitdocument.doc_name %>
+   </div>
+   <div class="col-sm-2">
+    <%= link_to "Download", wwitdocument.attachment_url %>
+   </div>
+   <div class="col-sm-2">
+   <% if current_member.has_role?(:admin) %>
+    <%= link_to "Delete",  wwitdocument, method: :delete %>
+   <% end %>
+   </div>
+   </div>
+<% end %>

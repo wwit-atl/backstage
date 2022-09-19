@@ -9,7 +9,9 @@
          
    </div>   
 <% end %>   
-  
+
+<br>   
+<h1>New Document</h1>
 <div>   
    <%= form_for @wwitdocument, html: { multipart: true } do |f| %>   
       <%= f.label :doc_name %>   
@@ -18,7 +20,9 @@
       <%= f.label :attachment %>   
       <%= f.file_field :attachment %>   
       <br>   
-      <%= f.submit "Save" %>   
+      <%= button_tag :type => :submit, class: 'btn btn-default' do %>
+      <%= get_icon(:send, text: 'Save Document') %>
+      <% end %>
    <% end %>   
 </div>   
 </div>  
