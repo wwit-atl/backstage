@@ -1,8 +1,8 @@
 class CreateDocuments < ActiveRecord::Migration
   def change
     create_table :documents do |t|
-      t.string :doc_name
-      t.attachment :avatar
+      t.string :name
+      t.attachment :attachment
     end
   end
 end

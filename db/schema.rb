@@ -84,6 +84,14 @@ ActiveRecord::Schema.define(version: 20220828190508) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "documents", force: :cascade do |t|
+    t.string   "name"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -295,11 +303,6 @@ ActiveRecord::Schema.define(version: 20220828190508) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "documents", force: :cascade do |t|
-    t.string "doc_name"
-    t.string "attachment"
   end
 
 end
