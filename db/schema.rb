@@ -297,7 +297,7 @@ ActiveRecord::Schema.define(version: 20220828190508) do
     t.datetime "updated_at"
   end
 
-  create_table "wwitdocuments", force: :cascade do |t|
+  create_table "documents", force: :cascade do |t|
     t.string "doc_name"
     t.string "attachment"
   end

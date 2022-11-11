@@ -60,7 +60,7 @@ Backstage::Application.routes.draw do
     end
   end
 
-  resources :wwitdocuments, only: [:index, :new, :create, :destroy]   
+  resources :documents, only: [:index, :new, :create, :destroy]   
 
   # Shifts
   get   '/shifts', to: 'shifts#index'

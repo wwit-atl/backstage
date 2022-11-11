@@ -1,9 +1,9 @@
 <div class="container">     
-<% if !@wwitdocument.errors.empty? %>   
+<% if !@document.errors.empty? %>   
    <div>   
          
       <ul>   
-         <% @wwitdocument.errors.full_messages.each do |msg| %>   
+         <% @document.errors.full_messages.each do |msg| %>   
             <li><%= msg %></li>   
          <% end %>      </ul>   
          
@@ -13,7 +13,7 @@
 <br>   
 <h1>New Document</h1>
 <div>   
-   <%= form_for @wwitdocument, html: { multipart: true } do |f| %>   
+   <%= form_for @document, html: { multipart: true } do |f| %>   
       <%= f.label :doc_name %>   
       <%= f.text_field :doc_name %>   
       <br><br> 
