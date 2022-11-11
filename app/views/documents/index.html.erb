@@ -1,12 +1,12 @@
-<div class="container">   
-<% if !flash[:notice].blank? %>   
-   <div>   
-      <%= flash[:notice] %>   
-   </div>   
-<% end %> 
+<div class="container">
+<% if !flash[:notice].blank? %>
+   <div>
+      <%= flash[:notice] %>
+   </div>
+<% end %>
 </div>
 
-<br>  
+<br>
 <% if current_member.has_role?(:admin) %>
 <div class="pull-right">
   <%= link_to new_document_path, class: 'btn btn-info' do %>
@@ -14,8 +14,8 @@
   <% end %>
 </div>
 <% end %>
-<br>   
-<br>  
+<br>
+<br>
 
 <h1>Important Documents</h1>
 <div class="row">
@@ -23,20 +23,20 @@
       <div class="col-sm-6">Document Name</div>
       <div class="col-sm-2">Download Link</div>
       <% if current_member.has_role?(:admin) %>
-         <div class="col-sm-2">Action</div>     
+         <div class="col-sm-2">Action</div>
       <% end %>
     </strong>
     <hr/>
 </div>
-  
+
 <%# Need to fix this section %>
-<% @documents.each do |document| %> 
+<% @documents.each do |document| %>
    <div class="row">
    <div class="col-sm-6">
    <%= document.name %>
    </div>
    <div class="col-sm-2">
-    <%= link_to "Download", document.attachment_url %>
+    <%= link_to "Download", document.attachment.url %>
    </div>
    <div class="col-sm-2">
    <% if current_member.has_role?(:admin) %>
