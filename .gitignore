@@ -21,6 +21,7 @@ wwit_members.yml
 members.yml
 .powenv
 .powder
+.DS_Store
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

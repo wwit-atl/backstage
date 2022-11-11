@@ -16,13 +16,13 @@ class Ability
       can :manage, :all
     elsif member.has_role?(:management)
       can :manage, [ Member, Show, Message, Note, Shift, Conflict ]
-      can :read, [ Skill, ShowTemplate ]
+      can :read, [ Skill, ShowTemplate, Document ]
       can :sell, Show
       cannot [:generate, :destroy], Show
       cannot [:auto_sched], Shift
     end
 
-    can :read, [ Member, Show, Note ] if member.company_member?
+    can :read, [ Member, Show, Note, Document ] if member.company_member?
 
     # If we ever want to give company members the ability to add and manage notes they create:
     # can :create, Note if member.company_member?
