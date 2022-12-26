@@ -66,6 +66,7 @@ if Member.joins(:roles).where('roles.name' => 'admin').empty?
       email:    'admin@example.com',
       password: 'admin4wwit',
       password_confirmation: 'admin4wwit',
+      confirmed_at: Time.now,
       notes: [note]
   )
 
@@ -76,7 +77,6 @@ if Member.joins(:roles).where('roles.name' => 'admin').empty?
   end
 
   admin.add_role :admin
-  admin.confirm! if admin.respond_to?('confirm!')
 end
 
 if Member.joins(:roles).where('roles.name' => 'apprentice').empty?
@@ -88,6 +88,7 @@ if Member.joins(:roles).where('roles.name' => 'apprentice').empty?
       email:    'apprentice@example.com',
       password: 'apprentice4wwit',
       password_confirmation: 'apprentice4wwit',
+      confirmed_at: Time.now,
       notes: [note]
   )
 
@@ -98,7 +99,6 @@ if Member.joins(:roles).where('roles.name' => 'apprentice').empty?
   end
 
   apprentice.add_role :apprentice
-  apprentice.confirm! if apprentice.respond_to?('confirm!')
 end
 
 if Member.joins(:roles).where('roles.name' => 'staff').empty?
@@ -110,6 +110,7 @@ if Member.joins(:roles).where('roles.name' => 'staff').empty?
       email:    'staff@example.com',
       password: 'staff4wwit',
       password_confirmation: 'staff4wwit',
+      confirmed_at: Time.now,
       notes: [note]
   )
 
@@ -120,5 +121,4 @@ if Member.joins(:roles).where('roles.name' => 'staff').empty?
   end
 
   staff.add_role :staff
-  staff.confirm! if staff.respond_to?('confirm!')
 end
