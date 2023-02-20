@@ -60,6 +60,8 @@ Backstage::Application.routes.draw do
     end
   end
 
+  resources :documents, only: [:index, :new, :create, :destroy]   
+
   # Shifts
   get   '/shifts', to: 'shifts#index'
   patch '/shifts', to: 'shifts#update'

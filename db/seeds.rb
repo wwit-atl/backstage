@@ -66,6 +66,7 @@ if Member.joins(:roles).where('roles.name' => 'admin').empty?
       email:    'admin@example.com',
       password: 'admin4wwit',
       password_confirmation: 'admin4wwit',
+      confirmed_at: Time.now,
       notes: [note]
   )
 
@@ -76,5 +77,48 @@ if Member.joins(:roles).where('roles.name' => 'admin').empty?
   end
 
   admin.add_role :admin
-  admin.confirm! if admin.respond_to?('confirm!')
+end
+
+if Member.joins(:roles).where('roles.name' => 'apprentice').empty?
+  puts 'Create Apprentice account'
+  note  = Note.new(content: 'This is a temporary Apprentice account, used to test apprentice view.  Please remove when possible.')
+  apprentice = Member.create(
+      firstname: 'Apprentice',
+      lastname:  'Apprentice',
+      email:    'apprentice@example.com',
+      password: 'apprentice4wwit',
+      password_confirmation: 'apprentice4wwit',
+      confirmed_at: Time.now,
+      notes: [note]
+  )
+
+  unless apprentice.valid?
+    puts 'Could not create Apprentice Account!'
+    puts apprentice.errors.messages.to_s
+    exit
+  end
+
+  apprentice.add_role :apprentice
+end
+
+if Member.joins(:roles).where('roles.name' => 'staff').empty?
+  puts 'Create Staff account'
+  note  = Note.new(content: 'This is a temporary staff account, used to test staff view.  Please remove when possible.')
+  staff = Member.create(
+      firstname: 'Staff',
+      lastname:  'Staff',
+      email:    'staff@example.com',
+      password: 'staff4wwit',
+      password_confirmation: 'staff4wwit',
+      confirmed_at: Time.now,
+      notes: [note]
+  )
+
+  unless staff.valid?
+    puts 'Could not create Staff Account!'
+    puts staff.errors.messages.to_s
+    exit
+  end
+
+  staff.add_role :staff
 end
