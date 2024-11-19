@@ -25,7 +25,7 @@ end
 
 group :production, :staging do
   gem "rails_12factor", "~> 0.0.2"
-  gem "therubyracer", "~> 0.12.3"
+  # gem "therubyracer", "~> 0.12.3"
 end
 
 # Rails
