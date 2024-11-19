@@ -2,12 +2,14 @@
 
 namespace :db do
   local = {
-    host: "127.0.0.1",
-    port: 5432,
-    user: "postgres",
-    db: "backstage_development",
-    dump: "tmp/localhost.dump",
-    limit: 3600
+    dev: {
+      host: ENV.fetch("DB_HOST", "127.0.0.1"),
+      port: ENV.fetch("DB_PORT", 5432).to_i,
+      user: "postgres",
+      db: ENV.fetch("DB_NAME") + "-dev",
+      dump: "tmp/local.dev.dump",
+      limit: 3600
+    }
   }
   aws = {
     staging: {
@@ -81,21 +83,21 @@ namespace :db do
     # Clone database to Development
     desc "Create a local production database backup"
     task :backup do
-      check_file_time(aws[:prod][:dump], local[:limit], abort: false) unless ENV["FORCE"] == "true"
+      check_file_time(aws[:prod][:dump], local[:dev][:limit], abort: false) unless ENV["FORCE"] == "true"
       pg_dump(aws[:prod]) unless File.size?(aws[:prod][:dump])
     end
 
     # Clone database to Development
     desc "clone production database to local development"
     task :clone do
-      check_file_time(aws[:prod][:dump], local[:limit], abort: false) unless ENV["FORCE"] == "true"
+      check_file_time(aws[:prod][:dump], local[:dev][:limit], abort: false) unless ENV["FORCE"] == "true"
 
       puts "Cloning production DB to Local Development"
 
       Bundler.with_clean_env do
         pg_dump(aws[:prod]) unless File.size?(aws[:prod][:dump])
         check_dump(aws[:prod][:dump])
-        pg_restore(local, aws[:prod][:dump])
+        pg_restore(local[:dev], aws[:prod][:dump])
       end
     end
   end
