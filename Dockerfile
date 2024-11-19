@@ -14,7 +14,7 @@ WORKDIR /backstage
 COPY . .
 RUN gem install bundler:1.17.3 && \
   # throw errors if Gemfile has been modified since Gemfile.lock
-  bundle config --global frozen 1 &&
+  bundle config --global frozen 1
 RUN bundle package --all
 
-CMD ["foreman start"]
+# CMD ["foreman start"]
