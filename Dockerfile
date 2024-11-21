@@ -17,4 +17,5 @@ RUN gem install bundler:1.17.3 && \
   bundle config --global frozen 1
 RUN bundle package --all
 
-# CMD ["foreman start"]
+EXPOSE 3000
+CMD ["foreman", "start"]
