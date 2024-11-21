@@ -9,8 +9,23 @@ namespace :db do
       db: ENV.fetch("DB_NAME") + "-dev",
       dump: "tmp/local.dev.dump",
       limit: 3600
+    },
+    staging: {
+      host: ENV.fetch("DB_HOST", "127.0.0.1"),
+      port: ENV.fetch("DB_PORT", 5432).to_i,
+      user: "postgres",
+      db: ENV.fetch("DB_NAME") + "-staging",
+      dump: "tmp/local.staging.dump",
+    },
+    prod: {
+      host: ENV.fetch("DB_HOST", "127.0.0.1"),
+      port: ENV.fetch("DB_PORT", 5432).to_i,
+      user: "postgres",
+      db: ENV.fetch("DB_NAME"),
+      dump: "tmp/local.prod.dump",
     }
   }
+
   aws = {
     staging: {
       host: "wwit-backstage-staging.clc64ittof4h.us-east-1.rds.amazonaws.com",
@@ -79,7 +94,7 @@ namespace :db do
     system "pg_restore --clean --no-owner --no-acl --no-password --format=custom --dbname='postgresql://#{db_auth}@#{db_host}' #{dumpfile}"
   end
 
-  namespace :prod do
+  namespace :aws do
     # Clone database to Development
     desc "Create a local production database backup"
     task :backup do
@@ -100,19 +115,68 @@ namespace :db do
         pg_restore(local[:dev], aws[:prod][:dump])
       end
     end
+
+    namespace :push do
+      desc "Push production database to staging"
+      task :staging do
+        check_file_time(aws[:prod][:dump], aws[:prod][:limit]) unless ENV["FORCE"] == "true"
+
+        puts "Cloning production DB to Staging"
+
+        Bundler.with_clean_env do
+          pg_dump(aws[:prod]) unless File.size?(aws[:prod][:dump])
+          check_dump(aws[:prod][:dump])
+          pg_restore(aws[:staging], aws[:prod][:dump])
+        end
+      end
+    end
   end
 
-  namespace :push do
-    desc "Push production database to staging"
-    task :staging do
-      check_file_time(aws[:prod][:dump], aws[:prod][:limit]) unless ENV["FORCE"] == "true"
+  namespace :local do
+    # Clone database to Development
+    desc "Create a local production database backup"
+    task :backup do
+      check_file_time(local[:prod][:dump], local[:dev][:limit], abort: false) unless ENV["FORCE"] == "true"
+      pg_dump(local[:prod]) unless File.size?(local[:prod][:dump])
+    end
 
-      puts "Cloning production DB to Staging"
+    # Clone database to Development
+    desc "Restore production database from backup"
+    task :restore do
+      puts "Restoring production DB"
 
       Bundler.with_clean_env do
-        pg_dump(aws[:prod]) unless File.size?(aws[:prod][:dump])
-        check_dump(aws[:prod][:dump])
-        pg_restore(aws[:staging], aws[:prod][:dump])
+        check_dump(local[:prod][:dump])
+        pg_restore(local[:prod], local[:prod][:dump])
+      end
+    end
+
+    # Clone database to Development
+    desc "clone production database to local development"
+    task :clone do
+      check_file_time(local[:prod][:dump], local[:dev][:limit], abort: false) unless ENV["FORCE"] == "true"
+
+      puts "Cloning production DB to Local Development"
+
+      Bundler.with_clean_env do
+        pg_dump(local[:prod]) unless File.size?(local[:prod][:dump])
+        check_dump(local[:prod][:dump])
+        pg_restore(local[:dev], local[:prod][:dump])
+      end
+    end
+
+    namespace :push do
+      desc "Push production database to staging"
+      task :staging do
+        check_file_time(local[:prod][:dump], local[:prod][:limit]) unless ENV["FORCE"] == "true"
+
+        puts "Cloning production DB to Staging"
+
+        Bundler.with_clean_env do
+          pg_dump(local[:prod]) unless File.size?(local[:prod][:dump])
+          check_dump(local[:prod][:dump])
+          pg_restore(local[:staging], aws[:prod][:dump])
+        end
       end
     end
   end

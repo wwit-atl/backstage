@@ -1,5 +1,7 @@
 .trunk/
-.env.example
+.vscode/
+.env
+.env.*
 temp/
 Dockerfile
 docker-compose.yaml
