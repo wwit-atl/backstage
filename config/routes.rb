@@ -2,6 +2,7 @@ require 'api_constraints'
 
 Backstage::Application.routes.draw do
 
+  Healthcheck.routes(self)
   devise_for :members
 
   concern :notable do
