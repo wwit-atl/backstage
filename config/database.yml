@@ -37,7 +37,7 @@ test: &test
 
 production: &production
   <<: *default
-  database: <%= ENV.fetch('DB_NAME') %>
+  database: <%= ENV.fetch('DB_NAME') + "-prod" %>
 
 staging:
   <<: *production

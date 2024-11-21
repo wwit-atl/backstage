@@ -1,21 +1,67 @@
-FROM ruby:2-buster
+# syntax = docker/dockerfile:1
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-  # Remove imagemagick due to https://security-tracker.debian.org/tracker/CVE-2019-10131
-  && apt-get purge -y imagemagick imagemagick-6-common
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+ARG RUBY_VERSION=2-buster
+FROM ruby:$RUBY_VERSION as base
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-  && apt-get -y install --no-install-recommends libffi-dev tzdata postgresql-client yarn
+# Rails app lives here
+WORKDIR /rails
 
-RUN apt update && apt install -y libffi-dev tzdata postgresql-client nodejs npm yarn
+# Set production environment
+ENV RAILS_ENV="production" \
+  BUNDLE_DEPLOYMENT="1" \
+  BUNDLE_PATH="/usr/local/bundle" \
+  BUNDLE_WITHOUT="development" \
+  DB_NAME=${DB_NAME} \
+  DB_HOST=${DB_HOST} \
+  DB_PORT=${DB_PORT} \
+  DB_USERNAME=${DB_USERNAME} \
+  DB_PASSWORD=${DB_PASSWORD}
 
-WORKDIR /backstage
+# Throw-away build stage to reduce size of final image
+FROM base as build
 
+# Install packages needed to build gems
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev libsqlite3-dev git libpq-dev libvips pkg-config libsqlite3-dev nodejs
+
+# Install application gems
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler:1.17.3
+RUN bundle install && rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && bundle exec bootsnap precompile --gemfile
+
+
+# Copy application code
 COPY . .
-RUN gem install bundler:1.17.3 && \
-  # throw errors if Gemfile has been modified since Gemfile.lock
-  bundle config --global frozen 1
-RUN bundle package --all
 
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
+
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rake assets:precompile
+
+
+# Final stage for app image
+FROM base
+
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -y default-mysql-client libsqlite3-0 libvips postgresql-client nodejs && \
+  rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Copy built artifacts: gems, application
+COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=build /rails /rails
+
+# Run and own only the runtime files as a non-root user for security
+RUN useradd rails --home /rails --shell /bin/bash && \
+  chown rails:rails . && \
+  chown -R rails:rails db log tmp $BUNDLE_PATH
+USER rails:rails
+
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["foreman", "start"]
+CMD ["bundle", "exec", "foreman", "start"]

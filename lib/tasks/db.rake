@@ -5,7 +5,7 @@ namespace :db do
     dev: {
       host: ENV.fetch("DB_HOST", "127.0.0.1"),
       port: ENV.fetch("DB_PORT", 5432).to_i,
-      user: "postgres",
+      user: ENV.fetch("DB_USERNAME", "wwit"),
       db: ENV.fetch("DB_NAME") + "-dev",
       dump: "tmp/local.dev.dump",
       limit: 3600
@@ -13,15 +13,15 @@ namespace :db do
     staging: {
       host: ENV.fetch("DB_HOST", "127.0.0.1"),
       port: ENV.fetch("DB_PORT", 5432).to_i,
-      user: "postgres",
+      user: ENV.fetch("DB_USERNAME", "wwit"),
       db: ENV.fetch("DB_NAME") + "-staging",
       dump: "tmp/local.staging.dump",
     },
     prod: {
       host: ENV.fetch("DB_HOST", "127.0.0.1"),
       port: ENV.fetch("DB_PORT", 5432).to_i,
-      user: "postgres",
-      db: ENV.fetch("DB_NAME"),
+      user: ENV.fetch("DB_USERNAME", "wwit"),
+      db: ENV.fetch("DB_NAME") + "-prod",
       dump: "tmp/local.prod.dump",
     }
   }

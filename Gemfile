@@ -4,7 +4,6 @@ group :development do
   gem "better_errors", "~> 2.1"
   gem "binding_of_caller", "~> 0.7"
   gem "dotenv-rails", "~> 2.1"
-  gem "foreman", "~> 0.78"
   gem "sdoc", "~> 0.0", require: false
   gem "web-console", "~> 2.0"
 end
@@ -25,6 +24,7 @@ end
 
 group :production, :staging do
   gem "rails_12factor", "~> 0.0.2"
+  # gem "mini_racer", "~> 0.13.0"
   # gem "therubyracer", "~> 0.12.3"
 end
 
@@ -41,6 +41,7 @@ gem "autoprefixer-rails", "~> 4.0.0"
 gem "aws-sdk", "~> 1.66.0"
 gem "bcrypt", "~> 3.1.0"
 gem "bigdecimal", "~> 1.3.0"
+gem 'bootsnap', "~> 1.18.4", require: false
 gem "bootstrap-editable-rails", "~> 0.0.9"
 gem "bootstrap-sass", "~> 3.3.0"
 gem "cancancan", "~> 1.14.0"
@@ -54,10 +55,10 @@ gem "devise", "~> 4.0"
 gem "email_validator", "~> 1.6.0"
 gem "factory_girl_rails", "~> 4.7.0"
 gem "faker", "~> 1.6.0"
+gem "foreman", "~> 0.78"
 gem "friendly_id", "~> 5.1.0"
 gem "haml", "~> 4.0.0"
 gem "haml-rails", "~> 0.9.0"
-gem "rails-healthcheck"
 gem "icalendar", "~> 2.3.0"
 gem "jbuilder", "~> 1.5.0"
 gem "jquery-rails", "~> 3.1.0"
@@ -69,6 +70,7 @@ gem "newrelic_rpm", "~> 3.15.0"
 gem "nokogiri", "~> 1.6.0"
 gem "paperclip", "~> 4.2.4"
 gem "pg", "~> 0.18"
+gem "rails-healthcheck", "~> 1.4.0"
 gem "recipient_interceptor", "~> 0.1.0"
 gem "recurring_job", "~> 0.0.4"
 gem "redcarpet", "~> 3.3.0"
