@@ -1,5 +1,6 @@
 .trunk/
 .vscode/
+.git/
 .env
 .env.*
 temp/
