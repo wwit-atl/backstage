@@ -61,11 +61,11 @@ env:
     DB_USERNAME: wwit
     POSTGRES_USERNAME: postgres
     AWS_BUCKET: wwit-backstage
-    DEFAULT_REPLY_TO: emily@wholeworldtheatre.com
-    MANDRILL_DOMAIN: ""
-    MANDRILL_SMTP_PORT: ""
-    MANDRILL_SMTP_ADDRESS: ""
-    MANDRILL_USERNAME: ""
+    DEFAULT_REPLY_TO: 'Emily Russell <emily@wholeworldtheatre.com>'
+    MANDRILL_DOMAIN: wholeworldtheatre.com
+    MANDRILL_SMTP_PORT: 587
+    MANDRILL_SMTP_ADDRESS: smtp.mandrillapp.com
+    MANDRILL_USERNAME: 'emily@wholeworldtheatre.com'
   secret:
     - KAMAL_REGISTRY_PASSWORD
     - DB_PASSWORD
@@ -73,6 +73,9 @@ env:
     - RDS_PASSWORD
     - AWS_ACCESS_KEY_ID
     - AWS_SECRET_ACCESS_KEY
+    - MANDRILL_APIKEY
+    - MANDRILL_TEST_APIKEY
+    - MANDRILL_WEBHOOK_KEY
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
