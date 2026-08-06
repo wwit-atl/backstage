@@ -74,8 +74,17 @@ is lost, every secret must be regenerated from its upstream provider.
 Verify before deploying:
 
 ```bash
-kamal secrets print    # prompts once, prints resolved values -- check, don't paste
+bin/verify-secrets
 ```
+
+Prints key names, lengths, a status flag, and the `SECRET_KEY_BASE` fingerprint —
+never the values themselves.
+
+> **Do not use `kamal secrets print` for this.** It writes every secret in
+> plaintext to stdout. Piping it into something that masks the output is not a
+> control: a broken pipe, a partially pasted one-liner, or a command recalled
+> from shell history all expose the lot, and terminal scrollback keeps it. Any
+> check that needs the values must consume them in a script, never on a terminal.
 
 ## Rotating a secret
 
