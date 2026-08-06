@@ -40,7 +40,12 @@ Backstage::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  #
+  # TLS terminates upstream, so this relies on X-Forwarded-Proto reaching Rails
+  # (kamal proxy sets forward_headers: true). If that header does not arrive,
+  # every request looks like plain HTTP and this produces a redirect loop.
+  # Verify on staging before deploying to production.
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :info

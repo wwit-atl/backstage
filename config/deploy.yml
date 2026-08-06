@@ -41,7 +41,6 @@ env:
     RAILS_ENV: production
     RAILS_HOST: backstage.wholeworldtheatre.com
     PORT: 3000
-    SECRET_KEY_BASE: 9980e37acdba663598a26a5ae4ae09577302a8686f1da11be10b86044bdcd3e7b679816bcc9a261ec3b82a1be3fd17755d91f7dcc4bd5c775b3844a41fea8038
     DB_HOST: 10.30.11.1
     DB_PORT: 5432
     DB_NAME: wwit
@@ -54,6 +53,7 @@ env:
     MANDRILL_SMTP_ADDRESS: smtp.mandrillapp.com
     MANDRILL_USERNAME: 'emily@wholeworldtheatre.com'
   secret:
+    - SECRET_KEY_BASE
     - KAMAL_REGISTRY_PASSWORD
     - DB_PASSWORD
     - POSTGRES_PASSWORD

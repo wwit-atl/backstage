@@ -4,5 +4,7 @@
 .env
 .env.*
 temp/
+docs/
+CLAUDE.md
 Dockerfile
 docker-compose.yaml
