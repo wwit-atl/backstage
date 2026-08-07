@@ -37,7 +37,7 @@ builder:
 
 env:
   clear:
-    SITE_TAG: "Live v2.3"
+    SITE_TAG: "Live v2.7"
     RAILS_ENV: production
     RAILS_HOST: backstage.wholeworldtheatre.com
     PORT: 3000
