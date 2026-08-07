@@ -22,6 +22,7 @@ members.yml
 .powenv
 .powder
 .DS_Store
+CLAUDE.md
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
