@@ -1,6 +1,43 @@
 WWIT Backstage Change Log
 -------------------------
 
+### v2.7.0 - _Kamal Deployment and Security Remediation_
+ Status: _Deployed 2026-08-06_
+
+ Note: this log was not maintained between v2.1.8 and v2.6.0. This entry covers
+ everything since the v2.6.0 tag (2023-02-20).
+
+ **Security**
+
+ - The production `SECRET_KEY_BASE` had been committed to `config/deploy.yml` in
+   a public repository since 2024-11-21. Combined with Rails 4.2's default
+   `:marshal` cookie serializer and a publicly reachable app, that allowed
+   forging session cookies carrying arbitrary Marshal payloads. The key has been
+   rotated and the old value must never be reused.
+ - Cookie serializer pinned to `:json`, so any future key disclosure is session
+   forgery rather than remote code execution. All members were signed out once.
+ - Deploy secrets moved out of the repository into an age-encrypted file held
+   only on the deploy host. See `docs/SECRETS.md` for setup and rotation.
+ - Added `bin/verify-secrets`, which checks the encrypted secrets without
+   printing their values.
+ - Production database dumps were being copied into every built image via
+   `tmp/`. Excluded, along with `log/` and any `*.dump`/`*.bak`/`*.sql`.
+ - Removed `.travis.yml`, which carried a CodeClimate token.
+ - `force_ssl` is prepared but still commented out, pending verification that
+   `X-Forwarded-Proto` reaches Rails from the upstream proxy.
+
+ **Deployment**
+
+ - Migrated from AWS Elastic Beanstalk to Kamal; the app now runs as a Docker
+   container with a separate `delayed_job` worker role.
+ - Repaired the Docker build, which had been failing since Debian buster went
+   end-of-life and was removed from `deb.debian.org`.
+ - Build time reduced from roughly 25 minutes to 3, and image size from 1.99GB
+   to 1.62GB, by assigning ownership during `COPY` rather than a later
+   `chown -R` and by dropping the Sprockets cache in the layer that creates it.
+ - Added a healthcheck endpoint, dev container support, and `db:local` rake
+   tasks. Removed the `therubyracer` dependency.
+
 ### v2.1.8 - _Update Rails (bugfixes)_
   - Update rails to version 4.1.1
   - Removing the auto-refresh because it's causing some problems

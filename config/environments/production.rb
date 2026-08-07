@@ -20,14 +20,14 @@ Backstage::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_files = true
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -40,6 +40,19 @@ Backstage::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  #
+  # DEFERRED to the 2026-08-10 maintenance window. This is the only part of the
+  # security remediation that can take the site down, so it ships alone rather
+  # than riding along with the SECRET_KEY_BASE rotation.
+  #
+  # TLS terminates upstream, so this relies on X-Forwarded-Proto reaching Rails
+  # (kamal proxy sets forward_headers: true). If that header does not arrive,
+  # every request looks like plain HTTP and this produces a redirect loop.
+  #
+  # There is no staging environment -- the old one was an Elastic Beanstalk
+  # setup retired with the move to Kamal, and staging.rb never set force_ssl
+  # anyway. So deploy this by itself, watch it, and keep `bin/kamal rollback`
+  # within reach.
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.

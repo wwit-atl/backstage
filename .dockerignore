@@ -1,0 +1,22 @@
+.trunk/
+.vscode/
+.git/
+.env
+.env.*
+temp/
+
+# tmp/ carried 73MB across 4,025 files -- Sprockets cache plus PRODUCTION
+# DATABASE DUMPS (tmp/local.prod.dump, tmp/saved/aws.prod.*), all of which were
+# being baked into the pushed image. log/ is equally pointless in an image that
+# logs to stdout. The Dockerfile recreates both empty.
+tmp/
+log/
+
+# Belt and braces: never ship a dump or backup, wherever it happens to sit.
+*.dump
+*.bak
+*.sql
+docs/
+CLAUDE.md
+Dockerfile
+docker-compose.yaml

@@ -2,6 +2,7 @@ require 'api_constraints'
 
 Backstage::Application.routes.draw do
 
+  Healthcheck.routes(self)
   devise_for :members
 
   concern :notable do
@@ -60,7 +61,7 @@ Backstage::Application.routes.draw do
     end
   end
 
-  resources :documents, only: [:index, :new, :create, :destroy]   
+  resources :documents, only: [:index, :new, :create, :destroy]
 
   # Shifts
   get   '/shifts', to: 'shifts#index'
