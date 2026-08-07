@@ -7,6 +7,23 @@ FROM ruby:$RUBY_VERSION as base
 # Rails app lives here
 WORKDIR /rails
 
+# Debian 10 (buster) is EOL and was removed from deb.debian.org, which breaks
+# every apt-get update in this file. Buster still exists on archive.debian.org,
+# so repoint there. Applied in `base` so both the build and final stages inherit
+# it. Its Release files are past Valid-Until, hence Check-Valid-Until false;
+# buster-updates does not exist in the archive at all, so drop it.
+#
+# This pins us to a distribution that receives no security updates. That is the
+# same tradeoff already accepted for Rails 4.2 and the pinned gems -- see
+# CLAUDE.md on the frozen stack. Revisit only alongside a base-image move.
+RUN sed -i \
+      -e 's|deb.debian.org/debian-security|archive.debian.org/debian-security|g' \
+      -e 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' \
+      -e 's|deb.debian.org/debian|archive.debian.org/debian|g' \
+      -e '/buster-updates/d' \
+      /etc/apt/sources.list && \
+    echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
+
 # Set production environment
 ENV RAILS_ENV="production" \
   BUNDLE_DEPLOYMENT="1" \
